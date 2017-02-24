@@ -1,0 +1,41 @@
+body {
+	font-family: "montserratregular", Arial, sans-serif;
+	background-color: #2A2E38;
+}
+h1 {
+	font-family: "montserratbold", Arial, sans-serif;
+	font-size: 2.4rem;
+	color: #2ACCA6;
+}
+h1::after {
+	display: block;
+	content: "";
+  border-top: .25rem solid #2ACCA6;
+  width: 100%;
+}
+p::before { 
+	display: block;
+	content: "";
+  border-top: .1rem solid #ccc;
+  width: 100%;
+}
+#mainContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-left: 1rem;
+	width: 100%;
+	height: 100vh;
+}
+.mainBox {
+	padding: .25rem;
+	width: 33%;
+}
+.select {
+	font-size: .85rem;
+}
+#paragraphContainer {
+	font-family: "montserratlight", Arial, sans-serif;
+	font-size: 0.8rem;
+	color: #ccc;
+}
