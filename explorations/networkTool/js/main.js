@@ -16,65 +16,48 @@ d3.queue()
   .await(dataprocess);
   //.await(findSharedPrjs);
 
-function findSharedPrjs(error, orgData, prjData) {
-	if (error) throw error;
-	console.log(prjData)
-	//findNetworks(orgData, "linked_project_ids");
-	findNetworks(prjData, "linked_organisation_ids");
-}
-
-// function findNetworks(data, field) {
-// 	var list = [];
-// 	var connectedOrgs = [];
-//   data.forEach(function(d){
-//   	d[field].forEach(function(e){
-//   		var match = list.filter(function(f){ return f.prj === e });
-//   		if ( _.isEmpty(match) ) {
-//   			list.push({
-//   				org: "org"+d.organisation_id,
-//   				prj: e,
-//   				count: 1
-//   			});
-//   		} else {
-//   			var index = _.findKey(list, function(o) { return o.prj===e; });
-//   			list[index].count++;
-//   		}
-//   	})
-//   })
-//   list.sort(function(a,b) {
-// 	  return b.count - a.count;
-// 	});
-//   filteredList = list.filter(function (d) { return d.count>1; });
-//   filteredList.forEach(function (d) {
-//   	connectedOrgs.push(d.org);
-//   });
-//   console.log(connectedOrgs);
-//   return connectedOrgs;
+// /* for testing */
+// function findSharedPrjs(error, orgData, prjData) {
+// 	if (error) throw error;
+// 	console.log(prjData)
+// 	findConnectedOrg(prjData, "linked_organisation_ids");
 // }
 
-
-function findNetworks(data, field) {
-	var list = [];
+/* returns a list of ORGs with shared PRJs */
+function findConnectedOrg(data, field) {
+	var orgList = [];
   data.forEach(function(d){
   	if (d[field].length > 1) {
   		d[field].forEach(function(e){
-  			list.push("org"+e);
+  			orgList.push("org"+e);
   		});
   	}
   })
-  var cleanList = _.uniq(list);
-  console.log(cleanList);
-  return cleanList;
+  var cleanOrgList = _.uniq(orgList);
+  //console.log(cleanOrgList);
+  return cleanOrgList;
+}
+
+/* returns a list of PRJs belonging to connected ORGs */
+function findConnectedPrj(data, ConnectedOrgArray, field) {
+	var prjList = [];
+	var filteredData = data.filter(function (d) {
+		return ConnectedOrgArray.includes("org"+d.organisation_id);
+	});
+  filteredData.forEach(function(d){
+		d[field].forEach(function(e){
+			prjList.push("prj"+e);
+  	});
+  });
+  var cleanPrjList = _.uniq(prjList);
+  return cleanPrjList;
 }
 
 
 function dataprocess(error, orgData, prjData) {
 	if (error) throw error;
-	//console.log(orgData);
-	//console.log(prjData);
 	var org = [];
 	var prj = [];
-
 	orgData.forEach(function (d) {
 		var temp = {};
 		var prjArray = d.linked_project_ids.map(function (e) {
@@ -101,23 +84,26 @@ function dataprocess(error, orgData, prjData) {
 	})
 	//console.log(prj);
 	
-	var selectedOrgs = findNetworks(prjData, "linked_organisation_ids");
+	var selectedOrgs = findConnectedOrg(prjData, "linked_organisation_ids"); //ORGs with shared PRJs
+
+	var selectedPrjs = findConnectedPrj(orgData, selectedOrgs, "linked_project_ids");
 	
 	var filteredOrg = org.filter(function (d) {
-		return d.country!="";
+		//return d.country!="";
 		//return d.country==="United Kingdom";
 		return selectedOrgs.includes(d.id);
 	});
 	var filteredPrj = prj.filter(function (d) {
-		return d.id!="";
-		//return !_.isEmpty(d.orglinks) && d.orglinks.length > 1;
+		//return d.id!="";
+		return selectedPrjs.includes(d.id);
 	});
 
+	/* builds up the nodes (ORGs and PRJs) */
 	var nodes = filteredOrg.concat(filteredPrj);
-	console.log(nodes);
 
 	var links = [];
 
+	/* builds up the links (connections between nodes) */
 	filteredOrg.forEach(function (d) {
 		d["prjlinks"].forEach(function(e){
 			if (e.length!=0) {
