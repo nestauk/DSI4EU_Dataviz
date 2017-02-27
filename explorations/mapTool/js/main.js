@@ -7,6 +7,11 @@ var projection = d3.geoMercator()
   .scale(width / 2 / Math.PI)
   .translate([width / 2, height / 1.5]);
 
+// Center map in... Barcelona 41.3851° N, 2.1734° E
+// var projection = d3.geoMercator()
+//   .center([2.1734, 41.3851])
+//   .scale(50000)
+
 var path = d3.geoPath()
   .projection(projection);
   
@@ -82,8 +87,8 @@ d3.json("./data/world50m.json", function(error, topology) {
 
     var geoData = data.filter(function(d) { return d.longitude != null; })
 
-    // var maxData = d3.max(geoData, function(d) { return d.linked_project_ids.length; })
-    // var minData = d3.min(geoData, function(d) { return d.linked_project_ids.length; })
+    // var maxData = d3.max(geoData, function(d) { return d.address.length; })
+    // var minData = d3.min(geoData, function(d) { return d.address.length; })
     // var rScale = d3.scaleSqrt()
     //   .domain([maxData, minData])
     //   .range([5, 20]);
@@ -96,9 +101,9 @@ d3.json("./data/world50m.json", function(error, topology) {
         .append("circle")
           .attr("cx",function(d) { return projection([d.longitude,d.latitude])[0]; })
           .attr("cy",function(d) { return projection([d.longitude,d.latitude])[1]; })
-          .attr("r",function(d) {
-            return 1;
-            //return rScale(d.linked_project_ids.length);
+          .attr("r",function(d, i) {
+            return 2;
+            //return i/100; //Barcelona
           });
     
   });
@@ -114,7 +119,7 @@ function clicked(d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-    k = 8;
+    k = 8; //k = 8 ok for coutries
     centered = d;
   } else {
     x = width / 2;
@@ -130,6 +135,13 @@ function clicked(d) {
     .duration(750)
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
     .style("stroke-width", 0.5 / k + "px");
+
+  d3.selectAll("circle").transition()
+    .duration(750)
+    .attr("r",function(d) {
+      var kscale = k>1 ? .5 : 2;
+      return kscale;
+    });
 }
 
 

@@ -22,7 +22,7 @@ svg {
   fill: lightgrey;
 }
 #states .active {
-  fill: orange;
+  fill: lightgrey;
 }
 #state-borders {
   fill: none;
@@ -33,7 +33,7 @@ svg {
   pointer-events: none;
 }
 circle {
-	fill: steelblue;
-	fill-opacity: .5;
+	fill: purple;
+	fill-opacity: 1;
 	stroke: none;
 }

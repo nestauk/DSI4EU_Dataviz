@@ -14,7 +14,7 @@ d3.queue()
   .defer(d3.json, '/data/organisations.json')
   .defer(d3.json, '/data/projects.json')
   .await(dataprocess);
-  //.await(findSharedPrjs);
+  //.await(findSharedPrjs); //testing
 
 // /* for testing */
 // function findSharedPrjs(error, orgData, prjData) {
@@ -56,6 +56,8 @@ function findConnectedPrj(data, ConnectedOrgArray, field) {
 
 function dataprocess(error, orgData, prjData) {
 	if (error) throw error;
+
+	/* PREPARE AND CLEAN DATA */
 	var org = [];
 	var prj = [];
 	orgData.forEach(function (d) {
@@ -85,9 +87,9 @@ function dataprocess(error, orgData, prjData) {
 	//console.log(prj);
 	
 	var selectedOrgs = findConnectedOrg(prjData, "linked_organisation_ids"); //ORGs with shared PRJs
-
 	var selectedPrjs = findConnectedPrj(orgData, selectedOrgs, "linked_project_ids");
 	
+	/* FILTER DATA */
 	var filteredOrg = org.filter(function (d) {
 		//return d.country!="";
 		//return d.country==="United Kingdom";
@@ -98,12 +100,11 @@ function dataprocess(error, orgData, prjData) {
 		return selectedPrjs.includes(d.id);
 	});
 
-	/* builds up the nodes (ORGs and PRJs) */
+	/* BUILDS UP THE NODES (ORGs and PRJs) */
 	var nodes = filteredOrg.concat(filteredPrj);
 
+	/* BUILDS UP THE LINKS (connections between nodes), creating objects with SOURCE and TARGET fields */
 	var links = [];
-
-	/* builds up the links (connections between nodes) */
 	filteredOrg.forEach(function (d) {
 		d["prjlinks"].forEach(function(e){
 			if (e.length!=0) {
