@@ -4,7 +4,6 @@ d3.queue()
   .await(dataprocess);
 
 
-
 /* returns a list of all the field argument unique values */
 function allValues(data, field) {
 	var temp = [];
@@ -23,15 +22,20 @@ function allValues(data, field) {
 
 function dataprocess(error, orgData, prjData) {
 	if (error) throw error;
-
 	//console.log(prjData);
   
-  var mainNestField = "linked_organisation_ids";
+  var orgIds = [];
+			orgNames = [];
+  orgData.forEach(function (d) {
+  	orgIds.push(d.organisation_id);
+  	orgNames.push(d.organisation_name);
+  });
 
-  var valuesArray = allValues(prjData, mainNestField);
+  var mainNestField = "linked_organisation_ids"; //property by which we are going to cluster
+  
+  var valuesArray = allValues(prjData, mainNestField); //returns mainNestField unique values
 
   var mainNestArray = [];
-
   valuesArray.forEach(function (d) {
   	mainNestArray.push({
   		key: d,
@@ -59,6 +63,10 @@ function dataprocess(error, orgData, prjData) {
 		.domain([1, maxMainNestArray])
 		.range([1, w/2-10]);
 
+	var OrgScale = d3.scaleOrdinal()
+		.domain(orgIds)
+		.range(orgNames)
+
 	var mainNestSvgs = d3.select("body").selectAll("svg")
 		.data(sortedMainNestArray)
 		.enter()
@@ -83,7 +91,7 @@ function dataprocess(error, orgData, prjData) {
 			.attr("font-size", ".65rem")
 			.attr("text-anchor", "middle")
 			.text(function (d) {
-				return d.key;
+				return OrgScale(d.key);
 			})
 
 	var mainNestNumbers = mainNestSvgs
