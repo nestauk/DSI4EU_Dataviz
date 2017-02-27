@@ -26,12 +26,32 @@ function dataprocess(error, orgData, prjData) {
   
   var orgIds = [];
 			orgNames = [];
+			orgCountries = [];
   orgData.forEach(function (d) {
   	orgIds.push(d.organisation_id);
   	orgNames.push(d.organisation_name);
+  	orgCountries.push(d.country);
   });
 
-  var mainNestField = "linked_organisation_ids"; //property by which we are going to cluster
+	//associates ORG countries to ORG ids
+	var countryScale = d3.scaleOrdinal()
+		.domain(orgIds)
+		.range(orgCountries);
+
+  prjData.forEach(function (d) {
+  	d.countries = [];
+  	d.linked_organisation_ids.forEach(function (e) {
+  		if (countryScale(e)!=="") d.countries.push(countryScale(e));
+  	});
+  });
+
+  prjData.forEach(function (d) {
+  	d.countries = _.uniq(d.countries);
+  });
+
+  console.log(prjData);
+
+  var mainNestField = "countries"; //property by which we are going to cluster
   
   var valuesArray = allValues(prjData, mainNestField); //returns mainNestField unique values
 
@@ -53,7 +73,7 @@ function dataprocess(error, orgData, prjData) {
 
 	var sortedMainNestArray = mainNestArray.sort(function (a,b) { return b.values.length-a.values.length; });
 	var maxMainNestArray = sortedMainNestArray[0].values.length;
-	console.log(maxMainNestArray);
+	//console.log(maxMainNestArray);
 	console.log(sortedMainNestArray);
 
 	var w = 200,
@@ -63,9 +83,10 @@ function dataprocess(error, orgData, prjData) {
 		.domain([1, maxMainNestArray])
 		.range([1, w/2-10]);
 
-	var OrgScale = d3.scaleOrdinal()
+	//associates ORG names to ORG ids
+	var orgScale = d3.scaleOrdinal()
 		.domain(orgIds)
-		.range(orgNames)
+		.range(orgNames);
 
 	var mainNestSvgs = d3.select("body").selectAll("svg")
 		.data(sortedMainNestArray)
@@ -91,7 +112,9 @@ function dataprocess(error, orgData, prjData) {
 			.attr("font-size", ".65rem")
 			.attr("text-anchor", "middle")
 			.text(function (d) {
-				return OrgScale(d.key);
+				if (mainNestField==="linked_organisation_ids"){
+					return orgScale(d.key);
+				} else return d.key;
 			})
 
 	var mainNestNumbers = mainNestSvgs
