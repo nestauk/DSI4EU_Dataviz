@@ -1,7 +1,7 @@
 d3.queue()
   .defer(d3.json, '/data/organisations.json')
   .defer(d3.json, '/data/projects.json')
-  .await(dataprocess);
+  .await(clusterView);
 
 
 /* returns a list of all the field argument unique values */
@@ -20,9 +20,11 @@ function allValues(data, field) {
 }
 
 
-function dataprocess(error, orgData, prjData) {
+function clusterView(error, orgData, prjData) {
 	if (error) throw error;
 	//console.log(prjData);
+	//
+  var mainNestField = "countries"; //property by which we are going to cluster
   
   var orgIds = [];
 			orgNames = [];
@@ -38,6 +40,11 @@ function dataprocess(error, orgData, prjData) {
 		.domain(orgIds)
 		.range(orgCountries);
 
+	//associates ORG names to ORG ids
+	var orgScale = d3.scaleOrdinal()
+		.domain(orgIds)
+		.range(orgNames);
+
   prjData.forEach(function (d) {
   	d.countries = [];
   	d.linked_organisation_ids.forEach(function (e) {
@@ -49,14 +56,12 @@ function dataprocess(error, orgData, prjData) {
   	d.countries = _.uniq(d.countries);
   });
 
-  console.log(prjData);
-
-  var mainNestField = "countries"; //property by which we are going to cluster
+  //console.log(prjData);
   
-  var valuesArray = allValues(prjData, mainNestField); //returns mainNestField unique values
+  var valuesMainArray = allValues(prjData, mainNestField); //returns mainNestField unique values
 
   var mainNestArray = [];
-  valuesArray.forEach(function (d) {
+  valuesMainArray.forEach(function (d) {
   	mainNestArray.push({
   		key: d,
   		values: []
@@ -74,19 +79,14 @@ function dataprocess(error, orgData, prjData) {
 	var sortedMainNestArray = mainNestArray.sort(function (a,b) { return b.values.length-a.values.length; });
 	var maxMainNestArray = sortedMainNestArray[0].values.length;
 	//console.log(maxMainNestArray);
-	console.log(sortedMainNestArray);
+	//console.log(sortedMainNestArray);
 
 	var w = 200,
 			h = 200;
 	
-	var MainNestArrayScale = d3.scaleSqrt()
+	var mainNestArrayScale = d3.scaleSqrt()
 		.domain([1, maxMainNestArray])
 		.range([1, w/2-10]);
-
-	//associates ORG names to ORG ids
-	var orgScale = d3.scaleOrdinal()
-		.domain(orgIds)
-		.range(orgNames);
 
 	var mainNestSvgs = d3.select("body").selectAll("svg")
 		.data(sortedMainNestArray)
@@ -100,7 +100,7 @@ function dataprocess(error, orgData, prjData) {
 			.attr("cx", w/2)
 			.attr("cy", h/2)
 			.attr("r", function (d) {
-				return MainNestArrayScale(d.values.length);
+				return mainNestArrayScale(d.values.length);
 			})
 			.attr("fill", "salmon")
 
