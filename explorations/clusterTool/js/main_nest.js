@@ -19,13 +19,53 @@ function allValues(data, field) {
   return uniqueTemp;
 }
 
+/* cuts off from the dataset all the support_tags and technology values except the 10 most counted */
+function cleanDataset(data, field, count) {
+	var list = [];
+	data.forEach(function (c) {
+		c[field].forEach(function (e) {
+			var match = list.filter(function(f){ return f.name === e });
+  		if ( _.isEmpty(match) ) {
+  			list.push({
+  				name: e,
+  				count: 1
+  			});
+  		} else {
+  			var index = _.findKey(list, function(o) { return o.name===e; });
+  			list[index].count++;
+  		}
+		})
+	})
+	list.sort(function(a,b) {
+	  return b.count - a.count;
+	});
+	var slicedList = list.slice(0, count)
+	//console.log(slicedList);
+	var slicedValues = [];
+	slicedList.forEach(function (d) {
+		slicedValues.push(d.name);
+	})
+	//console.log(slicedValues);
+	data.forEach(function (c) {
+		c[field].forEach(function (e) {
+			if(!slicedValues.includes(e)) {
+				//_.pull(c[field], e);
+				c[field] = _.without(c[field], e);
+			}
+		})
+	})
+	console.log(data)
+}
+
 
 function clusterView(error, orgData, prjData) {
 	if (error) throw error;
 	//console.log(prjData);
-	//
-  var mainNestField = "linked_organisation_ids"; //property by which we are going to cluster
-  var secNestField = "focus"; //property by which we are going to cluster
+	
+  var mainNestField = "technology"; //property by which we are going to cluster
+  var secNestField = "countries"; //property by which we are going to cluster
+	
+	//cleanDataset(prjData, secNestField, 5);
   
   var orgIds = [];
 			orgNames = [];
@@ -58,6 +98,8 @@ function clusterView(error, orgData, prjData) {
   });
 
   //console.log(prjData);
+  
+  cleanDataset(prjData, secNestField, 5);
   
   var valuesMainArray = allValues(prjData, mainNestField); //returns mainNestField unique values
 
@@ -185,6 +227,10 @@ function clusterView(error, orgData, prjData) {
 		.domain(valuesSecArray)
 		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"])
 
+	var otherColorScale = d3.scaleOrdinal()
+		.domain(valuesSecArray)
+		.range(d3.schemeCategory10)
+
 	var secNestSvgs = d3.select("body").selectAll("svg")
 		.data(packData)
 		.enter()
@@ -225,7 +271,11 @@ function clusterView(error, orgData, prjData) {
 
 	  node.append("circle")
 	  	.style("fill", function (d, j) {
-	  		if (j!=0) {	return focusColorScale(d.data.name); }
+	  		if (j!=0) {	
+	  			if (secNestField==="focus"){
+	  				return focusColorScale(d.data.name);
+	  			}	else return otherColorScale(d.data.name);
+	  		}
 	  	})
 	    .attr("r", function(d, j) { return d.r; })
 
