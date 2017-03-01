@@ -14,6 +14,8 @@ var projection = d3.geoMercator()
 
 var path = d3.geoPath()
   .projection(projection);
+
+console.log(path)
   
 var svg = d3.select("#container").append("svg")
   .attr("id", "chart")
@@ -105,6 +107,65 @@ d3.json("./data/world50m.json", function(error, topology) {
             return 2;
             //return i/100; //Barcelona
           });
+
+
+
+    d3.json("data/projects.json", function(error, prjs) {
+      
+      data.forEach(function(o, i){
+        o.linked_project_ids.forEach(function(l, k){
+          prjs.forEach(function(p, j){
+            if(!p.points) p.points = []
+            if(p.project_id == l){
+              p.points.push([+o.longitude, +o.latitude])
+            }
+          })
+        })
+      })
+
+      var morethenone = prjs.filter(function(d, i){
+        return d.points.length>2
+      })
+
+      var features = []
+      morethenone.forEach(function(p, i){
+        features.push({type:'Feature', properties: p, geometry:{coordinates:[p.points], type:'Polygon'}})
+      })
+
+      var label = svg.append('text').attr('x', 20).attr('y', height-30)
+
+      var arcs = svg.append('g')
+        .selectAll('path')
+        .data(features)
+        .enter()
+        .append('path')
+        .attr('d', path)
+        .style('fill', 'none')
+        .style('stroke', 'red')
+        .style('stroke-width', 2)
+
+      var scl = d3.scaleLinear()
+        .domain([0, width])
+        .range([0, features.length])
+
+      svg.call(d3.drag().on('start', function(){
+        d3.event.on('drag', function(){
+          var x = d3.event.x
+          var index = parseInt(scl(x))
+          arcs.attr('opacity', function(d, i){
+            if(i == index) label.text(d.properties.project_name)
+            return (i == index) ? 1 : 0
+          })
+        }).on('end', function(){
+          arcs.attr('opacity', 1)
+        })
+      }))
+
+    })
+
+
+
+
     
   });
 
