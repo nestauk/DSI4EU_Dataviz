@@ -24,7 +24,7 @@ function clusterView(error, orgData, prjData) {
 	if (error) throw error;
 	//console.log(prjData);
 	//
-  var mainNestField = "countries"; //property by which we are going to cluster
+  var mainNestField = "linked_organisation_ids"; //property by which we are going to cluster
   var secNestField = "focus"; //property by which we are going to cluster
   
   var orgIds = [];
@@ -175,8 +175,8 @@ function clusterView(error, orgData, prjData) {
 		packData.push(temp);
 	})
 
-	var w = 540,
-			h = 540,
+	var w = 400,
+			h = 400,
 			padding = 4;
 
 	format = d3.format(",d");
@@ -184,7 +184,7 @@ function clusterView(error, orgData, prjData) {
 	var focusColorScale = d3.scaleOrdinal()
 		.domain(valuesSecArray)
 		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"])
-	
+
 	var secNestSvgs = d3.select("body").selectAll("svg")
 		.data(packData)
 		.enter()
@@ -195,15 +195,20 @@ function clusterView(error, orgData, prjData) {
 			.attr("width", w)
 			.attr("height", h)
 			.each(multiple);
-			
+
 
 	//Draws one circle pack per svg
 	function multiple(e, i) {
 		//console.log(e, i)
+		
+		var scaleFactor = 4;
+		var clusterScale = d3.scaleLinear()
+			.domain([0, maxSecNestArray])
+			.range([0, w/scaleFactor])
 	
 		var pack = d3.pack()
     	.size([w - padding, h - padding])
-    	.radius(function(d){ return d.value; });
+    	.radius(function(d){ return clusterScale(d.value); });
 
 	  var root = d3.hierarchy(packData[i])
 	    .sum(function(d) { return d.size; })
@@ -230,7 +235,11 @@ function clusterView(error, orgData, prjData) {
 			.attr("fill", "black")
 			.attr("font-size", "1rem")
 			.attr("text-anchor", "middle")
-			.text(e.name);
+			.text(function () {
+				if (mainNestField==="linked_organisation_ids"){
+					return orgScale(e.name);
+				} else return e.name;
+			})
 
 	  node.append("title")
 	    .text(function(d) { return d.data.name + "\n" + format(d.value); });
