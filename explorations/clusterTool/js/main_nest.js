@@ -104,24 +104,6 @@ function clusterView(error, orgData, prjData) {
 		})
 	})
 
- //  secNestArray.forEach(function (f) {
- //  	f.values.forEach(function (e) {
- //  		//console.log(e)
-	// 		var selectedSec = sortedMainNestArray.filter(function (d) {
-	// 			return _.some(d.values, function (c) {
-	// 				return c[secNestField].includes(e.key);
-	// 			}) && f.key===d.key;
-	// 		})
-	// 		//console.log(f.key, e.key, selectedSec)
-	// 		if (!_.isEmpty(selectedSec)) {
-	// 			e.values = selectedSec[0].values;
-	// 		}
- //  	})
-	// })
-	
-
-
-
 	//console.log(prjData);
 
 	function filterPrj(field1Name, field1, field2Name, field2) {
@@ -143,18 +125,44 @@ function clusterView(error, orgData, prjData) {
 	secNestArray.forEach(function (f) {
 		f.values.sort(function (a,b) { return b.values.length-a.values.length; });
 	})
-
 	//console.log(secNestArray);
 	
-	var maxSecNestArray = d3.max(secNestArray, function (d) {
+
+	/* *** STATISTICS *** */
+	//Total max value of the secNest parameter count
+	var maxSecNestArray = d3.max(secNestArray, function (d) { 
 		return d.values[0].values.length;
 	});
+	console.log("maxSecNestArray: "+maxSecNestArray);
 
-	//console.log(maxSecNestArray);
+	//Array of mainNest groups with the sum of secNest counts
+	var sumSecNestArray = [];
+	secNestArray.forEach(function (f, i) {
+		var mainNestSum = d3.sum(f.values, function (d) {
+			return d.values.length;
+		});
+		sumSecNestArray.push({
+			group: f.key,
+			sum: mainNestSum
+		});
+	});
+	//console.log("sumSecNestArray: ", sumSecNestArray);
+
+	//Max value of the sum of secNest parameter counts for each mainNest parameter group
+	var maxSumSecNestArray = d3.max(secNestArray, function (f, i) { 
+		var mainNestSum = d3.sum(f.values, function (d) {
+			return d.values.length;
+		});
+		//console.log(i, mainNestSum)
+		return mainNestSum;
+	});
+	console.log("maxSumSecNestArray: "+maxSumSecNestArray);
+	/* *** end STATISTICS *** */
+
 
 	//creo una struttura dati adatta al circle packing
 	var packData = [];
-	secNestArray.forEach(function (f) {
+	secNestArray.forEach(function (f) { 
 		var temp = {};
 		temp.name = f.key;
 		temp.children = [];
@@ -167,20 +175,16 @@ function clusterView(error, orgData, prjData) {
 		packData.push(temp);
 	})
 
-	console.log(packData)
-
-	var w = 200,
-			h = 200;
+	var w = 540,
+			h = 540,
+			padding = 4;
 
 	format = d3.format(",d");
+
+	var focusColorScale = d3.scaleOrdinal()
+		.domain(valuesSecArray)
+		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"])
 	
-	var secNestArrayScale = d3.scaleSqrt()
-		.domain([1, maxSecNestArray])
-		.range([1, w/2-10]);
-
-	var pack = d3.pack()
-    .size([w - 4, h - 4]);
-
 	var secNestSvgs = d3.select("body").selectAll("svg")
 		.data(packData)
 		.enter()
@@ -190,23 +194,23 @@ function clusterView(error, orgData, prjData) {
 			})
 			.attr("width", w)
 			.attr("height", h)
-			.each(multiple)
+			.each(multiple);
+			
 
-  // var g = d3.select("body").append("svg")
-  // 	.attr("width", w)
-		// .attr("height", h)
-		// 	.append("g").attr("transform", "translate(2,2)")
-
+	//Draws one circle pack per svg
 	function multiple(e, i) {
-		console.log(e)
-		console.log(i)
-
-		var g = d3.select(".svg"+i).append("g")
-				.attr("transform", "translate(2,2)");
+		//console.log(e, i)
+	
+		var pack = d3.pack()
+    	.size([w - padding, h - padding])
+    	.radius(function(d){ return d.value; });
 
 	  var root = d3.hierarchy(packData[i])
 	    .sum(function(d) { return d.size; })
 	    .sort(function(a, b) { return b.value - a.value; });
+		
+		var g = d3.select(".svg"+i).append("g")
+				.attr("transform", "translate(" + padding/2 + "," + padding/2 + ")");
 
 	  var node = g.selectAll(".node")
 	    .data(pack(root).descendants())
@@ -215,19 +219,26 @@ function clusterView(error, orgData, prjData) {
 	      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
 	  node.append("circle")
-	    .attr("r", function(d) { return d.r; })
+	  	.style("fill", function (d, j) {
+	  		if (j!=0) {	return focusColorScale(d.data.name); }
+	  	})
+	    .attr("r", function(d, j) { return d.r; })
+
+	  var secNestCaptions = g.append("text")
+			.attr("x", w/2)
+			.attr("y", h-30)
+			.attr("fill", "black")
+			.attr("font-size", "1rem")
+			.attr("text-anchor", "middle")
+			.text(e.name);
 
 	  node.append("title")
 	    .text(function(d) { return d.data.name + "\n" + format(d.value); });
 
 	  node.filter(function(d) { return !d.children; }).append("text")
 	    .attr("dy", "0.3em")
-	    .text(function(d) { return d.data.name.substring(0, d.r / 3); });
-		
+	    .attr("class", "smallLabel")
+	    .text(function(d) { return d.value; });
 	}
-
-
-
-
 	
 }
