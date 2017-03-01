@@ -15,21 +15,33 @@
 <body>
 
 <div id="ui">
-	<select id="mainNest">
-		<option value="focus">Focus</option>
-		<option value="support_tags">Support</option>
-		<option value="technology">Technology</option>
-		<option value="linked_organisation_ids">Organisation</option>
-		<option value="countries" selected="selected">Country</option>
-	</select>
-	<select id="secNest">
-		<option value="focus" selected="selected">Focus</option>
-		<option value="support_tags">Support</option>
-		<option value="technology">Technology</option>
-		<option value="linked_organisation_ids">Organisation</option>
-		<option value="countries">Country</option>
-	</select>
-	<button id="go">go</button>
+	<div class="uiElement">
+		<p>Select cluster parameter</p>
+		<select id="mainNest">
+			<option value="focus">Focus</option>
+			<option value="support_tags">Support</option>
+			<option value="technology">Technology</option>
+			<option value="linked_organisation_ids">Organisation</option>
+			<option value="countries" selected="selected">Country</option>
+		</select>
+	</div>
+	<div class="uiElement">
+		<p>Select nest parameter</p>
+		<select id="secNest" class="right">
+			<option value="focus" selected="selected">Focus</option>
+			<option value="support_tags">Support</option>
+			<option value="technology">Technology</option>
+			<option value="linked_organisation_ids">Organisation</option>
+			<option value="countries">Country</option>
+		</select>
+		<!-- <select id="secNestLimit" class="left">
+			<option value="4" selected="selected">4</option>
+			<option value="6">6</option>
+			<option value="8">8</option>
+			<option value="10">10</option>
+		</select> -->
+	</div>
+	<button id="go">UPDATE</button>
 </div>
 
 <!-- <script type="text/javascript" src="js/main.js"></script> -->

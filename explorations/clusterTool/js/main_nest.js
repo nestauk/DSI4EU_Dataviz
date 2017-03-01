@@ -63,16 +63,18 @@ function getData(error, _orgData, _prjData) {
 	var o = _orgData;
 	var p = _prjData;
 
-	clusterView(o, p, "countries", "focus", 5);
+	var selLimitValue = 4;
+
+	clusterView(o, p, "countries", "focus", selLimitValue);
 
 	d3.select("#go").on("click", function () {
 		var selMain = document.getElementById("mainNest");
 		var selSec = document.getElementById("secNest");
+		// var selLimit = document.getElementById("secNestLimit");
 		var selMainValue = selMain[selMain.selectedIndex].value;
-		var selSecValue = selMain[selSec.selectedIndex].value;
-		console.log(selMainValue);
-		console.log(selSecValue);
-		clusterView(o, p, selMainValue, selSecValue, 5);
+		var selSecValue = selSec[selSec.selectedIndex].value;
+		// var selLimitValue = selLimit[selLimit.selectedIndex].value;
+		clusterView(o, p, selMainValue, selSecValue, selLimitValue);
 	})
 }
 

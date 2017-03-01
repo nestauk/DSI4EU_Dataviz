@@ -26,5 +26,20 @@ circle {
 	display: block;
 }
 select, button {
-	margin: 1rem;
+	margin: .75rem 2rem;
+}
+select.left {
+	margin-left: .1rem !important;
+}
+select.right {
+	margin-right: .1rem !important;
+}
+.uiElement {
+	margin-top: 1rem;
+	margin-right: 3rem;
+	display: inline-block;
+}
+.uiElement p {
+	font-size: .8rem;
+	margin-left: 2rem;
 }
