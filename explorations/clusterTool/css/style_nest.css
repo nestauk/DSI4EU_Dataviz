@@ -22,3 +22,9 @@ circle {
   fill-opacity: 1;
   stroke: none;
 }
+#ui {
+	display: block;
+}
+select, button {
+	margin: 1rem;
+}

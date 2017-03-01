@@ -1,8 +1,7 @@
 d3.queue()
   .defer(d3.json, '/data/organisations.json')
   .defer(d3.json, '/data/projects.json')
-  .await(clusterView);
-
+  .await(getData);
 
 /* returns a list of all the field argument unique values */
 function allValues(data, field) {
@@ -49,8 +48,8 @@ function cleanDataset(data, field, count) {
 	data.forEach(function (c) {
 		c[field].forEach(function (e) {
 			if(!slicedValues.includes(e)) {
-				//_.pull(c[field], e);
-				c[field] = _.without(c[field], e);
+				//_.pull(c[field], e); //don't know why but it doesn't work
+				c[field] = _.without(c[field], e); //this way works
 			}
 		})
 	})
@@ -58,12 +57,41 @@ function cleanDataset(data, field, count) {
 }
 
 
-function clusterView(error, orgData, prjData) {
+function getData(error, _orgData, _prjData) {
 	if (error) throw error;
+
+	var o = _orgData;
+	var p = _prjData;
+
+	clusterView(o, p, "countries", "focus", 5);
+
+	d3.select("#go").on("click", function () {
+		var selMain = document.getElementById("mainNest");
+		var selSec = document.getElementById("secNest");
+		var selMainValue = selMain[selMain.selectedIndex].value;
+		var selSecValue = selMain[selSec.selectedIndex].value;
+		console.log(selMainValue);
+		console.log(selSecValue);
+		clusterView(o, p, selMainValue, selSecValue, 5);
+	})
+}
+
+function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLimitCount) {
 	//console.log(prjData);
 	
-  var mainNestField = "technology"; //property by which we are going to cluster
-  var secNestField = "countries"; //property by which we are going to cluster
+	// PARAMETERS
+	// focus
+	// support_tags
+	// technology
+	// countries
+	// linked_organisation_ids
+	 
+	d3.selectAll("svg").remove();
+	d3.selectAll("circle").remove();
+	d3.selectAll("text").remove();
+	
+  var mainNestField = _mainNestField; //property by which we are going to cluster
+  var secNestField = _secNestField; //property by which we are going to cluster
 	
 	//cleanDataset(prjData, secNestField, 5);
   
@@ -98,8 +126,8 @@ function clusterView(error, orgData, prjData) {
   });
 
   //console.log(prjData);
-  
-  cleanDataset(prjData, secNestField, 5);
+  var limitCount = _secNestLimitCount;
+  cleanDataset(prjData, secNestField, limitCount);
   
   var valuesMainArray = allValues(prjData, mainNestField); //returns mainNestField unique values
 
@@ -292,7 +320,11 @@ function clusterView(error, orgData, prjData) {
 			})
 
 	  node.append("title")
-	    .text(function(d) { return d.data.name + "\n" + format(d.value); });
+	    .text(function(d) { 
+	    	if (secNestField==="linked_organisation_ids"){
+					return orgScale(d.data.name) + "\n" + format(d.value);
+				} else return d.data.name + "\n" + format(d.value);
+	    });
 
 	  node.filter(function(d) { return !d.children; }).append("text")
 	    .attr("dy", "0.3em")
