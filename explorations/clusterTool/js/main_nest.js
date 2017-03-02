@@ -286,14 +286,15 @@ function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) 
 	function multiple(e, i) {
 		//console.log(e, i)
 		
+		//adjusts the scale depending on the total counts value of the different mainNest fields
 		var scaleSvg = d3.scaleLinear()
-			.domain([0, maxSumSecNest])
-			.range([4, 8]);
+			.domain([0, 1000])
+			.range([4, 6]);
 		
-		var scaleFactor = 4;
+		//var scaleFactor = 4; //to be used when scaleSvg is not used in clusterScale
 		var clusterScale = d3.scaleLinear()
 			.domain([0, maxSecNestArray])
-			.range([0, w/scaleSvg(scaleFactor)]);
+			.range([0, w/scaleSvg(maxSumSecNest)]);
 	
 		var pack = d3.pack()
     	.size([w - padding, h - padding])
