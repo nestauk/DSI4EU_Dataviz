@@ -1,6 +1,6 @@
 d3.queue()
-  .defer(d3.json, '/data/organisations.json')
-  .defer(d3.json, '/data/projects.json')
+  .defer(d3.json, 'data/organisations.json')
+  .defer(d3.json, 'data/projects.json')
   .await(getData);
 
 /* returns a list of all the field argument unique values */
