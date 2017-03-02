@@ -3,6 +3,9 @@ d3.queue()
   .defer(d3.json, 'data/projects.json')
   .await(getData);
 
+var o = null;
+var p = null;
+
 /* returns a list of all the field argument unique values */
 function allValues(data, field) {
 	var temp = [];
@@ -21,7 +24,8 @@ function allValues(data, field) {
 /* cuts off from the dataset all the support_tags and technology values except the 10 most counted */
 function cleanDataset(data, field, count) {
 	var list = [];
-	data.forEach(function (c) {
+	var modData = data.slice();
+	modData.forEach(function (c) {
 		c[field].forEach(function (e) {
 			var match = list.filter(function(f){ return f.name === e });
   		if ( _.isEmpty(match) ) {
@@ -45,7 +49,7 @@ function cleanDataset(data, field, count) {
 		slicedValues.push(d.name);
 	})
 	//console.log(slicedValues);
-	data.forEach(function (c) {
+	modData.forEach(function (c) {
 		c[field].forEach(function (e) {
 			if(!slicedValues.includes(e)) {
 				//_.pull(c[field], e); //don't know why but it doesn't work
@@ -53,17 +57,18 @@ function cleanDataset(data, field, count) {
 			}
 		})
 	})
-	console.log(data)
+	//console.log(data)
+	return modData;
 }
 
 
 function getData(error, _orgData, _prjData) {
 	if (error) throw error;
 
-	var o = _orgData;
-	var p = _prjData;
+	o = _orgData;
+	p = _prjData;
 
-	var selLimitValue = 4;
+	var selLimitValue = 6;
 
 	clusterView(o, p, "countries", "focus", selLimitValue);
 
@@ -78,7 +83,7 @@ function getData(error, _orgData, _prjData) {
 	})
 }
 
-function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLimitCount) {
+function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) {
 	//console.log(prjData);
 	
 	// PARAMETERS
@@ -88,7 +93,11 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	// countries
 	// linked_organisation_ids
 	 
+	var orgData = _.cloneDeep(_o);
+	var prjData = _.cloneDeep(_p);
+
 	d3.selectAll("svg").remove();
+	d3.selectAll("g").remove();
 	d3.selectAll("circle").remove();
 	d3.selectAll("text").remove();
 	
@@ -128,10 +137,10 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
   });
 
   //console.log(prjData);
-  var limitCount = _secNestLimitCount;
-  cleanDataset(prjData, secNestField, limitCount);
+  var cleanedPrjData = cleanDataset(prjData, secNestField, _secNestLimitCount);
+  //When new dataset will be provided, delete cleanDataset and return cleanedPrjData back to prjData
   
-  var valuesMainArray = allValues(prjData, mainNestField); //returns mainNestField unique values
+  var valuesMainArray = allValues(cleanedPrjData, mainNestField); //returns mainNestField unique values
 
   var mainNestArray = [];
   valuesMainArray.forEach(function (d) {
@@ -143,7 +152,7 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	
 	mainNestArray.forEach(function (f) {
 		//selectedPrj = Prj with f.key value present in mainNestField array
-		var selectedPrj = prjData.filter(function (d) {
+		var selectedPrj = cleanedPrjData.filter(function (d) {
 			return d[mainNestField].includes(f.key);
 		})
 		f.values = (selectedPrj);
@@ -156,7 +165,7 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 
 
 
-	var valuesSecArray = allValues(prjData, secNestField); //returns mainNestField unique values
+	var valuesSecArray = allValues(cleanedPrjData, secNestField); //returns mainNestField unique values
 	//console.log(valuesSecArray)
 
 	//creation of a double nested data structure: main nesting populated with sortedMainNestArray keys and secondary nesting with empty values
@@ -179,7 +188,7 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	//console.log(prjData);
 
 	function filterPrj(field1Name, field1, field2Name, field2) {
-		var filteredPrjData = prjData.filter(function (d) {
+		var filteredPrjData = cleanedPrjData.filter(function (d) {
 			return d[field1Name].includes(field1) && d[field2Name].includes(field2);
 		})
 		return filteredPrjData;
@@ -205,7 +214,7 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	var maxSecNestArray = d3.max(secNestArray, function (d) { 
 		return d.values[0].values.length;
 	});
-	console.log("maxSecNestArray: "+maxSecNestArray);
+	//console.log("maxSecNestArray: "+maxSecNestArray);
 
 	//Array of mainNest groups with the sum of secNest counts
 	var sumSecNestArray = [];
@@ -220,15 +229,15 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	});
 	//console.log("sumSecNestArray: ", sumSecNestArray);
 
-	//Max value of the sum of secNest parameter counts for each mainNest parameter group
-	var maxSumSecNestArray = d3.max(secNestArray, function (f, i) { 
+	//Max value of the sum of secNest parameter counts of the mainNest parameter groups
+	var maxSumSecNest = d3.max(secNestArray, function (f, i) { 
 		var mainNestSum = d3.sum(f.values, function (d) {
 			return d.values.length;
 		});
 		//console.log(i, mainNestSum)
 		return mainNestSum;
 	});
-	console.log("maxSumSecNestArray: "+maxSumSecNestArray);
+	console.log("maxSumSecNest: "+maxSumSecNest);
 	/* *** end STATISTICS *** */
 
 
@@ -255,11 +264,11 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 
 	var focusColorScale = d3.scaleOrdinal()
 		.domain(valuesSecArray)
-		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"])
+		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"]);
 
 	var otherColorScale = d3.scaleOrdinal()
 		.domain(valuesSecArray)
-		.range(d3.schemeCategory10)
+		.range(d3.schemeCategory10);
 
 	var secNestSvgs = d3.select("body").selectAll("svg")
 		.data(packData)
@@ -277,10 +286,14 @@ function clusterView(orgData, prjData, _mainNestField, _secNestField, _secNestLi
 	function multiple(e, i) {
 		//console.log(e, i)
 		
+		var scaleSvg = d3.scaleLinear()
+			.domain([0, maxSumSecNest])
+			.range([4, 8]);
+		
 		var scaleFactor = 4;
 		var clusterScale = d3.scaleLinear()
 			.domain([0, maxSecNestArray])
-			.range([0, w/scaleFactor])
+			.range([0, w/scaleSvg(scaleFactor)]);
 	
 		var pack = d3.pack()
     	.size([w - padding, h - padding])

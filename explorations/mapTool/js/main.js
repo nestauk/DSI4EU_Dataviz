@@ -104,7 +104,7 @@ d3.json("data/world50m.json", function(error, topology) {
           .attr("cx",function(d) { return projection([d.longitude,d.latitude])[0]; })
           .attr("cy",function(d) { return projection([d.longitude,d.latitude])[1]; })
           .attr("r",function(d, i) {
-            return 2;
+            return 1;
             //return i/100; //Barcelona
           });
 
@@ -123,12 +123,12 @@ d3.json("data/world50m.json", function(error, topology) {
         })
       })
 
-      var morethenone = prjs.filter(function(d, i){
+      var morethanone = prjs.filter(function(d, i){
         return d.points.length>2
       })
 
       var features = []
-      morethenone.forEach(function(p, i){
+      morethanone.forEach(function(p, i){
         features.push({type:'Feature', properties: p, geometry:{coordinates:[p.points], type:'Polygon'}})
       })
 
@@ -142,7 +142,7 @@ d3.json("data/world50m.json", function(error, topology) {
         .attr('d', path)
         .style('fill', 'none')
         .style('stroke', 'red')
-        .style('stroke-width', 2)
+        .style('stroke-width', 1)
 
       var scl = d3.scaleLinear()
         .domain([0, width])
