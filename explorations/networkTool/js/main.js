@@ -11,8 +11,8 @@ var simulation = d3.forceSimulation()
   .force("center", d3.forceCenter(width / 2, height / 2));
 
 d3.queue()
-  .defer(d3.json, '/data/organisations.json')
-  .defer(d3.json, '/data/projects.json')
+  .defer(d3.json, 'data/organisations.json')
+  .defer(d3.json, 'data/projects.json')
   .await(dataprocess);
   //.await(findSharedPrjs); //testing
 

@@ -33,7 +33,7 @@ function organisations() {
 
 
 
-	d3.json("/data/organisations.json", function(data) {
+	d3.json("data/organisations.json", function(data) {
 		  //console.log(data);
 		  
 		  listCountField(orgFields[0]);

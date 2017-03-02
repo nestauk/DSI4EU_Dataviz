@@ -33,7 +33,7 @@ function projects() {
 
 	
 
-	d3.json("/data/projects.json", function(data) {
+	d3.json("data/projects.json", function(data) {
 		  //console.table(data);
 			
 		  listCountField(prjFields[0]);

@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-	d3.json("/data/organisations.json", function(data) {
+	d3.json("data/organisations.json", function(data) {
 		  //console.log(data);
 		  
 		  listCountField("linked_project_ids");
