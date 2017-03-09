@@ -8,7 +8,7 @@ module.exports = function (grunt, options) {
   return {
 
     options: {
-      sourceMap: true
+      sourceMap: false
     }
 
   };

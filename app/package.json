@@ -1,14 +1,15 @@
 {
-  "name": "app",
+  "name": "nesta_dataviz",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "scripts": {},
+  "author": "todo.to.it",
   "license": "MIT",
   "dependencies": {
+    "bowser": "^1.6.0",
+    "fastclick": "^1.0.6",
     "jquery": "^3.1.1",
-    "normalize.css": "^5.0.0"
+    "normalize.css": "^5.0.0",
+    "stateman": "^0.3.0-beta.2"
   }
 }

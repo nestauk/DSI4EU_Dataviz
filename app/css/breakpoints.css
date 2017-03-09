@@ -1,0 +1,27 @@
+html, body {
+	font-size: 80%;
+}
+
+@media (min-width: 460px) {
+	html, body{
+		font-size: 90%;
+	}
+}
+
+@media (min-width: 767px) {
+	html, body{
+		font-size: 100%;
+	}
+}
+
+@media (min-width: 1020px) {
+	html, body{
+		font-size: 110%;
+	}
+}
+
+@media (min-width: 1270px) {
+	html, body{
+		font-size: 130%;
+	}
+}
