@@ -1,2 +1,16 @@
 node_modules
 .DS_Store
+
+public
+.tmp/
+.sass-cache
+.grunt
+tests
+npm-debug.log
+.netbeans
+nbproject
+.idea
+.node_history
+tmp/
+ignore
+*.app

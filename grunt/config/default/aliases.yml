@@ -1,0 +1,75 @@
+# development session
+dev:
+  - 'browserSync:dev'
+
+
+
+# complete chain to build a static multi pages website
+build:
+  - 'cleanall'
+
+  - 'copy:app'
+
+  - 'useminPrepare:multi'
+  - 'concat:generated'
+  - 'postcss'
+  - 'uglify:generated'
+  - 'cssmin:generated'
+  - 'usemin'
+
+  - 'svgmin'
+  - 'static_player:bake'
+  - 'processhtml:multi'
+  - 'htmlmin:multi'
+  
+  - 'copy:dist'
+  - 'inline' # optional inject css into html 
+
+  # - 'locales:update'
+
+  # - 'deploy2gh_version'
+  # - 'deploy2gh'
+
+  - 'clean:tmp'
+
+
+
+
+
+# meta-tasks ------
+# -----------------
+
+staging:
+  - 'shell:deploy_fb_staging'
+
+production:
+  - 'shell:deploy_fb_production'
+
+cleanall: # prepare for build process
+  - 'clean:tmp'
+  - 'clean:dist'
+
+deploy2gh: # replace the whole build with the new one
+  - 'gh-pages:gh-pages'
+
+deploy2gh_version: # adds the current build using the pkg version as folder name
+  - 'copy:ver'
+  - 'create_index' 
+  - 'gh-pages:changelog'
+
+# -----------------
+
+
+other_tasks:
+  - 'fetchJson:fetchSomeApi'
+
+  - 'ngtemplates'
+  - 'ngAnnotate'
+
+  - 'load_stub'
+  - 'static_player:bake'
+  
+  - 'svgstore:dist'
+  - 'CsvToL10nJson:dist'
+  - 'inlinecss' # this inline each css rune in html tag (perfect for newsletter)
+
