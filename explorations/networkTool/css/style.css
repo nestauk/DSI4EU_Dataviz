@@ -10,3 +10,6 @@ text {
 	font-size: .25rem;
 	text-anchor: middle;
 }
+.links {
+	stroke: lightgrey;
+}

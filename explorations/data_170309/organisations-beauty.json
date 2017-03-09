@@ -140,7 +140,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1022,
@@ -1058,7 +1058,7 @@
     "startDate": "",
     "linked_project_ids": ["106"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 395,
@@ -1364,7 +1364,7 @@
     "startDate": "",
     "linked_project_ids": ["671"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 645,
@@ -3365,6 +3365,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1260,
+    "organisation_name": "CitizenLab",
+    "website": "https:\/\/www.citizenlab.co",
+    "short_description": "CitizenLab helps local governments reconnect to their community of citizens.",
+    "long_description": "<p><a href=\"https:\/\/www.citizenlab.co\">CitizenLab<\/a> introduces an improved way of local democracy for the digital era. Our cloud-based SaaS platform facilitates a two-way communication between the city and its citizens. By automatically analysing citizens&rsquo; feedback and opinions, the platform helps cities tap into the collective intelligence of citizens, whilst enabling them to reach out to more citizens and saving them resources.<br \/><br \/>Today, already over 20 European&nbsp;cities and municipalities are using CitizenLab to make smarter policy decisions. Our mission is to empower many more citizens and give them a direct say in their town hall decisions.&nbsp;<\/p>",
+    "country": "",
+    "region": "",
+    "latitude": "",
+    "longitude": "",
+    "address": "",
+    "organisation_type": "For-profit business",
+    "organisation_size": "6-10 people",
+    "startDate": "",
+    "linked_project_ids": [],
+    "tags": ["civic tech", "democracy"],
+    "networkTags": [],
+    "created": "2017-02-27"
+}, {
     "organisation_id": 102,
     "organisation_name": "Citizens Foundation",
     "website": "",
@@ -4064,7 +4082,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 792,
@@ -5610,7 +5628,7 @@
     "organisation_type": "Academia\/Research organisation",
     "organisation_size": "51-100 people",
     "startDate": "",
-    "linked_project_ids": ["291"],
+    "linked_project_ids": ["291", "850"],
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
@@ -6551,6 +6569,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1262,
+    "organisation_name": "Eurecat",
+    "website": "http:\/\/www.eurecat.org\/en",
+    "short_description": "Eurecat is the Technology Centre of Catalonia. Provides the industrial and business sector with differential technology and advanced expertise.",
+    "long_description": "<p style=\"margin-top: 0pt; margin-bottom: 6pt; font-family: Calibri;\"><span lang=\"en-GB\" style=\"font-size: 11.0pt;\">Fundaci&oacute; Eurecat (Eurecat) is the major Technology Centre of Catalonia and the result of the integration of the most important Catalan technology centers: Ascamm, Barcelona Media, BDigital and Cetemmsa, CTM, CTNS, and <\/span><span lang=\"es\" style=\"font-size: 11.0pt;\">Fundaci&oacute; Maqcentre, as well as the recent partnership with LEITAT<\/span><span lang=\"en-GB\" style=\"font-size: 11.0pt;\">. <\/span><span lang=\"en-GB\" style=\"font-weight: bold; font-size: 10.5pt; color: #555555; background: white;\">Eurecat&nbsp;is a private non-profit research center that&nbsp;manages a turnover of 38M&euro; and 450 professionals.<\/span><span lang=\"es\" style=\"font-size: 10.5pt; color: #555555; background: white;\">&nbsp;<\/span><span lang=\"en-GB\" style=\"font-size: 10.5pt; color: #555555; background: white;\">It&nbsp;has a customer portfolio of over 1.000 companies.<\/span><\/p>\n<p style=\"margin-top: 0pt; margin-bottom: 7pt; font-family: Calibri; font-size: 10.5pt; color: #555555;\"><span lang=\"en-GB\" style=\"background: white;\">EURECAT has currently more than 150 R&amp;D projects running. Among the international projects,<\/span><span lang=\"es\" style=\"background: white;\">&nbsp;<\/span><span lang=\"es\" style=\"font-weight: bold; background: white;\">67 major projects are in the 7th Framework Programme and Horizon 2020<\/span><span lang=\"en-GB\" style=\"background: white;\">, 28 of which are coordinated by Eurecat.&nbsp;In addition to this wide experience at European level, Eurecat is also a strong player in the various R&amp;D programmes sponsored by the Spanish and Catalan administrations, with more than 160 ongoing projects. Technology transfer is also an essential activity in Eurecat, with 36 international patents and 9 technology-based companies (eight in Spain and one in Latin America) started-up from the centre.<\/span><\/p>\n<p style=\"margin-top: 0pt; margin-bottom: 7pt; font-family: Calibri; font-size: 10.5pt; color: #555555;\"><span style=\"background: white;\">Eurecat R&amp;D, innovation and training activities span from Industrial Technologies (metallic, plastic and composite materials, manufacturing processes, autonomous and professional robotics, functional printing and fabrics, simulations and sustainability) to Digital Technologies (Digital Humanities, Big Data Analytics, IT Security and Smart Management Systems, e-health, data mining and multimedia technologies).<\/span><\/p>\n<p style=\"margin-top: 0pt; margin-bottom: 7pt; font-family: Calibri; font-size: 10.5pt; color: #555555;\">&nbsp;<\/p>\n<p style=\"margin-top: 0pt; margin-bottom: 7pt; font-family: Calibri; font-size: 10.5pt; color: #555555;\">&nbsp;<\/p>",
+    "country": "Spain",
+    "region": "Barcelona",
+    "latitude": 41.3825596,
+    "longitude": 2.1771353,
+    "address": "",
+    "organisation_type": "Academia\/Research organisation",
+    "organisation_size": "501-1000 people",
+    "startDate": "1995-01-01",
+    "linked_project_ids": ["525", "848"],
+    "tags": ["cybersecurity", "data visualisation", "Digital Social Innovation", "Innovation", "open knowledge", "privacy", "user engagement"],
+    "networkTags": [],
+    "created": "2017-02-27"
+}, {
     "organisation_id": 381,
     "organisation_name": "EURICCA",
     "website": "",
@@ -6800,7 +6836,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1105,
@@ -6818,7 +6854,7 @@
     "startDate": "",
     "linked_project_ids": ["598", "745"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 217,
@@ -6836,7 +6872,7 @@
     "startDate": "",
     "linked_project_ids": ["257"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 856,
@@ -6854,7 +6890,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 679,
@@ -6872,7 +6908,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 430,
@@ -6890,7 +6926,7 @@
     "startDate": "",
     "linked_project_ids": ["610"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 841,
@@ -6908,7 +6944,7 @@
     "startDate": "",
     "linked_project_ids": ["728"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 473,
@@ -6926,7 +6962,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 565,
@@ -6944,7 +6980,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 785,
@@ -6962,7 +6998,7 @@
     "startDate": "",
     "linked_project_ids": ["632"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 949,
@@ -6980,7 +7016,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 533,
@@ -6998,7 +7034,7 @@
     "startDate": "",
     "linked_project_ids": ["457"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 113,
@@ -7016,7 +7052,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1188,
@@ -7034,7 +7070,7 @@
     "startDate": "2014-01-01",
     "linked_project_ids": [],
     "tags": ["3dprint", "another tag", "coding", "digital design", "digital fabrication", "digital services", "DIY networking", "e-culture", "education", "fablab", "makers", "social innovation", "Thinktank"],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 131,
@@ -7052,7 +7088,7 @@
     "startDate": "",
     "linked_project_ids": ["722"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 726,
@@ -7070,7 +7106,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1137,
@@ -7088,7 +7124,7 @@
     "startDate": "",
     "linked_project_ids": ["524"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 725,
@@ -7106,7 +7142,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 203,
@@ -7124,7 +7160,7 @@
     "startDate": "",
     "linked_project_ids": ["375"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 480,
@@ -7142,7 +7178,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 519,
@@ -7160,7 +7196,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 180,
@@ -7178,7 +7214,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1134,
@@ -7196,7 +7232,7 @@
     "startDate": "",
     "linked_project_ids": ["192"],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1184,
@@ -7214,7 +7250,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 1185,
@@ -7232,7 +7268,7 @@
     "startDate": "2016-06-01",
     "linked_project_ids": [],
     "tags": ["3dprint", "arduino", "coding", "digital design", "digital fabrication", "education", "fablab", "Innovation", "makers", "sharing economy", "social innovation"],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 932,
@@ -7250,7 +7286,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 994,
@@ -7268,7 +7304,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 581,
@@ -9822,7 +9858,7 @@
     "organisation_type": "",
     "organisation_size": "",
     "startDate": "",
-    "linked_project_ids": ["413"],
+    "linked_project_ids": [],
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
@@ -10007,6 +10043,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1266,
+    "organisation_name": "Impact Hub Istanbul",
+    "website": "http:\/\/impacthubist.net\/",
+    "short_description": "co-creation space for impact driven individuals and entrepreneurs",
+    "long_description": "<p>Impact Hub Istanbul is the indweller of an ecosystem where startups meet corporates, where hackers meet designers and where the leaders of today meet the leaders of tomorrow. &nbsp;We provide a trusted ecosystem where changemakers, innovators, impact-driven individuals feel comfortable to co-create, co-work, connect and share the same roof. &nbsp;We offer our members a unique ecosystem of resources, inspiration and collaboration opportunities. The unreserved support enables our &nbsp;members to grow their impact and refine their initiatives. To pursue this goal, we develop content aimed at creating positive impact as well as conduct accelerator programs for entrepreneurs who are in different stages of their business.&nbsp;<\/p>",
+    "country": "Turkey",
+    "region": "Istanbul",
+    "latitude": 41.0096334,
+    "longitude": 28.9651646,
+    "address": "",
+    "organisation_type": "Social enterprise, charity, foundation or other non-profit",
+    "organisation_size": "6-10 people",
+    "startDate": "2016-10-01",
+    "linked_project_ids": ["861", "862", "863"],
+    "tags": [],
+    "networkTags": ["Impact Hub"],
+    "created": "2017-03-09"
+}, {
     "organisation_id": 149,
     "organisation_name": "Impact Hub King's Cross",
     "website": "",
@@ -10060,6 +10114,24 @@
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
+}, {
+    "organisation_id": 1261,
+    "organisation_name": "Impact Hub Stockholm",
+    "website": "http:\/\/www.impacthub.se",
+    "short_description": "Global network of social entrepreneurs driving change through trust, meaning and collaboration.",
+    "long_description": "",
+    "country": "Sweden",
+    "region": "Stockholm",
+    "latitude": 59.3251172,
+    "longitude": 18.0710935,
+    "address": "",
+    "organisation_type": "Social enterprise, charity, foundation or other non-profit",
+    "organisation_size": "6-10 people",
+    "startDate": "2006-08-16",
+    "linked_project_ids": [],
+    "tags": ["change management", "Co-creation", "collaborative economy", "community", "education", "Innovation", "Social Enterprenuership", "social enterprise", "Social Good", "social innovation"],
+    "networkTags": ["Impact Hub"],
+    "created": "2017-02-27"
 }, {
     "organisation_id": 622,
     "organisation_name": "Impact Hub Trieste",
@@ -10830,7 +10902,7 @@
     "organisation_type": "Grassroots organisation or community network",
     "organisation_size": "0-5 people",
     "startDate": "",
-    "linked_project_ids": ["570", "822"],
+    "linked_project_ids": ["570"],
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
@@ -12220,6 +12292,42 @@
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
+}, {
+    "organisation_id": 1259,
+    "organisation_name": "London Dermatology Centre",
+    "website": "http:\/\/www.london-dermatology-centre.co.uk\/",
+    "short_description": "The London Dermatology Centre is a leading private dermatology clinic located in central London.",
+    "long_description": "<p>The clinic is one of the most established private skin treatment clinics in the UK and offers both the treatment of medical skin conditions and aesthetic treatments.<\/p>\n<p>Our Clinic is proud to work with some of the UK&rsquo;s best dermatologists. Our consultants are committed to providing each patient with the specialised care that their condition requires.<\/p>",
+    "country": "United Kingdom",
+    "region": "London",
+    "latitude": 51.5073219,
+    "longitude": -0.1276473,
+    "address": "",
+    "organisation_type": "For-profit business",
+    "organisation_size": "26-50 people",
+    "startDate": "2005-02-10",
+    "linked_project_ids": [],
+    "tags": ["skin clinic, dermatology clinic"],
+    "networkTags": [],
+    "created": "2017-02-23"
+}, {
+    "organisation_id": 1258,
+    "organisation_name": "London Medical and Aesthetic Clinic",
+    "website": "http:\/\/www.lmaclinic.com\/",
+    "short_description": "The London Medical and Aesthetic Clinic at 1 Harley Street, London is one of the UK leader clinics in non-invasive, minimally invasive and cosmetic surgery procedures including Smart Lipo Laser Lipolysis, Laser hair removal, Breast enlargements, Laser skin rejuvenation and Laser for varicose veins.",
+    "long_description": "<p>LMA clinic is one of the leading clinics in London, offering a wide range of non-surgical cosmetic procedures, cosmetic surgery, Smartlipo laser lipolysis, latest laser hair removal treatments, as well as more traditional plastic surgery. In addition, we specialise in non-aesthetic medical and surgical services.<\/p>",
+    "country": "United Kingdom",
+    "region": "London",
+    "latitude": 51.5073219,
+    "longitude": -0.1276473,
+    "address": "",
+    "organisation_type": "For-profit business",
+    "organisation_size": "26-50 people",
+    "startDate": "",
+    "linked_project_ids": [],
+    "tags": ["liposuction clinic, aesthetic clinic"],
+    "networkTags": [],
+    "created": "2017-02-23"
 }, {
     "organisation_id": 551,
     "organisation_name": "Lucerne University of Applied Sciences and Arts - iHomeLab",
@@ -13764,7 +13872,7 @@
     "organisation_type": "Social enterprise, charity, foundation or other non-profit",
     "organisation_size": "101-500 people",
     "startDate": "1998-01-01",
-    "linked_project_ids": ["110", "297", "369", "472", "525", "585", "740", "790", "810"],
+    "linked_project_ids": ["110", "297", "369", "472", "525", "585", "740", "790", "810", "855"],
     "tags": ["Innovation", "Thinktank"],
     "networkTags": ["Alliance for Useful Evidence", "CAPSSI", "ChiC", "Design for Europe", "European Digital Forum", "Readie", "Social Innovation Community"],
     "created": "1970-01-01"
@@ -14705,6 +14813,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1263,
+    "organisation_name": "Open Technologies Alliance(GFOSS)",
+    "website": "https:\/\/gfoss.eu\/",
+    "short_description": "",
+    "long_description": "",
+    "country": "",
+    "region": "",
+    "latitude": "",
+    "longitude": "",
+    "address": "",
+    "organisation_type": "Academia\/Research organisation",
+    "organisation_size": "",
+    "startDate": "",
+    "linked_project_ids": [],
+    "tags": ["open content", "open data", "open design", "open hardware", "open innovation", "open source", "open standards"],
+    "networkTags": ["International Communia Association"],
+    "created": "2017-02-27"
+}, {
     "organisation_id": 569,
     "organisation_name": "Open University",
     "website": "",
@@ -15496,6 +15622,24 @@
     "tags": [],
     "networkTags": [],
     "created": "1970-01-01"
+}, {
+    "organisation_id": 1264,
+    "organisation_name": "PLUG",
+    "website": "http:\/\/www.plugcreativity.org",
+    "short_description": "PLUG is a non-profit cultural association aimed at raising the creative community and stimulate the debate on social and environmental issues through visual communication.",
+    "long_description": "<p style=\"text-align: left;\">PLUG is a non-profit cultural association founded in 2010 as a \"creativity accelerator\" in a network of international professionals. PLUG deals with social communication practices and since 2011 manages the Posterheroes contest, an international graphic competition focused on actual topics in the field of environmental and social sustainability. In 2015 a new project from PLUG has been successfully launched as Print Club Torino,a print and graphic experimentation lab located in Turin with the goal to provide designers, illustrators, students and enthusiasts with the opportunity to complete their graphic projects independently or supported by technicians. Besides its annual organization of exhibitions, workshops and conferences such as \"Serve essere Eroi?\", PLUG organizes each year the festival Torino Graphic Days with the objective to promote&nbsp;the visual communication by increasing meeting&rsquo;s opportunities &nbsp;between international artists, young and aspiring designers, makers and potential customers. Throughout these years, the association has been able to realize some social projects in collaboration with local NGOs and nonprofit organizations working with disadvantages groups of the city.<\/p>\n<p style=\"text-align: left;\">&nbsp;<\/p>",
+    "country": "Italy",
+    "region": "Turin",
+    "latitude": 45.0677551,
+    "longitude": 7.6824892,
+    "address": "",
+    "organisation_type": "Social enterprise, charity, foundation or other non-profit",
+    "organisation_size": "0-5 people",
+    "startDate": "2010-09-06",
+    "linked_project_ids": [],
+    "tags": ["Accelerator", "artistic research", "community", "Creative", "critical design", "Design Thinking", "digital design", "Digital Social Innovation", "freedom of expression", "Interaction design", "social innovation", "urban development"],
+    "networkTags": [],
+    "created": "2017-03-07"
 }, {
     "organisation_id": 953,
     "organisation_name": "Poietic Generator",
@@ -16595,6 +16739,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1265,
+    "organisation_name": "Scottish Council for Voluntary Organisations",
+    "website": "http:\/\/www.scvo.org.uk",
+    "short_description": "SCVO is the national body representing the third sector in Scotland.",
+    "long_description": "",
+    "country": "United Kingdom",
+    "region": "Edinburgh",
+    "latitude": 55.9495628,
+    "longitude": -3.1914971,
+    "address": "",
+    "organisation_type": "Social enterprise, charity, foundation or other non-profit",
+    "organisation_size": "51-100 people",
+    "startDate": "1943-03-01",
+    "linked_project_ids": [],
+    "tags": ["charity", "inclusion", "Scotland", "tech for good"],
+    "networkTags": ["netsquared", "TechSoup Europe"],
+    "created": "2017-03-07"
+}, {
     "organisation_id": 272,
     "organisation_name": "Scuola Superiore Sant'Anna",
     "website": "",
@@ -17132,7 +17294,7 @@
     "startDate": "",
     "linked_project_ids": [],
     "tags": [],
-    "networkTags": [],
+    "networkTags": ["FabLab Network"],
     "created": "1970-01-01"
 }, {
     "organisation_id": 17,
@@ -17729,6 +17891,24 @@
     "networkTags": [],
     "created": "1970-01-01"
 }, {
+    "organisation_id": 1257,
+    "organisation_name": "Spiel Creative",
+    "website": "https:\/\/www.spielcreative.com\/",
+    "short_description": "Spiel productions are renowned for their stimulating videos \u2013 used by businesses for internal communications and promotions.",
+    "long_description": "<p>We are Spiel Creative. We specialise in animated video, creating vivid content campaigns that cut through the noise. We want bring your story to life through inspiration, expertise and the latest insights in video and content marketing.<\/p>\n<p><br \/>Based in London, our creative team is frank, friendly and business savvy. We&rsquo;d love to hear from you!<\/p>",
+    "country": "United Kingdom",
+    "region": "London",
+    "latitude": 51.5073219,
+    "longitude": -0.1276473,
+    "address": "",
+    "organisation_type": "For-profit business",
+    "organisation_size": "26-50 people",
+    "startDate": "2004-09-01",
+    "linked_project_ids": [],
+    "tags": ["animation company", "organisation design", "video"],
+    "networkTags": ["animation"],
+    "created": "2017-02-23"
+}, {
     "organisation_id": 1145,
     "organisation_name": "Sponge",
     "website": "",
@@ -18084,7 +18264,7 @@
     "organisation_type": "Academia\/Research organisation",
     "organisation_size": "11-25 people",
     "startDate": "2008-11-01",
-    "linked_project_ids": ["820"],
+    "linked_project_ids": ["369", "740", "820"],
     "tags": ["Creative technology", "Design research", "digital design", "digital fabrication", "fablab", "Interaction design"],
     "networkTags": ["FabLab Network", "Swiss Design Network", "Swiss FabLab Network"],
     "created": "2016-11-22"

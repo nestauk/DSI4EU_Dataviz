@@ -84,7 +84,7 @@ d3.json("data/world50m.json", function(error, topology) {
       .attr("id", "state-borders")
       .attr("d", path);  
 
-  d3.json("data/organisations_geo.json", function(error, data) {
+  d3.json("data/organisations.json", function(error, data) {
     console.log(data);
 
     var geoData = data.filter(function(d) { return d.longitude != null; })
