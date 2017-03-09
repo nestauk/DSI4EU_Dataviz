@@ -1,0 +1,34 @@
+<html>
+	<head>
+
+		<!-- build:css index.css -->
+		<link rel="stylesheet" type="text/css" href="node_modules/normalize-css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="index.css">
+		<!-- endbuild -->
+
+	</head>
+	<body>
+
+
+
+
+		<h1 localize="main_title">Static index optimized for static website</h1>
+		<p localize="main_parag">Index and Other share the same bundle.js file while each have a css bundle injected into the source</p>
+		
+
+
+		<!-- process:template 
+		<script type="text/javascript">
+		function _l(a,b){var c=new XMLHttpRequest,d=document;c.open("GET",a,!0),c.onload=function(){var a=d.createElement("script");a.type="text/javascript",a.textContent=c.responseText,d.body.appendChild(a),b&&b()},c.send()}
+		_l('bundle.js?v=<%=version%>');
+		</script>
+		 /process -->
+
+		<!-- build:js bundle.js -->
+		<script src="node_modules/jquery/dist/jquery.js"></script>
+		<script src="common.js"></script>
+		<!-- endbuild -->
+
+
+	</body>
+</html>
