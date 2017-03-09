@@ -2,9 +2,9 @@
 
 	'use strict'
 
-	if(window.location && window.location.hash.indexOf('#')>=0){
-		window.location.href="/"
-	}
+	// if(window.location && window.location.hash.indexOf('#')>=0){
+	// 	window.location.href="/"
+	// }
 
 	$(document).ready(function(){
 
