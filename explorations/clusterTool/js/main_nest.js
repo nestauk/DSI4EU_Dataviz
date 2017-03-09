@@ -21,9 +21,15 @@ function allValues(data, field) {
   return uniqueTemp;
 }
 
-/* cuts off from the dataset all the support_tags and technology values except the 10 most counted */
-function cleanDataset(data, field, count) {
+/* cuts off from the dataset all the support_tags and technology values except the xxx most counted */
+function cleanDataset(data, field) {
 	var list = [];
+	var countValueTh;
+	if (field==="support_tags") {
+		countValueTh = 9;
+	} else if (field==="technology") {
+		countValueTh = 15;
+	} 
 	var modData = data.slice();
 	modData.forEach(function (c) {
 		c[field].forEach(function (e) {
@@ -42,7 +48,7 @@ function cleanDataset(data, field, count) {
 	list.sort(function(a,b) {
 	  return b.count - a.count;
 	});
-	var slicedList = list.slice(0, count)
+	var slicedList = list.slice(0, countValueTh)
 	//console.log(slicedList);
 	var slicedValues = [];
 	slicedList.forEach(function (d) {
@@ -68,9 +74,7 @@ function getData(error, _orgData, _prjData) {
 	o = _orgData;
 	p = _prjData;
 
-	var selLimitValue = 6;
-
-	clusterView(o, p, "countries", "focus", selLimitValue);
+	clusterView(o, p, "countries", "focus");
 
 	d3.select("#go").on("click", function () {
 		var selMain = document.getElementById("mainNest");
@@ -79,11 +83,11 @@ function getData(error, _orgData, _prjData) {
 		var selMainValue = selMain[selMain.selectedIndex].value;
 		var selSecValue = selSec[selSec.selectedIndex].value;
 		// var selLimitValue = selLimit[selLimit.selectedIndex].value;
-		clusterView(o, p, selMainValue, selSecValue, selLimitValue);
+		clusterView(o, p, selMainValue, selSecValue);
 	})
 }
 
-function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) {
+function clusterView(_o, _p, _mainNestField, _secNestField) {
 	//console.log(prjData);
 	
 	// PARAMETERS
@@ -136,9 +140,10 @@ function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) 
   	d.countries = _.uniq(d.countries);
   });
 
-  //console.log(prjData);
-  var cleanedPrjData = cleanDataset(prjData, secNestField, _secNestLimitCount);
-  //When new dataset will be provided, delete cleanDataset and return cleanedPrjData back to prjData
+  //Filters out unwanted value for "support_tags" and "technology" fields
+  prjData = cleanDataset(prjData, "support_tags");
+  prjData = cleanDataset(prjData, "technology");
+	var cleanedPrjData = prjData;
   
   var valuesMainArray = allValues(cleanedPrjData, mainNestField); //returns mainNestField unique values
 
@@ -268,7 +273,7 @@ function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) 
 
 	var otherColorScale = d3.scaleOrdinal()
 		.domain(valuesSecArray)
-		.range(d3.schemeCategory10);
+		.range(d3.schemeCategory20);
 
 	var secNestSvgs = d3.select("body").selectAll("svg")
 		.data(packData)
@@ -342,10 +347,10 @@ function clusterView(_o, _p, _mainNestField, _secNestField, _secNestLimitCount) 
 				} else return d.data.name + "\n" + format(d.value);
 	    });
 
-	  node.filter(function(d) { return !d.children; }).append("text")
-	    .attr("dy", "0.3em")
-	    .attr("class", "smallLabel")
-	    .text(function(d) { return d.value; });
+	  // node.filter(function(d) { return !d.children; }).append("text")
+	  //   .attr("dy", "0.3em")
+	  //   .attr("class", "smallLabel")
+	  //   .text(function(d) { return d.value; });
 	}
 	
 }
