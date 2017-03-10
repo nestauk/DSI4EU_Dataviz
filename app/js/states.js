@@ -11,9 +11,16 @@
 		window.stator = new StateMan();
 
 		window.stator.state({
-		  "stateone": new StateOne()
+
+		  "loaderState": new loaderState(),
+		  "onboardingState": new onboardingState(),
+		  "mapState": new mapState(),
+		  "networkState": new networkState(),
+		  "clusterState": new clusterState(),
+		  "shareState": new shareState()
+
 		}).on("notfound", function(){
-		  this.go('stateone')
+		  this.go("loaderState")
 		}).start({html5:false});
 
 	})
