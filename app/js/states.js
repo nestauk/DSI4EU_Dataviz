@@ -8,9 +8,8 @@
 
 	$(document).ready(function(){
 
-		window.stator = new StateMan();
-
-		window.stator.state({
+		APP.stator = new StateMan();
+		APP.stator.state({
 
 		  "loaderState": new loaderState(),
 		  "onboardingState": new onboardingState(),
