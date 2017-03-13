@@ -14,7 +14,7 @@ function Dataset(){
 		  	if(error) {
 		  		console.log(error);
 		  		return;
-		  	} 
+		  	}
 		  	prepareData({orgs: orgData, prjs: prjData});
 		  	if(callback) callback();
 		  });
@@ -101,7 +101,6 @@ function Dataset(){
 		modData.forEach(function (c) {
 			c[field].forEach(function (e) {
 				if(!slicedValues.includes(e)) {
-					//_.pull(c[field], e); //don't know why but it doesn't work
 					c[field] = _.without(c[field], e); //this way works
 				}
 			})
