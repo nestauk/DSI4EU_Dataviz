@@ -10,8 +10,14 @@ function ClusterView() {
 				height = $("#main-view").width(),
 				clusterOffset = width/20;
 
+		var validCountries = ["Albania", "Andorra", "Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Malta", "Moldova", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom"];
+
 		var orgData = _.cloneDeep(APP.dataset.orgs);
 		var prjData = _.cloneDeep(APP.dataset.prjs);
+
+		// var orgData = _orgData.filter(function(d) {
+		// 	return validCountries.includes(d.country);
+		// })
 
 		d3.selectAll(".clusterSvg").remove();
 		

@@ -32,11 +32,16 @@ function UserInterface() {
 		$('.sub-nav-label').click(openFilterTab)
 	}
 
-	function addInfo() {
-		console.log("info")
+	function showInfo() {
 		$("#info-button").click(function() {
 			info.show();
 		})
+	}
+
+	function hideInfo() {
+		// $("...").click(function() {
+		// 	info.hide();
+		// })
 	}
 
 	function updateNavigation(){
