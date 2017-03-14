@@ -16,7 +16,7 @@ function Dataset(){
 		  		return;
 		  	}
 		  	prepareData({orgs: orgData, prjs: prjData});
-		  	//if(callback) callback();
+		  	if(callback) callback();
 		  });
 	}
 
