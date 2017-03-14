@@ -28,7 +28,7 @@ function UserInterface() {
 		}
 
 		info.hide();
-		addInfo();
+		showInfo();
 		$('.sub-nav-label').click(openFilterTab)
 	}
 
