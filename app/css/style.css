@@ -15,8 +15,6 @@ body {
 }
 
 
-
-
 /* map */
 .map {
   fill: white;
@@ -38,7 +36,7 @@ body {
   stroke-linecap: round;
   pointer-events: none;
 }
-circle {
+#dots circle {
 	fill: purple;
 	fill-opacity: 1;
 	stroke: none;

@@ -5,7 +5,7 @@ function NetworkView() {
 	function findConnectedOrg(data, field) {
 		var orgList = [];
 	  data.forEach(function(d){
-	  	if (d[field]) {
+	  	if (d[field].length > 1) {
 	  		d[field].forEach(function(e){
 	  			orgList.push(e);
 	  		});
@@ -20,7 +20,7 @@ function NetworkView() {
 	function findConnectedPrj(data, ConnectedOrgArray, field) {
 		var prjList = [];
 		var filteredData = data.filter(function (d) {
-			return ConnectedOrgArray.includes("org"+d.id);
+			return ConnectedOrgArray.includes(d.id);
 		});
 	  filteredData.forEach(function(d){
 			d[field].forEach(function(e){
@@ -31,22 +31,6 @@ function NetworkView() {
 	  return cleanPrjList;
 	}
 
-	function dragstarted(d) {
-	  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-	  d.fx = d.x;
-	  d.fy = d.y;
-	}
-
-	function dragged(d) {
-	  d.fx = d3.event.x;
-	  d.fy = d3.event.y;
-	}
-
-	function dragended(d) {
-	  if (!d3.event.active) simulation.alphaTarget(0);
-	  d.fx = null;
-	  d.fy = null;
-	}
 
 	//CREATE NETWORK
 	self.create = function() {
@@ -96,18 +80,18 @@ function NetworkView() {
 		})
 		//console.log(prj);
 		
-		var selectedOrgs = findConnectedOrg(prj, "orglinks"); //ORGs with shared PRJs
-		var selectedPrjs = findConnectedPrj(org, selectedOrgs, "prjlinks");
+		var selectedOrgs = findConnectedOrg(org, "prjlinks"); //ORGs with shared PRJs
+		var selectedPrjs = findConnectedPrj(prj, selectedOrgs, "orglinks"); //shared PRJs
 		
 		/* FILTER DATA */
 		var filteredOrg = org.filter(function (d) {
 			//return d.country!="";
-			//return d.country==="United Kingdom";
-			return selectedOrgs.includes(d.id);
+			return d.country==="United Kingdom";
+			//return selectedOrgs.includes(d.id);
 		});
 		var filteredPrj = prj.filter(function (d) {
-			//return d.id!="";
-			return selectedPrjs.includes(d.id);
+			return d.id!="";
+			//return selectedPrjs.includes(d.id);
 		});
 
 		/* BUILDS UP THE NODES (ORGs and PRJs) */
@@ -127,8 +111,8 @@ function NetworkView() {
 			});
 		})
 
-		console.log(nodes)
-		console.log(links)
+		console.log(filteredOrg)
+		console.log(org)
 		
 		var link = svg.append("g")
 	      .attr("class", "links")
@@ -169,6 +153,23 @@ function NetworkView() {
 	      .attr("cx", function(d) { return d.x; })
 	      .attr("cy", function(d) { return d.y; });
 	  }
+
+	  function dragstarted(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+		  d.fx = d.x;
+		  d.fy = d.y;
+		}
+
+		function dragged(d) {
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		}
+
+		function dragended(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0);
+		  d.fx = null;
+		  d.fy = null;
+		}
 
 
 	} //END create
