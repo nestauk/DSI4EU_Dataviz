@@ -11,10 +11,7 @@ function ClusterView() {
 		var orgData = _.cloneDeep(APP.dataset.orgs);
 		var prjData = _.cloneDeep(APP.dataset.prjs);
 
-		d3.selectAll("svg").remove();
-		d3.selectAll("g").remove();
-		d3.selectAll("circle").remove();
-		d3.selectAll("text").remove();
+		d3.selectAll(".clusterSvg").remove();
 		
 	  var mainNestField = _mainNestField; //property by which we are going to cluster
 	  var secNestField = _secNestField; //property by which we are going to cluster

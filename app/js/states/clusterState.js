@@ -11,7 +11,7 @@ function clusterState(){
 		leave: function(option){
 			console.log('clusterState :: leave');
 
-			APP.network.delete();
+			APP.cluster.delete();
 			
 		}
 	}
