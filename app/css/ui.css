@@ -20,6 +20,42 @@
 	background: #333333;
 }
 
+.ui header .nav .nav-icon {
+	height: 2.5rem;
+	width: 100%;
+	display: flex;
+}
+
+.ui header .nav .nav-item {
+	width: 3rem;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.ui header .nav .nav-next,
+.ui header .nav .nav-prev {
+	width: .8rem;
+	margin: 0 .4rem;
+}
+
+.ui header .nav .nav-prev {
+	transform: scale(-1)
+}
+
+.map #nav-prev .nav-icon {
+	display: none;
+}
+.cluster #nav-next .nav-icon {
+	display: none;
+}
+
+.ui header .nav .nav-icon svg{
+	fill: #fff;
+	height: 100%;
+	width: 100%;
+}
+
 .ui header .sub-nav {
 	background: #4D4D4D;
 	height: 3rem;
