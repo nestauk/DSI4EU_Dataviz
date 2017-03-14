@@ -5,7 +5,7 @@ function ClusterView() {
 	self.create = function(_mainNestField, _secNestField) {
 		
 		var width = $("#main-view").width(),
-				heigth = $("#main-view").width(),
+				height = $("#main-view").width(),
 				clusterOffset = width/20;
 
 		var orgData = _.cloneDeep(APP.dataset.orgs);
@@ -83,7 +83,7 @@ function ClusterView() {
 			})
 		})
 
-		console.log(prjData);
+		//console.log(prjData);
 
 		function filterPrj(field1Name, field1, field2Name, field2) {
 			var filteredPrjData = prjData.filter(function (d) {
@@ -104,7 +104,7 @@ function ClusterView() {
 		secNestArray.forEach(function (f) {
 			f.values.sort(function (a,b) { return b.values.length-a.values.length; });
 		})
-		console.log(secNestArray);
+		//console.log(secNestArray);
 		
 
 		/* *** STATISTICS *** */
@@ -135,7 +135,7 @@ function ClusterView() {
 			//console.log(i, mainNestSum)
 			return mainNestSum;
 		});
-		console.log("maxSumSecNest: "+maxSumSecNest);
+		//console.log("maxSumSecNest: "+maxSumSecNest);
 		/* *** end STATISTICS *** */
 
 
@@ -155,7 +155,7 @@ function ClusterView() {
 		})
 
 		var svgWidth = width/2 - clusterOffset,
-				svgHeigth = width/2 - clusterOffset,
+				svgHeight = width/2 - clusterOffset,
 				padding = 4;
 
 		format = d3.format(",d");
@@ -176,7 +176,7 @@ function ClusterView() {
 					return "clusterSvg clusterSvg"+i;
 				})
 				.attr("width", svgWidth)
-				.attr("height", svgHeigth)
+				.attr("height", svgHeight)
 				.each(multiple);
 		
 		//Draws one circle pack per svg
@@ -194,7 +194,7 @@ function ClusterView() {
 				.range([0, svgWidth/scaleSvg(maxSumSecNest)]);
 		
 			var pack = d3.pack()
-	    	.size([svgWidth - padding, svgHeigth - padding])
+	    	.size([svgWidth - padding, svgHeight - padding])
 	    	.radius(function(d){ return clusterScale(d.value); });
 
 		  var root = d3.hierarchy(packData[i])
@@ -222,7 +222,7 @@ function ClusterView() {
 
 		  var secNestCaptions = g.append("text")
 				.attr("x", svgWidth/2)
-				.attr("y", svgHeigth-30)
+				.attr("y", svgHeight-30)
 				.attr("fill", "black")
 				.attr("font-size", "1rem")
 				.attr("text-anchor", "middle")
