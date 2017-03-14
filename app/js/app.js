@@ -2,11 +2,10 @@
 
 	window.APP = {}
 	APP.dataset = new Dataset();	
-
+	APP.currentState = 0;
 	$(document).ready(function(){
 
 	    var timeline = ["loaderState", "onboardingState", "mapState", "networkState", "clusterState", "shareState"];
-	    var currentStep = 0;
 
 	    APP.stator.go("loaderState", {encode: false})
 
@@ -15,18 +14,18 @@
 
 	    function moveForward(){
 	      APP.stator.direction = "up";
-	      if(currentStep < timeline.length-1){
-	        APP.stator.go(timeline[++currentStep], {encode: false});
+	      if(APP.currentState < timeline.length-1){
+	        APP.stator.go(timeline[++APP.currentState], {encode: false});
 	      }
-	      console.log(currentStep);
+	      console.log(APP.currentState);
 	    }
 
 	    function moveBackward(){
 	      APP.stator.direction = "down";
-	      if(currentStep > 0) {
-	        APP.stator.go(timeline[--currentStep], {encode: false});
+	      if(APP.currentState > 0) {
+	        APP.stator.go(timeline[--APP.currentState], {encode: false});
 	      }
-	      console.log(currentStep);
+	      console.log(APP.currentState);
 	    }
 
 

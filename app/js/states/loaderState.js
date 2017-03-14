@@ -2,6 +2,7 @@ function loaderState(){
 
 	APP.dataset.loadData(function(){
 		APP.stator.go('onboardingState', {encode: false})
+		APP.currentState = 1;
 	})
 	
 	return {
