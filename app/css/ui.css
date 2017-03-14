@@ -6,6 +6,14 @@
 	color: #ffffff;
 }
 
+.ui button {
+	color: #ffffff;
+	border: .1rem solid #ffffff;
+	padding: .25rem;
+	background: none;
+	font-size: 1.5rem;
+}
+
 .ui header {
 	width: 100%;
 }
@@ -18,6 +26,8 @@
 	align-items: center;
 	padding: .5rem;
 	background: #333333;
+	z-index: 2;
+	position: relative;
 }
 
 .ui header .nav .nav-icon {
@@ -59,13 +69,51 @@
 
 .ui header .sub-nav {
 	background: #4D4D4D;
-	height: 3rem;
+	position: relative;
+	z-index: 1;
+	transform: translateY(-100%);
+}
+
+.ui header .sub-nav-label {
+	background: #4D4D4D;
+	width: 100%;
+	text-align: center;
+	padding: .5rem;
+	transform: translateY(100%);
 	font-size: 1rem;
 	font-weight: normal;
 	text-transform: uppercase;
+}
+
+.ui header .sub-nav .filter-list {
+	padding: 1.5rem;
+}
+
+.ui header .filters {
 	display: flex;
-	align-items: center;
-	justify-content: center;
+}
+
+.ui header .filters .list-tags {
+	flex: 8;
+	border-bottom: .1rem solid #ffffff;
+	padding: .5rem 0;
+}
+
+.ui header .filters .list-tags ul{
+	height: 0;
+	overflow: hidden;
+}
+
+.ui header .filters .add-tags {
+	flex: 2;
+	margin-left: .5rem;
+}
+
+.ui header .filters .add-tags svg{
+	width: 2rem;
+	height: 2rem;
+	fill: #ffffff;
+	border: .1rem solid #ffffff;
 }
 
 .ui footer {

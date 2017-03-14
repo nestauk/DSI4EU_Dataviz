@@ -7,7 +7,9 @@ function UserInterface() {
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
+
 	var info = $(".info");
+	var filter_tab = $('#filter-tab');
 
 	// $('#user-interface').hide();
 
@@ -24,8 +26,10 @@ function UserInterface() {
 				APP.moveBackward();
 			})
 		}
+
 		info.hide();
 		addInfo();
+		$('.sub-nav-label').click(openFilterTab)
 	}
 
 	function addInfo() {
@@ -62,6 +66,18 @@ function UserInterface() {
 				nav_prev.append(nav_cluster);
 			break;
 		}
+	}
+
+	function openFilterTab(){
+		$('.sub-nav-label').off();
+		filter_tab.transition({ y: 0})
+		$('.sub-nav-label').click(closeFilterTab)
+	}
+
+	function closeFilterTab(){
+		$('.sub-nav-label').off();
+		filter_tab.transition({ y: "-100%"})
+		$('.sub-nav-label').click(openFilterTab)
 	}
 
 	function hideUI(){
