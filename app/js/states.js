@@ -11,15 +11,15 @@
 		APP.stator = new StateMan();
 		APP.stator.state({
 
-		  "loaderState": new loaderState(),
-		  "onboardingState": new onboardingState(),
-		  "mapState": new mapState(),
-		  "networkState": new networkState(),
-		  "clusterState": new clusterState(),
-		  "shareState": new shareState()
+		  "loader": new loaderState(),
+		  "onboarding": new onboardingState(),
+		  "map": new mapState(),
+		  "network": new networkState(),
+		  "cluster": new clusterState(),
+		  "share": new shareState()
 
 		}).on("notfound", function(){
-		  this.go("loaderState")
+		  this.go("loader")
 		}).start({html5:false});
 
 	})
