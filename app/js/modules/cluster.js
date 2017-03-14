@@ -1,8 +1,10 @@
 function ClusterView() {
 	var self = this;
+	self.create = createCluster;
+	self.delete = deleteCluster;
 
 	//CREATE CLUSTER
-	self.create = function(_mainNestField, _secNestField) {
+	function createCluster(_mainNestField, _secNestField) {
 		
 		var width = $("#main-view").width(),
 				height = $("#main-view").width(),
@@ -266,7 +268,7 @@ function ClusterView() {
 
 
 	//REMOVE NETWORK
-	self.delete = function() {
+	function deleteCluster() {
 		$(".clusterSvg").remove();
 	} //END remove
 	

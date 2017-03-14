@@ -1,5 +1,7 @@
 function NetworkView() {
 	var self = this;
+	self.create = createNetwork;
+	self.delete = deleteNetwork;
 
 	/* returns a list of ORGs with shared PRJs */
 	function findConnectedOrg(data, field) {
@@ -33,7 +35,7 @@ function NetworkView() {
 
 
 	//CREATE NETWORK
-	self.create = function() {
+	function createNetwork() {
 		
 		var width = $("#main-view").width(),
 		    height = $("#main-view").height();
@@ -178,7 +180,7 @@ function NetworkView() {
 
 
 	//REMOVE NETWORK
-	self.delete = function() {
+	function deleteNetwork() {
 		$("#networkSvg").remove();
 	} //END remove
 	

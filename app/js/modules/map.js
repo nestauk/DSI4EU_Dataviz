@@ -1,10 +1,13 @@
 function MapView() {
 	var self = this;
+	self.create = createMap;
+	self.delete = deleteMap;
+
 	const map_path = 'data/world50m.json';
 
 
 	//CREATE MAP
-	self.create = function() {
+	function createMap() {
 		
 		var width = $("#main-view").width(),
 		    height = $("#main-view").height();
@@ -66,7 +69,7 @@ function MapView() {
 
 
 	//REMOVE MAP
-	self.delete = function() {
+	function deleteMap() {
 		$("#mapSvg").remove();
 	} //END remove
 	
