@@ -4,6 +4,9 @@
 	APP.dataset = new Dataset();	
 	APP.currentStateId = 0;
 	$(document).ready(function(){
+		APP.setState = setState;
+		APP.moveForward = moveForward;
+		APP.moveBackward = moveBackward;
 
 		APP.ui = new UserInterface();
 		APP.ui.updateNavigation();
@@ -51,7 +54,6 @@
 	    	APP.state = state;
 	    	$('body').addClass(APP.state)
 	    }
-	    APP.setState = setState;
 
   })
 

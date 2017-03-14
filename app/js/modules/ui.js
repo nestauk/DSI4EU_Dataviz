@@ -10,7 +10,23 @@ function UserInterface() {
 
 	// $('#user-interface').hide();
 
+	function addNavInteractions(){
+		nav_next.off();
+		nav_prev.off();
+		if(APP.state != "cluster"){
+			nav_next.click(function(){
+				APP.moveForward();
+			})
+		}
+		if(APP.state != "map"){
+			nav_prev.click(function(){
+				APP.moveBackward();
+			})
+		}
+	}
+
 	function updateNavigation(){
+		addNavInteractions();
 		var nav_map = $('#nav-map');
 		var nav_network = $('#nav-network');
 		var nav_cluster = $('#nav-cluster');
