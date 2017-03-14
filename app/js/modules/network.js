@@ -80,18 +80,18 @@ function NetworkView() {
 		})
 		//console.log(prj);
 		
-		var selectedOrgs = findConnectedOrg(org, "prjlinks"); //ORGs with shared PRJs
-		var selectedPrjs = findConnectedPrj(prj, selectedOrgs, "orglinks"); //shared PRJs
+		var selectedOrgs = findConnectedOrg(prj, "orglinks"); //ORGs with shared PRJs
+		var selectedPrjs = findConnectedPrj(org, selectedOrgs, "prjlinks"); //shared PRJs
 		
 		/* FILTER DATA */
 		var filteredOrg = org.filter(function (d) {
 			//return d.country!="";
-			return d.country==="United Kingdom";
-			//return selectedOrgs.includes(d.id);
+			//return d.country==="United Kingdom";
+			return selectedOrgs.includes(d.id);
 		});
 		var filteredPrj = prj.filter(function (d) {
-			return d.id!="";
-			//return selectedPrjs.includes(d.id);
+			//return d.id!="";
+			return selectedPrjs.includes(d.id);
 		});
 
 		/* BUILDS UP THE NODES (ORGs and PRJs) */
@@ -110,9 +110,6 @@ function NetworkView() {
 				}
 			});
 		})
-
-		console.log(filteredOrg)
-		console.log(org)
 		
 		var link = svg.append("g")
 	      .attr("class", "links")
