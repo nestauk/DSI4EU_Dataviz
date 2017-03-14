@@ -1,0 +1,22 @@
+.clusterSvg {
+	margin-top: 2rem;
+	margin-left: 2rem;
+	/*border: 1px solid red;*/
+}
+text {
+	text-anchor: middle;
+}
+text.smallLabel{
+	font-size: .65rem;
+	text-anchor: middle;
+}
+.clusterSvg circle {
+  fill: none;
+  stroke: none;
+  stroke-width: 1px;
+}
+.clusterSvg .leaf circle {
+  fill: salmon;
+  fill-opacity: 1;
+  stroke: none;
+}
