@@ -49,7 +49,7 @@ function NetworkView() {
 		  .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(2))
 		  //.force("charge", d3.forceManyBody())
 		  .force("charge", d3.forceManyBody().strength(-150).distanceMax(100))
-		  .force("center", d3.forceCenter(width / 2, height / 2));
+		  .force("center", d3.forceCenter(width/2, height/2));
 
 		/* PREPARE AND CLEAN DATA */
 		var org = [];
@@ -115,16 +115,21 @@ function NetworkView() {
 	      .attr("class", "links")
 	    .selectAll("line")
 	    .data(links)
-	    .enter().append("line")
-	      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+	    .enter().append("line");
 
 		var node = svg.append("g")
 	      .attr("class", "nodes")
 	    .selectAll("circle")
 	    .data(nodes)
 	    .enter().append("circle")
-	      .attr("r", 5)
-	      .attr("fill", function(d) { return color(d.type); })
+	      .attr("r", function(d) { 
+	      	if (d.type === 1) return 3;
+	      	else return 4;
+	      })
+	      .attr("class", function(d) { 
+	      	if (d.type === 1) return "netPrj";
+	      	else return "netOrg";
+	      })
 	      .call(d3.drag()
 	        .on("start", dragstarted)
 	        .on("drag", dragged)

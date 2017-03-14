@@ -1,3 +1,10 @@
 .links {
 	stroke: lightgrey;
+	stroke-width: 1;
+}
+.netPrj {
+	fill: salmon;
+}
+.netOrg {
+	fill: steelblue;
 }
