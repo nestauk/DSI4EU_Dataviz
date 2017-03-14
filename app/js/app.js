@@ -2,30 +2,35 @@
 
 	window.APP = {}
 	APP.dataset = new Dataset();	
-	APP.currentState = 0;
+	APP.currentStateId = 0;
 	$(document).ready(function(){
 
-	    var timeline = ["loaderState", "onboardingState", "mapState", "networkState", "clusterState", "shareState"];
+		APP.ui = new UserInterface();
+		APP.ui.updateNavigation();
 
-	    APP.stator.go("loaderState", {encode: false})
+	    var timeline = ["loader", "onboarding", "map", "network", "cluster", "share"];
+
+	    APP.stator.go("loader", {encode: false})
 
 	    APP.stator.on("moveForward", moveForward);
 	    APP.stator.on("moveBackward", moveBackward);
 
 	    function moveForward(){
 	      APP.stator.direction = "up";
-	      if(APP.currentState < timeline.length-1){
-	        APP.stator.go(timeline[++APP.currentState], {encode: false});
+	      if(APP.currentStateId < timeline.length-1){
+	        APP.stator.go(timeline[++APP.currentStateId], {encode: false});
 	      }
-	      console.log(APP.currentState);
+	      console.log(APP.currentStateId);
+	      APP.ui.updateNavigation()
 	    }
 
 	    function moveBackward(){
 	      APP.stator.direction = "down";
-	      if(APP.currentState > 0) {
-	        APP.stator.go(timeline[--APP.currentState], {encode: false});
+	      if(APP.currentStateId > 0) {
+	        APP.stator.go(timeline[--APP.currentStateId], {encode: false});
 	      }
-	      console.log(APP.currentState);
+	      console.log(APP.currentStateId);
+	      APP.ui.updateNavigation()
 	    }
 
 
@@ -40,6 +45,13 @@
 	        moveBackward();
 	      }
 	    }
+
+	    function setState(state){
+	    	$('body').removeClass(APP.state)
+	    	APP.state = state;
+	    	$('body').addClass(APP.state)
+	    }
+	    APP.setState = setState;
 
   })
 

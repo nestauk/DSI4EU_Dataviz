@@ -5,7 +5,7 @@ function networkState(){
 	return {
 		enter: function(option){
 			console.log('networkState :: enter');
-
+			APP.setState('network')
 			APP.network.create();
 
 		},

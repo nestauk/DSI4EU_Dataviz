@@ -5,9 +5,9 @@ function mapState(){
 	return {
 		enter: function(option){
 			console.log('mapState :: enter');
-
 			APP.map.create();
-
+			APP.ui.show();
+			APP.setState('map')
 		},
 		leave: function(option){
 			console.log('mapState :: leave');
