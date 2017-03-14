@@ -7,6 +7,7 @@ function UserInterface() {
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
+	var info = $(".info");
 
 	// $('#user-interface').hide();
 
@@ -23,6 +24,15 @@ function UserInterface() {
 				APP.moveBackward();
 			})
 		}
+		info.hide();
+		addInfo();
+	}
+
+	function addInfo() {
+		console.log("info")
+		$("#info-button").click(function() {
+			info.show();
+		})
 	}
 
 	function updateNavigation(){
@@ -61,4 +71,5 @@ function UserInterface() {
 	function showUI(){
 		$('#user-interface').fadeIn();
 	}
+
 }

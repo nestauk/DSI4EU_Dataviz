@@ -90,3 +90,10 @@
 .ui footer .tools .tools-icon .icon-circle{
 	fill: #333333;
 }
+
+.ui #infotest {
+	width: 100%;
+	height: 100vh;
+	background: red;
+	font-size: 3rem;
+}
