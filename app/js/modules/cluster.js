@@ -6,7 +6,7 @@ function ClusterView() {
 		
 		var width = $("#main-view").width(),
 				heigth = $("#main-view").width(),
-				clusterOffset = width/10;
+				clusterOffset = width/20;
 
 		var orgData = _.cloneDeep(APP.dataset.orgs);
 		var prjData = _.cloneDeep(APP.dataset.prjs);
