@@ -4,6 +4,8 @@ function UserInterface() {
 	self.hide = hideUI;
 	self.show = showUI;
 	self.init = init;
+	self.openSelection = openSelectOverlay;
+	self.closeSelection = closeSelectOverlay;
 
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
@@ -21,6 +23,7 @@ function UserInterface() {
 		$('#user-interface').show();
 		updateNavigation();	
 		createFilterSections()
+		$('#filter-selection').hide();
 	}
 
 	function addNavInteractions(){
@@ -92,13 +95,20 @@ function UserInterface() {
 	}
 
 	function openSelectOverlay(){
-		
+		$('#filter-selection').fadeIn();
+		$('#filter-selection .close-modal').click(closeSelectOverlay)
+	}
+
+	function closeSelectOverlay(){
+		APP.filter.createList(APP.filter.currentFieldSelection)
+		$('#filter-selection').fadeOut(function(){
+			$('#filter-select-list').empty();
+		});
 	}
 
 	function createFilterSections(){
 		APP.filter_fields.forEach(function(f){
-			var id = "#filter-"+f;
-			if($(id).length > 0) APP.filter.createList(f, id)
+			APP.filter.createList(f)
 		})
 	}
 
