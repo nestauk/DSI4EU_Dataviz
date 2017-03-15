@@ -3,17 +3,26 @@
 	window.APP = {}
 	APP.dataset = new Dataset();	
 	APP.currentStateId = 0;
+	APP.filter_fields = ["support_tags", "technology"];
+
 	$(document).ready(function(){
 		APP.setState = setState;
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;
 
+		APP.filter = new Filter()
 		APP.ui = new UserInterface();
-		APP.ui.updateNavigation();
+
 
 	    var timeline = ["loader", "onboarding", "map", "network", "cluster", "share"];
 
 	    APP.stator.go("loader", {encode: false})
+
+	    APP.dataset.loadData(function(){
+	    	APP.stator.go('onboarding', {encode: false})
+	    	APP.currentStateId = 1;
+	    	APP.ui.init();
+	    })
 
 	    APP.stator.on("moveForward", moveForward);
 	    APP.stator.on("moveBackward", moveBackward);
