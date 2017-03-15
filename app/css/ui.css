@@ -158,6 +158,7 @@
 	fill: #333333;
 }
 
+/* INFO */
 .ui .info-panel {
 	background: #333333;
 	width: 100%;
@@ -232,3 +233,27 @@
 .ui .legend-dot.prj-color{
 	background-color: #ffad69;
 }
+/* END info */
+
+/* SEARCH */
+.ui .search-panel {
+	background: #333333;
+	width: 100%;
+	height: 50%;
+	padding: 2rem;
+	position: absolute;
+	top: 7rem;
+	z-index: 1;
+	transform: translateY(175%);
+}
+.ui .search-icon-header {
+	width: 4rem;
+	height: 4rem;
+	/*transform: translateY(-100%);*/
+}
+.ui .searchContainer {
+	display: flex;	
+	flex-direction: column;
+	align-items: center;
+}
+/* END search */

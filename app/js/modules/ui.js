@@ -13,6 +13,7 @@ function UserInterface() {
 	var info_panel_network = $(".info-panel.network");
 	var info_panel_cluster = $(".info-panel.cluster");
 	var filter_tab = $('#filter-tab');
+	var search_panel = $(".search-panel");
 
 	$('#user-interface').hide();
 
@@ -37,6 +38,7 @@ function UserInterface() {
 		}
 
 		$('.sub-nav-label').click(openFilterTab);
+		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
 
@@ -67,6 +69,51 @@ function UserInterface() {
 				nav_prev.append(nav_cluster);
 			break;
 		}
+	}
+	
+	function hideUI(){
+		$('#user-interface').fadeOut();
+	}
+
+	function showUI(){
+		$('#user-interface').fadeIn();
+	}
+
+	function openFilterTab(){
+		$('.sub-nav-label').off();
+		filter_tab.transition({ y: 0})
+		$('.sub-nav-label').click(closeFilterTab)
+	}
+
+	function closeFilterTab(){
+		$('.sub-nav-label').off();
+		filter_tab.transition({ y: "-100%"})
+		$('.sub-nav-label').click(openFilterTab)
+	}
+
+	function openSelectOverlay(){
+		
+	}
+
+	function createFilterSections(){
+		APP.filter_fields.forEach(function(f){
+			var id = "#filter-"+f;
+			if($(id).length > 0) APP.filter.createList(f, id)
+		})
+	}
+
+	function openSearchPanel() {
+		$("#search-button").off();
+		search_panel.transition({ y: "75%"});
+		$(".search-icon-header").transition({ y: "-100%"});
+		$(".search-icon-header").click(closeSearchPanel);
+	}
+
+	function closeSearchPanel() {
+		$(".search-icon-header").off();
+		$(".search-icon-header").transition({ y: 0});
+		search_panel.transition({ y: "175%"});
+		$("#search-button").click(openSearchPanel);
 	}
 
 	function openInfoPanel() {
@@ -107,37 +154,6 @@ function UserInterface() {
 			break;
 		}
 		$("#info-button").click(openInfoPanel);
-	}
-
-	function openFilterTab(){
-		$('.sub-nav-label').off();
-		filter_tab.transition({ y: 0})
-		$('.sub-nav-label').click(closeFilterTab)
-	}
-
-	function closeFilterTab(){
-		$('.sub-nav-label').off();
-		filter_tab.transition({ y: "-100%"})
-		$('.sub-nav-label').click(openFilterTab)
-	}
-
-	function hideUI(){
-		$('#user-interface').fadeOut();
-	}
-
-	function showUI(){
-		$('#user-interface').fadeIn();
-	}
-
-	function openSelectOverlay(){
-		
-	}
-
-	function createFilterSections(){
-		APP.filter_fields.forEach(function(f){
-			var id = "#filter-"+f;
-			if($(id).length > 0) APP.filter.createList(f, id)
-		})
 	}
 
 }
