@@ -1,6 +1,7 @@
 function Dataset(){
 	var self = this;
 	self.loadData = loadData;
+	self.fields = {}
 
 	const organisations_path = 'data/organisations.json';
 	const projects_path = 'data/projects.json';
@@ -94,6 +95,15 @@ function Dataset(){
 		  return b.count - a.count;
 		});
 		var slicedList = list.slice(0, countValueTh)
+		if(!self.fields[field]) {
+			self.fields[field] = _.map(slicedList, function(f){
+				return {
+					name: f.name,
+					id: idEncode(f.name),
+					active: false
+				}
+			});
+		}
 		var slicedValues = [];
 		slicedList.forEach(function (d) {
 			slicedValues.push(d.name);
