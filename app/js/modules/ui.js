@@ -17,7 +17,6 @@ function UserInterface() {
 	function init(){
 		$('#user-interface').show();
 		updateNavigation();	
-		addInfo();
 		createFilterSections()
 	}
 
