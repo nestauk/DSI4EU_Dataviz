@@ -1,8 +1,9 @@
 function UserInterface() {
 	var self = this;
 	self.updateNavigation = updateNavigation;
-	self.hide = hideUI
-	self.show = showUI
+	self.hide = hideUI;
+	self.show = showUI;
+	self.init = init;
 
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
@@ -11,7 +12,14 @@ function UserInterface() {
 	var info_panel = $(".info-panel");
 	var filter_tab = $('#filter-tab');
 
-	// $('#user-interface').hide();
+	$('#user-interface').hide();
+
+	function init(){
+		$('#user-interface').show();
+		updateNavigation();	
+		addInfo();
+		createFilterSections()
+	}
 
 	function addNavInteractions(){
 		nav_next.off();
@@ -90,6 +98,17 @@ function UserInterface() {
 
 	function showUI(){
 		$('#user-interface').fadeIn();
+	}
+
+	function openSelectOverlay(){
+		
+	}
+
+	function createFilterSections(){
+		APP.filter_fields.forEach(function(f){
+			var id = "#filter-"+f;
+			if($(id).length > 0) APP.filter.createList(f, id)
+		})
 	}
 
 }
