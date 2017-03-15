@@ -26,7 +26,8 @@ function Filter(){
 				return d.name;
 			})
 
-		filterEl.insert("svg", ":first-child")
+		filterEl.insert("div", ":first-child")
+			.append('svg')
 			.attr("class","icon-remove")
 			.append('use')
 			.attr("x‌​link:href","#icon-remove")
@@ -63,7 +64,9 @@ function Filter(){
 		.text(function(d){
 			return d.name;
 		})
-		filterEl.insert("svg", ":first-child")
+		filterEl
+		.insert("div", ":first-child")
+		.append("svg")
 		.attr("class","icon-check")
 		.append('use')
 		.attr("x‌​link:href","#icon-check")

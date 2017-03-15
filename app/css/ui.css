@@ -143,15 +143,17 @@
 }
 
 .ui .filters .tags-container li{
-	margin: .4rem 0;
+	margin: .5rem 0;
 	padding: 0;
 	display: flex;
 	align-items: center;
+	font-size: 1.15rem;
+	line-height: 1.15rem;
 }
 
 .ui .filters .tags-container li .icon-remove{
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	margin-right: .5rem;
 	fill: #ffffff;
 }
@@ -231,28 +233,32 @@
 .ui .modal-content li {
 	font-size: 1.5rem;
 	margin: 2rem 0;
-	padding-left: 2rem;
 	display: flex;
 	align-items: center;
 }
 
 .ui .modal-content li span{
+	flex: 8;
 	display: inline-block;
 }
 
-.ui .modal-content li .icon-check{
+.ui .modal-content li div{
+	flex: 1;
+	margin-right: .5rem;
+}
+
+.ui .modal-content li .icon-check {
 	height: 1.5rem;
 	width: 1.5rem;
-	display: none;
 	fill: #4DC4B0;
-	margin-right: .5rem;
 	vertical-align: middle;
+	display: none;
 }
 
 .ui .modal-content li.active{
 	font-weight: 500;
-	padding-left: 0rem;
-}
+/*	padding-left: 0rem;
+*/}
 
 .ui .modal-content li.active .icon-check{
 	display: inline;
