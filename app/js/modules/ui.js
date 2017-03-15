@@ -8,7 +8,7 @@ function UserInterface() {
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
 
-	var info = $(".info");
+	var info_panel = $(".info-panel");
 	var filter_tab = $('#filter-tab');
 
 	// $('#user-interface').hide();
@@ -27,21 +27,20 @@ function UserInterface() {
 			})
 		}
 
-		info.hide();
-		showInfo();
-		$('.sub-nav-label').click(openFilterTab)
+		$('.sub-nav-label').click(openFilterTab);
+		$("#info-button").click(openInfoPanel);
 	}
 
-	function showInfo() {
-		$("#info-button").click(function() {
-			info.show();
-		})
+	function openInfoPanel() {
+		$("#info-button").off();
+		info_panel.transition({ y: "-8.5rem"});
+		info_panel.click(closeInfoPanel)
 	}
 
-	function hideInfo() {
-		// $("...").click(function() {
-		// 	info.hide();
-		// })
+	function closeInfoPanel() {
+		info_panel.off();
+		info_panel.transition({ y: "100%"});
+		$("#info-button").click(openInfoPanel);
 	}
 
 	function updateNavigation(){
