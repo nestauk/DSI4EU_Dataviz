@@ -34,6 +34,11 @@
 	width: 100%;
 	z-index: 2;
 	position: relative;
+	pointer-events: none;
+}
+
+.ui header > * {
+	pointer-events: all;
 }
 
 .ui ul {
