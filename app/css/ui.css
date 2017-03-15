@@ -89,10 +89,10 @@
 	transform: scale(-1)
 }
 
-.ui .map #nav-prev .nav-icon {
+.map .ui #nav-prev .nav-icon {
 	display: none;
 }
-.ui .cluster #nav-next .nav-icon {
+.cluster .ui #nav-next .nav-icon {
 	display: none;
 }
 
