@@ -9,7 +9,9 @@ function UserInterface() {
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
 
-	var info_panel = $(".info-panel");
+	var info_panel_map = $(".info-panel.map");
+	var info_panel_network = $(".info-panel.network");
+	var info_panel_cluster = $(".info-panel.cluster");
 	var filter_tab = $('#filter-tab');
 
 	$('#user-interface').hide();
@@ -35,18 +37,6 @@ function UserInterface() {
 		}
 
 		$('.sub-nav-label').click(openFilterTab);
-		$("#info-button").click(openInfoPanel);
-	}
-
-	function openInfoPanel() {
-		$("#info-button").off();
-		info_panel.transition({ y: "-8.5rem"});
-		info_panel.click(closeInfoPanel)
-	}
-
-	function closeInfoPanel() {
-		info_panel.off();
-		info_panel.transition({ y: "100%"});
 		$("#info-button").click(openInfoPanel);
 	}
 
@@ -77,6 +67,46 @@ function UserInterface() {
 				nav_prev.append(nav_cluster);
 			break;
 		}
+	}
+
+	function openInfoPanel() {
+		$("#info-button").off();
+		switch(APP.state){
+			case "map":
+				info_panel_map.transition({ y: 0});
+				$(".remove-icon").click(closeInfoPanel);
+			break;
+			case "network":
+				info_panel_network.transition({ y: 0});
+				$(".remove-icon").click(closeInfoPanel);
+			break;
+			case "cluster":
+				info_panel_cluster.transition({ y: 0});
+				$(".remove-icon").click(closeInfoPanel);
+			break;
+			default:
+			break;
+		}
+	}
+
+	function closeInfoPanel() {
+		switch(APP.state){
+			case "map":
+				$(".remove-icon").off();
+				info_panel_map.transition({ y:"100%" });
+			break;
+			case "network":
+				$(".remove-icon").off();
+				info_panel_network.transition({ y:"100%" });
+			break;
+			case "cluster":
+				$(".remove-icon").off();
+				info_panel_cluster.transition({ y:"100%" });
+			break;
+			default:
+			break;
+		}
+		$("#info-button").click(openInfoPanel);
 	}
 
 	function openFilterTab(){

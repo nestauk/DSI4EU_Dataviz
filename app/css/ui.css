@@ -163,9 +163,10 @@
 	width: 100%;
 	height: 100%;
 	padding: 2rem;
-	position: relative;
+	position: absolute;
+	top: 7rem;
 	z-index: 1;
-	transform: translateY(150%);
+	transform: translateY(100%);
 }
 .ui .info-panel p {
 	font-size: 1rem;
@@ -178,7 +179,7 @@
 	line-height: 1.6rem;
 	margin-top: 1rem;
 }
-.ui #infoContainer {
+.ui .infoContainer {
 	display: flex;	
 	flex-direction: column;
 	align-items: flex-start;
@@ -186,9 +187,17 @@
 .ui .info-icon {
 	width: 4rem;
 	height: 4rem;
-	margin-top: 2rem;
 	margin-bottom: 4rem;
 	align-self: center;
+}
+.ui .remove-icon {
+	width: 3rem;
+	height: 3rem;
+	margin-bottom: 2rem;
+	align-self: flex-end;
+}
+.ui .inverted-color {
+	fill: #ffffff;
 }
 .ui .info-panel ul {
 	list-style-type: none;
@@ -216,4 +225,10 @@
 }
 .ui .legend-dot.focus-color-4{
 	background-color: #f169c4;
+}
+.ui .legend-dot.org-color{
+	background-color: #72abd6;
+}
+.ui .legend-dot.prj-color{
+	background-color: #ffad69;
 }
