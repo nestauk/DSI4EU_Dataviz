@@ -30,23 +30,23 @@
 	    APP.stator.on("moveBackward", moveBackward);
 
 	    function moveForward(){
+	      if(APP.closeUIPanels) APP.closeUIPanels();
 	      APP.stator.direction = "up";
 	      if(APP.currentStateId < timeline.length-1){
 	        APP.stator.go(timeline[++APP.currentStateId], {encode: false});
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
-	      if(APP.closeUIPanels) APP.closeUIPanels();
 	    }
 
 	    function moveBackward(){
+	      if(APP.closeUIPanels) APP.closeUIPanels();
 	      APP.stator.direction = "down";
 	      if(APP.currentStateId > 0) {
 	        APP.stator.go(timeline[--APP.currentStateId], {encode: false});
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
-	      if(APP.closeUIPanels) APP.closeUIPanels();
 	    }
 
 
