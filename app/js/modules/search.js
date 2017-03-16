@@ -32,7 +32,7 @@ function Search() {
 					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type prj">PRJ</span><span class="search-linked-prjs"><strong>' + r.linked_orgs.length + '</strong> ' + org_label + ' involved</p></li>')
 				}
 			}
-			result.highlight(query)
+			result.find('.search-result-name').highlight(query)
 			$('#search-results').append(result);
 			// addListener(clip, 'search', query, id);
 		})
