@@ -3,7 +3,7 @@ function MapView() {
 	self.create = createMap;
 	self.delete = deleteMap;
 
-	const map_path = 'data/world50m.json';
+	var map_path = 'data/world50m.json';
 
 
 	//CREATE MAP
