@@ -9,3 +9,78 @@ body {
 	position: absolute;
 	z-index: 100;
 }
+
+button {
+	color: #333333;
+	border: .1rem solid #333333;
+	padding: .25rem;
+	background: none;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	font-family: "Montserrat";
+}
+
+h2 {
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: .1rem;
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+h3 {
+	text-transform: uppercase;
+	text-align: left;
+	font-size: 1.2rem;
+}
+
+header {
+	width: 100%;
+	z-index: 2;
+	position: relative;
+	pointer-events: none;
+}
+
+header > * {
+	pointer-events: all;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+  	padding: 0;
+	font-size: 1rem;
+	line-height: 2rem;
+	margin-top: 1rem;
+}
+
+li, p {
+	font-size: 1rem;
+}
+
+input {
+	font-size: 1.5rem;
+	font-family: "Montserrat"
+}
+
+input:focus {
+	outline: none;
+}
+
+p.big {
+	font-size: 2rem;
+	margin-bottom: .5rem;
+}
+
+#onboarding-view {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: space-around;
+	text-align: center;
+}
+
+#onboarding-view button{
+	margin-top: 2rem;
+	text-align: center;
+}

@@ -6,63 +6,6 @@
 	color: #ffffff;
 }
 
-.ui button {
-	color: #ffffff;
-	border: .1rem solid #ffffff;
-	padding: .25rem;
-	background: none;
-	font-size: 1.2rem;
-	text-transform: uppercase;
-	font-family: "Montserrat";
-}
-
-.ui h2 {
-	text-transform: uppercase;
-	text-align: center;
-	letter-spacing: .1rem;
-	font-size: 1.5rem;
-	margin-bottom: 1.5rem;
-}
-
-.ui h3 {
-	text-transform: uppercase;
-	text-align: left;
-	font-size: 1.2rem;
-}
-
-.ui header {
-	width: 100%;
-	z-index: 2;
-	position: relative;
-	pointer-events: none;
-}
-
-.ui header > * {
-	pointer-events: all;
-}
-
-.ui ul {
-	list-style-type: none;
-	margin: 0;
-  	padding: 0;
-	font-size: 1rem;
-	line-height: 2rem;
-	margin-top: 1rem;
-}
-
-.ui li, .ui p {
-	font-size: 1rem;
-}
-
-.ui input {
-	font-size: 1.5rem;
-	font-family: "Montserrat"
-}
-
-.ui input:focus {
-	outline: none;
-}
-
 .ui .icon-proto {
 	display: none;
 }
