@@ -18,7 +18,6 @@ function UserInterface() {
 	$('#user-interface').hide();
 
 	function init(){
-		$('#user-interface').show();
 		updateNavigation();	
 		createFilterSections()
 		$('#filter-selection').hide();

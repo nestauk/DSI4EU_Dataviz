@@ -8,6 +8,7 @@ function mapState(){
 			APP.map.create();
 			APP.ui.show();
 			APP.setState('map')
+			$('#main-view').fadeIn();
 		},
 		leave: function(option){
 			console.log('mapState :: leave');
