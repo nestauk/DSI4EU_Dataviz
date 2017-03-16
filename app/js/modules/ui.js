@@ -22,7 +22,9 @@ function UserInterface() {
 		createFilterSections()
 		$('#filter-selection').hide();
 		$('.sub-nav-label').click(openFilterTab);
-		$("#share-button").click(openOrgPanel);
+		$("#share-button").click(function () {
+			openOrgPanel(APP.dataset.orgs[0]);
+		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -145,7 +147,8 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function openOrgPanel() {
+	function openOrgPanel(selectedOrgs) {
+		console.log(selectedOrgs)
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
 		$('.org-panel-map').transition({ y: 0});
