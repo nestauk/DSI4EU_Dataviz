@@ -3,8 +3,8 @@ function Dataset(){
 	self.loadData = loadData;
 	self.fields = {}
 
-	const organisations_path = 'data/organisations.json';
-	const projects_path = 'data/projects.json';
+	var organisations_path = 'data/organisations.json';
+	var projects_path = 'data/projects.json';
 
 	// loads the .csv file and returns the data
 	function loadData(callback){
@@ -38,6 +38,7 @@ function Dataset(){
 		self.orgs.forEach(function(o){
 			o.id = o.organisation_id
 			o.name = o.organisation_name
+			if(!o.linked_prjs) o.linked_prjs = []
 			delete o.address
 			delete o.size
 			delete o.created
@@ -57,6 +58,7 @@ function Dataset(){
 		self.prjs.forEach(function(p){
 			p.id = p.project_id
 			p.name = p.project_name
+			if(!p.linked_orgs) p.linked_orgs = []
 			delete p.country
 			delete p.creation_date
 			delete p.start_date
