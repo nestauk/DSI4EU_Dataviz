@@ -23,7 +23,10 @@ function UserInterface() {
 		$('#filter-selection').hide();
 		$('.sub-nav-label').click(openFilterTab);
 		$("#share-button").click(function () {
-			openOrgPanel(APP.dataset.orgs[0]);
+			var selectedOrg = APP.dataset.orgs.filter(function (d) {
+				return d.name == "Apolitical";
+			})
+			openOrgPanel(selectedOrg);
 		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
@@ -149,6 +152,7 @@ function UserInterface() {
 
 	function openOrgPanel(selectedOrgs) {
 		console.log(selectedOrgs)
+		APP.orgPanel.fillHeader(selectedOrgs);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
 		$('.org-panel-map').transition({ y: 0});
@@ -159,7 +163,12 @@ function UserInterface() {
 	function closeOrgPanel() {
 		$(".remove-icon").off();
 		$('.org-panel-map').transition({ y:"100%" });
-		$("#share-button").click(openOrgPanel);
+		$("#share-button").click(function () {
+			var selectedOrg = APP.dataset.orgs.filter(function (d) {
+				return d.name == "Apolitical";
+			})
+			openOrgPanel(selectedOrg);
+		});
 		APP.closeUIPanels = null;
 	}
 

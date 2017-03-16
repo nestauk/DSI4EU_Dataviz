@@ -10,8 +10,9 @@
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;
 
-		APP.filter = new Filter()
-		APP.search = new Search()
+		APP.filter = new Filter();
+		APP.orgPanel = new OrgPanel();
+		APP.search = new Search();
 		APP.ui = new UserInterface();
 
 

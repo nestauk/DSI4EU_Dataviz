@@ -473,3 +473,8 @@
 .ui .modal-panel .org-panel-map-container p {
 	margin-top: 2rem;
 }
+
+.ui .modal-panel .org-panel-map-container .org-panel-scrolling {
+	max-height: 65vh;
+  overflow: auto;
+}
