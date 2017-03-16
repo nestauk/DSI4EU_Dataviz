@@ -11,6 +11,7 @@
 		APP.moveBackward = moveBackward;
 
 		APP.filter = new Filter()
+		APP.search = new Search()
 		APP.ui = new UserInterface();
 
 
@@ -34,6 +35,7 @@
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
+	      APP.ui.closeSearchPanel();
 	    }
 
 	    function moveBackward(){
@@ -43,6 +45,7 @@
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
+	      APP.ui.closeSearchPanel();
 	    }
 
 

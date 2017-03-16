@@ -6,6 +6,7 @@ function UserInterface() {
 	self.init = init;
 	self.openSelection = openSelectOverlay;
 	self.closeSelection = closeSelectOverlay;
+	self.closeSearchPanel = closeSearchPanel;
 
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
@@ -114,15 +115,15 @@ function UserInterface() {
 
 	function openSearchPanel() {
 		$("#search-button").off();
+		APP.search.reset();
 		search_panel.transition({ y: "75%"});
-		$(".search-icon-header").transition({ y: "-100%"});
 		$(".search-icon-header").click(closeSearchPanel);
 	}
 
 	function closeSearchPanel() {
 		$(".search-icon-header").off();
 		$(".search-icon-header").transition({ y: 0});
-		search_panel.transition({ y: "175%"});
+		search_panel.transition({ y: "200%"});
 		$("#search-button").click(openSearchPanel);
 	}
 
