@@ -7,7 +7,7 @@ function Search() {
 	function createResultsList() {
 		var query = $('#search-input').val();
 		$('#search-results').empty();
-
+		if(query == '') return;
 		if (APP.state == 'map') var target = APP.dataset.orgs
 		else var target = APP.dataset.orgs.concat(APP.dataset.prjs)
 

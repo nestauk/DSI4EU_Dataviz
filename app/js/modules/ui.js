@@ -12,7 +12,7 @@ function UserInterface() {
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
 
-	var filter_tab = $('#filter-tab');
+	var filter_tab = $('#filter-panel');
 	var search_panel = $(".search-panel");
 
 	$('#user-interface').hide();
@@ -129,15 +129,14 @@ function UserInterface() {
 		$("#search-button").off();
 		$('#search-input').focus()
 		APP.search.reset();
-		search_panel.transition({ y: "10%"});
-		$(".search-icon-header").click(closeSearchPanel);
+		search_panel.transition({ y: 0});
+		$(".search-container .close-modal").click(closeSearchPanel);
 		APP.closeUIPanels = closeSearchPanel
 	}
 
 	function closeSearchPanel() {
-		$(".search-icon-header").off();
-		$(".search-icon-header").transition({ y: 0});
-		search_panel.transition({ y: "200%"});
+		$(".search-container .close-modal").off();
+		search_panel.transition({ y: "100%"});
 		$("#search-button").click(openSearchPanel);
 		APP.closeUIPanels = null;
 	}

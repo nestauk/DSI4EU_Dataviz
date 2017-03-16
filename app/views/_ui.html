@@ -1,55 +1,47 @@
 <div class="view ui" id="user-interface">
 	<header>
-		<section class="nav">
-			<div id="nav-prev" class="nav-item">
-				<div process="img/ui/arrow-next.svg" class="nav-icon nav-prev" process-keep></div>
-			</div>
-			<div id="nav-current" class="nav-item"></div>
-			<div id="nav-next" class="nav-item">
-				<div process="img/ui/arrow-next.svg" class="nav-icon nav-next" process-keep></div>
-			</div>
-		</section>
-		<section id="filter-tab" class="sub-nav">
-			<section process="views/_filters.html" class="filters-wrapper" process-keep></section>
-			<p class="sub-nav-label">Filter</p>
-		</section>
+		<div class="header-wrapper">
+			<section class="nav">
+				<div id="nav-prev" class="nav-item">
+					<div process="img/ui/arrow-next.svg" class="nav-icon nav-prev" process-keep></div>
+				</div>
+				<div id="nav-current" class="nav-item"></div>
+				<div id="nav-next" class="nav-item">
+					<div process="img/ui/arrow-next.svg" class="nav-icon nav-next" process-keep></div>
+				</div>
+			</section>
+			<section id="filter-tab" class="sub-nav">
+				<p class="sub-nav-label">Filter</p>
+			</section>
+		</div>
 	</header>
 
-	<section class="share"></section>
+	<section class="content">
+		<section process="views/_filters.html" id="filter-panel" class="modal-panel" process-keep></section>
+		<section class="share"></section>
 
-	<section process="views/_search.html" class="search-panel" process-keep></section>
+		<section process="views/_search.html" class="search-panel" process-keep></section>
 
-	<section process="views/_org-list-map.html" class="modal-panel org-list-map" process-keep></section>
-	<section process="views/_org-panel-map.html" class="modal-panel org-panel-map" process-keep></section>
+		<section process="views/_org-list-map.html" class="modal-panel org-list-map" process-keep></section>
+		<section process="views/_org-panel-map.html" class="modal-panel org-panel-map" process-keep></section>
 
-	<section process="views/_info-map.html" class="modal-panel info-panel map" process-keep></section>
-	<section process="views/_info-network.html" class="modal-panel info-panel network" process-keep></section>
-	<section process="views/_info-cluster.html" class="modal-panel info-panel cluster" process-keep></section>
-	
-	<footer>
-		<section class="tools">
-			<div process="img/ui/icon-share.svg" id="share-button" class="tools-icon" process-keep></div>
-			<div process="img/ui/icon-search.svg" id="search-button" class="tools-icon" process-keep></div>
-			<div process="img/ui/icon-info.svg" id="info-button" class="tools-icon" process-keep></div>
-		</section>
-	</footer>
-	<div id="filter-selection" class="overlay-modal">
-		<div class="modal-header">
-			<button id="clear-selection">Clear</button>
-			<div class="close-modal" process="img/ui/icon-remove.svg" process-keep></div>
-		</div>
-		<div class="modal-content">
-			<ul id="filter-select-list">
-
-			</ul>
-		</div>
-	</div>
-
-	<div class="icon-proto">
-		<div process="img/ui/icon-map.svg" class="nav-icon" id="nav-map" process-keep></div>
-		<div process="img/ui/icon-network.svg" class="nav-icon" id="nav-network" process-keep></div>
-		<div process="img/ui/icon-cluster.svg" class="nav-icon" id="nav-cluster" process-keep></div>
-		<div process="img/ui/icon-check.svg" class="nav-icon" process-keep></div>
-		<div process="img/ui/icon-remove.svg" class="nav-icon" process-keep></div>
-	</div>
+		<section process="views/_info-map.html" class="modal-panel info-panel map" process-keep></section>
+		<section process="views/_info-network.html" class="modal-panel info-panel network" process-keep></section>
+		<section process="views/_info-cluster.html" class="modal-panel info-panel cluster" process-keep></section>
+		
+		<footer>
+			<section class="tools">
+				<div process="img/ui/icon-share.svg" id="share-button" class="tools-icon" process-keep></div>
+				<div process="img/ui/icon-search.svg" id="search-button" class="tools-icon" process-keep></div>
+				<div process="img/ui/icon-info.svg" id="info-button" class="tools-icon" process-keep></div>
+			</section>
+		</footer>
+	</section>
+</div>
+<div class="icon-proto">
+	<div process="img/ui/icon-map.svg" class="nav-icon" id="nav-map" process-keep></div>
+	<div process="img/ui/icon-network.svg" class="nav-icon" id="nav-network" process-keep></div>
+	<div process="img/ui/icon-cluster.svg" class="nav-icon" id="nav-cluster" process-keep></div>
+	<div process="img/ui/icon-check.svg" class="nav-icon" process-keep></div>
+	<div process="img/ui/icon-remove.svg" class="nav-icon" process-keep></div>
 </div>
