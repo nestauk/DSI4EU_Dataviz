@@ -22,6 +22,7 @@ function UserInterface() {
 		createFilterSections()
 		$('#filter-selection').hide();
 		$('.sub-nav-label').click(openFilterTab);
+		$("#share-button").click(openOrgPanel);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -143,4 +144,20 @@ function UserInterface() {
 		$("#info-button").click(openInfoPanel);
 		APP.closeUIPanels = null;
 	}
+
+	function openOrgPanel() {
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		$("#share-button").off();
+		$('.org-panel-map').transition({ y: 0});
+		$(".remove-icon").click(closeOrgPanel);
+		APP.closeUIPanels = closeOrgPanel
+	}
+
+	function closeOrgPanel() {
+		$(".remove-icon").off();
+		$('.org-panel-map').transition({ y:"100%" });
+		$("#share-button").click(openOrgPanel);
+		APP.closeUIPanels = null;
+	}
+
 }
