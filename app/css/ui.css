@@ -438,11 +438,12 @@
 .ui .modal-panel .org-list-map-container ul li {
 	font-size: 2rem;
 	line-height: 3.6rem;
+	text-align: center;
 }
 
 .ui .modal-panel.org-panel-map {
 	height: 100%;
-	/*transform: translateY(100%);*/
+	transform: translateY(100%);
 }
 
 .ui .modal-panel .org-panel-map-container .org-title {
