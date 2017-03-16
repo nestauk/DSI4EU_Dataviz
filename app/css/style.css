@@ -1,6 +1,7 @@
 body {
 	font-family: "Montserrat";
-	color: #333333
+	color: #333333;
+	line-height: 1.4rem;
 }
 
 .view {

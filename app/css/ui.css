@@ -386,7 +386,7 @@
 .ui #search-results {
 	width: 80%;
 	max-height: 25vh;
-    overflow: auto;
+  overflow: auto;
 }
 
 .ui #search-results li {
@@ -423,16 +423,27 @@
 	transform: translateY(100%);
 }
 
+.ui .modal-panel.org-list-map .org-list {
+	width: 100%;
+}
+
 .ui .modal-panel .org-list-map-container h3 {
+	width: 25%;
 	font-size: 1.6rem;
 	color: #4dc4b0;
+	text-align: center;
 }
 
 .ui .modal-panel .org-list-map-container h3::after {
 	content: "";
 	display: block;
-	height: .5rem;
-	border-bottom: .1rem solid #4dc4b0;
+	height: .75rem;
+	border-bottom: .2rem solid #4dc4b0;
+}
+
+.ui .modal-panel .org-list-map-container ul {
+	max-height: 65vh;
+  overflow: auto;
 }
 
 .ui .modal-panel .org-list-map-container ul li {
@@ -461,6 +472,4 @@
 
 .ui .modal-panel .org-panel-map-container p {
 	margin-top: 2rem;
-	font-size: 1rem;
-	line-height: 1.4rem;
 }
