@@ -35,12 +35,11 @@ function Filter(){
 		filterList.exit()
 			.remove()
 
-		var addFilter = d3.select(section)
-			.select('.add-tags')
-			.on("click", function(){
-				createSelectionList(field, '#filter-select-list');
-				APP.ui.openSelection();
-			})
+		$(section+" .add-tags").click(function(e){
+			e.stopPropagation();
+			createSelectionList(field, '#filter-select-list');
+			APP.ui.openSelection();
+		})
 	}
 
 	function createSelectionList(field, el){

@@ -32,7 +32,7 @@
 	width: 3rem;
 	height: 100%;
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	cursor: pointer;
 }
 
@@ -176,6 +176,7 @@
 .ui .overlay-modal .modal-header .close-modal{
 	height: 2rem;
 	width: 2rem;
+	fill: #333333;
 }
 
 .ui .modal-content {

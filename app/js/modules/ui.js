@@ -101,15 +101,21 @@ function UserInterface() {
 
 	function openSelectOverlay(){
 		$('#filter-selection').fadeIn();
+		$('body').on("click",function(e) {
+			closeSelectOverlay();
+		});
+		$('#filter-selection').click(function(e){
+			e.stopPropagation();
+		}) 
 		$('#filter-selection .close-modal').click(closeSelectOverlay)
 	}
 
 	function closeSelectOverlay(){
 		APP.filter.createList(APP.filter.currentFieldSelection)
+		$('body').off("click")
 		$('#filter-selection').fadeOut(function(){
 			$('#filter-select-list').empty();
 		});
-		APP.closeUIPanels = null;
 	}
 
 	function createFilterSections(){
@@ -121,8 +127,9 @@ function UserInterface() {
 	function openSearchPanel() {
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#search-button").off();
+		$('#search-input').focus()
 		APP.search.reset();
-		search_panel.transition({ y: "75%"});
+		search_panel.transition({ y: "10%"});
 		$(".search-icon-header").click(closeSearchPanel);
 		APP.closeUIPanels = closeSearchPanel
 	}
