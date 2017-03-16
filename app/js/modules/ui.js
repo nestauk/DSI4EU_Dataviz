@@ -12,9 +12,6 @@ function UserInterface() {
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
 
-	var info_panel_map = $(".info-panel.map");
-	var info_panel_network = $(".info-panel.network");
-	var info_panel_cluster = $(".info-panel.cluster");
 	var filter_tab = $('#filter-tab');
 	var search_panel = $(".search-panel");
 
@@ -25,6 +22,9 @@ function UserInterface() {
 		updateNavigation();	
 		createFilterSections()
 		$('#filter-selection').hide();
+		$('.sub-nav-label').click(openFilterTab);
+		$("#search-button").click(openSearchPanel);
+		$("#info-button").click(openInfoPanel);
 	}
 
 	function addNavInteractions(){
@@ -40,10 +40,6 @@ function UserInterface() {
 				APP.moveBackward();
 			})
 		}
-
-		$('.sub-nav-label').click(openFilterTab);
-		$("#search-button").click(openSearchPanel);
-		$("#info-button").click(openInfoPanel);
 	}
 
 	function updateNavigation(){
@@ -84,15 +80,18 @@ function UserInterface() {
 	}
 
 	function openFilterTab(){
+		if(APP.closeUIPanels) APP.closeUIPanels();
 		$('.sub-nav-label').off();
 		filter_tab.transition({ y: 0})
 		$('.sub-nav-label').click(closeFilterTab)
+		APP.closeUIPanels = closeFilterTab
 	}
 
 	function closeFilterTab(){
 		$('.sub-nav-label').off();
 		filter_tab.transition({ y: "-100%"})
 		$('.sub-nav-label').click(openFilterTab)
+		APP.closeUIPanels = null;
 	}
 
 	function openSelectOverlay(){
@@ -105,6 +104,7 @@ function UserInterface() {
 		$('#filter-selection').fadeOut(function(){
 			$('#filter-select-list').empty();
 		});
+		APP.closeUIPanels = null;
 	}
 
 	function createFilterSections(){
@@ -114,10 +114,12 @@ function UserInterface() {
 	}
 
 	function openSearchPanel() {
+		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#search-button").off();
 		APP.search.reset();
 		search_panel.transition({ y: "75%"});
 		$(".search-icon-header").click(closeSearchPanel);
+		APP.closeUIPanels = closeSearchPanel
 	}
 
 	function closeSearchPanel() {
@@ -125,46 +127,21 @@ function UserInterface() {
 		$(".search-icon-header").transition({ y: 0});
 		search_panel.transition({ y: "200%"});
 		$("#search-button").click(openSearchPanel);
+		APP.closeUIPanels = null;
 	}
 
 	function openInfoPanel() {
+		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#info-button").off();
-		switch(APP.state){
-			case "map":
-				info_panel_map.transition({ y: 0});
-				$(".remove-icon").click(closeInfoPanel);
-			break;
-			case "network":
-				info_panel_network.transition({ y: 0});
-				$(".remove-icon").click(closeInfoPanel);
-			break;
-			case "cluster":
-				info_panel_cluster.transition({ y: 0});
-				$(".remove-icon").click(closeInfoPanel);
-			break;
-			default:
-			break;
-		}
+		$('.info-panel.'+APP.state).transition({ y: 0});
+		$(".remove-icon").click(closeInfoPanel);
+		APP.closeUIPanels = closeInfoPanel
 	}
 
 	function closeInfoPanel() {
-		switch(APP.state){
-			case "map":
-				$(".remove-icon").off();
-				info_panel_map.transition({ y:"100%" });
-			break;
-			case "network":
-				$(".remove-icon").off();
-				info_panel_network.transition({ y:"100%" });
-			break;
-			case "cluster":
-				$(".remove-icon").off();
-				info_panel_cluster.transition({ y:"100%" });
-			break;
-			default:
-			break;
-		}
+		$(".remove-icon").off();
+		$('.info-panel.'+APP.state).transition({ y:"100%" });
 		$("#info-button").click(openInfoPanel);
+		APP.closeUIPanels = null;
 	}
-
 }

@@ -35,7 +35,7 @@
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
-	      APP.ui.closeSearchPanel();
+	      if(APP.closeUIPanels) APP.closeUIPanels();
 	    }
 
 	    function moveBackward(){
@@ -45,7 +45,7 @@
 	      }
 	      console.log(APP.currentStateId);
 	      APP.ui.updateNavigation()
-	      APP.ui.closeSearchPanel();
+	      if(APP.closeUIPanels) APP.closeUIPanels();
 	    }
 
 
