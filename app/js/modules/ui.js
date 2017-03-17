@@ -24,7 +24,7 @@ function UserInterface() {
 		$('.sub-nav-label').click(openFilterTab);
 		$("#share-button").click(function () {
 			var selectedOrg = APP.dataset.orgs.filter(function (d) {
-				return d.name == "Apolitical";
+				return d.name == "Nesta";
 			})
 			openOrgPanel(selectedOrg);
 		});
@@ -157,8 +157,9 @@ function UserInterface() {
 	}
 
 	function openOrgPanel(selectedOrgs) {
-		console.log(selectedOrgs)
 		APP.orgPanel.fillHeader(selectedOrgs);
+		var radarData = APP.orgPanel.prepareData(selectedOrgs, "technology");
+		APP.orgPanel.drawRadar(radarData);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
 		$('.org-panel-map').transition({ y: 0});
@@ -171,7 +172,7 @@ function UserInterface() {
 		$('.org-panel-map').transition({ y:"100%" });
 		$("#share-button").click(function () {
 			var selectedOrg = APP.dataset.orgs.filter(function (d) {
-				return d.name == "Apolitical";
+				return d.name == "Nesta";
 			})
 			openOrgPanel(selectedOrg);
 		});
