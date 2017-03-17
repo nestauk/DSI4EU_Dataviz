@@ -1,17 +1,17 @@
 function OrgPanel() {
 	var self = this;
 	self.fillHeader = fillHeader;
-	self.prepareData = prepareData;
+	self.prepareRadarData = prepareRadarData;
 	self.drawRadar = drawRadar;
 
-	function fillHeader(_selectedOrgs) {
-		$(".org-panel-map-container h2").html(_selectedOrgs[0].name);
-		$(".org-panel-map-container .org-type").html(_selectedOrgs[0].organisation_type);
-		$(".org-panel-map-container .org-panel-scrolling p").html(_selectedOrgs[0].short_description);
+	function fillHeader(_selectedOrg) {
+		$(".org-panel-map-container h2").html(_selectedOrg.name);
+		$(".org-panel-map-container .org-type").html(_selectedOrg.organisation_type);
+		$(".org-panel-map-container .org-panel-scrolling p").html(_selectedOrg.short_description);
 	}
 
-	function prepareData(_selectedOrgs, field) {
-		var orgPrjs = _selectedOrgs[0].linked_prjs;
+	function prepareRadarData(_selectedOrg, field) {
+		var orgPrjs = _selectedOrg.linked_prjs;
 		var fieldCountsInit = [];
 		orgPrjs.forEach(function (d) {
 			d[field].forEach(function (e){
@@ -101,5 +101,9 @@ function OrgPanel() {
         .attr('fill-opacity', .9)
 
 	}
+
+  function drawBarChart(data) {
+
+  }
 
 }

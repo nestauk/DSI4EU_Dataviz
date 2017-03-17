@@ -26,7 +26,7 @@ function UserInterface() {
 			var selectedOrg = APP.dataset.orgs.filter(function (d) {
 				return d.name == "Nesta";
 			})
-			openOrgPanel(selectedOrg);
+			openOrgPanel(selectedOrg[0]);
 		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
@@ -158,7 +158,7 @@ function UserInterface() {
 
 	function openOrgPanel(selectedOrgs) {
 		APP.orgPanel.fillHeader(selectedOrgs);
-		var radarData = APP.orgPanel.prepareData(selectedOrgs, "technology");
+		var radarData = APP.orgPanel.prepareRadarData(selectedOrgs, "technology");
 		APP.orgPanel.drawRadar(radarData);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
@@ -174,7 +174,7 @@ function UserInterface() {
 			var selectedOrg = APP.dataset.orgs.filter(function (d) {
 				return d.name == "Nesta";
 			})
-			openOrgPanel(selectedOrg);
+			openOrgPanel(selectedOrg[0]);
 		});
 		APP.closeUIPanels = null;
 	}
