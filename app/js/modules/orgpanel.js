@@ -32,7 +32,6 @@ function OrgPanel() {
 	}
 
 	function drawRadar(data) {
-		console.log(data);
 
     d3.select(".radar-svg").remove();
 
@@ -47,7 +46,7 @@ function OrgPanel() {
     var width = $(".modal-panel.org-panel-map").width()*0.8,
         height = width;
 
-    maxScaleValue = width*0.5;
+    maxScaleValue = width*0.48;
 
     var rScale = d3.scaleLinear()
       .domain([0, maxCountValue])
@@ -68,33 +67,28 @@ function OrgPanel() {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    svg.selectAll("circle")
-    	.data(data)
+    var uniqData = _.uniqBy(data, 'count');
+
+    svg.selectAll(".axis-circle")
+    	.data(uniqData)
     	.enter()
     	.append("circle")
+        .attr("class", "axis-circle")
       	.attr("cx", 0)
       	.attr("cy", 0)
       	.attr("r", function (d) {
       		return rScale(d.count);
       	})
-      	.attr("stroke-width", 1)
-      	.attr("stroke-opacity", .5)
-      	.attr("stroke", "white")
-      	.attr("fill", "none");
 
-    svg.selectAll(".axis")
+    svg.selectAll(".axis-line")
     	.data(data)
     	.enter()
     	.append("line")
-    		.attr("class", "axis")
+    		.attr("class", "axis-circle")
       	.attr("x1", 0)
       	.attr("y1", 0)
       	.attr("x2", function(d, i) { return(rScale(maxCountValue) * Math.cos(i * theta)); })
       	.attr("y2", function(d, i) { return(rScale(maxCountValue) * Math.sin(i * theta)); })
-      	.attr("stroke-width", 1)
-      	.attr("stroke-opacity", .5)
-      	.attr("stroke", "white")
-      	.attr("fill", "none");
 
     svg.selectAll('.radar-path')
       .data([data])

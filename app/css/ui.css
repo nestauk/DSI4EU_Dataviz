@@ -520,3 +520,10 @@
 .ui .modal-panel .org-panel-map-container .radar-path {
 	fill: #4dc4b0;
 }
+
+.ui .modal-panel .org-panel-map-container .axis-circle, .ui .modal-panel .org-panel-map-container .axis-line {
+	fill: none;
+	stroke: #ffffff;
+	stroke-width: .1rem;
+	stroke-opacity: .5;
+}
