@@ -27,7 +27,7 @@ function Dataset(){
 		self.prjs = data.prjs;
 		self.prjs = cleanFieldValues(self.prjs, 'support_tags', 9)
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
-		addProjectCountries();
+		addLinkedFields();
 		cleanOrganisationData()
 		cleanProjectData()
 		console.log(self)
@@ -39,6 +39,7 @@ function Dataset(){
 			o.id = o.organisation_id
 			o.name = o.organisation_name
 			if(!o.linked_prjs) o.linked_prjs = []
+			if(!o.linked_orgs) o.linked_orgs = []
 			delete o.address
 			delete o.size
 			delete o.created
@@ -117,14 +118,14 @@ function Dataset(){
 		data.forEach(function (c) {
 			c[field].forEach(function (e) {
 				if(!slicedValues.includes(e)) {
-					c[field] = _.without(c[field], e); //this way works
+					c[field] = _.without(c[field], e);
 				}
 			})
 		})
 		return data;
 	}
 
-	function addProjectCountries(){
+	function addLinkedFields(){
 		self.prjs.forEach(function(p){
 			p.countries = [];
 			p.linked_organisation_ids.forEach(function(id){
@@ -138,6 +139,10 @@ function Dataset(){
 				} 
 			})
 			p.countries = _.uniq(p.countries);
+			if(!p.linked_orgs) p.linked_orgs = []
+			p.linked_orgs.forEach(function(o){
+				o.linked_orgs = _.without(p.linked_orgs, o);
+			})
 		})
 	}
 }
