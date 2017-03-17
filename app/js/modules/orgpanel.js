@@ -34,6 +34,8 @@ function OrgPanel() {
 	function drawRadar(data) {
 		console.log(data);
 
+    d3.select(".radar-svg").remove();
+
 		var numInd = data.length, //number of values
 				theta = 2 * Math.PI / numInd,
 				maxScaleValue;
@@ -57,15 +59,12 @@ function OrgPanel() {
       })
       .y(function(d, i){
         return(rScale(d.count) * Math.sin(i * theta));
-      })  
-
-    var axisLineGenerator = d3.line()
-      .x(function(d){ return(x(d)); })
-      .y(function(d){ return(y(d)); })  
+      }) 
 
     var svg = d3.select(".radar-chart").append("svg")
       .attr("width", width)
       .attr("height", height)
+        .attr("class", "radar-svg")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -101,13 +100,11 @@ function OrgPanel() {
       .data([data])
       .enter()
       .append('path')
-	      .attr('class', 'radar-path')
-	      .attr('d', function(d){
-	        return polarLineGenerator(d);
-	      })
-	      .attr('fill-opacity', .9)
-
-
+        .attr('class', 'radar-path')
+        .attr('d', function(d){
+          return polarLineGenerator(d);
+        })
+        .attr('fill-opacity', .9)
 
 	}
 
