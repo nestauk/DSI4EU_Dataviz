@@ -257,17 +257,23 @@
 }
 
 .ui .overlay-modal {
-	width: 85%;
+	width: 100%;
+	height: 100%;
 	position: absolute;
-	top: 8rem;
-	left: 50%;
-	margin: 0 auto;
+	top: 0;
+	background: rgba(0,0,0,0.6);
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ui .overlay-modal .overlay-content{
+	width: 85%;
 	padding: 2rem 1rem;
-	z-index: 10;
 	background: #ffffff;
 	border-radius: .8%;
 	box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
-	transform: translateX(-50%);
 	color: #333333;
 	max-height: 60vh;
 	overflow: hidden;
@@ -290,29 +296,28 @@
 	fill: #333333;
 }
 
-.ui .modal-content {
+.ui #filter-selection .select-content {
 	max-height: 50vh;
 	overflow-y: auto;
 }
 
-.ui .modal-content li {
+.ui #filter-selection .select-content li {
 	font-size: 1.5rem;
 	margin: 2rem 0;
 	display: flex;
 	align-items: center;
 }
 
-.ui .modal-content li span{
-	flex: 8;
+.ui #filter-selection .select-content li span{
+	flex: 9;
 	display: inline-block;
 }
 
-.ui .modal-content li div{
+.ui #filter-selection .select-content li > div{
 	flex: 1;
-	margin-right: .5rem;
 }
 
-.ui .modal-content li .icon-check {
+.ui #filter-selection .select-content li .icon-check {
 	height: 1.5rem;
 	width: 1.5rem;
 	fill: #4DC4B0;
@@ -320,11 +325,11 @@
 	display: none;
 }
 
-.ui .modal-content li.active{
+.ui #filter-selection .select-content li.active{
 	font-weight: 500;
 }
 
-.ui .modal-content li.active .icon-check{
+.ui #filter-selection .select-content li.active .icon-check{
 	display: inline;
 }
 

@@ -107,7 +107,7 @@ function UserInterface() {
 		$('body').on("click",function(e) {
 			closeSelectOverlay();
 		});
-		$('#filter-selection').click(function(e){
+		$('#filter-selection .overlay-content').click(function(e){
 			e.stopPropagation();
 		}) 
 		$('#filter-selection .close-modal').click(closeSelectOverlay)
