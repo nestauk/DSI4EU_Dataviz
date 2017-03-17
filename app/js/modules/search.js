@@ -19,18 +19,15 @@ function Search() {
 			$('#search-list').append('<li class="notfound">No results found.</li>');
 		}
 		_.each(results, function(r, id) {
-			var prj_label = 'project'
-			if (r.linked_prjs && r.linked_prjs.length > 1) prj_label = 'projects'
-			var org_label = 'organisation'
-			if (r.linked_orgs && r.linked_orgs.length > 1) prj_label = 'organisations'
-			if (r.linked_prjs && r.linked_orgs) var org_links = '<span class="search-linked-orgs"><strong>' + r.linked_orgs.length + '</strong> partners</span>'
+			var org_links = ''
+			if ((r.linked_prjs && r.linked_orgs) && (r.linked_orgs.length > 0)) org_links = '<span class="search-linked-orgs"><strong>' + r.linked_orgs.length + '</strong> '+_('partner').pluralize(r.linked_orgs.length)+'</span>'
 			if (APP.state == 'map') {
-				var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + prj_label + '</span>'+ org_links +'</p></li>');
+				var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + _('project').pluralize(r.linked_prjs.length) + '</span>'+ org_links +'</p></li>');
 			} else {
 				if(r.hasOwnProperty('organisation_type')){
-					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type org">ORG</span><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + prj_label + '</span><span class="search-linked-orgs"><strong>' + r.linked_prjs.length + '</strong> partners</span></p></li>')
+					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type org">ORG</span><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + _('project').pluralize(r.linked_prjs.length) + '</span><span class="search-linked-orgs"><strong>' + r.linked_prjs.length + '</strong> partners</span></p></li>')
 				} else {
-					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type prj">PRJ</span><span class="search-linked-prjs"><strong>' + r.linked_orgs.length + '</strong> ' + org_label + ' involved</p></li>')
+					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type prj">PRJ</span><span class="search-linked-prjs"><strong>' + r.linked_orgs.length + '</strong> ' + _('organisation').pluralize(r.linked_orgs.length) + ' involved</p></li>')
 				}
 			}
 			result.find('.search-result-name').highlight(query)
