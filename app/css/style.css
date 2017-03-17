@@ -23,6 +23,10 @@ button {
 	cursor: pointer;
 }
 
+button:focus {
+	outline: none;
+}
+
 h2 {
 	text-transform: uppercase;
 	text-align: center;

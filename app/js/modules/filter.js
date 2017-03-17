@@ -94,6 +94,22 @@ function Filter(){
 	function createViewSettings(){
 		$('.settings-panel').hide();
 		$('#settings-'+APP.state).show();
+		switch(APP.state){
+			case "map":
+				$('#map-show-connections').click(function(){
+					APP.map.showConnections = !APP.map.showConnections
+					$(this).toggleClass('active')
+				})
+			break;
+			case "network":
+				$('#network-linked-only').click(function(){
+					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
+					$(this).toggleClass('active')
+				})
+			break;
+			case "cluster":
+			break;
+		}
 	}
 
 }

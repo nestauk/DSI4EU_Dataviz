@@ -149,7 +149,7 @@
 	display: none;
 }
 
-.ui .settings-item .checkbox.active .icon-check{
+.ui .settings-item.active .checkbox .icon-check{
 	display: inline;
 	fill:  #4DC4B0;
 }
