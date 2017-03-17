@@ -1,8 +1,11 @@
 function OrgPanel() {
 	var self = this;
 	self.fillHeader = fillHeader;
-	self.prepareRadarData = prepareRadarData;
-	self.drawRadar = drawRadar;
+	self.prepareData = prepareData;
+  self.drawRadar = drawRadar;
+  self.drawBarChart = drawBarChart;
+	self.deleteOrgPanelItems = deleteOrgPanelItems;
+
 
 	function fillHeader(_selectedOrg) {
 		$(".org-panel-map-container h2").html(_selectedOrg.name);
@@ -10,7 +13,8 @@ function OrgPanel() {
 		$(".org-panel-map-container .org-panel-scrolling p").html(_selectedOrg.short_description);
 	}
 
-	function prepareRadarData(_selectedOrg, field) {
+
+	function prepareData(_selectedOrg, field) {
 		var orgPrjs = _selectedOrg.linked_prjs;
 		var fieldCountsInit = [];
 		orgPrjs.forEach(function (d) {
@@ -28,12 +32,17 @@ function OrgPanel() {
 				el.count++;
 			})
 		})
+    fieldCounts.sort(function (a, b) {
+      return a.count < b.count;
+    })
 		return fieldCounts;
 	}
 
-	function drawRadar(data) {
 
-    d3.select(".radar-svg").remove();
+	function drawRadar(data, field) {
+
+    d3.select(".radar-chart").select("h3")
+      .text(field)
 
 		var numInd = data.length, //number of values
 				theta = 2 * Math.PI / numInd,
@@ -60,7 +69,7 @@ function OrgPanel() {
         return(rScale(d.count) * Math.sin(i * theta));
       }) 
 
-    var svg = d3.select(".radar-chart").append("svg")
+    var svg = d3.select(".radar").append("svg")
       .attr("width", width)
       .attr("height", height)
         .attr("class", "radar-svg")
@@ -102,8 +111,89 @@ function OrgPanel() {
 
 	}
 
-  function drawBarChart(data) {
+  function drawBarChart(data, field) {
+
+    var maxCountValue = d3.max(data, function(d){
+      return d.count;
+    })
+
+    var rectHeight = 8,
+        rectRound = 5,
+        textToBarDist = 6,
+        barToBarDist = 44,
+        offsetDist = 20;
+
+    function hMult() {
+      switch(field){
+        case "Focus":
+          return 4;
+        break;
+        case "Support":
+          return 10;
+        break;
+        case "Technology":
+          return 16;
+        break;
+        default:
+          return 4;
+        break;
+      }
+    }
+    
+    var width = $(".modal-panel.org-panel-map").width(),
+        height = barToBarDist*hMult();
+
+    maxScaleValue = width;
+
+    var lScale = d3.scaleLinear()
+      .domain([0, maxCountValue])
+      .range([0, maxScaleValue - 16])
+
+    var barchartDiv = d3.select(".org-panel-scrolling").append("div")
+      .attr("class", "bar-chart")
+
+    barchartDiv.append("h3")
+      .text(field)
+
+    var barchartItems = barchartDiv.append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "barchart-svg")
+        .selectAll(".bar-chart-item."+field)
+        .data(data)
+        .enter()
+          .append("g")
+          .attr("class", "bar-chart-item "+field)
+
+    barchartItems.append("text")
+      .attr("class", "bar-chart-caption")
+      .attr("x", 0)
+      .attr("y", function (d, i) {
+        return offsetDist + i*barToBarDist;
+      })
+      .attr("width", width)
+      .text(function (d) {
+        return d.name+": "+d.count+" projects";
+      })
+
+    barchartItems.append("rect")
+      .attr("x", 0)
+      .attr("y", function (d, i) {
+        return offsetDist + textToBarDist + i*barToBarDist;
+      })
+      .attr("width", function (d) {
+        return lScale(d.count);
+      })
+      .attr("height", rectHeight)
+      .attr("rx", rectRound)
 
   }
+
+
+  function deleteOrgPanelItems() {
+    d3.select(".radar-svg").remove();
+    d3.selectAll(".bar-chart").remove();
+  }
+
 
 }

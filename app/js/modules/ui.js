@@ -159,10 +159,14 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function openOrgPanel(selectedOrgs) {
-		APP.orgPanel.fillHeader(selectedOrgs);
-		var radarData = APP.orgPanel.prepareRadarData(selectedOrgs, "technology");
-		APP.orgPanel.drawRadar(radarData);
+	function openOrgPanel(selectedOrg) {
+		APP.orgPanel.fillHeader(selectedOrg);
+		var radarData = APP.orgPanel.prepareData(selectedOrg, "technology");
+		APP.orgPanel.drawRadar(radarData, "Technology");
+		var barchart1Data = APP.orgPanel.prepareData(selectedOrg, "focus");
+		APP.orgPanel.drawBarChart(barchart1Data, "Focus");
+		var barchart2Data = APP.orgPanel.prepareData(selectedOrg, "support_tags");
+		APP.orgPanel.drawBarChart(barchart2Data, "Support");
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
 		$('.org-panel-map').transition({ y: 0});
@@ -172,6 +176,7 @@ function UserInterface() {
 
 	function closeOrgPanel() {
 		$(".remove-icon").off();
+		APP.orgPanel.deleteOrgPanelItems();
 		$('.org-panel-map').transition({ y:"100%" });
 		$("#share-button").click(function () {
 			var selectedOrg = APP.dataset.orgs.filter(function (d) {
