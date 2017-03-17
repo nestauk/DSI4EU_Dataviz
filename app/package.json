@@ -12,6 +12,7 @@
     "jquery": "^3.1.1",
     "jquery-highlight": "^3.4.0",
     "jquery.transit": "^0.9.12",
+    "lodash-inflection": "^1.5.0",
     "normalize.css": "^5.0.0",
     "stateman": "^0.3.0-beta.2",
     "topojson": "^2.2.0"
