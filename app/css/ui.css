@@ -612,7 +612,15 @@
 }
 
 .ui .modal-panel .org-panel-map-container .radar-path {
+	/*fill: #4dc4b0;*/
+	stroke: #4dc4b0;
+	stroke-width: 3;
+	fill: none;
+}
+
+.ui .modal-panel .org-panel-map-container .radar-dots {
 	fill: #4dc4b0;
+	stroke: none;
 }
 
 .ui .modal-panel .org-panel-map-container .axis-circle, .ui .modal-panel .org-panel-map-container .axis-line {
@@ -630,8 +638,15 @@
 }
 
 .ui .modal-panel .org-panel-map-container .bar-chart-caption {
-	color: "#ff0000";
+	fill: white;
+	stroke: none;
 	font-size: .95rem;
 	align-self: flex-start;
 	text-anchor: start;
+}
+
+.ui .modal-panel .org-panel-map-container .tooltip {
+	fill: white;
+	stroke: none;
+	font-size: 1.2rem;
 }
