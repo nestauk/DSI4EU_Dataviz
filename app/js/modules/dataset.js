@@ -21,7 +21,7 @@ function Dataset(){
 		  });
 	}
 
-	// cleans up the data and adds additional fields to the items
+	// cleans up the data and adds additional fields to the records
 	function prepareData(data){
 		self.orgs = data.orgs;
 		self.prjs = data.prjs;
@@ -75,7 +75,7 @@ function Dataset(){
 		})
 	}
 
-	function cleanFieldValues(data, field, limitCount){
+	function createFieldList(data, field, limitCount){
 		var list = [];
 		var countValueTh = limitCount || false;
 		var modData = data.slice();
@@ -106,18 +106,22 @@ function Dataset(){
 				}
 			});
 		}
+	}
+
+	function cleanFieldValues(data, field, limitCount){
 		var slicedValues = [];
-		slicedList.forEach(function (d) {
+		if(!self.fields[field]) createFieldList(data, field, limitCount)
+		self.fields[field].forEach(function (d) {
 			slicedValues.push(d.name);
 		})
-		modData.forEach(function (c) {
+		data.forEach(function (c) {
 			c[field].forEach(function (e) {
 				if(!slicedValues.includes(e)) {
 					c[field] = _.without(c[field], e); //this way works
 				}
 			})
 		})
-		return modData;
+		return data;
 	}
 
 	function addProjectCountries(){
