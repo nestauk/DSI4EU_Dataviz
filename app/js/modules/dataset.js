@@ -97,7 +97,8 @@ function Dataset(){
 		list.sort(function(a,b) {
 		  return b.count - a.count;
 		});
-		var slicedList = list.slice(0, countValueTh)
+		if(countValueTh) var slicedList = list.slice(0, countValueTh)
+		else var slicedList = list.slice(0);
 		if(!self.fields[field]) {
 			self.fields[field] = _.map(slicedList, function(f){
 				return {
