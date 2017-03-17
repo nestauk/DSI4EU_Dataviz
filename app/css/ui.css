@@ -29,6 +29,23 @@
 	pointer-events: all;
 }
 
+.ui select {
+	border: .1rem solid;
+	color: #ffffff;
+	background: none;
+	font-size: 1.2rem;
+	font-family: "Montserrat";
+	border-radius: 0;
+	background-image: url('../img/ui/icon-select-arrow.svg');
+	background-size: 1.2rem;
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
+}
+
+.ui select:focus {
+	outline: none;
+}
+
 .ui .nav {
 	width: 100%;
 	height: 60%;
@@ -90,20 +107,83 @@
 	font-size: 1.2rem;
 }
 
-.ui .sub-nav .filter-list {
-	padding: 2rem;
+.ui #filter-panel {
+	background: #333333;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	transform: translateY(-100%);
+}
+
+.ui .view-settings, .ui .view-filters {
+	padding: 1rem;
+}
+
+.ui .view-settings {
+	padding: 2rem 1rem;
+}
+
+.ui .view-settings .settings-panel {
+	display: none;
+}
+
+.ui .settings-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ui .settings-item .checkbox {
+	height: 1.5rem;
+	width: 1.5rem;
+	border: .1rem solid;
+	margin-right: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ui .settings-item .checkbox .icon-check{
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+
+.ui .settings-item .checkbox.active .icon-check{
+	display: inline;
+	fill:  #4DC4B0;
+}
+
+.cluster .ui .settings-item div{
+	margin: 0 1rem;
+}
+
+.cluster .ui .settings-item .settings-title{
+	margin-bottom: .5rem;
+}
+
+.ui .settings-item .settings-title{
+	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 .ui .filters {
 	display: flex;
 }
 
-.ui #filter-panel {
-	background: #333333;
-	width: 100%;
-	height: 100%;
-	padding: 2rem;
-	transform: translateY(-100%);
+.ui .filters h3{
+	display: flex;
+	justify-content: space-between;
+}
+
+.ui .view-settings {
+	background: #666666;
+}
+
+.ui .filters .filters-count {
+	text-transform: none;
+	font-weight: normal;
+	font-size: 1rem;
 }
 
 .ui .filters .tags-container {
@@ -112,9 +192,18 @@
 	padding-bottom: .5rem;
 }
 
+.ui .filters .tags-list.showmore::after {
+	content: '...';
+	display: block;
+	line-height: 1rem;
+	padding-left: .3rem;
+	margin-bottom: .5rem;
+}
+
 .ui .filters .tags-container ul{
 	list-style: none;
 	padding-left: 0;
+	margin-top: 0;
 }
 
 .ui .filters .tags-container li{
@@ -134,7 +223,7 @@
 }
 
 .ui .filters .add-tags {
-	margin-left: .5rem;
+	margin-left: 1rem;
 }
 
 .ui .filters .add-tags svg{
