@@ -23,8 +23,9 @@ function Search() {
 			if (r.linked_prjs && r.linked_prjs.length > 1) prj_label = 'projects'
 			var org_label = 'organisation'
 			if (r.linked_orgs && r.linked_orgs.length > 1) prj_label = 'organisations'
+			if (r.linked_prjs && r.linked_orgs) var org_links = '<span class="search-linked-orgs"><strong>' + r.linked_orgs.length + '</strong> partners</span>'
 			if (APP.state == 'map') {
-				var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + prj_label + '</span><span class="search-linked-orgs"><strong>' + r.linked_prjs.length + '</strong> partners</span></p></li>')
+				var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + prj_label + '</span>'+ org_links +'</p></li>');
 			} else {
 				if(r.hasOwnProperty('organisation_type')){
 					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type org">ORG</span><span class="search-linked-prjs"><strong>' + r.linked_prjs.length + '</strong> ' + prj_label + '</span><span class="search-linked-orgs"><strong>' + r.linked_prjs.length + '</strong> partners</span></p></li>')
