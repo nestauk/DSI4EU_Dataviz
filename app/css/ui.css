@@ -391,11 +391,12 @@
 	display: flex;	
 	justify-content: space-between;
 }
-.ui .modal-panel .remove-icon {
+.ui .modal-panel .remove-icon, .ui .detail-panel .remove-icon {
 	width: 2rem;
 	height: 2rem;
 	margin-bottom: 1rem;
 	align-self: flex-end;
+	fill: #333333;
 }
 .ui .modal-panel .back-icon {
 	width: 2rem;
@@ -507,7 +508,7 @@
 .ui #search-results {
 	width: 98%;
 	max-height: 80%;
-  	overflow: auto;
+  overflow: auto;
 }
 
 .ui #search-results li {
@@ -648,5 +649,49 @@
 .ui .modal-panel .org-panel-map-container .tooltip {
 	fill: white;
 	stroke: none;
+	font-size: 1.2rem;
+}
+
+.ui .detail-panel {
+	background: rgba(255, 255,255,0.85);
+	width: 100%;
+	padding: 1rem 1.6rem;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+
+.ui .detail-panel.cluster-panel {
+	min-height: 100%;
+	transform: translateY(100%);
+}
+
+.ui .detail-panel .cluster-panel-container .cluster-title {
+	display: flex;	
+}
+
+.ui .cluster-panel .cluster-panel-container h2 {
+	color: #333333;
+}
+
+.ui .cluster-panel .cluster-panel-container .cluster-subtitle {
+	color: #333333;
+	font-size: 1.2rem;
+}
+
+.ui .cluster-panel .cluster-panel-container .cluster-subtitle::after {
+	content: "";
+	display: block;
+	height: .75rem;
+	border-bottom: .2rem solid #333333;
+}
+
+.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling {
+	max-height: 65vh;
+  overflow: auto;
+}
+
+.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling ul li {
+	color: #333333;
 	font-size: 1.2rem;
 }

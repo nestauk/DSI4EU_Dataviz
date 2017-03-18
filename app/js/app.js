@@ -13,6 +13,7 @@
 		APP.filter = new Filter();
 		APP.orgList = new OrgList();
 		APP.orgPanel = new OrgPanel();
+		APP.clusterPanel = new ClusterPanel();
 		APP.search = new Search();
 		APP.ui = new UserInterface();
 

@@ -26,6 +26,7 @@ function UserInterface() {
 		createFilterSections()
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
+		$("#clusterdetail-button").click(openClusterPanel);
 		$("#share-button").click(loadOrgPanelOrList);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
@@ -160,8 +161,8 @@ function UserInterface() {
 
 	function loadOrgPanelOrList() {
 		var selectedOrgs = APP.dataset.orgs.filter(function (d) {
-			//return d.name == "Nesta" || d.name == "Waag Society";
-			return d.name == "Nesta";
+			return d.name == "Nesta" || d.name == "Waag Society";
+			//return d.name == "Nesta";
 		})
 		if (selectedOrgs.length == 1) {
 			openOrgPanel(selectedOrgs[0], false); //only one org, go directly to OrgPanel
@@ -219,6 +220,27 @@ function UserInterface() {
 		$('.org-panel-map').transition({ x:"-100%" });
 		$('.org-list-map').transition({ y:"100%" });
 		$("#share-button").click(loadOrgPanelOrList);
+		APP.closeUIPanels = null;
+	}
+
+	function openClusterPanel() {
+		//APP.clusterPanel.deleteClusterPanelItems();
+		var selectedCluster = APP.cluster.packdata.filter(function (d) {
+			return d.name == "United Kingdom";
+		})
+		APP.clusterPanel.fillHeader(selectedCluster[0]);
+		APP.clusterPanel.drawPanel(selectedCluster[0]);
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		$("#clusterdetail-button").off();
+		$('.cluster-panel').transition({ y: 0});
+		$(".remove-icon").click(closeClusterPanel);
+		APP.closeUIPanels = closeClusterPanel;
+	}
+
+	function closeClusterPanel() {
+		$(".remove-icon").off();
+		$('.cluster-panel').transition({ y:"100%" });
+		$("#clusterdetail-button").click(openClusterPanel);
 		APP.closeUIPanels = null;
 	}
 

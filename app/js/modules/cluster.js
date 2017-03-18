@@ -2,6 +2,7 @@ function ClusterView() {
 	var self = this;
 	self.create = createCluster;
 	self.delete = deleteCluster;
+	self.packdata;
 
 	//CREATE CLUSTER
 	function createCluster(_mainNestField, _secNestField) {
@@ -161,6 +162,8 @@ function ClusterView() {
 			})
 			packData.push(temp);
 		})
+
+		self.packdata = packData;
 
 		var svgWidth = width/2 - clusterOffset,
 				svgHeight = width/2 - clusterOffset,
