@@ -8,6 +8,10 @@ function UserInterface() {
 	self.closeSelection = closeSelectOverlay;
 	self.closeSearchPanel = closeSearchPanel;
 
+	//made visible from outside to be used by orglist.js
+	self.openOrgPanel = openOrgPanel;
+	self.closeOrgPanel = closeOrgPanel;
+
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
@@ -20,14 +24,9 @@ function UserInterface() {
 	function init(){
 		updateNavigation();	
 		createFilterSections()
-		$('#filter-selection').hide();
-		$('.sub-nav-label').click(openFilterTab);
-		$("#share-button").click(function () {
-			var selectedOrg = APP.dataset.orgs.filter(function (d) {
-				return d.name == "Nesta";
-			})
-			openOrgPanel(selectedOrg[0]);
-		});
+		$("#filter-selection").hide();
+		$(".sub-nav-label").click(openFilterTab);
+		$("#share-button").click(loadOrgPanelOrList);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -159,7 +158,38 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function openOrgPanel(selectedOrg) {
+	function loadOrgPanelOrList() {
+		var selectedOrgs = APP.dataset.orgs.filter(function (d) {
+			//return d.name == "Nesta" || d.name == "Waag Society";
+			return d.name == "Nesta";
+		})
+		if (selectedOrgs.length == 1) {
+			openOrgPanel(selectedOrgs[0], false); //only one org, go directly to OrgPanel
+		}
+		else {
+			openOrgList(selectedOrgs); //more than one org, go to orgList
+		}
+	}
+
+	function openOrgList(_selectedOrgs) {
+		APP.orgList.deleteOrgListItems();
+		APP.orgList.fillList(_selectedOrgs);
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		$("#share-button").off();
+		$('.org-list-map').transition({ y: 0});
+		$(".remove-icon").click(closeOrgList);
+		APP.closeUIPanels = closeOrgList;
+	}
+
+	function closeOrgList() {
+		$(".remove-icon").off();
+		$('.org-list-map').transition({ y:"100%" });
+		$("#share-button").click(loadOrgPanelOrList);
+		APP.closeUIPanels = null;
+	}
+
+	function openOrgPanel(selectedOrg, manyOrg) {
+		manyOrg ? $(".back-icon").show() : $(".back-icon").hide() //manyOrg is true if coming from OrgList, false if coming from the map
 		APP.orgPanel.fillHeader(selectedOrg);
 		var radarData = APP.orgPanel.prepareData(selectedOrg, "technology");
 		APP.orgPanel.drawRadar(radarData, "Technology");
@@ -169,21 +199,26 @@ function UserInterface() {
 		APP.orgPanel.drawBarChart(barchart2Data, "Support");
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#share-button").off();
-		$('.org-panel-map').transition({ y: 0});
+		$('.org-panel-map').transition({ x: 0});
 		$(".remove-icon").click(closeOrgPanel);
-		APP.closeUIPanels = closeOrgPanel
+		$(".back-icon").click(backToOrgList);
+		APP.closeUIPanels = closeOrgPanel;
+	}
+
+	function backToOrgList() {
+		$(".back-icon").off();
+		APP.orgPanel.deleteOrgPanelItems();
+		$('.org-panel-map').transition({ x:"-100%" });
+		$('.org-list-map').transition({ y: 0});
+		APP.closeUIPanels = null;
 	}
 
 	function closeOrgPanel() {
 		$(".remove-icon").off();
 		APP.orgPanel.deleteOrgPanelItems();
-		$('.org-panel-map').transition({ y:"100%" });
-		$("#share-button").click(function () {
-			var selectedOrg = APP.dataset.orgs.filter(function (d) {
-				return d.name == "Nesta";
-			})
-			openOrgPanel(selectedOrg[0]);
-		});
+		$('.org-panel-map').transition({ x:"-100%" });
+		$('.org-list-map').transition({ y:"100%" });
+		$("#share-button").click(loadOrgPanelOrList);
 		APP.closeUIPanels = null;
 	}
 

@@ -11,6 +11,7 @@
 		APP.moveBackward = moveBackward;
 
 		APP.filter = new Filter();
+		APP.orgList = new OrgList();
 		APP.orgPanel = new OrgPanel();
 		APP.search = new Search();
 		APP.ui = new UserInterface();

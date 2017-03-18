@@ -574,8 +574,8 @@
 }
 
 .ui .modal-panel.org-panel-map {
-	height: 100%;
-	transform: translateY(100%);
+	min-height: 100%;
+	transform: translateX(-100%);
 }
 
 .ui .modal-panel .org-panel-map-container .org-title {
