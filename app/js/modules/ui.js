@@ -12,6 +12,7 @@ function UserInterface() {
 	//made visible from outside to be used by orglist.js
 	self.openOrgPanel = openOrgPanel;
 	self.closeOrgPanel = closeOrgPanel;
+	self.openClusterPanel = openClusterPanel;
 
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
@@ -225,11 +226,12 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function openClusterPanel() {
-		//APP.clusterPanel.deleteClusterPanelItems();
-		var selectedCluster = APP.cluster.packdata.filter(function (d) {
-			return d.name == "United Kingdom";
-		})
+	function openClusterPanel(data) {
+		// //APP.clusterPanel.deleteClusterPanelItems();
+		// var selectedCluster = APP.cluster.packdata.filter(function (d) {
+		// 	return d.name == "United Kingdom";
+		// })
+		var selectedCluster = data;
 		APP.clusterPanel.fillHeader(selectedCluster[0]);
 		APP.clusterPanel.drawPanel(selectedCluster[0]);
 		if(APP.closeUIPanels) APP.closeUIPanels();

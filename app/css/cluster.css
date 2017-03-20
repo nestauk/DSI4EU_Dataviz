@@ -1,10 +1,8 @@
 .cluster #main-view {
-	padding-top: 0;
+	padding-top: 6rem;
 }
-.clusterSvg {
-	margin-top: 1rem;
-	margin-left: 1rem;
-	/*border: 1px solid red;*/
+.cluster-svg {
+
 }
 text {
 	text-anchor: middle;
@@ -13,16 +11,9 @@ text.smallLabel{
 	font-size: .65rem;
 	text-anchor: middle;
 }
-.clusterSvg circle {
-  fill: none;
-  stroke: none;
-  stroke-width: 1px;
-}
-.clusterSvg .leaf circle {
-  fill: salmon;
-  fill-opacity: 1;
-  stroke: none;
-}
 .cluster-label {
 	font-size: 1.5rem;
+}
+.cluster .circle.prj {
+	fill: #ffad69;
 }

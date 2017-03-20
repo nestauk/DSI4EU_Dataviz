@@ -32,6 +32,7 @@ function Dataset(){
 		cleanOrganisationData()
 		cleanProjectData()
 		createFieldList(self.prjs, 'countries')
+		createFieldList(self.orgs, 'networkTags')
 		console.log(self)
 	}
 

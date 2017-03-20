@@ -3,7 +3,7 @@
 	window.APP = {}
 	APP.dataset = new Dataset();	
 	APP.currentStateId = 0;
-	APP.filter_fields = ["support_tags", "technology"];
+	APP.filter_fields = ["support_tags", "technology", "networkTags"];
 
 	$(document).ready(function(){
 		APP.setState = setState;
@@ -22,8 +22,8 @@
 	    APP.stator.go("loader", {encode: false})
 
 	    APP.dataset.loadData(function(){
-	    	APP.stator.go('cluster', {encode: false})
-	    	APP.currentStateId = 5;
+	    	APP.stator.go('onboarding', {encode: false})
+	    	APP.currentStateId = 1;
 	    	APP.ui.init();
 	    })
 
