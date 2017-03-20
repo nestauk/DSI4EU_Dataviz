@@ -17,14 +17,13 @@
 		APP.search = new Search();
 		APP.ui = new UserInterface();
 
-
 	    var timeline = ["loader", "onboarding", "map", "network", "cluster", "share"];
 
 	    APP.stator.go("loader", {encode: false})
 
 	    APP.dataset.loadData(function(){
-	    	APP.stator.go('onboarding', {encode: false})
-	    	APP.currentStateId = 1;
+	    	APP.stator.go('cluster', {encode: false})
+	    	APP.currentStateId = 5;
 	    	APP.ui.init();
 	    })
 

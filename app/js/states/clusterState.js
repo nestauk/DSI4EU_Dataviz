@@ -4,6 +4,8 @@ function clusterState(){
 
 	return {
 		enter: function(option){
+			$('.view').hide()
+			$('#main-view').show();
 			console.log('clusterState :: enter');
 			APP.cluster.create("countries", "focus");
 			APP.setState('cluster')

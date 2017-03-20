@@ -27,9 +27,11 @@ function Dataset(){
 		self.prjs = data.prjs;
 		self.prjs = cleanFieldValues(self.prjs, 'support_tags', 9)
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
+		createFieldList(self.prjs, 'focus')
 		addLinkedFields();
 		cleanOrganisationData()
 		cleanProjectData()
+		createFieldList(self.prjs, 'countries')
 		console.log(self)
 	}
 

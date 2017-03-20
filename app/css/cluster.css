@@ -1,5 +1,5 @@
 .cluster #main-view {
-	padding-top: 8rem;
+	padding-top: 0;
 }
 .clusterSvg {
 	margin-top: 1rem;
@@ -22,4 +22,7 @@ text.smallLabel{
   fill: salmon;
   fill-opacity: 1;
   stroke: none;
+}
+.cluster-label {
+	font-size: 1.5rem;
 }
