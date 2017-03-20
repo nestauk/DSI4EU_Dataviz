@@ -8,6 +8,19 @@
 	flex-direction: column;
 }
 
+@media screen and (min-width: 480px) {
+	.ui {
+		width: 33%;
+		/*align-self: flex-end;*/
+	}
+	.ui .tools-icon {
+		z-index: 2000;
+	}
+	.ui #filter-panel {
+		transform: translateY(100%);
+	}
+}
+
 .ui header {
 	width: 100%;
 	z-index: 2;
@@ -112,7 +125,13 @@
 	width: 100%;
 	height: 100%;
 	padding: 0;
-	transform: translateY(-100%);
+	/*transform: translateY(-100%);*/
+}
+
+@media screen and (max-width: 480px) {
+	.ui #filter-panel {
+		transform: translateY(-100%);
+	}
 }
 
 .ui .view-settings, .ui .view-filters {

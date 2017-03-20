@@ -7,6 +7,7 @@ function UserInterface() {
 	self.openSelection = openSelectOverlay;
 	self.closeSelection = closeSelectOverlay;
 	self.closeSearchPanel = closeSearchPanel;
+	self.openFilterTab = openFilterTab;
 
 	//made visible from outside to be used by orglist.js
 	self.openOrgPanel = openOrgPanel;
@@ -23,7 +24,7 @@ function UserInterface() {
 
 	function init(){
 		updateNavigation();	
-		createFilterSections()
+		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
 		$("#clusterdetail-button").click(openClusterPanel);
@@ -161,8 +162,9 @@ function UserInterface() {
 
 	function loadOrgPanelOrList() {
 		var selectedOrgs = APP.dataset.orgs.filter(function (d) {
-			return d.name == "Nesta" || d.name == "Waag Society";
+			//return d.name == "Nesta" || d.name == "Waag Society";
 			//return d.name == "Nesta";
+			return d.region == "London";
 		})
 		if (selectedOrgs.length == 1) {
 			openOrgPanel(selectedOrgs[0], false); //only one org, go directly to OrgPanel
