@@ -108,6 +108,14 @@ function Filter(){
 				})
 			break;
 			case "cluster":
+			$('#cluster-group-by, #cluster-subdivide-by').off();
+				$('#cluster-group-by, #cluster-subdivide-by').change(function() {
+					var group_by = $('#cluster-group-by').val()
+					var subdivide_by = $('#cluster-subdivide-by').val()
+					APP.cluster.create(group_by, subdivide_by)
+					APP.closeUIPanels();
+					console.log(group_by)
+				});
 			break;
 		}
 	}

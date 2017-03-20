@@ -14,6 +14,8 @@ function ClusterView() {
 	var maxSubdivisionSum = 0;
 
 	function createNewClusters(cluster_field, subdivide_field) {
+		deleteCluster();
+		console.log(cluster_field, subdivide_field)
 		projects = APP.dataset.prjs;
 		organisations = APP.dataset.orgs;
 		fields = APP.dataset.fields;
@@ -31,7 +33,7 @@ function ClusterView() {
 
 		drawClusterElements();
 
-		if (!subdivide_field) {
+		if (!subdivide_field || subdivide_field == 'none') {
 			drawSingleClusters()
 		} else {
 			clusters.forEach(function(c) {
@@ -139,7 +141,7 @@ function ClusterView() {
 
 			subs.on("click", function(d){
 				console.log(d)
-				APP.openClusterPanel(d)
+				APP.ui.openClusterPanel(d)
 			})
 
 			var circles = subs.selectAll('circle')

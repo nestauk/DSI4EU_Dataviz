@@ -28,8 +28,8 @@ function UserInterface() {
 		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
-		$("#clusterdetail-button").click(openClusterPanel);
-		$("#share-button").click(loadOrgPanelOrList);
+		// $("#clusterdetail-button").click(openClusterPanel);
+		$("#clusterdetail-button").click(loadOrgPanelOrList);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -232,8 +232,8 @@ function UserInterface() {
 		// 	return d.name == "United Kingdom";
 		// })
 		var selectedCluster = data;
-		APP.clusterPanel.fillHeader(selectedCluster[0]);
-		APP.clusterPanel.drawPanel(selectedCluster[0]);
+		APP.clusterPanel.fillHeader(selectedCluster);
+		APP.clusterPanel.drawPanel(selectedCluster);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#clusterdetail-button").off();
 		$('.cluster-panel').transition({ y: 0});

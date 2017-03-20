@@ -6,7 +6,6 @@ function ClusterView() {
 
 	//CREATE CLUSTER
 	function createCluster(_mainNestField, _secNestField) {
-		
 		var width = $("#main-view").width(),
 				height = $("#main-view").width(),
 				clusterOffset = width/20;

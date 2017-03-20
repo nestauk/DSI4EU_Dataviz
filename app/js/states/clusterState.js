@@ -6,7 +6,7 @@ function clusterState(){
 		enter: function(option){
 			$('#main-view').show();
 			console.log('clusterState :: enter');
-			APP.cluster.create("countries", "support_tags");
+			APP.cluster.create("countries", "none");
 			APP.setState('cluster')
 		},
 		leave: function(option){

@@ -4,14 +4,14 @@ function ClusterPanel() {
 	self.drawPanel = drawPanel;
 
 	function fillHeader(_selectedCluster) {
-		var selectedData = APP.cluster.packdata.filter(function (d) {
-			return d.name == "United Kingdom";
+		// var selectedData = APP.cluster.packdata.filter(function (d) {
+		// 	return d.name == "United Kingdom";
+		// })
+		console.log(_selectedCluster)
+		var prjCounts = d3.sum(_selectedCluster.values, function (d) {
+			return d.values.length;
 		})
-		console.log(selectedData)
-		var prjCounts = d3.sum(_selectedCluster.children, function (d) {
-			return d.size;
-		})
-		$(".cluster-panel-container h2").html(_selectedCluster.name);
+		$(".cluster-panel-container h2").html(_selectedCluster.key);
 		$(".cluster-panel-container .cluster-subtitle").html(prjCounts+" projects");
 	}
 
@@ -22,11 +22,11 @@ function ClusterPanel() {
 		// 	el.html(d.name+", "+d.size)
 		// })
 		d3.select(".cluster-panel-container .cluster-panel-scrolling ul").selectAll("li")
-			.data(_selectedCluster.children)
+			.data(_selectedCluster.values)
 			.enter()
 			.append("li")
-			.text(function (d) {
-				return d.name+": "+d.size;
+			.html(function (d) {
+				return "<strong>"+d.key+"</strong>: "+d.values.length;
 			})
 	}
 
