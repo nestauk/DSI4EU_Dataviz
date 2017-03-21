@@ -2,10 +2,17 @@ function Filter(){
 	var self = this;
 	self.createList = createFilterList;
 	self.createViewSettings = createViewSettings;
+	self.registerViewUpdate = registerViewUpdate;
+	self.removeViewUpdate = removeViewUpdate;
+	self.createLabel = createFilterLabel;
 	self.currentFieldSelection = null;
+	self.activeFilters = [];
+
+	var updateViewFunction = null;
 	var tagsLimit = 3
 
 	function createFilterList(field){
+		updateFilters();
 		var selected = _(APP.dataset.fields[field]).filter('active');
 		var selected_trim = selected.take(tagsLimit).value();
 		var section = "#filter-"+field;
@@ -50,6 +57,45 @@ function Filter(){
 		})
 	}
 
+	function updateFilters() {
+		self.activeFilters = [];
+		APP.filter_fields.forEach(function(f){
+			var field = [];
+			APP.dataset.fields[f].forEach(function(d){
+				if (d.active)	field.push({ field: f, value: d.name });
+			})
+			if(!_.isEmpty(field)) self.activeFilters.push(field);
+		})
+
+		self.prjs = APP.dataset.prjs
+		self.orgs = APP.dataset.orgs
+
+		if(!_.isEmpty(self.activeFilters)){
+			self.activeFilters.forEach(function(currentField){
+				self.prjs = _.filter(self.prjs, function(p){
+					return _.some(currentField, function(f){
+						return p[f.field] == f.value
+					})
+				})
+				self.orgs = _.filter(self.orgs, function(o){
+					return _.some(currentField, function(f){
+						return o[f.field] == f.value
+					})
+				})
+			})
+		} 
+
+		if(updateViewFunction) updateViewFunction()
+	}
+
+	function registerViewUpdate(update){
+		updateViewFunction = update;
+	}
+
+	function removeViewUpdate(update){
+		updateViewFunction = null
+	}
+
 	function createSelectionList(field, el){
 		self.currentFieldSelection = field;
 		var data = APP.dataset.fields[field];
@@ -89,6 +135,16 @@ function Filter(){
 		})
 		APP.ui.closeSelection()
 		APP.filter.currentFieldSelection = null;
+	}
+
+	function createFilterLabel(){
+		var label = 'FILTERS'
+		var count = _.sumBy(self.activeFilters, function(field){
+			return field.length;
+		})
+
+		label = '<strong>'+ count +'</strong> active '+_.pluralize('filters', count);
+		return label;
 	}
 
 	function createViewSettings(){
