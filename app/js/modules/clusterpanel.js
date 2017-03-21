@@ -24,8 +24,6 @@ function ClusterPanel() {
 			.each(generatePrjList)
 			.on("click", clusterItemDetail)
 
-		items.on("click", clusterItemDetail);
-
 		function clusterItemDetail() {
 			$(".cluster-panel-scrolling .sub-list").toggleClass("invisible");
 		}
