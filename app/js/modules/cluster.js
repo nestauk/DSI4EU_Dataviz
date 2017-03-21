@@ -1,284 +1,187 @@
 function ClusterView() {
 	var self = this;
-	self.create = createCluster;
+	self.create = createNewClusters;
 	self.delete = deleteCluster;
-	self.packdata; //only for development
 
-	//CREATE CLUSTER
-	function createCluster(_mainNestField, _secNestField) {
-		var width = $("#main-view").width(),
-				height = $("#main-view").width(),
-				clusterOffset = width/20;
+	var width, height, clusterWidth, clusterHeight, clusterElements;
+	var projects;
+	var organisations;
+	var fields;
+	var clusters = [];
+	var maxClusterValue = 0;
+	var maxSubdivisionValue = 0;
+	var maxSubdivisionSum = 0;
 
-		var validCountries = ["Albania", "Andorra", "Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Malta", "Moldova", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom"];
+	var cluster_field = 'countries';
+	var subdivide_field = 'none';
 
-		var orgData = _.cloneDeep(APP.dataset.orgs);
-		var prjData = _.cloneDeep(APP.dataset.prjs);
+	function createNewClusters(clusterField, subdivideField) {
+		if(clusterField) cluster_field = clusterField;
+		if(subdivideField) subdivide_field = subdivideField;
+		APP.filter.registerViewUpdate(createNewClusters)
+		deleteCluster();
+		console.log('creating cluster', cluster_field, subdivide_field)
 
-		// var orgData = _orgData.filter(function(d) {
-		// 	return validCountries.includes(d.country);
-		// })
+		projects = APP.filter.prjs;
+		organisations = APP.filter.orgs;
+		fields = APP.dataset.fields;
 
-		d3.selectAll(".clusterSvg").remove();
-		
-	  var mainNestField = _mainNestField; //property by which we are going to cluster
-	  var secNestField = _secNestField; //property by which we are going to cluster
-		
-		//cleanDataset(prjData, secNestField, 5);
-	  
-	  var orgIds = [];
-				orgNames = [];
-				orgCountries = [];
+		width = $("#main-view").width();
+		height = $("#main-view").height();
 
-	  orgData.forEach(function (d) {
-	  	orgIds.push(d.id);
-	  	orgNames.push(d.name);
-	  	orgCountries.push(d.country);
-	  });
+		clusterWidth = width / 2
+		clusterHeight = height / 2
 
-		//associates ORG countries to ORG ids
-		var countryScale = d3.scaleOrdinal()
-			.domain(orgIds)
-			.range(orgCountries);
+		clusters = createGroups(projects, cluster_field)
+		maxClusterValue = _.maxBy(clusters, function(g) {
+			return g.values.length
+		}).values.length
 
-		//associates ORG names to ORG ids
-		var orgScale = d3.scaleOrdinal()
-			.domain(orgIds)
-			.range(orgNames);
-	  
-	  var valuesMainArray = allValues(prjData, mainNestField); //returns mainNestField unique values
+		drawClusterElements();
 
-	  var mainNestArray = [];
-	  valuesMainArray.forEach(function (d) {
-	  	mainNestArray.push({
-	  		key: d,
-	  		values: []
-	  	});
-	  });
-		
-		mainNestArray.forEach(function (f) {
-			//selectedPrj = Prj with f.key value present in mainNestField array
-			var selectedPrj = prjData.filter(function (d) {
-				return d[mainNestField].includes(f.key);
+		if (!subdivide_field || subdivide_field == 'none') {
+			drawSingleClusters()
+		} else {
+			clusters.forEach(function(c) {
+				var subdivisions = createGroups(c.values, subdivide_field);
+				c.values = subdivisions;
 			})
-			f.values = (selectedPrj);
-		})
-
-		var sortedMainNestArray = mainNestArray.sort(function (a,b) { return b.values.length-a.values.length; });
-		var maxMainNestArray = sortedMainNestArray[0].values.length;
-		//console.log(maxMainNestArray);
-		//console.log(sortedMainNestArray);
-
-
-
-		var valuesSecArray = allValues(prjData, secNestField); //returns mainNestField unique values
-		//console.log(valuesSecArray)
-
-		//creation of a double nested data structure: main nesting populated with sortedMainNestArray keys and secondary nesting with empty values
-		var secNestArray = [];
-		sortedMainNestArray.forEach(function (f) {
-			secNestArray.push({
-	  		key: f.key,
-	  		values: []
-	  	});
-		});
-		secNestArray.forEach(function (f) {
-			valuesSecArray.forEach(function (d) {
-				f.values.push({
-					key: d,
-	  			values: []
+			var maxSubdivision = _.maxBy(clusters, function(g) {
+				return _.maxBy(g.values, function(s) {
+					return s.values.length
 				})
 			})
-		})
-
-		//console.log(prjData);
-
-		function filterPrj(field1Name, field1, field2Name, field2) {
-			var filteredPrjData = prjData.filter(function (d) {
-				return d[field1Name].includes(field1) && d[field2Name].includes(field2);
+			maxSubdivisionSum = _.sumBy(clusters, function(g) {
+				var sum = _.sumBy(g.values, function(s) {
+					return s.values.length
+				})
+				return sum;
 			})
-			return filteredPrjData;
+			maxSubdivisionValue = maxSubdivision.values[0].values.length;
+			drawSubdividedClusters(subdivide_field);
 		}
+	}
 
-		secNestArray.forEach(function (f) {
-	  	f.values.forEach(function (e) {
-	  		var doubleNestPrj = filterPrj(mainNestField, f.key, secNestField, e.key);
-				//console.log(f.key, e.key, doubleNestPrj);
-				e.values = doubleNestPrj;
-	  	})
+	function createGroups(array, field) {
+		var groups = [];
+		fields[field].forEach(function(f) {
+			var group = groupByFieldValue(array, field, f.name)
+			if(!_.isEmpty(group.values)) groups.push(group)
 		})
-
-		//sort by number of prj per secNest field
-		secNestArray.forEach(function (f) {
-			f.values.sort(function (a,b) { return b.values.length-a.values.length; });
+		groups.sort(function(a, b) {
+			return b.values.length - a.values.length
 		})
-		//console.log(secNestArray);
-		
+		return groups;
+	}
 
-		/* *** STATISTICS *** */
-		//Total max value of the secNest parameter count
-		var maxSecNestArray = d3.max(secNestArray, function (d) { 
-			return d.values[0].values.length;
-		});
-		//console.log("maxSecNestArray: "+maxSecNestArray);
-
-		//Array of mainNest groups with the sum of secNest counts
-		var sumSecNestArray = [];
-		secNestArray.forEach(function (f, i) {
-			var mainNestSum = d3.sum(f.values, function (d) {
-				return d.values.length;
-			});
-			sumSecNestArray.push({
-				group: f.key,
-				sum: mainNestSum
-			});
-		});
-		//console.log("sumSecNestArray: ", sumSecNestArray);
-
-		//Max value of the sum of secNest parameter counts of the mainNest parameter groups
-		var maxSumSecNest = d3.max(secNestArray, function (f, i) { 
-			var mainNestSum = d3.sum(f.values, function (d) {
-				return d.values.length;
-			});
-			//console.log(i, mainNestSum)
-			return mainNestSum;
-		});
-		//console.log("maxSumSecNest: "+maxSumSecNest);
-		/* *** end STATISTICS *** */
-
-
-		//creo una struttura dati adatta al circle packing
-		var packData = [];
-		secNestArray.forEach(function (f) { 
-			var temp = {};
-			temp.name = f.key;
-			temp.children = [];
-			f.values.forEach(function (d) {
-				temp.children.push({
-					"name": d.key,
-					"size": d.values.length
-				})
+	function groupByFieldValue(array, field, value) {
+		var records = {
+			key: value,
+			values: _.filter(array, function(d) {
+				return _.includes(d[field], value)
 			})
-			packData.push(temp);
-		})
+		}
+		return records;
+	}
 
-		self.packdata = packData; //only for development
+	function drawClusterElements() {
+		clusterElements = d3.select('#main-view')
+			.selectAll('svg')
+			.data(clusters)
+			.enter()
+			.append('svg')
+			.attr('width', clusterWidth)
+			.attr('height', clusterHeight)
+			.attr('class', 'cluster-svg')
+			.append('g')
+	}
 
-		var svgWidth = width/2 - clusterOffset,
-				svgHeight = width/2 - clusterOffset,
-				padding = 4;
+	function drawSingleClusters() {
+		var clusterScale = d3.scaleLinear()
+			.domain([0, maxClusterValue])
+			.range([0, clusterWidth / 3]);
 
-		format = d3.format(",d");
+		var clusterCircles = clusterElements
+			.append('circle')
+			.attr('r', function(d) {
+				return clusterScale(d.values.length)
+			})
+			.attr("cx", clusterWidth / 2)
+			.attr("cy", clusterHeight / 2)
+			.attr("class", "circle prj")
+
+		clusterElements.each(addLabel)
+	}
+
+	function drawSubdividedClusters(field) {
+		var scaleSvg = d3.scaleLinear()
+			.domain([0, maxSubdivisionSum])
+			.range([1, 6]);
+
+		var clusterScale = d3.scaleLinear()
+			.domain([0, maxSubdivisionValue])
+			.range([0, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
 		var focusColorScale = d3.scaleOrdinal()
-			.domain(valuesSecArray)
+			.domain(fields[field])
 			.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"]);
 
 		var otherColorScale = d3.scaleOrdinal()
-			.domain(valuesSecArray)
+			.domain(fields[field])
 			.range(d3.schemeCategory20);
 
-		var secNestSvgs = d3.select("#main-view").selectAll("svg")
-			.data(packData)
-			.enter()
-			.append("svg")
-				.attr("class", function (d, i) {
-					return "clusterSvg clusterSvg"+i;
+		clusterElements.each(drawSubdivisions)
+		clusterElements.each(addLabel)
+
+
+		function drawSubdivisions(e, i) {
+			var subdivisions = [];
+			e.values.forEach(function(d) {
+				d.r = clusterScale(d.values.length)
+				subdivisions.push(d)
+			})
+
+			d3.packSiblings(subdivisions)
+			var subs = d3.select(this)
+
+			subs.on("click", function(d){
+				APP.ui.openClusterPanel(d)
+			})
+
+			var circles = subs.selectAll('circle')
+				.data(subdivisions)
+				.enter()
+
+			circles.append('circle')
+				.attr('transform', function(d) {
+					return "translate(" + (d.x + clusterWidth / 2) + "," + (d.y + clusterHeight / 2) + ")";
 				})
-				.attr("width", svgWidth)
-				.attr("height", svgHeight)
-				.each(multiple);
-		
-		//Draws one circle pack per svg
-		function multiple(e, i) {
-			//console.log(e, i)
-			
-			//adjusts the scale depending on the total counts value of the different mainNest fields
-			var scaleSvg = d3.scaleLinear()
-				.domain([0, 1000])
-				.range([4, 6]);
-			
-			//var scaleFactor = 4; //to be used when scaleSvg is not used in clusterScale
-			var clusterScale = d3.scaleLinear()
-				.domain([0, maxSecNestArray])
-				.range([0, svgWidth/scaleSvg(maxSumSecNest)]);
-		
-			var pack = d3.pack()
-	    	.size([svgWidth - padding, svgHeight - padding])
-	    	.radius(function(d){ return clusterScale(d.value); });
-
-		  var root = d3.hierarchy(packData[i])
-		    .sum(function(d) { return d.size; })
-		    .sort(function(a, b) { return b.value - a.value; });
-			
-			var g = d3.select(".clusterSvg"+i).append("g")
-					.attr("transform", "translate(" + padding/2 + "," + padding/2 + ")");
-
-		  var node = g.selectAll(".node")
-		    .data(pack(root).descendants())
-		    .enter().append("g")
-		      .attr("class", function(d) { return d.children ? "node" : "leaf node"; })
-		      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-		  node.append("circle")
-		  	.style("fill", function (d, j) {
-		  		if (j!=0) {	
-		  			if (secNestField==="focus"){
-		  				return focusColorScale(d.data.name);
-		  			}	else return otherColorScale(d.data.name);
-		  		}
-		  	})
-		    .attr("r", function(d, j) { return d.r; })
-
-		  var secNestCaptions = g.append("text")
-				.attr("x", svgWidth/2)
-				.attr("y", svgHeight-30)
-				.attr("fill", "black")
-				.attr("font-size", "1rem")
-				.attr("text-anchor", "middle")
-				.text(function () {
-					if (mainNestField==="linked_organisation_ids"){
-						return orgScale(e.name);
-					} else return e.name;
+				.attr("r", function(d) {
+					return d.r
 				})
-
-		  node.append("title")
-		    .text(function(d) { 
-		    	if (secNestField==="linked_organisation_ids"){
-						return orgScale(d.data.name) + "\n" + format(d.value);
-					} else return d.data.name + "\n" + format(d.value);
-		    });
-
-		  // node.filter(function(d) { return !d.children; }).append("text")
-		  //   .attr("dy", "0.3em")
-		  //   .attr("class", "smallLabel")
-		  //   .text(function(d) { return d.value; });
+				.style("fill", function(d) {
+					if (field === "focus") {
+						return focusColorScale(d.key);
+					} else return otherColorScale(d.key);
+				})
 		}
-
-
-	} //END create
-
-
-	/* returns a list of all the field argument unique values */
-	function allValues(data, field) {
-		var temp = [];
-	  data.forEach(function(d){
-	  	if (d[field].length > 1) {
-	  		d[field].forEach(function(e){
-	  			temp.push(e);
-	  		});
-	  	}
-	  })
-	  var uniqueTemp = _.uniq(temp);
-	  //console.log(uniqueTemp);
-	  return uniqueTemp;
 	}
 
+	function addLabel(e, i) {
+		var clusterLabels = d3.select(this)
+			.append('text')
+			.attr("class", "cluster-label")
+			.attr("x", clusterWidth / 2)
+			.attr("y", clusterHeight - 30)
+			.attr("text-anchor", "middle")
+			.text(function(d) {
+				return d.key
+			})
+	}
 
-	//REMOVE NETWORK
 	function deleteCluster() {
-		$(".clusterSvg").remove();
-	} //END remove
-	
+		$(".cluster-svg").remove();
+	}
+
 
 }
