@@ -41,6 +41,7 @@ function Dataset(){
 		self.orgs.forEach(function(o){
 			o.id = o.organisation_id
 			o.name = o.organisation_name
+			o.url = 'https://digitalsocial.eu/org/'+o.id
 			if(!o.linked_prjs) o.linked_prjs = []
 			if(!o.linked_orgs) o.linked_orgs = []
 			delete o.address
@@ -62,6 +63,7 @@ function Dataset(){
 		self.prjs.forEach(function(p){
 			p.id = p.project_id
 			p.name = p.project_name
+			p.url = 'https://digitalsocial.eu/project/'+p.id
 			if(!p.linked_orgs) p.linked_orgs = []
 			delete p.country
 			delete p.creation_date
