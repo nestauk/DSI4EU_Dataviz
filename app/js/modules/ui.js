@@ -98,7 +98,7 @@ function UserInterface() {
 
 	function closeFilterTab(){
 		$('.sub-nav-label').off();
-		$('.sub-nav-label').text("filters")
+		$('.sub-nav-label').html(APP.filter.createLabel())
 		filter_tab.transition({ y: "-100%"})
 		$('.sub-nav-label').click(openFilterTab)
 		APP.closeUIPanels = null;
