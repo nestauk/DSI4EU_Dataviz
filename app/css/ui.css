@@ -734,7 +734,7 @@
   overflow: auto;
 }
 
-.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling ul li {
+.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling .cluster-text-container {
 	color: #333333;
 	font-size: 1.2rem;
 }
@@ -749,7 +749,14 @@
 
 .ui .cluster-panel .cluster-panel-scrolling .cluster-item .cluster-panel-circle {
 	display: inline-block;
-	margin-right: 5rem;
+	margin-top: 1rem;
+	margin-right: 1rem;
 	background: red;
 	border-radius: 100%;
+}
+
+.ui .cluster-panel .cluster-panel-scrolling .cluster-item .cluster-circle-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

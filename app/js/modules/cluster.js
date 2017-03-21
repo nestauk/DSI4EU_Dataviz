@@ -13,7 +13,7 @@ function ClusterView() {
 	var maxSubdivisionSum = 0;
 
 	var cluster_field = 'countries';
-	var subdivide_field = 'none';
+	var subdivide_field = 'focus';
 
 	function createNewClusters(clusterField, subdivideField) {
 		if(clusterField) cluster_field = clusterField;

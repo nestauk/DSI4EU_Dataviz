@@ -14,30 +14,34 @@ function ClusterPanel() {
 
 	function drawPanel(selectedCluster) {
 
-		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling ul").selectAll(".cluster-item")
+		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling table").selectAll(".cluster-item")
 			.data(selectedCluster.values)
 			.enter()
-			.append("li")
+			.append("tr")
 			.attr("class", "cluster-item")			
 
-		items.append("div")
-			.attr("class", "cluster-panel-circle")
-			.style("width", function(d){
-				return d.values.length+"px";
-			})
-			.style("height", function(d){
-				return d.values.length+"px";
-			})
+		items.append("td")
+			.attr("class", "cluster-circle-container")
+				.append("div")
+				.attr("class", "cluster-panel-circle")
+				.style("width", function(d){
+					return d.values.length/2+"px";
+				})
+				.style("height", function(d){
+					return d.values.length/2+"px";
+				})
 
-		items.append("span")
-			.text(function (d) {
-				return d.key+": "+d.values.length;
-			})
-			.each(generatePrjList)
-			.on("click", clusterItemDetail)
+		items.append("td")
+			.attr("class", "cluster-text-container")
+				.append("span")
+				.text(function (d) {
+					return d.key+": "+d.values.length;
+				})
+				.each(generatePrjList)
+				.on("click", clusterItemDetail)
 
 		function clusterItemDetail() {
-			$(".cluster-panel-scrolling .sub-list").toggleClass("invisible");
+			$(this).find("ul").toggleClass("invisible");
 		}
 
 		function generatePrjList(e, i) {
