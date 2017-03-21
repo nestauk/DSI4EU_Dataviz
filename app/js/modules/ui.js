@@ -35,7 +35,7 @@ function UserInterface() {
 		$(".sub-nav-label").click(openFilterTab);
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
-			else if (APP.state == "network") { openNetworkPanel(); }; 
+			else if (APP.state == "network") { openNetworkList(); }; 
 		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
@@ -197,7 +197,7 @@ function UserInterface() {
 		$('.org-list-map').transition({ y:"100%" });
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
-			else if (APP.state == "network") { openNetworkPanel(); }; 
+			else if (APP.state == "network") { openNetworkList(); }; 
 		});
 		APP.closeUIPanels = null;
 	}
@@ -234,24 +234,24 @@ function UserInterface() {
 		$('.org-list-map').transition({ y:"100%" });
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
-			else if (APP.state == "network") { openNetworkPanel(); }; 
+			else if (APP.state == "network") { openNetworkList(); }; 
 		});
 		APP.closeUIPanels = null;
 	}
 
-	function openNetworkPanel() {
+	function openNetworkList() {
 		console.log("open network panel!")
 		$("#debug-button").off();
-		$(".network-panel").transition({ y: 0});
-		$(".remove-icon").click(closeNetworkPanel);
+		$(".network-list").transition({ y: 0});
+		$(".remove-icon").click(closeNetworkList);
 	}
 
-	function closeNetworkPanel() {
+	function closeNetworkList() {
 		$(".remove-icon").off();
-		$(".network-panel").transition({ y: "100%"});
+		$(".network-list").transition({ y: "100%"});
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
-			else if (APP.state == "network") { openNetworkPanel(); }; 
+			else if (APP.state == "network") { openNetworkList(); }; 
 		});
 	}
 

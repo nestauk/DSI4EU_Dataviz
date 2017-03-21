@@ -789,7 +789,11 @@
 	display: none;
 }
 
-.ui .detail-panel.network-panel {
+.ui .detail-panel.network-list {
 	min-height: 100%;
 	transform: translateY(100%);
+}
+
+.ui .detail-panel.network-panel {
+	transform: translateX(-100%);
 }
