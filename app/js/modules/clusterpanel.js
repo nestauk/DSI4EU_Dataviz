@@ -71,9 +71,14 @@ function ClusterPanel() {
 					.enter()
 					.append("li")
 						.attr("class", "sub-list-items")
-						.text(function (f) {
-							return f.name;
-						})
+						.append("a")
+							.attr("href", function (d) {
+								return d.url;
+							})
+							.attr("target", "_blank")
+							.text(function (f) {
+								return f.name;
+							})
 		}
 
 	}

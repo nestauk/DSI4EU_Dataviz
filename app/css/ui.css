@@ -765,6 +765,15 @@
 	padding-left: 1rem;
 }
 
+.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling .cluster-text-container a {
+	color: #333333;
+	text-decoration: none;
+}
+
+.ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling .cluster-text-container a:hover {
+	text-decoration: underline;
+}
+
 .ui .cluster-panel .cluster-panel-scrolling .cluster-item .cluster-panel-circle {
 	display: inline-block;
 	margin-top: 1rem;
