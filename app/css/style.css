@@ -14,7 +14,7 @@ body {
 
 button {
 	color: #333333;
-	border: .1rem solid #333333;
+	border: .1rem solid;
 	padding: .5rem;
 	background: none;
 	font-size: 1.2rem;
@@ -66,6 +66,10 @@ input:focus {
 p.big {
 	font-size: 2rem;
 	margin-bottom: .5rem;
+}
+
+p.center-text {
+	text-align: center;
 }
 
 #onboarding-view {

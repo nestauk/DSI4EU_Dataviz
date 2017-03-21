@@ -146,6 +146,21 @@
 	padding: 1rem;
 }
 
+.ui .view-filters h2{
+	margin-bottom: 1rem;
+}
+
+.ui .view-filters .filter-sections {
+	margin-top: 1.5rem;
+}
+
+.ui .view-filters button{
+	color: #fff;
+	padding: .3rem;
+	line-height: 1rem;
+	font-size: 1rem;
+}
+
 .ui .view-settings {
 	padding: 2rem 1rem;
 }

@@ -7,12 +7,15 @@ function Filter(){
 	self.createLabel = createFilterLabel;
 	self.currentFieldSelection = null;
 	self.activeFilters = [];
+	self.resetFilters = resetAllFilters;
 
 	var updateViewFunction = null;
 	var tagsLimit = 3
 
 	function createFilterList(field){
 		updateFilters();
+		if(_.isEmpty(self.activeFilters)) $('#clear-all-filters').hide();
+		else $('#clear-all-filters').show();
 		var selected = _(APP.dataset.fields[field]).filter('active');
 		var selected_trim = selected.take(tagsLimit).value();
 		var section = "#filter-"+field;
@@ -88,6 +91,15 @@ function Filter(){
 		if(updateViewFunction) updateViewFunction()
 	}
 
+	function resetAllFilters(){
+		APP.filter_fields.forEach(function(f){
+			APP.dataset.fields[f].forEach(function(d){
+				d.active = false;
+			})
+		})
+		createFilterList()
+	}
+
 	function registerViewUpdate(update){
 		updateViewFunction = update;
 	}
@@ -138,12 +150,12 @@ function Filter(){
 	}
 
 	function createFilterLabel(){
-		var label = 'FILTERS'
+		var label = 'filters'
 		var count = _.sumBy(self.activeFilters, function(field){
 			return field.length;
 		})
 
-		label = '<strong>'+ count +'</strong> active '+_.pluralize('filters', count);
+		if(count > 0) label = '<strong>'+ count +'</strong> active '+_.pluralize('filters', count);
 		return label;
 	}
 

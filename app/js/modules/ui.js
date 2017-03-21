@@ -25,6 +25,11 @@ function UserInterface() {
 
 	function init(){
 		updateNavigation();	
+		$('#clear-all-filters').click(function(){
+			APP.filter.resetFilters()
+			createFilterSections()
+		});
+		$('#clear-all-filters').hide();
 		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
@@ -227,10 +232,6 @@ function UserInterface() {
 	}
 
 	function openClusterPanel(data) {
-		// //APP.clusterPanel.deleteClusterPanelItems();
-		// var selectedCluster = APP.cluster.packdata.filter(function (d) {
-		// 	return d.name == "United Kingdom";
-		// })
 		var selectedCluster = data;
 		APP.clusterPanel.fillHeader(selectedCluster);
 		APP.clusterPanel.drawPanel(selectedCluster);
