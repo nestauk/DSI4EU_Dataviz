@@ -722,3 +722,11 @@
 	color: #333333;
 	font-size: 1.2rem;
 }
+
+.ui .cluster-panel .cluster-panel-scrolling .sub-list {
+	
+}
+
+.ui .cluster-panel .cluster-panel-scrolling .sub-list.invisible {
+	display: none;
+}
