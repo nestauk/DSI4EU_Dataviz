@@ -293,6 +293,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	pointer-events: all;
 }
 
 .ui .overlay-modal .overlay-content{
