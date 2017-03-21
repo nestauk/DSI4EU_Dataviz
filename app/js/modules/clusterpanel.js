@@ -2,6 +2,7 @@ function ClusterPanel() {
 	var self = this;
 	self.fillHeader = fillHeader;
 	self.drawPanel = drawPanel;
+	self.deleteClusterPanelItems = deleteClusterPanelItems;
 
 	function fillHeader(selectedCluster) {
 		var prjCounts = d3.sum(selectedCluster.values, function (d) {
@@ -17,7 +18,18 @@ function ClusterPanel() {
 			.data(selectedCluster.values)
 			.enter()
 			.append("li")
-			.attr("class", "cluster-item")
+			.attr("class", "cluster-item")			
+
+		items.append("div")
+			.attr("class", "cluster-panel-circle")
+			.style("width", function(d){
+				return d.values.length+"px";
+			})
+			.style("height", function(d){
+				return d.values.length+"px";
+			})
+
+		items.append("span")
 			.text(function (d) {
 				return d.key+": "+d.values.length;
 			})
@@ -41,7 +53,10 @@ function ClusterPanel() {
 						})
 		}
 
+	}
 
+	function deleteClusterPanelItems() {
+		d3.select(".cluster-panel-container .cluster-panel-scrolling ul").selectAll("li").remove();
 	}
 
 }

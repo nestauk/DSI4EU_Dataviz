@@ -746,3 +746,10 @@
 .ui .cluster-panel .cluster-panel-scrolling .sub-list.invisible {
 	display: none;
 }
+
+.ui .cluster-panel .cluster-panel-scrolling .cluster-item .cluster-panel-circle {
+	display: inline-block;
+	margin-right: 5rem;
+	background: red;
+	border-radius: 100%;
+}

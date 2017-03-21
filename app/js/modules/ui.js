@@ -245,6 +245,7 @@ function UserInterface() {
 	function closeClusterPanel() {
 		$(".remove-icon").off();
 		$('.cluster-panel').transition({ y:"100%" });
+		APP.clusterPanel.deleteClusterPanelItems();
 		$("#clusterdetail-button").click(openClusterPanel);
 		APP.closeUIPanels = null;
 	}
