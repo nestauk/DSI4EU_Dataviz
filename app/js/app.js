@@ -9,6 +9,7 @@
 		APP.setState = setState;
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;
+		APP.getColorScale = getColorScale;
 
 		APP.filter = new Filter();
 		APP.orgList = new OrgList();
@@ -67,6 +68,19 @@
 	    	$('body').removeClass(APP.state)
 	    	APP.state = state;
 	    	$('body').addClass(APP.state)
+	    }
+
+	    function getColorScale(field) {
+	    	if(field == 'focus') {
+		    	return d3.scaleOrdinal()
+		    		.domain(APP.dataset.fields["focus"])
+		    		.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"]);
+	    	} else {
+		    	return d3.scaleOrdinal()
+		    		.domain(APP.dataset.fields[field])
+		    		.range(d3.schemeCategory20);
+	    	}
+
 	    }
 
   })

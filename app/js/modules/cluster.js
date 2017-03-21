@@ -122,13 +122,8 @@ function ClusterView() {
 			.domain([0, maxSubdivisionValue])
 			.range([0, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
-		var focusColorScale = d3.scaleOrdinal()
-			.domain(fields[field])
-			.range(["#f1d569", "#ffad69", "#ff6769", "#f169c4"]);
-
-		var otherColorScale = d3.scaleOrdinal()
-			.domain(fields[field])
-			.range(d3.schemeCategory20);
+		var focusColorScale = APP.getColorScale('focus')
+		var otherColorScale = APP.getColorScale(field);
 
 		clusterElements.each(drawSubdivisions)
 		clusterElements.each(addLabel)
