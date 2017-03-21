@@ -33,8 +33,10 @@ function UserInterface() {
 		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
-		// $("#clusterdetail-button").click(openClusterPanel);
-		$("#clusterdetail-button").click(loadOrgPanelOrList);
+		$("#debug-button").click(function () {
+			if (APP.state == "map") { loadOrgPanelOrList(); }
+			else if (APP.state == "network") { openNetworkPanel(); }; 
+		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -184,7 +186,7 @@ function UserInterface() {
 		APP.orgList.deleteOrgListItems();
 		APP.orgList.fillList(_selectedOrgs);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#share-button").off();
+		$("#debug-button").off();
 		$('.org-list-map').transition({ y: 0});
 		$(".remove-icon").click(closeOrgList);
 		APP.closeUIPanels = closeOrgList;
@@ -193,7 +195,10 @@ function UserInterface() {
 	function closeOrgList() {
 		$(".remove-icon").off();
 		$('.org-list-map').transition({ y:"100%" });
-		$("#share-button").click(loadOrgPanelOrList);
+		$("#debug-button").click(function () {
+			if (APP.state == "map") { loadOrgPanelOrList(); }
+			else if (APP.state == "network") { openNetworkPanel(); }; 
+		});
 		APP.closeUIPanels = null;
 	}
 
@@ -207,7 +212,7 @@ function UserInterface() {
 		var barchart2Data = APP.orgPanel.prepareData(selectedOrg, "support_tags");
 		APP.orgPanel.drawBarChart(barchart2Data, "Support");
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#share-button").off();
+		$("#debug-button").off();
 		$('.org-panel-map').transition({ x: 0});
 		$(".remove-icon").click(closeOrgPanel);
 		$(".back-icon").click(backToOrgList);
@@ -227,8 +232,19 @@ function UserInterface() {
 		APP.orgPanel.deleteOrgPanelItems();
 		$('.org-panel-map').transition({ x:"-100%" });
 		$('.org-list-map').transition({ y:"100%" });
-		$("#share-button").click(loadOrgPanelOrList);
+		$("#debug-button").click(function () {
+			if (APP.state == "map") { loadOrgPanelOrList(); }
+			else if (APP.state == "network") { openNetworkPanel(); }; 
+		});
 		APP.closeUIPanels = null;
+	}
+
+	function openNetworkPanel() {
+		console.log("open network panel!")
+	}
+
+	function closeNetworkPanel() {
+		
 	}
 
 	function openClusterPanel(data) {
@@ -236,7 +252,7 @@ function UserInterface() {
 		APP.clusterPanel.fillHeader(selectedCluster);
 		APP.clusterPanel.drawPanel(selectedCluster);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#clusterdetail-button").off();
+		$("#debug-button").off();
 		$('.cluster-panel').transition({ y: 0});
 		$(".remove-icon").click(closeClusterPanel);
 		APP.closeUIPanels = closeClusterPanel;
@@ -246,7 +262,7 @@ function UserInterface() {
 		$(".remove-icon").off();
 		$('.cluster-panel').transition({ y:"100%" });
 		APP.clusterPanel.deleteClusterPanelItems();
-		$("#clusterdetail-button").click(openClusterPanel);
+		$("#debug-button").click(openClusterPanel);
 		APP.closeUIPanels = null;
 	}
 

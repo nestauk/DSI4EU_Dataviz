@@ -14,6 +14,7 @@
 		APP.filter = new Filter();
 		APP.orgList = new OrgList();
 		APP.orgPanel = new OrgPanel();
+		APP.networkPanel = new NetworkPanel();
 		APP.clusterPanel = new ClusterPanel();
 		APP.search = new Search();
 		APP.ui = new UserInterface();

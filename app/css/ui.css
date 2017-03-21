@@ -22,6 +22,10 @@
 	}
 }
 
+#debug-button svg {
+	fill:red;
+}
+
 .ui header {
 	width: 100%;
 	z-index: 2;
@@ -783,4 +787,9 @@
 
 .ui .cluster-panel .cluster-panel-scrolling .sub-list.invisible {
 	display: none;
+}
+
+.ui .detail-panel.network-panel {
+	min-height: 100%;
+	transform: translateY(100%);
 }
