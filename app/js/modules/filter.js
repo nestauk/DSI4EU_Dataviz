@@ -8,9 +8,15 @@ function Filter(){
 	self.currentFieldSelection = null;
 	self.activeFilters = [];
 	self.resetFilters = resetAllFilters;
+	self.init = init;
 
 	var updateViewFunction = null;
 	var tagsLimit = 3
+
+	function init(){
+		self.prjs = APP.dataset.prjs
+		self.orgs = APP.dataset.orgs
+	}
 
 	function createFilterList(field){
 		updateFilters();
@@ -77,12 +83,14 @@ function Filter(){
 			self.activeFilters.forEach(function(currentField){
 				self.prjs = _.filter(self.prjs, function(p){
 					return _.some(currentField, function(f){
-						return p[f.field] == f.value
+						if(!p[f.field]) return true;
+						else return p[f.field] == f.value
 					})
 				})
 				self.orgs = _.filter(self.orgs, function(o){
 					return _.some(currentField, function(f){
-						return o[f.field] == f.value
+						if(!o[f.field]) return true;
+						else return o[f.field] == f.value
 					})
 				})
 			})

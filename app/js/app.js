@@ -24,6 +24,7 @@
 	    APP.stator.go("loader", {encode: false})
 
 	    APP.dataset.loadData(function(){
+	    	APP.filter.init();
 	    	APP.stator.go('onboarding', {encode: false})
 	    	APP.currentStateId = 1;
 	    	APP.ui.init();
