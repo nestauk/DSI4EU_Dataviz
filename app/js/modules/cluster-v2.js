@@ -3,7 +3,6 @@ function ClusterView() {
 	self.create = createNewClusters;
 	self.delete = deleteCluster;
 
-
 	var width, height, clusterWidth, clusterHeight, clusterElements;
 	var projects;
 	var organisations;
@@ -13,11 +12,18 @@ function ClusterView() {
 	var maxSubdivisionValue = 0;
 	var maxSubdivisionSum = 0;
 
-	function createNewClusters(cluster_field, subdivide_field) {
+	var cluster_field = 'countries';
+	var subdivide_field = 'none';
+
+	function createNewClusters(clusterField, subdivideField) {
+		if(clusterField) cluster_field = clusterField;
+		if(subdivideField) subdivide_field = subdivideField;
+		APP.filter.registerViewUpdate(createNewClusters)
 		deleteCluster();
-		console.log(cluster_field, subdivide_field)
-		projects = APP.dataset.prjs;
-		organisations = APP.dataset.orgs;
+		console.log('creating cluster', cluster_field, subdivide_field)
+
+		projects = APP.filter.prjs;
+		organisations = APP.filter.orgs;
 		fields = APP.dataset.fields;
 
 		width = $("#main-view").width();
@@ -53,7 +59,6 @@ function ClusterView() {
 			})
 			maxSubdivisionValue = maxSubdivision.values[0].values.length;
 			drawSubdividedClusters(subdivide_field);
-			console.log(clusters[0])
 		}
 	}
 
@@ -61,7 +66,7 @@ function ClusterView() {
 		var groups = [];
 		fields[field].forEach(function(f) {
 			var group = groupByFieldValue(array, field, f.name)
-			groups.push(group)
+			if(!_.isEmpty(group.values)) groups.push(group)
 		})
 		groups.sort(function(a, b) {
 			return b.values.length - a.values.length
@@ -93,8 +98,8 @@ function ClusterView() {
 
 	function drawSingleClusters() {
 		var clusterScale = d3.scaleLinear()
-			.domain([1, maxClusterValue])
-			.range([1, clusterWidth / 3]);
+			.domain([0, maxClusterValue])
+			.range([0, clusterWidth / 3]);
 
 		var clusterCircles = clusterElements
 			.append('circle')
@@ -140,7 +145,6 @@ function ClusterView() {
 			var subs = d3.select(this)
 
 			subs.on("click", function(d){
-				console.log(d)
 				APP.ui.openClusterPanel(d)
 			})
 
