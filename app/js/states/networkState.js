@@ -4,6 +4,7 @@ function networkState(){
 
 	return {
 		enter: function(option){
+			$('#main-view').show();
 			console.log('networkState :: enter');
 			APP.setState('network')
 			APP.network.create();
