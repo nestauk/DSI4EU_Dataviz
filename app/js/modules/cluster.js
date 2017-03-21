@@ -12,12 +12,12 @@ function ClusterView() {
 	var maxSubdivisionValue = 0;
 	var maxSubdivisionSum = 0;
 
-	var cluster_field = 'countries';
-	var subdivide_field = 'focus';
+	self.cluster_field = 'countries';
+	self.subdivide_field = 'focus';
 
 	function createNewClusters(clusterField, subdivideField) {
-		if(clusterField) cluster_field = clusterField;
-		if(subdivideField) subdivide_field = subdivideField;
+		var cluster_field = clusterField || self.cluster_field;
+		var subdivide_field = subdivideField || self.subdivide_field;
 		APP.filter.registerViewUpdate(createNewClusters)
 		deleteCluster();
 		console.log('creating cluster', cluster_field, subdivide_field)
