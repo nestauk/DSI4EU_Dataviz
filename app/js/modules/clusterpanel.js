@@ -14,34 +14,53 @@ function ClusterPanel() {
 
 	function drawPanel(selectedCluster) {
 
-		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling table").selectAll(".cluster-item")
-			.data(selectedCluster.values)
-			.enter()
-			.append("tr")
-			.attr("class", "cluster-item")			
+		var maxCircle = selectedCluster.values[0].values.length; //max circle size
+		console.log(APP.cluster.subdivide_field)
+		var colorScale = APP.getColorScale(APP.cluster.subdivide_field);
+		
 
-		items.append("td")
+		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling ul")
+			.selectAll(".cluster-item")
+			.data(selectedCluster.values)
+				.enter()
+				.append("li")
+					.attr("class", "cluster-item")	
+
+		var circleContainer = items.append("div")
 			.attr("class", "cluster-circle-container")
-				.append("div")
+
+		var circleContainerW = $(".cluster-circle-container").width(); //circle container size
+
+		var circleDivScale = d3.scaleLinear()
+			.domain([0, maxCircle])	
+			.range([0, circleContainerW])
+
+		circleContainer
+			.append("div")
 				.attr("class", "cluster-panel-circle")
 				.style("width", function(d){
-					return d.values.length/2+"px";
+					return circleDivScale(d.values.length)+"px";
 				})
 				.style("height", function(d){
-					return d.values.length/2+"px";
+					return circleDivScale(d.values.length)+"px";
 				})
+				.style("background", function (d) {
+					return colorScale(d.key);
+				});
 
-		items.append("td")
+		items.append("div")
 			.attr("class", "cluster-text-container")
-				.append("span")
-				.text(function (d) {
-					return d.key+": "+d.values.length;
-				})
-				.each(generatePrjList)
-				.on("click", clusterItemDetail)
+				.append("div")
+					.text(function (d) {
+						return d.key+": "+d.values.length;
+					})
+					.each(generatePrjList)
+					.on("click", clusterItemDetail)
 
 		function clusterItemDetail() {
-			$(this).find("ul").toggleClass("invisible");
+			if (d3.event.target == this) {
+				$(this).find("ul").toggleClass("invisible");
+			}
 		}
 
 		function generatePrjList(e, i) {
