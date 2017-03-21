@@ -15,6 +15,8 @@ function ClusterView() {
 	self.cluster_field = 'countries';
 	self.subdivide_field = 'focus';
 
+	var validCountries = ["Albania", "Andorra", "Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Malta", "Moldova", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom"];
+
 	function createNewClusters(clusterField, subdivideField) {
 		if(clusterField) self.cluster_field = clusterField
 		if(subdivideField) self.subdivide_field = subdivideField
