@@ -16,10 +16,15 @@ function ClusterView() {
 	self.subdivide_field = 'focus';
 
 	function createNewClusters(clusterField, subdivideField) {
-		var cluster_field = clusterField || self.cluster_field;
-		var subdivide_field = subdivideField || self.subdivide_field;
-		APP.filter.registerViewUpdate(createNewClusters)
+		if(clusterField) self.cluster_field = clusterField
+		if(subdivideField) self.subdivide_field = subdivideField
+		var cluster_field = self.cluster_field;
+		var subdivide_field = self.subdivide_field;
+
 		deleteCluster();
+
+		APP.filter.registerViewUpdate(createNewClusters)
+
 		console.log('creating cluster', cluster_field, subdivide_field)
 
 		projects = APP.filter.prjs;
@@ -28,7 +33,6 @@ function ClusterView() {
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();
-
 		clusterWidth = width / 2
 		clusterHeight = height / 2
 
