@@ -241,10 +241,18 @@ function UserInterface() {
 
 	function openNetworkPanel() {
 		console.log("open network panel!")
+		$("#debug-button").off();
+		$(".network-panel").transition({ y: 0});
+		$(".remove-icon").click(closeNetworkPanel);
 	}
 
 	function closeNetworkPanel() {
-		
+		$(".remove-icon").off();
+		$(".network-panel").transition({ y: "100%"});
+		$("#debug-button").click(function () {
+			if (APP.state == "map") { loadOrgPanelOrList(); }
+			else if (APP.state == "network") { openNetworkPanel(); }; 
+		});
 	}
 
 	function openClusterPanel(data) {
