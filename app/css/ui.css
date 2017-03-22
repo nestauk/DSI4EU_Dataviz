@@ -717,7 +717,7 @@
 	display: flex;	
 }
 
-.ui .cluster-panel .cluster-panel-container h2 {
+.ui .detail-panel h2 {
 	color: #333333;
 }
 
@@ -781,7 +781,6 @@
 .ui .cluster-panel .cluster-panel-scrolling .cluster-item .cluster-panel-circle {
 	display: inline-block;
 	margin-top: 1rem;
-	/*margin-right: 1rem;*/
 	border-radius: 100%;
 }
 
@@ -796,4 +795,16 @@
 
 .ui .detail-panel.network-panel {
 	transform: translateX(-100%);
+}
+
+.ui .network-list .network-list-container .network-list-subtitle {
+	color: #333333;
+	font-size: 1.2rem;
+}
+
+.ui .network-list .network-list-container .network-list-subtitle::after {
+	content: "";
+	display: block;
+	height: .75rem;
+	border-bottom: .2rem solid #333333;
 }

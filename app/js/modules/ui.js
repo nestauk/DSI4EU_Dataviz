@@ -240,10 +240,15 @@ function UserInterface() {
 	}
 
 	function openNetworkList() {
-		console.log("open network panel!")
 		$("#debug-button").off();
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		var selectedNetwork = APP.dataset.orgs.filter(function (d) {
+			return d.name == "Nesta" || d.name == "Waag Society";
+		})
+		APP.networkList.fillHeader(selectedNetwork)
 		$(".network-list").transition({ y: 0});
 		$(".remove-icon").click(closeNetworkList);
+		APP.closeUIPanels = closeNetworkList;
 	}
 
 	function closeNetworkList() {
@@ -253,6 +258,37 @@ function UserInterface() {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
 			else if (APP.state == "network") { openNetworkList(); }; 
 		});
+		APP.closeUIPanels = null;
+	}
+
+	function openNetworkPanel(selectedOrg) {
+		console.log("open network panel: "+selectedNetwork);
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		$("#debug-button").off();
+		$('.network-panel').transition({ x: 0});
+		$(".remove-icon").click(closeNetworkPanel);
+		$(".back-icon").click(backToNetworkList);
+		APP.closeUIPanels = closeNetworkPanel;
+	}
+
+	function backToNetworkList() {
+		$(".back-icon").off();
+		APP.networkPanel.deleteNetworkPanelItems();
+		$('.network-panel').transition({ x:"-100%" });
+		$('.network-list').transition({ y: 0});
+		APP.closeUIPanels = null;
+	}
+
+	function closeNetworkPanel() {
+		$(".remove-icon").off();
+		APP.networkPanel.deleteNetworkPanelItems();
+		$('.network-panel').transition({ x:"-100%" });
+		$('.network-list').transition({ y:"100%" });
+		$("#debug-button").click(function () {
+			if (APP.state == "map") { loadOrgPanelOrList(); }
+			else if (APP.state == "network") { openNetworkList(); }; 
+		});
+		APP.closeUIPanels = null;
 	}
 
 	function openClusterPanel(data) {
