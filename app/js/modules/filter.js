@@ -181,6 +181,7 @@ function Filter(){
 				$('#network-linked-only').click(function(){
 					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
 					$(this).toggleClass('active')
+					APP.network.create();
 				})
 			break;
 			case "cluster":

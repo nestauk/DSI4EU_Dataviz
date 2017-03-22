@@ -40,6 +40,15 @@ function NetworkView() {
 			})
 		});
 
+		if(self.showLinkedOnly){ 
+			prjs = _.filter(prjs, function(p){
+				return p.linked_orgs.length > 1;
+			})
+			orgs = _.filter(orgs, function(o){
+				return !_.isEmpty(o.shared_prjs);
+			})
+		}
+
 		links = []
 		nodes = orgs.concat(prjs)
 
