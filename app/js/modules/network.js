@@ -34,12 +34,14 @@ function NetworkView() {
 
 		var orgs = _.filter(APP.filter.orgs, function(o) {
 			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
-				return _.includes(APP.filter.prjs, p)
+				if(self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
+				else return _.includes(APP.filter.prjs, p);
 			})
 		});
 		var prjs = _.filter(APP.filter.prjs, function(p) {
 			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
-				return _.includes(APP.filter.orgs, o)
+				if(self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
+				else return _.includes(APP.filter.orgs, o);
 			})
 		});
 
