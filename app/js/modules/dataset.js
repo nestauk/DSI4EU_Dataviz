@@ -149,7 +149,8 @@ function Dataset(){
 			p.countries = _.uniq(p.countries);
 			if(!p.linked_orgs) p.linked_orgs = []
 			p.linked_orgs.forEach(function(o){
-				o.linked_orgs = _.without(p.linked_orgs, o);
+				if(!o.linked_orgs) o.linked_orgs = []
+				o.linked_orgs = o.linked_orgs.concat(_.without(p.linked_orgs, o));
 			})
 		})
 	}
