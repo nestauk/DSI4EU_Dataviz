@@ -13,7 +13,6 @@ function NetworkView() {
 		height = 0;
 
 	var lookupMap = {};
-	var scale = 1;
 	var translateX = 0, lastX = false;
 	var translateY = 0, lastY = false;
 	var dragging = false;
@@ -21,13 +20,17 @@ function NetworkView() {
 	var minScale = .5
 	var maxScale = 2
 	var scaleFactor = .1;
+	var initialScale = scale = .8;
 
 
 	function createNetwork() {
+		resetTransforms()
 		deleteNetwork()
+		lookupMap = {};
 		APP.filter.registerViewUpdate(createNetwork);
-		width = $("#main-view").width(),
-			height = $("#main-view").height();
+
+		width = $("#main-view").width();
+		height = $("#main-view").height();
 
 		var orgs = _.filter(APP.filter.orgs, function(o) {
 			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
@@ -215,56 +218,17 @@ function NetworkView() {
 		canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
 	}
 
-	function drawNetwork() {
-		self.system.on("tick", update);
-		var svg = d3.select("#main-view").append("svg")
-			.attr("id", "networkSvg")
-			.attr("width", width)
-			.attr("height", height);
-
-		var link = svg.selectAll(".link"),
-			node = svg.selectAll(".node");
-
-		link = link
-			.data(links)
-			.enter().append("line")
-			.attr("class", "link");
-		node = node
-			.data(nodes)
-			.enter().append("circle")
-			.attr("class", function(d) {
-				return 'network-' + d.type;
-			})
-			.attr("r", function(d) {
-				if (d.type === 'prj') return 3;
-				else return 4;
-			})
-
-		function update() {
-			link.attr("x1", function(d) {
-					return d.source.x;
-				})
-				.attr("y1", function(d) {
-					return d.source.y;
-				})
-				.attr("x2", function(d) {
-					return d.target.x;
-				})
-				.attr("y2", function(d) {
-					return d.target.y;
-				})
-			node.attr("cx", function(d) {
-					return d.x;
-				})
-				.attr("cy", function(d) {
-					return d.y;
-				})
-		}
+	function resetTransforms(){
+		translateX = 0;
+		translateY = 0;
+		scale = initialScale;
 	}
 
 	function deleteNetwork() {
 		self.system = null;
 		$("#network-container").remove();
+		$("#network-lookup").remove();
+		lookupMap = null;
 	}
 
 }
