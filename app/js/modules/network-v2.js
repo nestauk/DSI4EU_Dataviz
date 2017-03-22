@@ -100,7 +100,7 @@ function NetworkView() {
 		canvas.click(function(e) {
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
-			console.log(hex, lookupMap[hex]);
+			APP.ui.openNetworkList(lookupMap[hex]);
 		})
 
 		function update() {

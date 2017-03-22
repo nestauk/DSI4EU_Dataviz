@@ -808,3 +808,52 @@
 	height: .75rem;
 	border-bottom: .2rem solid #333333;
 }
+
+.ui .network-list .network-list-container .network-list-scrolling {
+	max-height: 65vh;
+  overflow: auto;
+}
+
+.ui .network-list .network-list-scrolling ul {
+	width: 100%;
+}
+
+.ui .network-list .network-list-scrolling .network-list-item {
+	display: flex;
+	margin-bottom: 2rem;
+}
+
+.ui .network-list .network-list-scrolling .network-list-item .networklist-circle-container {
+	display: flex;
+	justify-content: center;
+	width: 15%;
+}
+
+.ui .network-list .network-list-scrolling .network-list-item .networklist-circle-container > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 1rem;
+	border-radius: 100%;
+	background: #72abd6;
+	width: 50%;
+}
+
+.ui .network-list .network-list-container .network-list-scrolling .networklist-text-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #333333;
+	font-size: 1.2rem;
+	width: 85%;
+	padding-left: 1rem;
+}
+
+.ui .network-list .network-list-container .network-list-scrolling .networklist-text-container p:first-child {
+	font-size: 1.4rem;
+	line-height: 2rem;
+}
+
+.ui .network-list .network-list-container .network-list-scrolling .networklist-text-container p {
+	line-height: 1.4rem;
+}

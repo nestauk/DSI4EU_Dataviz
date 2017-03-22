@@ -10,8 +10,12 @@ function UserInterface() {
 	self.openFilterTab = openFilterTab;
 
 	//made visible from outside to be used by orglist.js
+	self.openOrgList = openOrgList;
 	self.openOrgPanel = openOrgPanel;
 	self.closeOrgPanel = closeOrgPanel;
+	self.openNetworkList = openNetworkList;
+	self.openNetworkPanel = openNetworkPanel;
+	self.closeNetworkPanel = closeNetworkPanel;
 	self.openClusterPanel = openClusterPanel;
 
 	var nav_next = $('#nav-next');
@@ -239,13 +243,11 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function openNetworkList() {
+	function openNetworkList(selectedOrg) {
 		$("#debug-button").off();
+		APP.networkList.deleteNetworkListItems();
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		var selectedNetwork = APP.dataset.orgs.filter(function (d) {
-			return d.name == "Nesta" || d.name == "Waag Society";
-		})
-		APP.networkList.fillHeader(selectedNetwork)
+		APP.networkList.fillList(selectedOrg)
 		$(".network-list").transition({ y: 0});
 		$(".remove-icon").click(closeNetworkList);
 		APP.closeUIPanels = closeNetworkList;
@@ -262,7 +264,7 @@ function UserInterface() {
 	}
 
 	function openNetworkPanel(selectedOrg) {
-		console.log("open network panel: "+selectedNetwork);
+		console.log("open network panel: "+selectedOrg);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#debug-button").off();
 		$('.network-panel').transition({ x: 0});
