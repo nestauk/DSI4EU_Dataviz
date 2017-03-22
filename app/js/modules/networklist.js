@@ -4,16 +4,12 @@ function NetworkList() {
 	self.deleteNetworkListItems = deleteNetworkListItems;
 
 	function fillList(selectedOrg) {
-		var selectedNetwork = selectedOrg.linked_orgs;
-		
-		var totLinkedPrjs;
-		totLinkedPrjs = d3.sum(selectedNetwork, function (e) {
-			return e.shared_prjs.length;
-		})
-		$(".network-list-subtitle").text(selectedNetwork.length+" Organisations, "+totLinkedPrjs+" Projects");
+
+		var network = getNetwork(selectedOrg);	
+		$(".network-list-subtitle").text(network.orgs.length+" Organisations, "+network.prjs.length+" shared projects");
 
 		var items = d3.select(".network-list-scrolling ul").selectAll(".network-list-item")
-			.data(selectedNetwork)
+			.data(network.orgs)
 				.enter()
 				.append("li")
 					.attr("class", "network-list-item")
@@ -43,16 +39,42 @@ function NetworkList() {
 				return "Works with "+d.linked_orgs.length+" Organisations on "+d.shared_prjs.length+" projects";
 			})
 
-		function toNetworkPanel(_org) {
+		function toNetworkPanel(org) {
 			$('.network-list').transition({ y:"100%" });
 			$('.network-panel').transition({ y:0 });
-			APP.ui.openNetworkPanel(_org);
+			APP.ui.openNetworkPanel(org);
 		}
-
-
-
 	}
 
+	function getNetwork(org){
+		var network_orgs = []
+		var network_prjs = []
+		network_orgs.push(org)
+
+		getOrgNetwork(org)
+		function getOrgNetwork(org){
+			var prjs = _.difference(org.shared_prjs, network_prjs);
+			network_prjs = network_prjs.concat(prjs)
+				prjs.forEach(function(p){
+					var orgs = _.difference(p.linked_orgs, network_orgs);
+					network_orgs = network_orgs.concat(orgs)
+						orgs.forEach(function(o){
+							getOrgNetwork(o)
+						})
+				})
+		}
+		return {
+			prjs: network_prjs,
+			orgs: network_orgs
+		}
+	}
+
+	function flattenNetwork(network){
+		var flatten = _.map(network, function(n){
+			return n.type+' - '+n.name
+		})
+		return flatten;
+	}
 
 	function deleteNetworkListItems() {
 		d3.select(".network-list-scrolling ul").selectAll("li").remove();
