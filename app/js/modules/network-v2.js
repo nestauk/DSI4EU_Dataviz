@@ -12,6 +12,8 @@ function NetworkView() {
 	var width = 0,
 		height = 0;
 
+	var lookupMap = {};
+
 	function createNetwork() {
 		deleteNetwork()
 		APP.filter.registerViewUpdate(createNetwork);
@@ -53,6 +55,13 @@ function NetworkView() {
 		self.system.nodes(nodes);
 		self.system.force("link").links(links);
 
+		nodes.forEach(function(n, i) {
+			hexStr = intToHex(i)
+			lookupMap[hexStr] = n;
+			n.hex = hexStr
+		})
+		console.log(lookupMap)
+
 		drawCanvasNetwork()
 	}
 
@@ -71,13 +80,32 @@ function NetworkView() {
 
 		$("#main-view").append(canvas)
 		var c = canvas[0].getContext("2d");
-		
-		if (window.devicePixelRatio > 1) {
+		var lookupCanvas = canvas.clone()
+			.attr("id", "network-lookup")
+			.css({
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				'pointer-events': 'none',
+				display: 'none'
+			})
+		var lc = lookupCanvas[0].getContext("2d");
+
+		$("#main-view").append(lookupCanvas)
+
+		if(window.devicePixelRatio > 1) {
 			scaleCanvas(canvas)
 		}
 
+		canvas.click(function(e) {
+			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
+			hex = rgbToHex(rgb)
+			console.log(hex, lookupMap[hex]);
+		})
+
 		function update() {
 			var r = 4;
+			updateLookup(r)
 
 			c.clearRect(0, 0, canvas.width(), canvas.height());
 			c.save();
@@ -92,8 +120,12 @@ function NetworkView() {
 			});
 
 			nodes.forEach(function(d) {
-				if (d.type === 'prj') c.fillStyle = "salmon";
-				else c.fillStyle = "steelblue";
+				if (d.type === 'prj') {
+					r = 2
+					c.fillStyle = "salmon";
+				} else {
+					c.fillStyle = "steelblue";
+				}
 				c.beginPath();
 				c.moveTo(d.x + r, d.y);
 				c.arc(d.x, d.y, r, 0, 2 * Math.PI);
@@ -102,12 +134,28 @@ function NetworkView() {
 
 			c.restore();
 		}
+
+		function updateLookup(r) {
+
+			lc.clearRect(0, 0, canvas.width(), canvas.height());
+			lc.save();
+
+			nodes.forEach(function(d, i) {
+				lc.fillStyle = d.hex;
+				lc.beginPath();
+				lc.moveTo(d.x + r, d.y);
+				lc.arc(d.x, d.y, r, 0, 2 * Math.PI);
+				lc.fill();
+			});
+
+			lc.restore();
+		}
 	}
 
-	function scaleCanvas(canvas){
-			canvas.attr("width", width * window.devicePixelRatio)
-			canvas.attr("height", height * window.devicePixelRatio)
-			canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
+	function scaleCanvas(canvas) {
+		canvas.attr("width", width * window.devicePixelRatio)
+		canvas.attr("height", height * window.devicePixelRatio)
+		canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
 	}
 
 	function drawNetwork() {
