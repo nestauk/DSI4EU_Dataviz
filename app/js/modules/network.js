@@ -33,18 +33,32 @@ function NetworkView() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
-		var orgs = _.filter(APP.filter.orgs, function(o) {
+		if(self.showLinkedOnly){ 
+			var prjs = _.filter(APP.filter.prjs, function(p){
+				return p.linked_orgs.length > 1;
+			})
+			var orgs = _.filter(APP.filter.orgs, function(o){
+				return !_.isEmpty(o.shared_prjs);
+			})
+		} else {
+			var orgs = APP.filter.orgs
+			var prjs = APP.filter.prjs
+		}
+
+
+		orgs = _.filter(orgs, function(o) {
 			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
 				if(self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
-				else return _.includes(APP.filter.prjs, p);
+				return _.includes(APP.filter.prjs, p);
 			})
 		});
-		var prjs = _.filter(APP.filter.prjs, function(p) {
+		prjs = _.filter(prjs, function(p) {
 			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
 				if(self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
-				else return _.includes(APP.filter.orgs, o);
+				return _.includes(APP.filter.orgs, o);
 			})
 		});
+
 
 		links = []
 		nodes = orgs.concat(prjs)
