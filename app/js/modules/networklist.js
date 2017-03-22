@@ -5,9 +5,14 @@ function NetworkList() {
 
 	function fillList(selectedOrg) {
 		var selectedNetwork = selectedOrg.linked_orgs;
+		
+		selectedNetwork.forEach(function (d) {
+			d.shared_prjs = findSharedPrjs(d);
+		})
+
 		var totLinkedPrjs;
 		totLinkedPrjs = d3.sum(selectedNetwork, function (e) {
-			return e.linked_prjs.length;
+			return e.shared_prjs.length;
 		})
 		$(".network-list-subtitle").text(selectedNetwork.length+" Organisations, "+totLinkedPrjs+" Projects");
 
@@ -39,7 +44,7 @@ function NetworkList() {
 
 		itemParagraphs.append("p")
 			.text(function (d) {
-				return "Works with "+d.linked_orgs.length+" Organisations on "+d.linked_prjs.length+" projects";
+				return "Works with "+d.linked_orgs.length+" Organisations on "+d.shared_prjs.length+" projects";
 			})
 
 		function toNetworkPanel(_org) {
@@ -48,11 +53,11 @@ function NetworkList() {
 			APP.ui.openNetworkPanel(_org);
 		}
 
-		function findSharedPrjs(_org) {
-			var temp = [];
-			_org.linked_orgs.forEach(function (d) {
-				
+		function findSharedPrjs(_org) { //selects only shared prjs of _org
+			var orgSharedPrjs = _org.linked_prjs.filter(function (d) {
+				return d.linked_orgs.length > 1;
 			})
+			return orgSharedPrjs;
 		}
 
 	}

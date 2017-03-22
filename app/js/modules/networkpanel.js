@@ -1,17 +1,16 @@
 function NetworkPanel() {
 	var self = this;
-	self.fillHeader = fillHeader;
-	self.drawPanel = drawPanel;
+	self.fillPanel = fillPanel;
 	self.deleteNetworkPanelItems = deleteNetworkPanelItems;
 
-	function fillHeader(selectedOrg) {
-		console.log(selectedOrg)
+	function fillPanel(selectedOrg) {
+		console.log(selectedOrg);
+
+		$(".network-panel-title h2").text(selectedOrg.name);
+		$(".network-panel-subtitle").text(selectedOrg.shared_prjs.length+" shared projects");
 
 	}
 
-	function drawPanel(selectedOrg) {
-
-	}
 
 	function deleteNetworkPanelItems() {
 		

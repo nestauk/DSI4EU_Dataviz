@@ -433,7 +433,7 @@
 	align-self: center;
 }
 
-.ui .modal-panel .modal-nav-icons {
+.ui .modal-panel .modal-nav-icons, .ui .detail-panel .modal-nav-icons {
 	width: 100%;
 	display: flex;	
 	justify-content: space-between;
@@ -445,7 +445,7 @@
 	align-self: flex-end;
 	fill: #333333;
 }
-.ui .modal-panel .back-icon {
+.ui .modal-panel .back-icon, .ui .detail-panel .back-icon {
 	width: 2rem;
 	height: 2rem;
 	margin-bottom: 1rem;
@@ -856,4 +856,30 @@
 
 .ui .network-list .network-list-container .network-list-scrolling .networklist-text-container p {
 	line-height: 1.4rem;
+}
+
+.ui .network-panel .network-panel-container .network-panel-scrolling {
+	max-height: 65vh;
+  overflow: auto;
+}
+
+.ui .network-panel .network-panel-scrolling ul {
+	width: 100%;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item {
+	display: flex;
+	margin-bottom: 2rem;
+}
+
+.ui .network-panel .network-panel-container .network-panel-subtitle {
+	color: #333333;
+	font-size: 1.2rem;
+}
+
+.ui .network-panel .network-panel-container .network-panel-subtitle::after {
+	content: "";
+	display: block;
+	height: .75rem;
+	border-bottom: .2rem solid #333333;
 }

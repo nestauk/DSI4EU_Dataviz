@@ -264,7 +264,7 @@ function UserInterface() {
 	}
 
 	function openNetworkPanel(selectedOrg) {
-		console.log("open network panel: "+selectedOrg);
+		APP.networkPanel.fillPanel(selectedOrg)
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#debug-button").off();
 		$('.network-panel').transition({ x: 0});
