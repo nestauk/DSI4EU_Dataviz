@@ -18,6 +18,10 @@ function NetworkView() {
 	var translateY = 0, lastY = false;
 	var dragging = false;
 
+	var minScale = .5
+	var maxScale = 2
+	var scaleFactor = .1;
+
 
 	function createNetwork() {
 		deleteNetwork()
@@ -107,8 +111,8 @@ function NetworkView() {
 		})
 
 		canvas.mousewheel(function(e){
-			var delta = (e.deltaY / Math.abs(e.deltaY))/10
-			if(scale+delta > .5 && scale+delta < 2){
+			var delta = (e.deltaY / Math.abs(e.deltaY))*scaleFactor
+			if(scale+delta > minScale && scale+delta < maxScale){
 				scale += delta;
 				var mx = e.pageX - translateX/scale
 				var my = e.pageY - translateY/scale
@@ -177,8 +181,10 @@ function NetworkView() {
 		}
 
 		function updateLookup(r) {
-			lc.clearRect(0, 0, canvas.width(), canvas.height());
 			lc.save();
+			lc.clearRect(0, 0, width, height);
+			lc.scale(scale, scale)
+			lc.translate(translateX/scale, translateY/scale)
 
 			nodes.forEach(function(d, i) {
 				lc.fillStyle = d.hex;

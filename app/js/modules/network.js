@@ -3,186 +3,257 @@ function NetworkView() {
 	self.create = createNetwork;
 	self.delete = deleteNetwork;
 
-	/* returns a list of ORGs with shared PRJs */
-	function findConnectedOrg(data, field) {
-		var orgList = [];
-	  data.forEach(function(d){
-	  	if (d[field].length > 1) {
-	  		d[field].forEach(function(e){
-	  			orgList.push(e);
-	  		});
-	  	}
-	  })
-	  var cleanOrgList = _.uniq(orgList);
-	  //console.log(cleanOrgList);
-	  return cleanOrgList;
-	}
+	self.showLinkedOnly = false;
 
-	/* returns a list of PRJs belonging to connected ORGs */
-	function findConnectedPrj(data, ConnectedOrgArray, field) {
-		var prjList = [];
-		var filteredData = data.filter(function (d) {
-			return ConnectedOrgArray.includes(d.id);
-		});
-	  filteredData.forEach(function(d){
-			d[field].forEach(function(e){
-				prjList.push(e);
-	  	});
-	  });
-	  var cleanPrjList = _.uniq(prjList);
-	  return cleanPrjList;
-	}
+	self.system = null;
+
+	var nodes = null;
+	var links = null;
+	var width = 0,
+		height = 0;
+
+	var lookupMap = {};
+	var scale = 1;
+	var translateX = 0, lastX = false;
+	var translateY = 0, lastY = false;
+	var dragging = false;
+
+	var minScale = .5
+	var maxScale = 2
+	var scaleFactor = .1;
 
 
-	//CREATE NETWORK
 	function createNetwork() {
-		
-		var width = $("#main-view").width(),
-		    height = $("#main-view").height();
+		deleteNetwork()
+		APP.filter.registerViewUpdate(createNetwork);
+		width = $("#main-view").width(),
+			height = $("#main-view").height();
 
-		var svg = d3.select("#main-view").append("svg")
-		  .attr("id", "networkSvg")
-		  .attr("width", width)
-		  .attr("height", height);
-
-		var color = d3.scaleOrdinal(["steelblue", "salmon"]);
-
-		var simulation = d3.forceSimulation()
-		  .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(2))
-		  //.force("charge", d3.forceManyBody())
-		  .force("charge", d3.forceManyBody().strength(-150).distanceMax(100))
-		  .force("center", d3.forceCenter(width/2, height/2));
-
-		/* PREPARE AND CLEAN DATA */
-		var org = [];
-		var prj = [];
-		APP.dataset.orgs.forEach(function (d) {
-			var temp = {};
-			var prjArray = _.map(d.linked_prjs, function (e) {
-				return "prj"+e.id;
-			});
-			temp.type = 0;
-			temp.id = "org"+d.id;
-			temp.prjlinks = prjArray;
-			temp.country = d.country;
-			temp.name = d.name;
-			org.push(temp);
-		})
-		//console.log(org);
-		APP.dataset.prjs.forEach(function (d) {
-			var temp = {};
-			var orgArray = _.map(d.linked_orgs, function (e) {
-				return "org"+e.id;
-			});
-			temp.type = 1;
-			temp.id = "prj"+d.id;
-			temp.orglinks = orgArray;
-			temp.name = d.name;
-			prj.push(temp);
-		})
-		//console.log(prj);
-		
-		var selectedOrgs = findConnectedOrg(prj, "orglinks"); //ORGs with shared PRJs
-		var selectedPrjs = findConnectedPrj(org, selectedOrgs, "prjlinks"); //shared PRJs
-		
-		/* FILTER DATA */
-		var filteredOrg = org.filter(function (d) {
-			//return d.country!="";
-			//return d.country==="United Kingdom";
-			return selectedOrgs.includes(d.id);
+		var orgs = _.filter(APP.filter.orgs, function(o) {
+			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
+				return _.includes(APP.filter.prjs, p)
+			})
 		});
-		var filteredPrj = prj.filter(function (d) {
-			//return d.id!="";
-			return selectedPrjs.includes(d.id);
+		var prjs = _.filter(APP.filter.prjs, function(p) {
+			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
+				return _.includes(APP.filter.orgs, o)
+			})
 		});
 
-		/* BUILDS UP THE NODES (ORGs and PRJs) */
-		var nodes = filteredOrg.concat(filteredPrj);
+		links = []
+		nodes = orgs.concat(prjs)
 
-		/* BUILDS UP THE LINKS (connections between nodes), creating objects with SOURCE and TARGET fields */
-		var links = [];
-		filteredOrg.forEach(function (d) {
-			d["prjlinks"].forEach(function(e){
-				if (e.length!=0) {
+		orgs.forEach(function(o) {
+			o.linked_prjs.forEach(function(p) {
+				if (_.includes(prjs, p)) {
 					links.push({
-						source: d.id.toString(),
-						target: e,
-						value: 1
-					});
+						source: o,
+						target: p
+					})
 				}
-			});
+			})
 		})
-		
-		var link = svg.append("g")
-	      .attr("class", "links")
-	    .selectAll("line")
-	    .data(links)
-	    .enter().append("line");
 
-		var node = svg.append("g")
-	      .attr("class", "nodes")
-	    .selectAll("circle")
-	    .data(nodes)
-	    .enter().append("circle")
-	      .attr("r", function(d) { 
-	      	if (d.type === 1) return 3;
-	      	else return 4;
-	      })
-	      .attr("class", function(d) { 
-	      	if (d.type === 1) return "netPrj";
-	      	else return "netOrg";
-	      })
-	      .call(d3.drag()
-	        .on("start", dragstarted)
-	        .on("drag", dragged)
-	        .on("end", dragended));
+		self.system = d3.forceSimulation()
+			.force("link", d3.forceLink().id(function(d) {
+				return d;
+			}).strength(2))
+			.force("charge", d3.forceManyBody().strength(-150).distanceMax(100))
+			.force("center", d3.forceCenter(width / 2, height / 2))
 
-	  node.append("title")
-	    .text(function(d) { return "id: "+d.id+", name: "+d.name; });
+		self.system.nodes(nodes);
+		self.system.force("link").links(links);
 
-	  simulation
-	    .nodes(nodes)
-	    .on("tick", ticked);
+		nodes.forEach(function(n, i) {
+			hexStr = intToHex(i)
+			lookupMap[hexStr] = n;
+			n.hex = hexStr
+		})
 
-	  simulation.force("link")
-	    .links(links);
+		drawCanvasNetwork()
+	}
 
-	  function ticked() {
-	    link
-	      .attr("x1", function(d) { return d.source.x; })
-	      .attr("y1", function(d) { return d.source.y; })
-	      .attr("x2", function(d) { return d.target.x; })
-	      .attr("y2", function(d) { return d.target.y; });
-	    node
-	      .attr("cx", function(d) { return d.x; })
-	      .attr("cy", function(d) { return d.y; });
-	  }
+	function drawCanvasNetwork() {
+		self.system.on("tick", update);
 
-	  function dragstarted(d) {
-		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-		  d.fx = d.x;
-		  d.fy = d.y;
+		var canvas = $("<canvas></canvas>")
+			.attr("width", width)
+			.attr("height", height)
+			.css({
+				width: width,
+				height: height
+			})
+			.attr("id", "network-container")
+
+		$("#main-view").append(canvas)
+		var c = canvas[0].getContext("2d");
+		var lookupCanvas = canvas.clone()
+			.attr("id", "network-lookup")
+			.css({
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				'pointer-events': 'none',
+				display: 'none'
+			})
+		var lc = lookupCanvas[0].getContext("2d");
+
+		$("#main-view").append(lookupCanvas)
+
+		if(window.devicePixelRatio > 1) {
+			scaleCanvas(canvas)
 		}
 
-		function dragged(d) {
-		  d.fx = d3.event.x;
-		  d.fy = d3.event.y;
+		canvas.click(function(e) {
+			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
+			hex = rgbToHex(rgb)
+			APP.ui.openNetworkList(lookupMap[hex]);
+		})
+
+		canvas.mousewheel(function(e){
+			var delta = (e.deltaY / Math.abs(e.deltaY))*scaleFactor
+			if(scale+delta > minScale && scale+delta < maxScale){
+				scale += delta;
+				var mx = e.pageX - translateX/scale
+				var my = e.pageY - translateY/scale
+				offsetX = -(mx * delta);
+				offsetY = -(my * delta);
+				translateX += offsetX
+				translateY += offsetY
+				update()
+			}
+		})
+
+		$(document).on("mousedown touchstart", function(e){
+			dragging = true;
+			lastX = e.pageX || e.touches[0].pageX
+			lastY = e.pageY || e.touches[0].pageY
+		})
+
+		$(document).on("mousemove touchmove", function(e){
+			if(dragging){
+				var x = e.pageX || e.touches[0].pageX;
+				var y = e.pageY || e.touches[0].pageY;
+				translateX += x - lastX
+				translateY += y - lastY
+				lastX = x;
+				lastY = y;
+				update()
+			}
+		})
+
+		$(document).on("mouseup touchend", function(e){
+			dragging = false;
+		})
+
+		function update() {
+			var r = 6;
+			updateLookup(r)
+
+			c.save();
+			c.clearRect(0, 0, width,  height);
+			c.scale(scale, scale)
+			c.translate(translateX/scale, translateY/scale)
+
+			links.forEach(function(d) {
+				c.strokeStyle = "lightgrey";
+				c.lineWidth = 1;
+				c.beginPath();
+				c.moveTo(d.source.x, d.source.y);
+				c.lineTo(d.target.x, d.target.y);
+				c.stroke();
+			});
+
+			nodes.forEach(function(d) {
+				if (d.type === 'prj') {
+					r = 4
+					c.fillStyle = "salmon";
+				} else {
+					c.fillStyle = "steelblue";
+				}
+				c.beginPath();
+				c.moveTo(d.x + r, d.y);
+				c.arc(d.x, d.y, r, 0, 2 * Math.PI);
+				c.fill();
+			});
+
+			c.restore();
 		}
 
-		function dragended(d) {
-		  if (!d3.event.active) simulation.alphaTarget(0);
-		  d.fx = null;
-		  d.fy = null;
+		function updateLookup(r) {
+			lc.save();
+			lc.clearRect(0, 0, width, height);
+			lc.scale(scale, scale)
+			lc.translate(translateX/scale, translateY/scale)
+
+			nodes.forEach(function(d, i) {
+				lc.fillStyle = d.hex;
+				lc.beginPath();
+				lc.moveTo(d.x + r, d.y);
+				lc.arc(d.x, d.y, r, 0, 2 * Math.PI);
+				lc.fill();
+			});
+
+			lc.restore();
 		}
+	}
 
+	function scaleCanvas(canvas) {
+		canvas.attr("width", width * window.devicePixelRatio)
+		canvas.attr("height", height * window.devicePixelRatio)
+		canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
+	}
 
-	} //END create
+	function drawNetwork() {
+		self.system.on("tick", update);
+		var svg = d3.select("#main-view").append("svg")
+			.attr("id", "networkSvg")
+			.attr("width", width)
+			.attr("height", height);
 
+		var link = svg.selectAll(".link"),
+			node = svg.selectAll(".node");
 
-	//REMOVE NETWORK
+		link = link
+			.data(links)
+			.enter().append("line")
+			.attr("class", "link");
+		node = node
+			.data(nodes)
+			.enter().append("circle")
+			.attr("class", function(d) {
+				return 'network-' + d.type;
+			})
+			.attr("r", function(d) {
+				if (d.type === 'prj') return 3;
+				else return 4;
+			})
+
+		function update() {
+			link.attr("x1", function(d) {
+					return d.source.x;
+				})
+				.attr("y1", function(d) {
+					return d.source.y;
+				})
+				.attr("x2", function(d) {
+					return d.target.x;
+				})
+				.attr("y2", function(d) {
+					return d.target.y;
+				})
+			node.attr("cx", function(d) {
+					return d.x;
+				})
+				.attr("cy", function(d) {
+					return d.y;
+				})
+		}
+	}
+
 	function deleteNetwork() {
-		$("#networkSvg").remove();
-	} //END remove
-	
+		self.system = null;
+		$("#network-container").remove();
+	}
 
 }
