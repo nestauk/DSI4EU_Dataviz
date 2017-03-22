@@ -58,20 +58,23 @@ function NetworkView() {
 
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
+		console.log(window.devicePixelRatio)
 
 		var canvas = $("<canvas></canvas>")
-			.attr("width", width * 2)
-			.attr("height", height * 2)
+			.attr("width", width)
+			.attr("height", height)
 			.css({
 				width: width,
 				height: height
 			})
 			.attr("id", "network-container")
+
 		$("#main-view").append(canvas)
-
-
 		var c = canvas[0].getContext("2d");
-		c.scale(2, 2)
+		
+		if (window.devicePixelRatio > 1) {
+			scaleCanvas(canvas)
+		}
 
 		function update() {
 			var r = 4;
@@ -99,6 +102,12 @@ function NetworkView() {
 
 			c.restore();
 		}
+	}
+
+	function scaleCanvas(canvas){
+			canvas.attr("width", width * window.devicePixelRatio)
+			canvas.attr("height", height * window.devicePixelRatio)
+			canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
 	}
 
 	function drawNetwork() {
