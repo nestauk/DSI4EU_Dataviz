@@ -13,6 +13,11 @@ function NetworkView() {
 		height = 0;
 
 	var lookupMap = {};
+	var scale = 1;
+	var translateX = 0, lastX = false;
+	var translateY = 0, lastY = false;
+	var dragging = false;
+
 
 	function createNetwork() {
 		deleteNetwork()
@@ -60,14 +65,12 @@ function NetworkView() {
 			lookupMap[hexStr] = n;
 			n.hex = hexStr
 		})
-		console.log(lookupMap)
 
 		drawCanvasNetwork()
 	}
 
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
-		console.log(window.devicePixelRatio)
 
 		var canvas = $("<canvas></canvas>")
 			.attr("width", width)
@@ -103,12 +106,50 @@ function NetworkView() {
 			APP.ui.openNetworkList(lookupMap[hex]);
 		})
 
+		canvas.mousewheel(function(e){
+			var delta = (e.deltaY / Math.abs(e.deltaY))/10
+			if(scale+delta > .5 && scale+delta < 2){
+				scale += delta;
+				var mx = e.pageX - translateX/scale
+				var my = e.pageY - translateY/scale
+				offsetX = -(mx * delta);
+				offsetY = -(my * delta);
+				translateX += offsetX
+				translateY += offsetY
+				update()
+			}
+		})
+
+		$(document).on("mousedown touchstart", function(e){
+			dragging = true;
+			lastX = e.pageX || e.touches[0].pageX
+			lastY = e.pageY || e.touches[0].pageY
+		})
+
+		$(document).on("mousemove touchmove", function(e){
+			if(dragging){
+				var x = e.pageX || e.touches[0].pageX;
+				var y = e.pageY || e.touches[0].pageY;
+				translateX += x - lastX
+				translateY += y - lastY
+				lastX = x;
+				lastY = y;
+				update()
+			}
+		})
+
+		$(document).on("mouseup touchend", function(e){
+			dragging = false;
+		})
+
 		function update() {
-			var r = 4;
+			var r = 6;
 			updateLookup(r)
 
-			c.clearRect(0, 0, canvas.width(), canvas.height());
 			c.save();
+			c.clearRect(0, 0, width,  height);
+			c.scale(scale, scale)
+			c.translate(translateX/scale, translateY/scale)
 
 			links.forEach(function(d) {
 				c.strokeStyle = "lightgrey";
@@ -121,7 +162,7 @@ function NetworkView() {
 
 			nodes.forEach(function(d) {
 				if (d.type === 'prj') {
-					r = 2
+					r = 4
 					c.fillStyle = "salmon";
 				} else {
 					c.fillStyle = "steelblue";
@@ -136,7 +177,6 @@ function NetworkView() {
 		}
 
 		function updateLookup(r) {
-
 			lc.clearRect(0, 0, canvas.width(), canvas.height());
 			lc.save();
 
@@ -183,9 +223,6 @@ function NetworkView() {
 				else return 4;
 			})
 
-		console.log(all)
-
-
 		function update() {
 			link.attr("x1", function(d) {
 					return d.source.x;
@@ -212,6 +249,5 @@ function NetworkView() {
 		self.system = null;
 		$("#network-container").remove();
 	}
-
 
 }
