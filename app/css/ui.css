@@ -881,11 +881,6 @@
 	width: 100%;
 }
 
-.ui .network-panel .network-panel-scrolling .network-panel-item {
-	display: flex;
-	margin-bottom: 2rem;
-}
-
 .ui .network-panel .network-panel-container .network-panel-subtitle {
 	color: #333333;
 	font-size: 1.2rem;
@@ -896,4 +891,21 @@
 	display: block;
 	height: .75rem;
 	border-bottom: .2rem solid #333333;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	color: #333333;
+	margin-bottom: 1rem;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-bar {
+	background: #ffad69;
+	height: .75rem;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item .sub-list.invisible {
+	display: none;
 }
