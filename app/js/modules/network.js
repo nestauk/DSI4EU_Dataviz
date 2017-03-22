@@ -107,7 +107,9 @@ function NetworkView() {
 		canvas.click(function(e) {
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
-			APP.ui.openNetworkList(lookupMap[hex]);
+			var node = lookupMap[hex]
+			if(node.type == 'org') APP.ui.openNetworkList(node);
+			console.log(node.name, node.type, node.linked_orgs)
 		})
 
 		canvas.mousewheel(function(e){
