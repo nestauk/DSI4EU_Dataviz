@@ -6,10 +6,6 @@ function NetworkList() {
 	function fillList(selectedOrg) {
 		var selectedNetwork = selectedOrg.linked_orgs;
 		
-		selectedNetwork.forEach(function (d) {
-			d.shared_prjs = findSharedPrjs(d);
-		})
-
 		var totLinkedPrjs;
 		totLinkedPrjs = d3.sum(selectedNetwork, function (e) {
 			return e.shared_prjs.length;
@@ -53,12 +49,7 @@ function NetworkList() {
 			APP.ui.openNetworkPanel(_org);
 		}
 
-		function findSharedPrjs(_org) { //selects only shared prjs of _org
-			var orgSharedPrjs = _org.linked_prjs.filter(function (d) {
-				return d.linked_orgs.length > 1;
-			})
-			return orgSharedPrjs;
-		}
+
 
 	}
 

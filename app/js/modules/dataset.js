@@ -44,8 +44,14 @@ function Dataset(){
 			o.type = 'org'
 			o.url = 'https://digitalsocial.eu/org/'+o.id
 			if(!o.linked_prjs) o.linked_prjs = []
+
 			if(!o.linked_orgs) o.linked_orgs = []
 			else o.linked_orgs = _.uniq(o.linked_orgs)
+			
+			o.shared_prjs = o.linked_prjs.filter(function (p) {
+				return p.linked_orgs.length > 1;
+			})
+
 			delete o.address
 			delete o.size
 			delete o.created
