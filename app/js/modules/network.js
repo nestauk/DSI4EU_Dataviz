@@ -24,6 +24,7 @@ function NetworkView() {
 
 
 	function createNetwork() {
+		console.log('UPDATED')
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
@@ -44,15 +45,6 @@ function NetworkView() {
 				else return _.includes(APP.filter.orgs, o);
 			})
 		});
-
-		if(self.showLinkedOnly){ 
-			prjs = _.filter(prjs, function(p){
-				return p.linked_orgs.length > 1;
-			})
-			orgs = _.filter(orgs, function(o){
-				return !_.isEmpty(o.shared_prjs);
-			})
-		}
 
 		links = []
 		nodes = orgs.concat(prjs)
