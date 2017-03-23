@@ -9,54 +9,43 @@ function NetworkPanel() {
 		$(".network-panel-title h2").text(selectedOrg.name);
 		$(".network-panel-subtitle").text(selectedOrg.shared_prjs.length+" shared projects");
 
-		selectedOrg.linked_orgs.forEach(function (f) {
-			f.matchingSharedPrjs = _.intersectionBy(f.shared_prjs, selectedOrg.shared_prjs, "id");
+		selectedOrg.shared_prjs.forEach(function (o) {
+			var list = $(".network-panel-scrolling ul").get(0)
+			var li = $("<li></li>")
+				.addClass("network-panel-item")
+			list.append(li.get(0));
+
+			var titleDiv = $("<div></div>")
+				.addClass("network-panel-item-title")
+				//.text(o.name)
+			li.get(0).append(titleDiv.get(0));
+
+			var titleLink = $("<a></a>")
+				.attr("href", o.url)
+				.attr("target", "_blank")
+				.text(o.name)
+			titleDiv.get(0).append(titleLink.get(0));
+
+			var barDiv = $("<div></div>")
+				.addClass("network-panel-item-bar")
+				.css("width", o.linked_orgs.length+"rem")
+			li.get(0).append(barDiv.get(0));
+
+			var orgsDiv = $("<div></div>")
+				.addClass("network-panel-item-org")
+				.text(createOrgList(o))
+			li.get(0).append(orgsDiv.get(0));
 		})
-
-		var items = d3.select(".network-panel-scrolling ul").selectAll(".network-panel-item")
-			.data(selectedOrg.linked_orgs)
-				.enter()
-				.append("li")
-					.attr("class", "network-panel-item")
-
-		items.append("div")
-			.attr("class", "network-panel-item-title")
-			.text(function (d) {
-				return d.name;
-			})
-
-		items.append("div")
-			.attr("class", "network-panel-item-bar")
-			.style("width", function (d) {
-				return d.matchingSharedPrjs.length+"rem";
-			})
-
-		items
-			.each(generatePrjList)
-			.on("click", viewPrjList)
 		
-		function viewPrjList() {
-			if (d3.event.target == this || d3.event.target.parentNode == this) {
-				$(this).find("ul").toggleClass("invisible");
-			}
-		}
-
-		function generatePrjList(e, i) {
-			d3.select(this).append("ul")
-				.attr("class", "sub-list invisible")
-					.selectAll("sub-list-items")
-					.data(e.matchingSharedPrjs)
-					.enter()
-					.append("li")
-						.attr("class", "sub-list-items")
-						.append("a")
-							.attr("href", function (d) {
-								return d.url;
-							})
-							.attr("target", "_blank")
-							.text(function (f) {
-								return f.name;
-							})
+		function createOrgList(d) {
+			var orglist = "Shared with: ";
+			d.linked_orgs.forEach(function (l, i) {
+				if (l.name != selectedOrg.name) {
+					orglist = orglist.concat(l.name);
+					if (i != d.linked_orgs.length-1) orglist = orglist.concat(", ");
+				}
+			})
+			return orglist;
 		}
 
 	}

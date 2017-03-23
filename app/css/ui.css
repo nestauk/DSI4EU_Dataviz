@@ -157,6 +157,10 @@
 	/*transform: translateY(-100%);*/
 }
 
+.ui #filter-panel h2 {
+	text-align: center;
+}
+
 @media screen and (max-width: 480px) {
 	.ui #filter-panel {
 		transform: translateY(-100%);
@@ -402,7 +406,7 @@
 	background: rgba(51,51,51,0.85);
 	background: rgba(0,0,0,0.85);
 	width: 100%;
-	padding: 1rem 1.6rem;
+	padding: 1rem 1.2rem;
 	position: absolute;
 	top: 0;
 	z-index: 1;
@@ -447,16 +451,23 @@
 	align-self: center;
 }
 
-.ui .modal-panel .modal-nav-icons, .ui .detail-panel .modal-nav-icons {
+.ui .modal-panel .modal-nav-icons {
 	width: 100%;
 	display: flex;	
+}
+
+.ui .modal-panel .network-list-container .modal-nav-icons, .ui .modal-panel .org-list-map-container .modal-nav-icons {	
+	justify-content: flex-end;
+}
+
+.ui .modal-panel .network-panel-container .modal-nav-icons, .ui .modal-panel .org-panel-map-container .modal-nav-icons {
 	justify-content: space-between;
 }
+
 .ui .modal-panel .remove-icon, .ui .detail-panel .remove-icon {
 	width: 2rem;
 	height: 2rem;
 	margin-bottom: 1rem;
-	align-self: flex-end;
 	fill: #333333;
 }
 .ui .modal-panel .back-icon, .ui .detail-panel .back-icon {
@@ -660,6 +671,7 @@
 .ui .modal-panel .org-panel-map-container .org-panel-scrolling {
 	max-height: 65vh;
   overflow: auto;
+  padding-right: 10px;
 }
 
 .ui .modal-panel .org-panel-map-container .org-panel-scrolling svg {
@@ -723,6 +735,7 @@
 }
 
 .ui .modal-panel h2 {
+	line-height: 2rem;
 	color: white;
 }
 
@@ -741,6 +754,7 @@
 .ui .cluster-panel .cluster-panel-container .cluster-panel-scrolling {
 	max-height: 65vh;
   overflow: auto;
+  padding-right: 10px;
 }
 
 .ui .cluster-panel .cluster-panel-scrolling ul {
@@ -818,6 +832,7 @@
 .ui .network-list .network-list-container .network-list-scrolling {
 	max-height: 65vh;
   overflow: auto;
+  padding-right: 10px;
 }
 
 .ui .network-list .network-list-scrolling ul {
@@ -868,6 +883,7 @@
 .ui .network-panel .network-panel-container .network-panel-scrolling {
 	max-height: 65vh;
   overflow: auto;
+  padding-right: 10px;
 }
 
 .ui .network-panel .network-panel-scrolling ul {
@@ -903,7 +919,7 @@
 }
 
 .ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-title a:hover {
-	text-decoration: underline;
+	color: #ffad69;;
 }
 
 .ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-bar {
