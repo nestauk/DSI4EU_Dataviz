@@ -277,13 +277,19 @@ function UserInterface() {
 		$(".back-icon").off();
 		$('.network-list').css({ y: 0});
 		$('.network-panel').transition({ x:"-100%" }, 500, "easeOutQuart");
-		$('.network-list').transition({ x: 0, complete: function() { APP.networkPanel.deleteNetworkPanelItems(); } }, 500, "easeOutQuart");
+		$('.network-list').transition({ x: 0, complete: function() {
+				APP.networkPanel.deleteNetworkPanelItems();
+			}
+		}, 500, "easeOutQuart");
 		APP.closeUIPanels = null;
 	}
 
 	function closeNetworkPanel() {
 		$(".remove-icon").off();
-		$('.network-panel').transition({ x:"-100%", complete: function() { APP.networkPanel.deleteNetworkPanelItems(); } }, 500, "easeInQuart");
+		$('.network-panel').transition({ x:"-100%", complete: function() {
+				APP.networkPanel.deleteNetworkPanelItems();
+			}
+		}, 500, "easeInQuart");
 		$('.network-list').transition({ y:"100%", x: 0 });
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }

@@ -880,6 +880,10 @@
 	line-height: 1.4rem;
 }
 
+.ui .network-list .network-list-container .network-list-scrolling .networklist-text-container p:hover {
+	color: #72abd6;
+}
+
 .ui .network-panel .network-panel-container .network-panel-scrolling {
 	max-height: 65vh;
   overflow: auto;

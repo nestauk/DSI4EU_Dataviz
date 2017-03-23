@@ -7,9 +7,19 @@ function NetworkPanel() {
 		//console.log(selectedOrg);
 
 		$(".network-panel-title h2").text(selectedOrg.name);
-		$(".network-panel-subtitle").text(selectedOrg.shared_prjs.length+" shared projects");
+		$(".network-panel-subtitle").text(selectedOrg.shared_prjs.length+" shared project"+plurOrSing(selectedOrg.shared_prjs));
+
+		//max number of linked ORGs of all the PRJ listed in the network panel
+		var maxBar = d3.max(selectedOrg.shared_prjs, function (d) {
+			return d.linked_orgs.length;
+		})
+
+		var barScale = d3.scaleLinear()
+			.domain([0, maxBar])
+			.range([0, 100])
 
 		selectedOrg.shared_prjs.forEach(function (o) {
+
 			var list = $(".network-panel-scrolling ul").get(0)
 			var li = $("<li></li>")
 				.addClass("network-panel-item")
@@ -17,7 +27,6 @@ function NetworkPanel() {
 
 			var titleDiv = $("<div></div>")
 				.addClass("network-panel-item-title")
-				//.text(o.name)
 			li.get(0).append(titleDiv.get(0));
 
 			var titleLink = $("<a></a>")
@@ -28,7 +37,7 @@ function NetworkPanel() {
 
 			var barDiv = $("<div></div>")
 				.addClass("network-panel-item-bar")
-				.css("width", o.linked_orgs.length+"rem")
+				.css("width", barScale(o.linked_orgs.length)+"%")
 			li.get(0).append(barDiv.get(0));
 
 			var orgsDiv = $("<div></div>")
@@ -38,7 +47,7 @@ function NetworkPanel() {
 		})
 		
 		function createOrgList(d) {
-			var orglist = "Shared with: ";
+			var orglist = "Shared with "+d.linked_orgs.length+" organisation"+plurOrSing(d.linked_orgs)+" :";
 			d.linked_orgs.forEach(function (l, i) {
 				if (l.name != selectedOrg.name) {
 					orglist = orglist.concat(l.name);
@@ -48,6 +57,11 @@ function NetworkPanel() {
 			return orglist;
 		}
 
+	}
+
+
+	function plurOrSing(array) {
+		return array.length == 1 ? "" : "s";
 	}
 
 

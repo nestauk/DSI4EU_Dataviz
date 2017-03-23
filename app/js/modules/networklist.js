@@ -6,7 +6,7 @@ function NetworkList() {
 	function fillList(selectedOrg) {
 
 		var network = getNetwork(selectedOrg);	
-		$(".network-list-subtitle").text(network.orgs.length+" Organisations, "+network.prjs.length+" shared projects");
+		$(".network-list-subtitle").text(network.orgs.length+" Organisation"+plurOrSing(network.orgs)+", "+network.prjs.length+" shared project"+plurOrSing(network.prjs));
 
 		var items = d3.select(".network-list-scrolling ul").selectAll(".network-list-item")
 			.data(network.orgs)
@@ -22,6 +22,7 @@ function NetworkList() {
 				.attr("class", "networklist-panel-circle")
 
 		$(".networklist-panel-circle").height($(".networklist-panel-circle").width())
+		$(".networklist-panel-circle").transition({ scale: 1.2, delay: 500 }, 500, "easeOutQuint");
 
 		var itemParagraphs = items.append("div")
 			.attr("class", "networklist-text-container")
@@ -36,12 +37,11 @@ function NetworkList() {
 
 		itemParagraphs.append("p")
 			.text(function (d) {
-				return "Works with "+d.linked_orgs.length+" Organisations on "+d.shared_prjs.length+" projects";
+				return "Works with "+d.linked_orgs.length+" Organisation"+plurOrSing(d.linked_orgs)+" on "+d.shared_prjs.length+" project"+plurOrSing(d.shared_prjs);
 			})
 
 		function toNetworkPanel(org) {
 			$('.network-list').transition({ x:"100%" }, 500, "easeOutQuart");
-			// $('.network-panel').transition({ y:0 });
 			APP.ui.openNetworkPanel(org);
 		}
 	}
@@ -67,6 +67,10 @@ function NetworkList() {
 			prjs: network_prjs,
 			orgs: network_orgs
 		}
+	}
+
+	function plurOrSing(array) {
+		return array.length == 1 ? "" : "s";
 	}
 
 	function flattenNetwork(network){
