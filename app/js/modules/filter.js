@@ -87,13 +87,13 @@ function Filter() {
 				self.prjs = _.filter(self.prjs, function(p) {
 					return _.some(currentField, function(f) {
 						if (!p[f.field]) return true;
-						else return p[f.field] == f.value
+						return _.includes(p[f.field], f.value);
 					})
 				})
 				self.orgs = _.filter(self.orgs, function(o) {
 					return _.some(currentField, function(f) {
 						if (!o[f.field]) return true;
-						else return o[f.field] == f.value
+						return _.includes(o[f.field], f.value);
 					})
 				})
 			})
