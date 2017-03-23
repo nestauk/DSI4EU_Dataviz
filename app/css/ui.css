@@ -865,6 +865,7 @@
 
 .ui .network-list .network-list-container .network-list-scrolling .networklist-text-container p:first-child {
 	font-size: 1.4rem;
+	font-weight: 500;
 	line-height: 2rem;
 }
 
@@ -884,6 +885,7 @@
 .ui .network-panel .network-panel-container .network-panel-subtitle {
 	color: #333333;
 	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 .ui .network-panel .network-panel-container .network-panel-subtitle::after {
@@ -899,6 +901,17 @@
 	justify-content: flex-start;
 	color: #333333;
 	margin-bottom: 1rem;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-title a {
+	color: #333333;
+	font-size: 1.2rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-title a:hover {
+	text-decoration: underline;
 }
 
 .ui .network-panel .network-panel-scrolling .network-panel-item .network-panel-item-bar {

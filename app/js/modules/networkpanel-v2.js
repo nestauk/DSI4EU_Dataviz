@@ -17,8 +17,14 @@ function NetworkPanel() {
 
 			var titleDiv = $("<div></div>")
 				.addClass("network-panel-item-title")
-				.text(o.name)
+				//.text(o.name)
 			li.get(0).append(titleDiv.get(0));
+
+			var titleLink = $("<a></a>")
+				.attr("href", o.url)
+				.attr("target", "_blank")
+				.text(o.name)
+			titleDiv.get(0).append(titleLink.get(0));
 
 			var barDiv = $("<div></div>")
 				.addClass("network-panel-item-bar")
