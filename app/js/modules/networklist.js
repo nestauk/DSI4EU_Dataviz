@@ -40,8 +40,8 @@ function NetworkList() {
 			})
 
 		function toNetworkPanel(org) {
-			$('.network-list').transition({ y:"100%" });
-			$('.network-panel').transition({ y:0 });
+			$('.network-list').transition({ x:"100%" }, 500, "easeOutQuart");
+			// $('.network-panel').transition({ y:0 });
 			APP.ui.openNetworkPanel(org);
 		}
 	}

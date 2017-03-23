@@ -248,14 +248,14 @@ function UserInterface() {
 		APP.networkList.deleteNetworkListItems();
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		APP.networkList.fillList(selectedOrg)
-		$(".network-list").transition({ y: 0});
+		$(".network-list").transition({ y: 0 }, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkList);
 		APP.closeUIPanels = closeNetworkList;
 	}
 
 	function closeNetworkList() {
 		$(".remove-icon").off();
-		$(".network-list").transition({ y: "100%"});
+		$(".network-list").transition({ y: "100%"}, 500, "easeInQuart");
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
 			else if (APP.state == "network") { openNetworkList(); }; 
@@ -267,7 +267,7 @@ function UserInterface() {
 		APP.networkPanel.fillPanel(selectedOrg)
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#debug-button").off();
-		$('.network-panel').transition({ x: 0});
+		$('.network-panel').transition({ x: 0}, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkPanel);
 		$(".back-icon").click(backToNetworkList);
 		APP.closeUIPanels = closeNetworkPanel;
@@ -275,17 +275,16 @@ function UserInterface() {
 
 	function backToNetworkList() {
 		$(".back-icon").off();
-		APP.networkPanel.deleteNetworkPanelItems();
-		$('.network-panel').transition({ x:"-100%" });
-		$('.network-list').transition({ y: 0});
+		$('.network-list').css({ y: 0});
+		$('.network-panel').transition({ x:"-100%" }, 500, "easeOutQuart");
+		$('.network-list').transition({ x: 0, complete: function() { APP.networkPanel.deleteNetworkPanelItems(); } }, 500, "easeOutQuart");
 		APP.closeUIPanels = null;
 	}
 
 	function closeNetworkPanel() {
 		$(".remove-icon").off();
-		APP.networkPanel.deleteNetworkPanelItems();
-		$('.network-panel').transition({ x:"-100%" });
-		$('.network-list').transition({ y:"100%" });
+		$('.network-panel').transition({ x:"-100%", complete: function() { APP.networkPanel.deleteNetworkPanelItems(); } }, 500, "easeInQuart");
+		$('.network-list').transition({ y:"100%", x: 0 });
 		$("#debug-button").click(function () {
 			if (APP.state == "map") { loadOrgPanelOrList(); }
 			else if (APP.state == "network") { openNetworkList(); }; 

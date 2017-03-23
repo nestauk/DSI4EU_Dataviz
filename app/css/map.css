@@ -1,6 +1,6 @@
 .map {
   fill: white;
-  stroke: grey;
+  stroke: ffffff;
   stroke-width: 0.5px;
 }
 .background {
@@ -8,7 +8,7 @@
   pointer-events: all;
 }
 #states {
-  fill: lightgrey;
+  fill: #ddd;
 }
 #state-borders {
   fill: none;
@@ -19,7 +19,7 @@
   pointer-events: none;
 }
 #dots circle {
-	fill: purple;
+	fill: #72abd6;
 	fill-opacity: 1;
 	stroke: none;
 }
