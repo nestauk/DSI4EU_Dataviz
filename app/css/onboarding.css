@@ -1,0 +1,36 @@
+#onboarding-view{
+	display: none;
+}
+
+#onboarding-view p{
+	font-size: 1.8rem;
+	line-height: 2.4rem;
+	font-weight: bold;
+}
+
+#onboarding-view .num{
+	font-size: 3.2rem;
+	line-height: 3.4rem;
+}
+
+#onboarding-view section{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	align-items:center;
+	justify-content:center;
+}
+
+#onboarding-view .skip{
+	align-items:flex-end;
+	padding: 1rem;
+}
+
+#onboarding-view canvas{
+	width: 100%;
+	height: 100%;
+}

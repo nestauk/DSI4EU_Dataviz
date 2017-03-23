@@ -184,7 +184,7 @@
 }
 
 .ui .view-settings {
-	padding: 2rem 1rem;
+	padding: 1rem 1rem;
 }
 
 .ui .view-settings .settings-panel {
@@ -306,7 +306,7 @@
 .ui .tools {
 	width: 100%;
 	height: 100%;
-	padding-bottom: 3rem;
+	padding-bottom: 1.25rem;
 	display: flex;
 	justify-content: space-around;
 }
@@ -334,8 +334,8 @@
 }
 
 .ui .overlay-modal .overlay-content{
-	width: 85%;
-	padding: 2rem 1rem;
+	width: 90%;
+	padding: 1rem 1rem;
 	background: #ffffff;
 	border-radius: .8%;
 	box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
@@ -447,7 +447,7 @@
 .ui .modal-panel.info-panel .info-icon {
 	width: 4rem;
 	height: 4rem;
-	margin-bottom: 4rem;
+	margin-bottom: 2rem;
 	align-self: center;
 }
 

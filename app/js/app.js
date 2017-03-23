@@ -26,7 +26,7 @@
 
 	    APP.dataset.loadData(function(){
 	    	APP.filter.init();
-	    	APP.stator.go('onboarding', {encode: false})
+	    	APP.stator.go('onboarding.one')
 	    	APP.currentStateId = 1;
 	    	APP.ui.init();
 	    })
