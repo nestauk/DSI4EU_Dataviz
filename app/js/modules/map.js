@@ -3,8 +3,6 @@ function MapView() {
 	self.create = createMap;
 	self.delete = deleteMap;
 
-	var map_path = 'data/world50m.json';
-
 
 	//CREATE MAP
 	function createMap() {
@@ -34,36 +32,37 @@ function MapView() {
   		.attr("class", "map");
 
 
-  	d3.json(map_path, function(error, topology) {
-			if (error) throw error;
-		  //console.log(topology);
+  	
+		function drawMap(){
+			var topology = APP.dataset.maptopo;
 
-		  var states = topojson.feature(topology, topology.objects.countries).features;
+			var states = topojson.feature(topology, topology.objects.countries).features;
 
-		  map.append("g")
-		      .attr("id", "states")
-		    .selectAll("path")
-		      .data(states)
-		    .enter().append("path")
-		      .attr("d", path)
+			map.append("g")
+			    .attr("id", "states")
+			  .selectAll("path")
+			    .data(states)
+			  .enter().append("path")
+			    .attr("d", path)
 
-		  map.append("path")
-		      .datum(topojson.mesh(topology, topology.objects.countries, function(a, b) { return a !== b; }))
-		      .attr("id", "state-borders")
-		      .attr("d", path);
+			map.append("path")
+			    .datum(topojson.mesh(topology, topology.objects.countries, function(a, b) { return a !== b; }))
+			    .attr("id", "state-borders")
+			    .attr("d", path);
      
-	    var circles = map.append("g")
-	      .attr("id", "dots")
-	      .selectAll("circle")
-	        .data(geoData)
-	      .enter()
-	        .append("circle")
-	          .attr("cx",function(d) { return projection([d.longitude,d.latitude])[0]; })
-	          .attr("cy",function(d) { return projection([d.longitude,d.latitude])[1]; })
-	          .attr("r",function(d, i) {
-	            return 1;
-	          });
-		  })
+		    var circles = map.append("g")
+		      .attr("id", "dots")
+		      .selectAll("circle")
+		        .data(geoData)
+		      .enter()
+		        .append("circle")
+		          .attr("cx",function(d) { return projection([d.longitude,d.latitude])[0]; })
+		          .attr("cy",function(d) { return projection([d.longitude,d.latitude])[1]; })
+		          .attr("r",function(d, i) {
+		            return 1;
+		          });
+			}
+		drawMap()
 
 	} //END create
 

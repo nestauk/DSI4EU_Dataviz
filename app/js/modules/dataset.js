@@ -5,18 +5,20 @@ function Dataset(){
 
 	var organisations_path = 'data/organisations.json';
 	var projects_path = 'data/projects.json';
+	var map_path = 'data/world50m.json';
 
 	// loads the .csv file and returns the data
 	function loadData(callback){
 		d3.queue()
 		  .defer(d3.json, organisations_path)
 		  .defer(d3.json, projects_path)
-		  .await(function(error, orgData, prjData){
+		  .defer(d3.json, map_path)
+		  .await(function(error, orgData, prjData, mapData){
 		  	if(error) {
 		  		console.log(error);
 		  		return;
 		  	}
-		  	prepareData({orgs: orgData, prjs: prjData});
+		  	prepareData({orgs: orgData, prjs: prjData, map: mapData});
 		  	if(callback) callback();
 		  });
 	}
@@ -25,6 +27,7 @@ function Dataset(){
 	function prepareData(data){
 		self.orgs = data.orgs;
 		self.prjs = data.prjs;
+		self.maptopo = data.map;
 		self.prjs = cleanFieldValues(self.prjs, 'support_tags', 9)
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
 		createFieldList(self.prjs, 'focus')
