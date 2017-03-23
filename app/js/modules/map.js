@@ -3,74 +3,195 @@ function MapView() {
 	self.create = createMap;
 	self.delete = deleteMap;
 
+	var zoomLevel = 1;
+	var data;
+	var map, path, projection;
+	var countries;
+	var maxCountrySize = 0;
+	var width = 0
+	var height = 0
+	var current = 'countries'
+	var container;
 
-	//CREATE MAP
+	var orgs;
+
 	function createMap() {
-		
-		var width = $("#main-view").width(),
-		    height = $("#main-view").height();
+		orgs = APP.filter.orgs.filter(function(d) {
+			return d.longitude != null;
+		})
 
-		var geoData = APP.dataset.orgs.filter(function(d) { return d.longitude != null; })
 
-		var projection = d3.geoMercator()
-		  .scale(width/2)
-		  .translate([width/2, height/2]);
+		APP.filter.registerViewUpdate(createMap);
+		width = $("#main-view").width();
+		height = $("#main-view").height();
 
-		var projection = d3.geoMercator()
-		  .center([36, 64])
-		  .scale(500)
+		projection = d3.geoMercator()
+			.center([36, 64])
+			.scale(500)
 
-		var path = d3.geoPath()
-		  .projection(projection);
+		path = d3.geoPath()
+			.projection(projection);
 
 		var svg = d3.select("#main-view").append("svg")
-		  .attr("id", "mapSvg")
-		  .attr("width", width)
-		  .attr("height", height);
+			.attr("id", "map-container")
+			.attr("width", width)
+			.attr("height", height);
 
-		var map = svg.append("g")
-  		.attr("class", "map");
+		svg.call(d3.zoom().on("zoom", zoomMap))
 
+		map = svg.append("g")
+			.attr("class", "map");
 
-  	
-		function drawMap(){
-			var topology = APP.dataset.maptopo;
-
-			var states = topojson.feature(topology, topology.objects.countries).features;
-
-			map.append("g")
-			    .attr("id", "states")
-			  .selectAll("path")
-			    .data(states)
-			  .enter().append("path")
-			    .attr("d", path)
-
-			map.append("path")
-			    .datum(topojson.mesh(topology, topology.objects.countries, function(a, b) { return a !== b; }))
-			    .attr("id", "state-borders")
-			    .attr("d", path);
-     
-		    var circles = map.append("g")
-		      .attr("id", "dots")
-		      .selectAll("circle")
-		        .data(geoData)
-		      .enter()
-		        .append("circle")
-		          .attr("cx",function(d) { return projection([d.longitude,d.latitude])[0]; })
-		          .attr("cy",function(d) { return projection([d.longitude,d.latitude])[1]; })
-		          .attr("r",function(d, i) {
-		            return 1;
-		          });
-			}
+		countries = createCountries();
+		createMapGeometry();
+		container = map.append("g")
+			.attr("id", "dots")
 		drawMap()
+	}
 
-	} //END create
+	function drawMap() {
+		data = createData()
+		createMapContent();
+	}
 
+	function createCountries() {
+		countries = []
+		APP.dataset.fields.countries.forEach(function(c) {
+			var country_orgs = _.filter(APP.filter.orgs, function(o) {
+				return o.country == c.name
+			})
+			countries.push({
+				name: c.name,
+				orgs: country_orgs
+			})
+		})
+		maxCountrySize = _.maxBy(countries, function(c) {
+			return c.orgs.length
+		}).orgs.length
+		return countries;
+	}
 
-	//REMOVE MAP
+	function createMapGeometry() {
+		var topology = APP.dataset.maptopo;
+		var states = topojson.feature(topology, topology.objects.countries).features;
+
+		var countryPaths = map.append("g")
+			.attr("id", "states")
+			.selectAll("path")
+			.data(states)
+			.enter().append("path")
+			.attr("d", path)
+			.attr("id", function(d) {
+				return d.id;
+			})
+
+		getCountryCentroids(countryPaths)
+
+		map.append("path")
+			.datum(topojson.mesh(topology, topology.objects.countries, function(a, b) {
+				return a !== b;
+			}))
+			.attr("id", "state-borders")
+			.attr("d", path);
+	}
+
+	function getCountryCentroids(countryPaths) {
+		countryPaths.each(function(d) {
+			var centroid = path.centroid(d);
+			var country = _.find(countries, function(c) {
+				if (!d.properties) return false;
+				else return d.properties.name == c.name
+			})
+			if (country) {
+				country.cx = centroid[0]
+				country.cy = centroid[1]
+			}
+		})
+	}
+
+	function createMapContent() {
+		var countryScale = d3.scaleLinear()
+			.domain([0, maxCountrySize])
+			.range([5, width / 5]);
+
+		var circle = container
+			.selectAll("circle")
+			.data(data, function(d){
+				return d.name
+			})
+
+		circle
+			.exit()
+			.transition()
+			.attr("r", 0)
+			.remove()
+
+		circle
+			.enter()
+			.append("circle")
+			.merge(circle)
+			.attr("cx", function(d) {
+				return d.cx;
+			})
+			.attr("cy", function(d) {
+				return d.cy;
+			})
+			.transition()
+			.attr("r", function(d, i) {
+				if (d.orgs) return countryScale(d.orgs.length);
+				else return 1;
+			})
+	}
+
+	function createData() {
+		var data;
+		if (zoomLevel == 1) {
+			data = countries
+		} else {
+			data = _.map(orgs, function(o) {
+				var node = {
+					name: o.name,
+					cx: projection([o.longitude, o.latitude])[0],
+					cy: projection([o.longitude, o.latitude])[1],
+					orgs: [o]
+				}
+				return node;
+			})
+			data.forEach(function(d) {
+				var sameLocationNodes = _.filter(data, function(o) {
+					return o.cx == d.cx && o.cy == d.cy
+				})
+				if(!_.isEmpty(sameLocationNodes)){
+					sameLocationOrgs = _.map(sameLocationNodes, function(l){
+						l.orgs = [];
+						return l.orgs[0];
+					})
+					d.orgs = d.orgs.concat(sameLocationOrgs);
+				}
+			})
+			data = data.filter(function(n){
+				return !_.isEmpty(n.orgs)
+			})
+		}
+		return data;
+	}
+
+	function zoomMap() {
+		var transform = d3.event.transform
+		if (transform.k > 1.5 && current != 'orgs') {
+			current = 'orgs'
+			zoomLevel = 2
+			drawMap()
+		} else if(transform.k < 1.5 && current != 'countries'){
+			current = 'countries'
+			zoomLevel = 1
+			drawMap()
+				}
+		map.attr("transform", transform.toString());
+	}
+
 	function deleteMap() {
-		$("#mapSvg").remove();
-	} //END remove
-	
+		$("#map-container").remove();
+	}
 
 }

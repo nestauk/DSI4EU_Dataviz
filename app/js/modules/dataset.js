@@ -6,6 +6,7 @@ function Dataset(){
 	var organisations_path = 'data/organisations.json';
 	var projects_path = 'data/projects.json';
 	var map_path = 'data/world50m.json';
+	var countries_path = 'data/iso_3166_2_countries.csv';
 
 	// loads the .csv file and returns the data
 	function loadData(callback){
@@ -13,12 +14,13 @@ function Dataset(){
 		  .defer(d3.json, organisations_path)
 		  .defer(d3.json, projects_path)
 		  .defer(d3.json, map_path)
-		  .await(function(error, orgData, prjData, mapData){
+		  .defer(d3.csv, countries_path)
+		  .await(function(error, orgData, prjData, mapData, countriesData){
 		  	if(error) {
 		  		console.log(error);
 		  		return;
 		  	}
-		  	prepareData({orgs: orgData, prjs: prjData, map: mapData});
+		  	prepareData({orgs: orgData, prjs: prjData, map: mapData, countries: countriesData});
 		  	if(callback) callback();
 		  });
 	}
@@ -27,7 +29,7 @@ function Dataset(){
 	function prepareData(data){
 		self.orgs = data.orgs;
 		self.prjs = data.prjs;
-		self.maptopo = data.map;
+		self.maptopo = addCountryNames(data.map, data.countries);
 		self.prjs = cleanFieldValues(self.prjs, 'support_tags', 9)
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
 		createFieldList(self.prjs, 'focus')
@@ -37,6 +39,16 @@ function Dataset(){
 		createFieldList(self.prjs, 'countries')
 		createFieldList(self.orgs, 'networkTags')
 		console.log(self)
+	}
+
+	function addCountryNames(map, countries){
+		map.objects.countries.geometries.forEach(function(c){
+			var country = _.find(countries, function(country){
+				return _.padStart(country['ISO 3166-1 Number'], 3, '0') == c.id;
+			})
+			if(country) c.properties = {name: country['Common Name']}
+		})
+		return map;
 	}
 
 	// remove unneeded fields from orgs
