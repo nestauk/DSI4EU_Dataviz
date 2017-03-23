@@ -4,13 +4,13 @@ function OrgPanel() {
 	self.prepareData = prepareData;
   self.drawRadar = drawRadar;
   self.drawBarChart = drawBarChart;
-	self.deleteOrgPanelItems = deleteOrgPanelItems;
+	self.deleteMapPanelItems = deleteMapPanelItems;
 
 
 	function fillHeader(_selectedOrg) {
-		$(".org-panel-map-container h2").html(_selectedOrg.name);
-		$(".org-panel-map-container .org-type").html(_selectedOrg.organisation_type);
-		$(".org-panel-map-container .org-panel-scrolling p").html(_selectedOrg.short_description);
+		$(".map-panel-container h2").html(_selectedOrg.name);
+		$(".map-panel-container .org-type").html(_selectedOrg.organisation_type);
+		$(".map-panel-container .map-panel-scrolling p").html(_selectedOrg.short_description);
 	}
 
 
@@ -45,7 +45,7 @@ function OrgPanel() {
     var maxCountValue = d3.max(data, function(d){
       return d.count;
     })
-    var width = $(".modal-panel.org-panel-map").width()*0.8,
+    var width = $(".modal-panel.map-panel").width()*0.8,
         height = width;
     maxScaleValue = width*0.48;
     var rScale = d3.scaleLinear()
@@ -132,13 +132,13 @@ function OrgPanel() {
         default: return 4; break;
       }
     }
-    var width = $(".modal-panel.org-panel-map").width(),
+    var width = $(".modal-panel.map-panel").width(),
         height = barToBarDist*hMult();
     maxScaleValue = width;
     var lScale = d3.scaleLinear()
       .domain([0, maxCountValue])
       .range([0, maxScaleValue - 16])
-    var barchartDiv = d3.select(".org-panel-scrolling").append("div")
+    var barchartDiv = d3.select(".map-panel-scrolling").append("div")
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
       .text(field)
@@ -175,7 +175,7 @@ function OrgPanel() {
   }
 
 
-  function deleteOrgPanelItems() {
+  function deleteMapPanelItems() {
     d3.select(".radar-svg").remove();
     d3.selectAll(".bar-chart").remove();
   }

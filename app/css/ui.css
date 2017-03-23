@@ -436,11 +436,11 @@
 	align-items: flex-start;
 }
 
-.ui .modal-panel .modal-container.info-container, .ui .modal-panel .modal-container.org-panel-map-container {
+.ui .modal-panel .modal-container.info-container, .ui .modal-panel .modal-container.map-panel-container {
 	align-items: flex-start;
 }
 
-.ui .modal-panel .modal-container.org-list-map-container {
+.ui .modal-panel .modal-container.map-list-container {
 	align-items: center;
 }
 
@@ -456,11 +456,11 @@
 	display: flex;	
 }
 
-.ui .modal-panel .network-list-container .modal-nav-icons, .ui .modal-panel .org-list-map-container .modal-nav-icons {	
+.ui .modal-panel .network-list-container .modal-nav-icons, .ui .modal-panel .map-list-container .modal-nav-icons {	
 	justify-content: flex-end;
 }
 
-.ui .modal-panel .network-panel-container .modal-nav-icons, .ui .modal-panel .org-panel-map-container .modal-nav-icons {
+.ui .modal-panel .network-panel-container .modal-nav-icons, .ui .modal-panel .map-panel-container .modal-nav-icons {
 	justify-content: space-between;
 }
 
@@ -612,106 +612,106 @@
 	color: #ffad69;
 }
 
-.ui .modal-panel.org-list-map {
+.ui .modal-panel.map-list {
 	min-height: 100%;
 	transform: translateY(100%);
 }
 
-.ui .modal-panel.org-list-map .org-list {
+.ui .modal-panel.map-list .org-list {
 	width: 100%;
 }
 
-.ui .modal-panel .org-list-map-container h3 {
+.ui .modal-panel .map-list-container h3 {
 	width: 25%;
 	font-size: 1.6rem;
 	color: #4dc4b0;
 	text-align: center;
 }
 
-.ui .modal-panel .org-list-map-container h3::after {
+.ui .modal-panel .map-list-container h3::after {
 	content: "";
 	display: block;
 	height: .75rem;
 	border-bottom: .2rem solid #4dc4b0;
 }
 
-.ui .modal-panel .org-list-map-container ul {
+.ui .modal-panel .map-list-container ul {
 	max-height: 65vh;
   overflow: auto;
 }
 
-.ui .modal-panel .org-list-map-container ul li {
+.ui .modal-panel .map-list-container ul li {
 	font-size: 2rem;
 	line-height: 3.6rem;
 	text-align: center;
 }
 
-.ui .modal-panel.org-panel-map {
+.ui .modal-panel.map-panel {
 	min-height: 100%;
 	transform: translateX(-100%);
 }
 
-.ui .modal-panel .org-panel-map-container .org-title {
+.ui .modal-panel .map-panel-container .org-title {
 	display: flex;	
 }
 
-.ui .modal-panel .org-panel-map-container h2 {
+.ui .modal-panel .map-panel-container h2 {
 	
 }
 
-.ui .modal-panel .org-panel-map-container .org-type {
+.ui .modal-panel .map-panel-container .org-type {
 	display: inline-block;
 	font-size: 1.2rem;
 }
 
-.ui .modal-panel .org-panel-map-container p {
+.ui .modal-panel .map-panel-container p {
 	margin-top: 2rem;
 }
 
-.ui .modal-panel .org-panel-map-container .org-panel-scrolling {
+.ui .modal-panel .map-panel-container .map-panel-scrolling {
 	max-height: 65vh;
   overflow: auto;
   padding-right: 10px;
 }
 
-.ui .modal-panel .org-panel-map-container .org-panel-scrolling svg {
+.ui .modal-panel .map-panel-container .map-panel-scrolling svg {
 	/*border: 1px solid red;*/
 }
 
-.ui .modal-panel .org-panel-map-container .radar-chart {
+.ui .modal-panel .map-panel-container .radar-chart {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.ui .modal-panel .org-panel-map-container .radar-path {
+.ui .modal-panel .map-panel-container .radar-path {
 	/*fill: #4dc4b0;*/
 	stroke: #4dc4b0;
 	stroke-width: 3;
 	fill: none;
 }
 
-.ui .modal-panel .org-panel-map-container .radar-dots {
+.ui .modal-panel .map-panel-container .radar-dots {
 	fill: #4dc4b0;
 	stroke: none;
 }
 
-.ui .modal-panel .org-panel-map-container .axis-circle, .ui .modal-panel .org-panel-map-container .axis-line {
+.ui .modal-panel .map-panel-container .axis-circle, .ui .modal-panel .map-panel-container .axis-line {
 	fill: none;
 	stroke: #ffffff;
 	stroke-width: .1rem;
 	stroke-opacity: .5;
 }
 
-.ui .modal-panel .org-panel-map-container .org-panel-scrolling h3 {
+.ui .modal-panel .map-panel-container .map-panel-scrolling h3 {
 	margin-bottom: 1rem;
 	display: block;
 	margin-top: 3rem;
 	align-self: flex-start;
 }
 
-.ui .modal-panel .org-panel-map-container .bar-chart-caption {
+.ui .modal-panel .map-panel-container .bar-chart-caption {
 	fill: white;
 	stroke: none;
 	font-size: .95rem;
@@ -719,7 +719,7 @@
 	text-anchor: start;
 }
 
-.ui .modal-panel .org-panel-map-container .tooltip {
+.ui .modal-panel .map-panel-container .tooltip {
 	fill: white;
 	stroke: none;
 	font-size: 1.2rem;
