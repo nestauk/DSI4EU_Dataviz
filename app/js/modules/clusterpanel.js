@@ -5,20 +5,18 @@ function ClusterPanel() {
 	self.deleteClusterPanelItems = deleteClusterPanelItems;
 
 	function fillHeader(selectedCluster) {
-		var prjCounts = d3.sum(selectedCluster.values, function (d) {
-			return d.values.length;
+		var all_values = _.map(selectedCluster.values, function(c){
+			return c.values;
 		})
+		var all_prjs = _.uniq([].concat.apply([], all_values))
 		$(".cluster-panel-container h2").html(selectedCluster.key);
-		$(".cluster-panel-container .cluster-subtitle").html(prjCounts+" projects");
+		$(".cluster-panel-container .cluster-subtitle").html(all_prjs.length+" projects");
 	}
 
 	function drawPanel(selectedCluster) {
-
 		var maxCircle = selectedCluster.values[0].values.length; //max circle size
-		console.log(APP.cluster.subdivide_field)
 		var colorScale = APP.getColorScale(APP.cluster.subdivide_field);
-		
-
+	
 		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling ul")
 			.selectAll(".cluster-item")
 			.data(selectedCluster.values)
