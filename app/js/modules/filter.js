@@ -2,15 +2,12 @@ function Filter() {
 	var self = this;
 	self.createList = createFilterList;
 	self.createViewSettings = createViewSettings;
-	self.registerViewUpdate = registerViewUpdate;
-	self.removeViewUpdate = removeViewUpdate;
 	self.createLabel = createFilterLabel;
 	self.currentFieldSelection = null;
 	self.activeFilters = [];
 	self.resetFilters = resetAllFilters;
 	self.init = init;
 
-	var updateViewFunction = null;
 	var tagsLimit = 3
 
 	function init() {
@@ -98,8 +95,6 @@ function Filter() {
 				})
 			})
 		}
-
-		if (updateViewFunction) updateViewFunction()
 	}
 
 	function resetAllFilters() {
@@ -109,14 +104,6 @@ function Filter() {
 			})
 		})
 		createFilterList()
-	}
-
-	function registerViewUpdate(update) {
-		updateViewFunction = update;
-	}
-
-	function removeViewUpdate(update) {
-		updateViewFunction = null
 	}
 
 	function createSelectionList(field, el) {

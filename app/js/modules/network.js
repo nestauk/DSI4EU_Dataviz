@@ -27,7 +27,7 @@ function NetworkView() {
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
-		APP.filter.registerViewUpdate(createNetwork);
+		APP.ui.updateViewFunction = createNetwork;
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();

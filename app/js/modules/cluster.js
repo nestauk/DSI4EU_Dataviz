@@ -25,7 +25,7 @@ function ClusterView() {
 
 		deleteCluster();
 
-		APP.filter.registerViewUpdate(createNewClusters)
+		APP.ui.updateViewFunction = createNewClusters;
 
 		console.log('creating cluster', cluster_field, subdivide_field)
 

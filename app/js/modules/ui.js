@@ -21,6 +21,9 @@ function UserInterface() {
 	self.closeNetworkPanel = closeNetworkPanel;
 	self.openClusterPanel = openClusterPanel;
 
+	self.updateView = updateView;
+	self.updateViewFunction = null;
+
 	var nav_next = $('#nav-next');
 	var nav_current = $('#nav-current');
 	var nav_prev = $('#nav-prev');
@@ -109,7 +112,9 @@ function UserInterface() {
 	function closeFilterTab(){
 		$('.sub-nav-label').off();
 		$('.sub-nav-label').html(APP.filter.createLabel())
-		filter_tab.transition({ y: "-100%"})
+		filter_tab.transition({ y: "-100%", complete: function(){
+			updateView();
+		}})
 		$('.sub-nav-label').click(openFilterTab)
 		APP.closeUIPanels = null;
 	}
@@ -287,6 +292,10 @@ function UserInterface() {
 		$('.cluster-panel').transition({ y:"100%" });
 		APP.clusterPanel.deleteClusterPanelItems();
 		APP.closeUIPanels = null;
+	}
+
+	function updateView(updateViewFunction){
+		if(self.updateViewFunction) self.updateViewFunction();
 	}
 
 }
