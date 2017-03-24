@@ -82,6 +82,7 @@ function NetworkView() {
 			.force("center", d3.forceCenter(width / 2, height / 2))
 
 		self.system.nodes(nodes);
+
 		self.system.force("link").links(links);
 
 		nodes.forEach(function(n, i) {
@@ -165,6 +166,15 @@ function NetworkView() {
 		})
 
 		$(document).on("mouseup touchend", function(e){
+
+			// dumper
+			var def = []
+			nodes.forEach(function(d, i){
+				var p = (d.linked_prjs) ? d.linked_prjs.length : 1
+				def.push({x:d.x/width, y:d.y/height, t:d.type, p:p})
+			})
+			console.log(JSON.stringify(def))
+
 			dragging = false;
 		})
 

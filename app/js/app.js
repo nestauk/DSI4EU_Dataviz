@@ -1,11 +1,12 @@
 ;(function(window, $, undefined){
 
 	window.APP = {}
-	APP.dataset = new Dataset();	
 	APP.currentStateId = 0;
 	APP.filter_fields = ["support_tags", "technology", "networkTags"];
 
 	$(document).ready(function(){
+		APP.dataset = new Dataset();	
+		
 		APP.setState = setState;
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;

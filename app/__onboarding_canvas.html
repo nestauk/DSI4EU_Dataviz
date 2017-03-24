@@ -20,9 +20,7 @@
 	<body>
 
 
-		<div process="views/_ui.html"></div>
 		<div process="views/_onboarding.html"></div>
-		<div process="views/_main.html"></div>
 
 
 		<!-- process:template 
@@ -62,21 +60,33 @@
 		<script src="js/modules/onboarding_canvas.js"></script>
 		<script src="js/modules/ui.js"></script>
 
-		<script src="js/states/loaderState.js"></script>
-		<script src="js/states/onboardingState.js"></script>
-		<script src="js/states/mapState.js"></script>
-		<script src="js/states/networkState.js"></script>
-		<script src="js/states/clusterState.js"></script>
-		<script src="js/states/shareState.js"></script>
-		<script src="js/states.js"></script>
 
-		<script src="js/app.js"></script>
+		
 		<!-- endbuild -->
 
 		<!-- process:remove -->
 	    <script src="node_modules/static-player/static-player.js"></script>
 	    <script type="text/javascript">
+
 	    	window.StaticPlayer.getInstance().begin()
+
+	    	$(document).ready(function(){
+		    	var dataset = new Dataset();
+		    	dataset.loadData(function(){
+		    		console.log(dataset)
+
+		    		var view = $('#onboarding-view')
+		    		var canvas = $('#onboarding-view canvas').get(0)
+					canvas.width = view.width()
+					canvas.height = view.height()
+
+		    		window.oo = new OnBoardingCanvas(canvas, dataset)
+		    	})
+
+		    	$('#onboarding-view').show()
+		    })
+
+	    	
 	    </script>
 	    <!-- /process -->
 

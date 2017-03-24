@@ -7,6 +7,7 @@ function Dataset(){
 	var projects_path = 'data/projects.json';
 	var map_path = 'data/world50m.json';
 	var countries_path = 'data/iso_3166_2_countries.csv';
+	var net_dump = 'data/net_dump.json';
 
 	// loads the .csv file and returns the data
 	function loadData(callback){
@@ -15,12 +16,13 @@ function Dataset(){
 		  .defer(d3.json, projects_path)
 		  .defer(d3.json, map_path)
 		  .defer(d3.csv, countries_path)
-		  .await(function(error, orgData, prjData, mapData, countriesData){
+		  .defer(d3.json, net_dump)
+		  .await(function(error, orgData, prjData, mapData, countriesData, netDumpData){
 		  	if(error) {
 		  		console.log(error);
 		  		return;
 		  	}
-		  	prepareData({orgs: orgData, prjs: prjData, map: mapData, countries: countriesData});
+		  	prepareData({orgs: orgData, prjs: prjData, map: mapData, countries: countriesData, netDump:netDumpData});
 		  	if(callback) callback();
 		  });
 	}
@@ -32,6 +34,7 @@ function Dataset(){
 		self.maptopo = addCountryNames(data.map, data.countries);
 		self.prjs = cleanFieldValues(self.prjs, 'support_tags', 9)
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
+		self.netDump = data.netDump;
 		createFieldList(self.prjs, 'focus')
 		addLinkedFields();
 		createFieldList(self.orgs, 'organisation_type')

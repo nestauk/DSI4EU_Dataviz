@@ -4,6 +4,12 @@ function onboardingState(){
 	var frag = ['one', 'two', 'three', 'four', 'five']
 	var step = 0
 
+	var canvas = cont.find('canvas').get(0)
+	canvas.width = cont.width()
+	canvas.height = cont.height()
+
+	var on_canvas = new OnBoardingCanvas(canvas, APP)
+
 	frag.forEach(function(d, i){
 		cont.find('.' + d).css({opacity:0})
 	})
@@ -29,6 +35,9 @@ function onboardingState(){
 	var obj = {
 		enter: function(option){
 			console.log('onboardingState :: enter')
+
+			on_canvas.init()
+			
 			cont.css({opacity:1}).show();
 			cont.find('#skip').on('click', function(){
 				cont.off('click', onSubStateClick)
@@ -40,6 +49,7 @@ function onboardingState(){
 			console.log('onboardingState :: leave')
 
 			cont.transition({opacity:0, complete:function(){
+				on_canvas.stop()
 				cont.hide()
 			}}, 750, 'easeInOutQuint')
 
@@ -55,6 +65,7 @@ function onboardingState(){
 		one: {
 			enter: function(option){
 				showFrag('.one')
+				on_canvas.one()
 			},
 			leave: function(option){
 				hideFrag('.one')
@@ -64,6 +75,7 @@ function onboardingState(){
 		two: {
 			enter: function(option){
 				showFrag('.two')
+				on_canvas.two()
 			},
 			leave: function(option){
 				hideFrag('.two')
@@ -73,6 +85,7 @@ function onboardingState(){
 		three: {
 			enter: function(option){
 				showFrag('.three')
+				on_canvas.three()
 			},
 			leave: function(option){
 				hideFrag('.three')
@@ -82,6 +95,7 @@ function onboardingState(){
 		four: {
 			enter: function(option){
 				showFrag('.four')
+				on_canvas.four()
 			},
 			leave: function(option){
 				hideFrag('.four')
@@ -91,6 +105,7 @@ function onboardingState(){
 		five: {
 			enter: function(option){
 				showFrag('.five')
+				on_canvas.five()
 			},
 			leave: function(option){
 				hideFrag('.five')
