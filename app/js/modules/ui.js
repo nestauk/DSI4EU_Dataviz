@@ -11,6 +11,9 @@ function UserInterface() {
 
 	//made visible from outside to be used by orglist.js
 	self.openMapPanel = openMapPanel
+	self.openOrgPanel = openOrgPanel
+	self.openOrgList = openOrgList
+	self.closeOrgList = closeOrgList
 	self.closeOrgPanel = closeOrgPanel;
 	self.openNetworkList = openNetworkList;
 	self.openNetworkPanel = openNetworkPanel;
@@ -180,22 +183,22 @@ function UserInterface() {
 		APP.orgList.delete();
 		APP.orgList.create(orgs);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$('.org-list-map').transition({ y: 0});
+		$('.map-list').transition({ y: 0});
 		$(".remove-icon").click(closeOrgList);
 		APP.closeUIPanels = closeOrgList;
 	}
 
 	function closeOrgList() {
 		$(".remove-icon").off();
-		$('.org-list-map').transition({ y:"100%" });
+		$('.map-list').transition({ y:"100%" });
 		APP.closeUIPanels = null;
 	}
 
 	function openOrgPanel(org, list) {
-		list ? $(".back-icon").show() : $(".back-icon").hide() //list is true if coming from OrgList, false if coming from the map
+		list ? $(".back-icon").show() : $(".back-icon").hide()
 		APP.orgPanel.create(org);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$('.org-panel-map').transition({ x: 0});
+		$('.map-panel').transition({ x: 0});
 		$(".remove-icon").click(closeOrgPanel);
 		$(".back-icon").click(backToOrgList);
 		APP.closeUIPanels = closeOrgPanel;
@@ -216,7 +219,7 @@ function UserInterface() {
 		$(".remove-icon").off();
 		APP.orgPanel.delete();
 		$('.map-panel').transition({ x:"-100%", complete: function() {
-				APP.orgPanel.deleteOrgPanelItems();
+				APP.orgPanel.delete();
 			}
 		}, 500, "easeInQuart");
 		$('.map-list').transition({ y:"100%", x: 0 });

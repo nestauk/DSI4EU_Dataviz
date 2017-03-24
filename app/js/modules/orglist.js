@@ -8,10 +8,10 @@ function OrgList() {
 	}
 
 	function fillList(node) {
-		d3.select(".org-list-map-container h3")
+		d3.select(".map-list-container h3")
 			.text(node.name)
 
-		d3.select(".org-list ul").selectAll(".org-list-item")
+		d3.select(".map-list-scrolling ul").selectAll(".map-list-scrolling-item")
 			.data(node.orgs)
 			.enter()
 			.append("li")
@@ -25,9 +25,8 @@ function OrgList() {
 	}
 
 	function toOrgPanel(org) {
-		$('.org-list-map').transition({ y:"100%" });
-		$('.org-panel-map').transition({ y:0 });
-		APP.ui.openOrgPanel(org, true); //more than one org, go to orgList
+		$('.map-list').transition({ x:"100%" }, 500, "easeOutQuart");
+		APP.ui.openOrgPanel(org, true);
 	}
 
 	function deleteOrgListItems() {
