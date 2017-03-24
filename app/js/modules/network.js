@@ -24,7 +24,6 @@ function NetworkView() {
 
 
 	function createNetwork() {
-		console.log('UPDATED')
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
@@ -137,13 +136,13 @@ function NetworkView() {
 			var delta = (e.deltaY / Math.abs(e.deltaY))*scaleFactor
 			if(scale+delta > minScale && scale+delta < maxScale){
 				scale += delta;
-				var mx = e.pageX - translateX/scale
-				var my = e.pageY - translateY/scale
+				var mx = e.pageX - translateX / scale;
+				var my = e.pageY - translateY / scale;
 				offsetX = -(mx * delta);
 				offsetY = -(my * delta);
-				translateX += offsetX
-				translateY += offsetY
-				update()
+				translateX += offsetX;
+				translateY += offsetY;
+				update();
 			}
 		})
 
@@ -168,12 +167,12 @@ function NetworkView() {
 		$(document).on("mouseup touchend", function(e){
 
 			// dumper
-			var def = []
-			nodes.forEach(function(d, i){
-				var p = (d.linked_prjs) ? d.linked_prjs.length : 1
-				def.push({x:d.x/width, y:d.y/height, t:d.type, p:p})
-			})
-			console.log(JSON.stringify(def))
+			// var def = []
+			// nodes.forEach(function(d, i){
+			// 	var p = (d.linked_prjs) ? d.linked_prjs.length : 1
+			// 	def.push({x:d.x/width, y:d.y/height, t:d.type, p:p})
+			// })
+			// console.log(JSON.stringify(def))
 
 			dragging = false;
 		})
@@ -247,6 +246,7 @@ function NetworkView() {
 		$("#network-container").remove();
 		$("#network-lookup").remove();
 		lookupMap = null;
+		$(document).off();
 	}
 
 }
