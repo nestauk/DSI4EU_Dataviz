@@ -691,10 +691,10 @@
 }
 
 .ui .modal-panel .map-panel-container .radar-path {
-	/*fill: #4dc4b0;*/
-	stroke: #4dc4b0;
+	fill: #4dc4b0;
+	/*stroke: #4dc4b0;
 	stroke-width: 3;
-	fill: none;
+	fill: none;*/
 }
 
 .ui .modal-panel .map-panel-container .radar-dots {

@@ -37,7 +37,7 @@ function NetworkList() {
 
 		itemParagraphs.append("p")
 			.text(function (d) {
-				return "Works with "+d.linked_orgs.length+" Organisation"+plurOrSing(d.linked_orgs)+" on "+d.shared_prjs.length+" project"+plurOrSing(d.shared_prjs);
+				return "Works with "+d.linked_orgs.length+_.pluralize(" Organisation", d.linked_orgs.length)+" on "+d.shared_prjs.length+_.pluralize(" project", d.shared_prjs.length);
 			})
 
 		function toNetworkPanel(org) {

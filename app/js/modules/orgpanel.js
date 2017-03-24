@@ -4,14 +4,32 @@ function OrgPanel() {
   self.create = createPanel
   self.delete = deleteOrgPanelItems
 
+  var maxCountValue;
+  var width = $(".modal-panel.map-panel").width(),
+      maxScaleValue = width;
+
   function createPanel(org) {
     fillHeader(org);
-    var radarData = prepareData(org, "technology");
-    drawRadar(radarData, "Technology");
+    var _radarData = prepareData(org, "technology");
     var barchart1Data = prepareData(org, "focus");
-    drawBarChart(barchart1Data, "Focus");
     var barchart2Data = prepareData(org, "support_tags");
-    drawBarChart(barchart2Data, "Support");
+    var radarData = completeData(_radarData, "technology");
+
+    var maxR = calculateMax(_radarData);
+    var maxB1 = calculateMax(barchart1Data);
+    var maxB2 = calculateMax(barchart2Data);
+    maxCountValue = Math.max(maxR, maxB1, maxB2);
+
+    drawRadar(radarData, "technology");
+    drawBarChart(barchart1Data, "focus");
+    drawBarChart(barchart2Data, "support");
+
+    function calculateMax(obj) {
+      var max = d3.max(obj, function(d) {
+        return d.count;
+      })
+      return max;
+    }
   }
 
   function fillHeader(org) {
@@ -23,6 +41,7 @@ function OrgPanel() {
     $(".map-panel-container .org-type").html(org.organisation_type);
     $(".map-panel-container .scrolling p").html(org.short_description);
   }
+
 
   function prepareData(org, field) {
     var orgPrjs = org.linked_prjs;
@@ -46,19 +65,42 @@ function OrgPanel() {
     })
     return fieldCounts;
   }
+  
+
+  function completeData(data, field) {
+    var array = APP.dataset.fields[field];
+    var output = [];
+    array.forEach(function (d, i) {
+      if (_.some(data, { "name": d.name })) {
+        var el = _.find(data, function(o) {
+          return o.name == d.name;
+        });
+        output.push({
+          name: d.name,
+          count: el.count
+        })
+      } else {
+        output.push({
+          name: d.name,
+          count: 0
+        })
+      }
+    })
+    return output;
+  }
 
 
   function drawRadar(data, field) {
     d3.select(".radar-chart").select("h3")
       .text(field)
-    var numInd = data.length, //number of values
+    var numInd = APP.dataset.fields[field].length, //number of values
       theta = 2 * Math.PI / numInd,
       maxScaleValue;
     var maxCountValue = d3.max(data, function(d) {
       return d.count;
     })
     var width = $(".modal-panel.map-panel").width() * 0.8,
-      height = width;
+        height = width;
     maxScaleValue = width * 0.48;
     var rScale = d3.scaleLinear()
       .domain([0, maxCountValue])
@@ -88,7 +130,7 @@ function OrgPanel() {
         return rScale(d.count);
       })
     svg.selectAll(".axis-line")
-      .data(data)
+      .data(APP.dataset.fields[field])
       .enter()
       .append("line")
       .attr("class", "axis-circle")
@@ -125,7 +167,7 @@ function OrgPanel() {
         var currentDot = d3.select(this);
         svg.append("text")
           .attr("class", "tooltip")
-          .text(d.name)
+          .text(d.name + ": " + d.count)
       })
       .on("mouseout", function(d) {
         d3.select(".tooltip").remove();
@@ -136,9 +178,9 @@ function OrgPanel() {
     data.sort(function(a, b) {
       return a.count < b.count;
     })
-    var maxCountValue = d3.max(data, function(d) {
-      return d.count;
-    })
+    // var maxCountValue = d3.max(data, function(d) {
+    //   return d.count;
+    // })
     var rectHeight = 8,
       rectRound = 5,
       textToBarDist = 6,
@@ -147,13 +189,13 @@ function OrgPanel() {
 
     function hMult() {
       switch (field) {
-        case "Focus":
+        case "focus":
           return 4;
           break;
-        case "Support":
+        case "support":
           return 10;
           break;
-        case "Technology":
+        case "technology":
           return 16;
           break;
         default:
@@ -161,12 +203,10 @@ function OrgPanel() {
           break;
       }
     }
-    var width = $(".modal-panel.map-panel").width(),
-      height = barToBarDist * hMult();
-    maxScaleValue = width;
+    var height = barToBarDist * hMult();
     var lScale = d3.scaleLinear()
       .domain([0, maxCountValue])
-      .range([0, maxScaleValue - 16])
+      .range([0, maxScaleValue - 16]);
     var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
@@ -188,7 +228,7 @@ function OrgPanel() {
       })
       .attr("width", width)
       .text(function(d) {
-        return d.name + ": " + d.count + " projects";
+        return d.name + ": " + d.count + _.pluralize(" project", d.count);
       })
     barchartItems.append("rect")
       .attr("x", 0)
