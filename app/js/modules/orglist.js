@@ -11,11 +11,11 @@ function OrgList() {
 		d3.select(".map-list-container h3")
 			.text(node.name)
 
-		d3.select(".map-list-scrolling ul").selectAll(".map-list-scrolling-item")
+		d3.select(".scrolling ul").selectAll(".scrolling-item")
 			.data(node.orgs)
 			.enter()
 			.append("li")
-			.attr("class", "map-list-scrolling-item")
+			.attr("class", "scrolling-item")
 			.text(function (d) {
 				return d.name;
 			})
@@ -30,7 +30,7 @@ function OrgList() {
 	}
 
 	function deleteOrgListItems() {
-    d3.selectAll(".map-list-scrolling .map-list-scrolling-item").remove();
+    d3.selectAll(".scrolling .scrolling-item").remove();
   }
 
 }

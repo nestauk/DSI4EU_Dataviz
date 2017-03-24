@@ -6,9 +6,9 @@ function NetworkList() {
 	function fillList(org) {
 
 		var network = getNetwork(org);	
-		$(".network-list-subtitle").text(network.orgs.length+" Organisation"+plurOrSing(network.orgs)+", "+network.prjs.length+" shared project"+plurOrSing(network.prjs));
+		$(".subtitle").text(network.orgs.length+" Organisation"+plurOrSing(network.orgs)+", "+network.prjs.length+" shared project"+plurOrSing(network.prjs));
 
-		var items = d3.select(".network-list-scrolling ul").selectAll(".network-list-item")
+		var items = d3.select(".network-list-container .scrolling ul").selectAll(".network-list-item")
 			.data(network.orgs)
 				.enter()
 				.append("li")
@@ -81,7 +81,7 @@ function NetworkList() {
 	}
 
 	function deleteNetworkListItems() {
-		d3.select(".network-list-scrolling ul").selectAll("li").remove();
+		d3.select(".network-list-container .scrolling ul").selectAll("li").remove();
 	}
 
 }

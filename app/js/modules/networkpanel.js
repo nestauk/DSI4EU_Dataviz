@@ -7,7 +7,7 @@ function NetworkPanel() {
 		//console.log(selectedOrg);
 
 		$(".network-panel-title h2").text(selectedOrg.name);
-		$(".network-panel-subtitle").text(selectedOrg.shared_prjs.length+" shared project"+plurOrSing(selectedOrg.shared_prjs));
+		$(".subtitle").text(selectedOrg.shared_prjs.length+" shared project"+plurOrSing(selectedOrg.shared_prjs));
 
 		//max number of linked ORGs of all the PRJ listed in the network panel
 		var maxBar = d3.max(selectedOrg.shared_prjs, function (d) {
@@ -29,7 +29,7 @@ function NetworkPanel() {
 
 		_shared_prjs.forEach(function (o) {
 
-			var list = $(".network-panel-scrolling ul").get(0)
+			var list = $(".network-panel-container .scrolling ul").get(0)
 			var li = $("<li></li>")
 				.addClass("network-panel-item")
 			list.append(li.get(0));
@@ -73,7 +73,7 @@ function NetworkPanel() {
 
 
 	function deleteNetworkPanelItems() {
-		d3.select(".network-panel-scrolling ul").selectAll("li").remove();
+		d3.select(".network-panel-container .scrolling ul").selectAll("li").remove();
 	}
 
 }

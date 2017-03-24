@@ -10,14 +10,14 @@ function ClusterPanel() {
 		})
 		var all_prjs = _.uniq([].concat.apply([], all_values))
 		$(".cluster-panel-container h2").html(selectedCluster.key);
-		$(".cluster-panel-container .cluster-subtitle").html(all_prjs.length+" projects");
+		$(".cluster-panel-container .subtitle").html(all_prjs.length+" projects");
 	}
 
 	function drawPanel(selectedCluster) {
 		var maxCircle = selectedCluster.values[0].values.length; //max circle size
 		var colorScale = APP.getColorScale(APP.cluster.subdivide_field);
 	
-		var items = d3.select(".cluster-panel-container .cluster-panel-scrolling ul")
+		var items = d3.select(".cluster-panel-container .scrolling ul")
 			.selectAll(".cluster-item")
 			.data(selectedCluster.values)
 				.enter()
@@ -82,7 +82,7 @@ function ClusterPanel() {
 	}
 
 	function deleteClusterPanelItems() {
-		d3.select(".cluster-panel-container .cluster-panel-scrolling ul").selectAll("li").remove();
+		d3.select(".cluster-panel-container .scrolling ul").selectAll("li").remove();
 	}
 
 }

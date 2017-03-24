@@ -16,8 +16,12 @@ function OrgPanel() {
 
   function fillHeader(org) {
     $(".map-panel-container h2").html(org.name);
+    $(".map-panel-container .org-link")
+      .attr("href", org.url)
+      .attr("target", "_blank");
+    $(".map-panel-container .subtitle").html(org.linked_prjs.length+_.pluralize("project", org.linked_prjs.length));
     $(".map-panel-container .org-type").html(org.organisation_type);
-    $(".map-panel-container .map-panel-scrolling p").html(org.short_description);
+    $(".map-panel-container .scrolling p").html(org.short_description);
   }
 
   function prepareData(org, field) {
@@ -163,7 +167,7 @@ function OrgPanel() {
     var lScale = d3.scaleLinear()
       .domain([0, maxCountValue])
       .range([0, maxScaleValue - 16])
-    var barchartDiv = d3.select(".map-panel-scrolling").append("div")
+    var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
       .text(field)
