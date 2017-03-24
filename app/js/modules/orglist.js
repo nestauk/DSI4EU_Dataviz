@@ -1,15 +1,18 @@
 function OrgList() {
 	var self = this;
-	self.fillList = fillList;
-	self.deleteOrgListItems = deleteOrgListItems;
+	self.create = createList;
+	self.delete = deleteOrgListItems;
 
-	function fillList(_selectedOrgs) {
+	function createList(node){
+		fillList(node);
+	}
 
-		d3.select(".map-list-container h3")
-			.text(_selectedOrgs[0].region)
+	function fillList(node) {
+		d3.select(".org-list-map-container h3")
+			.text(node.name)
 
-		d3.select(".map-list-scrolling ul").selectAll(".map-list-scrolling-item")
-			.data(_selectedOrgs)
+		d3.select(".org-list ul").selectAll(".org-list-item")
+			.data(node.orgs)
 			.enter()
 			.append("li")
 			.attr("class", "map-list-scrolling-item")
@@ -21,9 +24,10 @@ function OrgList() {
 			})
 	}
 
-	function toOrgPanel(_org) {
-		$('.map-list').transition({ x:"100%" }, 500, "easeOutQuart");
-		APP.ui.openOrgPanel(_org, true); //more than one org, go to orgList
+	function toOrgPanel(org) {
+		$('.org-list-map').transition({ y:"100%" });
+		$('.org-panel-map').transition({ y:0 });
+		APP.ui.openOrgPanel(org, true); //more than one org, go to orgList
 	}
 
 	function deleteOrgListItems() {

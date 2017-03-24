@@ -10,8 +10,7 @@ function UserInterface() {
 	self.openFilterTab = openFilterTab;
 
 	//made visible from outside to be used by orglist.js
-	self.openOrgList = openOrgList;
-	self.openOrgPanel = openOrgPanel;
+	self.openMapPanel = openMapPanel
 	self.closeOrgPanel = closeOrgPanel;
 	self.openNetworkList = openNetworkList;
 	self.openNetworkPanel = openNetworkPanel;
@@ -37,9 +36,6 @@ function UserInterface() {
 		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterTab);
-		$("#debug-button").click(function () {
-			if (APP.state == "map") { loadOrgPanelOrList(); }
-		});
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -171,51 +167,35 @@ function UserInterface() {
 		APP.closeUIPanels = null;
 	}
 
-	function loadOrgPanelOrList() {
-		var selectedOrgs = APP.dataset.orgs.filter(function (d) {
-			//return d.name == "Nesta" || d.name == "Waag Society";
-			//return d.name == "Nesta";
-			return d.region == "London";
-		})
-		if (selectedOrgs.length == 1) {
-			openOrgPanel(selectedOrgs[0], false); //only one org, go directly to OrgPanel
+	function openMapPanel(data) {
+		if (data.orgs.length == 1) {
+			openOrgPanel(data.orgs[0], false); 
 		}
 		else {
-			openOrgList(selectedOrgs); //more than one org, go to orgList
+			openOrgList(data); 
 		}
 	}
 
-	function openOrgList(_selectedOrgs) {
-		APP.orgList.deleteOrgListItems();
-		APP.orgList.fillList(_selectedOrgs);
+	function openOrgList(orgs) {
+		APP.orgList.delete();
+		APP.orgList.create(orgs);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#debug-button").off();
-		$('.map-list').transition({ y: 0});
+		$('.org-list-map').transition({ y: 0});
 		$(".remove-icon").click(closeOrgList);
 		APP.closeUIPanels = closeOrgList;
 	}
 
 	function closeOrgList() {
 		$(".remove-icon").off();
-		$('.map-list').transition({ y: "100%"}, 500, "easeInQuart");
-		$("#debug-button").click(function () {
-			if (APP.state == "map") { loadOrgPanelOrList(); }
-		});
+		$('.org-list-map').transition({ y:"100%" });
 		APP.closeUIPanels = null;
 	}
 
-	function openOrgPanel(selectedOrg, manyOrg) {
-		manyOrg ? $(".back-icon").show() : $(".back-icon").hide() //manyOrg is true if coming from OrgList, false if coming from the map
-		APP.orgPanel.fillHeader(selectedOrg);
-		var radarData = APP.orgPanel.prepareData(selectedOrg, "technology");
-		APP.orgPanel.drawRadar(radarData, "Technology");
-		var barchart1Data = APP.orgPanel.prepareData(selectedOrg, "focus");
-		APP.orgPanel.drawBarChart(barchart1Data, "Focus");
-		var barchart2Data = APP.orgPanel.prepareData(selectedOrg, "support_tags");
-		APP.orgPanel.drawBarChart(barchart2Data, "Support");
+	function openOrgPanel(org, list) {
+		list ? $(".back-icon").show() : $(".back-icon").hide() //list is true if coming from OrgList, false if coming from the map
+		APP.orgPanel.create(org);
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#debug-button").off();
-		$('.map-panel').transition({ x: 0}, 500, "easeOutQuart");
+		$('.org-panel-map').transition({ x: 0});
 		$(".remove-icon").click(closeOrgPanel);
 		$(".back-icon").click(backToOrgList);
 		APP.closeUIPanels = closeOrgPanel;
@@ -226,7 +206,7 @@ function UserInterface() {
 		$('.map-list').css({ y: 0});
 		$('.map-panel').transition({ x:"-100%" }, 500, "easeOutQuart");
 		$('.map-list').transition({ x: 0, complete: function() {
-				APP.orgPanel.deleteOrgPanelItems();
+				APP.orgPanel.delete();
 			}
 		}, 500, "easeOutQuart");
 		APP.closeUIPanels = null;
@@ -234,23 +214,19 @@ function UserInterface() {
 
 	function closeOrgPanel() {
 		$(".remove-icon").off();
-		APP.orgPanel.deleteOrgPanelItems();
+		APP.orgPanel.delete();
 		$('.map-panel').transition({ x:"-100%", complete: function() {
 				APP.orgPanel.deleteOrgPanelItems();
 			}
 		}, 500, "easeInQuart");
 		$('.map-list').transition({ y:"100%", x: 0 });
-		$("#debug-button").click(function () {
-			if (APP.state == "map") { loadOrgPanelOrList(); }
-		});
 		APP.closeUIPanels = null;
 	}
 
-	function openNetworkList(selectedOrg) {
-		$("#debug-button").off();
+	function openNetworkList(org) {
 		APP.networkList.deleteNetworkListItems();
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		APP.networkList.fillList(selectedOrg)
+		APP.networkList.fillList(org)
 		$(".network-list").transition({ y: 0 }, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkList);
 		APP.closeUIPanels = closeNetworkList;
@@ -259,16 +235,12 @@ function UserInterface() {
 	function closeNetworkList() {
 		$(".remove-icon").off();
 		$(".network-list").transition({ y: "100%"}, 500, "easeInQuart");
-		$("#debug-button").click(function () {
-			if (APP.state == "map") { loadOrgPanelOrList(); }
-		});
 		APP.closeUIPanels = null;
 	}
 
-	function openNetworkPanel(selectedOrg) {
-		APP.networkPanel.fillPanel(selectedOrg)
+	function openNetworkPanel(org) {
+		APP.networkPanel.fillPanel(org)
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		$("#debug-button").off();
 		$('.network-panel').transition({ x: 0}, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkPanel);
 		$(".back-icon").click(backToNetworkList);

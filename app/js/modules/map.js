@@ -111,7 +111,7 @@ function MapView() {
 			.range([2, 50]);
 		var opacityScale = d3.scaleLinear()
 			.domain([0, maxCircleSize])
-			.range([0.8, 0.3]);
+			.range([.8, .4]);
 
 		var circle = container
 			.selectAll("circle")
@@ -130,7 +130,7 @@ function MapView() {
 			.append("circle")
 			.merge(circle)
 			.on("click", function(d){
-				console.log(d)
+				APP.ui.openMapPanel(d)
 			})
 			.attr("cx", function(d) {
 				return d.cx;
@@ -140,12 +140,13 @@ function MapView() {
 			})
 			.transition()
 			.attr("r", function(d, i) {
-				if (d.orgs) return countryScale(d.orgs.length);
+				if (d.orgs && d.orgs.length>1) return countryScale(d.orgs.length);
 				else return 1;
 			})
 			.style("fill-opacity", function(d, i) {
 				if (zoomLevel == 1 && d.orgs) return .6;
 				else if(zoomLevel > 1.5 && d.orgs) return opacityScale(d.orgs.length);
+				else if(zoomLevel > 1.5 && d.orgs.length<=1) return 1;
 				else return 0;
 			})
 
@@ -186,7 +187,6 @@ function MapView() {
 			data = data.sort(function(a, b){
 				return b.orgs.length-a.orgs.length
 			})
-			console.log(data)
 		}
 		maxCircleSize = data[0].orgs.length
 		return data;

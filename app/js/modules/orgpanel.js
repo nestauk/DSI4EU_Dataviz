@@ -1,21 +1,27 @@
 function OrgPanel() {
 	var self = this;
-	self.fillHeader = fillHeader;
-	self.prepareData = prepareData;
-  self.drawRadar = drawRadar;
-  self.drawBarChart = drawBarChart;
-	self.deleteOrgPanelItems = deleteOrgPanelItems;
 
+  self.create = createPanel
+  self.delete = deleteOrgPanelItems
 
-	function fillHeader(_selectedOrg) {
-		$(".map-panel-container h2").html(_selectedOrg.name);
-		$(".map-panel-container .org-type").html(_selectedOrg.organisation_type);
-		$(".map-panel-container .map-panel-scrolling p").html(_selectedOrg.short_description);
+  function createPanel(org){
+    fillHeader(org);
+    var radarData = prepareData(org, "technology");
+    drawRadar(radarData, "Technology");
+    var barchart1Data = prepareData(org, "focus");
+    drawBarChart(barchart1Data, "Focus");
+    var barchart2Data = prepareData(org, "support_tags");
+    drawBarChart(barchart2Data, "Support");
+  }
+
+	function fillHeader(org) {
+		$(".org-panel-map-container h2").html(org.name);
+		$(".org-panel-map-container .org-type").html(org.organisation_type);
+		$(".org-panel-map-container .org-panel-scrolling p").html(org.short_description);
 	}
 
-
-	function prepareData(_selectedOrg, field) {
-		var orgPrjs = _selectedOrg.linked_prjs;
+	function prepareData(org, field) {
+		var orgPrjs = org.linked_prjs;
 		var fieldCountsInit = [];
 		orgPrjs.forEach(function (d) {
 			d[field].forEach(function (e){
