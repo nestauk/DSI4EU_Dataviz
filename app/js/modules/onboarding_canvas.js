@@ -1,7 +1,5 @@
-function OnBoardingCanvas(_canvas, _app) {
+function OnBoardingCanvas(svg, _app) {
 	var self = this;
-
-
     self.init = init
     self.stop = stop
     self.one = one
@@ -10,122 +8,117 @@ function OnBoardingCanvas(_canvas, _app) {
     self.four = four
     self.five = five
 
-	var canvas = _canvas
-	var w = canvas.width
-	var h = canvas.height
+
+    var cont = $('#onboarding-view')
+    var w = cont.width()
+    var h = cont.height()
+
+    var s = Math.max(w, h)
+
+    
+
+
+    var canvas = cont.find('canvas').get(0)
+    canvas.width = w
+    canvas.height = h
 
     var timer
 
-	var ctx = canvas.getContext("2d")
+    var ctx = canvas.getContext('2d')
+    var detachContainer = document.createElement('custom')
+    var dataCont = d3.select(detachContainer)
 
-	var detachContainer = document.createElement('custom')
-	var dataCont = d3.select(detachContainer)
+	var orgs
+    var prjs
+    var conn
+
+    var mapx = d3.scaleLinear()
+        .domain([0, 2500])
+        .range([0, w])
+
+    var mapy = d3.scaleLinear()
+        .domain([0, 2500])
+        .range([0, h])
+
+    var mapr = (w>h) ? mapy : mapx
 
 	function draw() {
+        var node
 
 		ctx.fillStyle = "#fff";
 		ctx.rect(0,0,w,h);
 		ctx.fill();
 
-		var elements = dataCont.selectAll("custom");
-		elements.each(function(d) {
-		  	var node = d3.select(this);
+        conn.each(function(d) {
+            node = d3.select(this);
+            ctx.beginPath();
+            ctx.strokeStyle = rgbObToStr( '#dddddd', node.attr("opacity") )
+            ctx.moveTo(mapx(node.attr("x1")), mapy(node.attr("y1")));
+            ctx.lineTo(mapx(node.attr("x2")), mapy(node.attr("y2")));
+            ctx.stroke();
+            ctx.closePath();
+        });
+
+		orgs.each(function(d) {
+		  	node = d3.select(this);
 		  	ctx.beginPath();
-		  	ctx.fillStyle = node.attr("fill")
-		  	ctx.arc(node.attr("cx"), node.attr("cy"), node.attr("r"), 0, Math.PI*2);
+		  	ctx.fillStyle = rgbObToStr( node.attr("fill"), node.attr("opacity") )
+		  	ctx.arc( mapx(node.attr("cx")), mapy(node.attr("cy")), mapr(node.attr("r")), 0, Math.PI*2);
 		  	ctx.fill();
 		  	ctx.closePath();
 		});
+        prjs.each(function(d) {
+            node = d3.select(this);
+            ctx.beginPath();
+            ctx.fillStyle = rgbObToStr( node.attr("fill"), node.attr("opacity") )
+            ctx.arc( mapx(node.attr("cx")), mapy(node.attr("cy")), mapr(node.attr("r")), 0, Math.PI*2);
+            ctx.fill();
+            ctx.closePath();
+        });
+        
 	}
 
 
-	var mapx = d3.scaleLinear()
-		.domain([0, 1])
-		.range([0, w])
-
-	var mapy = d3.scaleLinear()
-		.domain([0, 1])
-		.range([0, h])
-
-    var pointGrid = d3.grid()
-            .points()
-            .size([1,1])
 
 
 
-	function enterElements(selector, data){
-
-		var size = pointGrid.nodeSize()
-
-		var elemns = dataCont.selectAll("custom")
-    		.data(data)
-
-    	elemns.enter()
-    		.append('custom')
-    		.attr('cx', function(d, i){
-    			return mapx(d.x) + mapx(Math.random()*.4-.2)
-    		})
-    		.attr('cy', function(d, i){
-    			return mapy(d.y) + mapx(Math.random()*.4-.2)
-    		})
-    		.attr('fill', function(d, i){
-    			if(selector=='org'){
-    				return 'rgba(125,180,220,0)';
-    			}else{
-    				return 'rgba(255,187,126,0)';
-    			}
-     		})
-    		.attr('r', function(d, i){
-    			if(selector=='org'){
-    				return d.linked_prjs && d.linked_prjs.length>0 ? d.linked_prjs.length+1 : 1
-    			}else{
-    				return d.linked_orgs && d.linked_orgs.length>0 ? d.linked_orgs.length+1 : 1
-    			}
-     		})
-    		.merge(elemns)
-    		.transition()
-    		.ease(d3.easeExp)
-    		.delay(function(d, i){
-    			return i
-    		})
-    		.duration(2000)
-			.attr('fill', function(d, i){
-    			if(selector=='org'){
-    				return 'rgba(125,180,220,.8)';
-    			}else{
-    				return 'rgba(255,187,126,.8)';
-    			}
-     		})    		
-     		.attr('cx', function(d, i){
-    			return mapx(d.x + size[0]/2)
-    		})
-    		.attr('cy', function(d, i){
-    			return mapy(d.y + size[1]/2)
-    		})
-
-    	elemns.exit()
-    		.transition()
-    		.ease(d3.easeExp)
-    		.delay(function(d, i){
-    			return i*3
-    		})
-    		.duration(1000)
-    		.attr('opacity', 0)
-    		.remove()
-	}
 
 
 	function one(){
-		enterElements('org', pointGrid( _.cloneDeep(_app.dataset.orgs))) 
+        orgs.transition()
+            .duration(2000)
+            .delay(function(d, i){
+                return i*50
+            })
+            .ease(d3.easeExp)
+            .attr('opacity', 1)
+            .attr('r', function(){
+                return d3.select(this).attr('r') / 5
+            })
+
 	}
 
 
 	function two(){
-		enterElements('prj', pointGrid( _.cloneDeep(_app.dataset.prjs) ))
+        prjs.transition()
+            .duration(2000)
+            .delay(function(d, i){
+                return i*50
+            })
+            .ease(d3.easeExp)
+            .attr('opacity', 1)
+            .attr('r', function(){
+                return d3.select(this).attr('r') / 5
+            })
 	}
 
     function three(){
-        enterElements('prj', _app.dataset.netDump.nodes)
+        conn.transition()
+            .duration(3000)
+            .delay(function(d, i){
+                return i*50
+            })
+            .attr('opacity', 1)
     }
 
     function four(){
@@ -137,6 +130,27 @@ function OnBoardingCanvas(_canvas, _app) {
     }
 
     function init(){
+
+        var svg = d3.select('#onboarding-view svg')
+            .style('width', s)
+            .style('height', s)
+            .style('display', 'none')
+
+        orgs = svg.selectAll('#org > *')
+            .attr('opacity', 0)
+            .attr('r', function(){
+                return d3.select(this).attr('r') * 5
+            })
+
+        prjs = svg.selectAll('#prj > *')
+            .attr('opacity', 0)
+            .attr('r', function(){
+                return d3.select(this).attr('r') * 5
+            })
+
+        conn = svg.selectAll('#conn > *')
+            .attr('opacity', 0)
+
         timer = d3.timer(draw);
     }
 
@@ -144,5 +158,20 @@ function OnBoardingCanvas(_canvas, _app) {
         timer.stop()
     }
 
+
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    function rgbObToStr(hex, a){
+        var rgb = hexToRgb(hex)
+        var str = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + a + ')'
+        return str
+    }
 
 }

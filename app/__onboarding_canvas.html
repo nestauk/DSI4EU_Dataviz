@@ -16,6 +16,12 @@
 		<link rel="stylesheet" type="text/css" href="css/onboarding.css">
 		<!-- endbuild -->
 
+
+		<style type="text/css">
+		p{
+			display: none;
+		}
+		</style>
 	</head>
 	<body>
 
@@ -71,17 +77,14 @@
 	    	window.StaticPlayer.getInstance().begin()
 
 	    	$(document).ready(function(){
-		    	var dataset = new Dataset();
-		    	dataset.loadData(function(){
-		    		console.log(dataset)
 
-		    		var view = $('#onboarding-view')
-		    		var canvas = $('#onboarding-view canvas').get(0)
-					canvas.width = view.width()
-					canvas.height = view.height()
+	    		setTimeout(function(){
+	    				window.oo = new OnBoardingCanvas()
+		    			window.oo.init()
 
-		    		window.oo = new OnBoardingCanvas(canvas, dataset)
-		    	})
+		    			window.oo.one()
+	    		}, 1000)
+		    	
 
 		    	$('#onboarding-view').show()
 		    })

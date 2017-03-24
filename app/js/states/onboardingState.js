@@ -4,13 +4,9 @@ function onboardingState(){
 	var frag = ['one', 'two', 'three', 'four', 'five']
 	var step = 0
 
-	var canvas = cont.find('canvas').get(0)
-	canvas.width = cont.width()
-	canvas.height = cont.height()
-
-	var on_canvas = new OnBoardingCanvas(canvas, APP)
-
 	cont.find('p').css({opacity:0})
+
+	var on_canvas = new OnBoardingCanvas()
 
 	function showFrag(sel){
 		cont.find(sel).each(function(i, e){
@@ -53,7 +49,6 @@ function onboardingState(){
 				cont.hide()
 			}}, 750, 'easeInOutQuint')
 
-			//cont.hide();
 
 			//filter tab open in desktop enivronment
 			// if (!window.isMobile) {
@@ -65,6 +60,7 @@ function onboardingState(){
 		one: {
 			enter: function(option){
 				showFrag('.one p')
+
 				on_canvas.one()
 			},
 			leave: function(option){
@@ -75,6 +71,7 @@ function onboardingState(){
 		two: {
 			enter: function(option){
 				showFrag('.two p')
+
 				on_canvas.two()
 			},
 			leave: function(option){
@@ -84,7 +81,8 @@ function onboardingState(){
 
 		three: {
 			enter: function(option){
-				showFrag('.three')
+				showFrag('.three p')
+
 				on_canvas.three()
 			},
 			leave: function(option){
@@ -94,8 +92,8 @@ function onboardingState(){
 
 		four: {
 			enter: function(option){
-				showFrag('.four')
-				on_canvas.four()
+				showFrag('.four p')
+				//on_canvas.four()
 			},
 			leave: function(option){
 				hideFrag('.four')
@@ -104,8 +102,8 @@ function onboardingState(){
 
 		five: {
 			enter: function(option){
-				showFrag('.five')
-				on_canvas.five()
+				showFrag('.five p')
+				//on_canvas.five()
 			},
 			leave: function(option){
 				hideFrag('.five')
