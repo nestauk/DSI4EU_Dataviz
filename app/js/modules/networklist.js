@@ -1,11 +1,11 @@
 function NetworkList() {
 	var self = this;
-	self.fillList = fillList;
-	self.deleteNetworkListItems = deleteNetworkListItems;
+	self.create = fillList;
+	self.delete = deleteNetworkListItems;
 
-	function fillList(selectedOrg) {
+	function fillList(org) {
 
-		var network = getNetwork(selectedOrg);	
+		var network = getNetwork(org);	
 		$(".network-list-subtitle").text(network.orgs.length+" Organisation"+plurOrSing(network.orgs)+", "+network.prjs.length+" shared project"+plurOrSing(network.prjs));
 
 		var items = d3.select(".network-list-scrolling ul").selectAll(".network-list-item")

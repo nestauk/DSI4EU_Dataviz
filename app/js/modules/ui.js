@@ -227,9 +227,9 @@ function UserInterface() {
 	}
 
 	function openNetworkList(org) {
-		APP.networkList.deleteNetworkListItems();
+		APP.networkList.delete();
 		if(APP.closeUIPanels) APP.closeUIPanels();
-		APP.networkList.fillList(org)
+		APP.networkList.create(org)
 		$(".network-list").transition({ y: 0 }, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkList);
 		APP.closeUIPanels = closeNetworkList;
