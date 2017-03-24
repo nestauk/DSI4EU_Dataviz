@@ -15,22 +15,24 @@ function onboardingState(){
 		cont.find(sel).transition({opacity:0, y:-30}, 750, 'easeInOutQuint')
 	}
 
-	cont.on('click', function(){
+	cont.on('click', onSubStateClick)
+
+	function onSubStateClick(){
 		step++;
 		if(step>=frag.length){
 			APP.stator.go('map')
 		}else{
 			APP.stator.go('onboarding.' + frag[step])
 		}
-	})
+	}
 
 	var obj = {
-
 		enter: function(option){
 			console.log('onboardingState :: enter')
 			cont.css({opacity:1}).show();
-			cont.find('#skip').click(function(){
-				APP.moveForward()
+			cont.find('#skip').on('click', function(){
+				cont.off('click', onSubStateClick)
+				APP.stator.go('map')
 			})
 		},
 
