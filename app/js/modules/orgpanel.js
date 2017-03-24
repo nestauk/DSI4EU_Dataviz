@@ -19,7 +19,7 @@ function OrgPanel() {
     $(".map-panel-container .org-link")
       .attr("href", org.url)
       .attr("target", "_blank");
-    $(".map-panel-container .subtitle").html(org.linked_prjs.length+_.pluralize("project", org.linked_prjs.length));
+    $(".map-panel-container .subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
     $(".map-panel-container .org-type").html(org.organisation_type);
     $(".map-panel-container .scrolling p").html(org.short_description);
   }

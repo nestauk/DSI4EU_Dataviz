@@ -1,8 +1,9 @@
 .cluster #main-view {
 	padding-top: 6rem;
 }
-.cluster-svg {
-
+.cluster #cluster-container{
+	max-height: 100vh;
+  overflow: auto;
 }
 text {
 	text-anchor: middle;

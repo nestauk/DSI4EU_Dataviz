@@ -91,15 +91,16 @@ function ClusterView() {
 	}
 
 	function drawClusterElements() {
-		clusterElements = d3.select('#main-view')
-			.selectAll('svg')
-			.data(clusters)
-			.enter()
-			.append('svg')
-			.attr('width', clusterWidth)
-			.attr('height', clusterHeight)
-			.attr('class', 'cluster-svg')
-			.append('g')
+		clusterElements = d3.select('#main-view').append("div")
+			.attr("id", "cluster-container")
+				.selectAll('svg')
+				.data(clusters)
+				.enter()
+				.append('svg')
+				.attr('width', clusterWidth)
+				.attr('height', clusterHeight)
+				.attr('class', 'cluster-svg')
+				.append('g')
 	}
 
 	function drawSingleClusters() {
