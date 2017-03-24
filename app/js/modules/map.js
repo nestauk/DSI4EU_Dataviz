@@ -7,7 +7,7 @@ function MapView() {
 	var data;
 	var map, path, projection;
 	var countries;
-	var maxCountrySize = 0;
+	var maxCircleSize = 0;
 	var width = 0
 	var height = 0
 	var current = 'countries'
@@ -17,9 +17,8 @@ function MapView() {
 
 	function createMap() {
 		orgs = APP.filter.orgs.filter(function(d) {
-			return d.longitude != null;
+			return _.isNumber(d.longitude) && _.isNumber(d.longitude);
 		})
-
 
 		APP.filter.registerViewUpdate(createMap);
 		width = $("#main-view").width();
@@ -65,9 +64,6 @@ function MapView() {
 				orgs: country_orgs
 			})
 		})
-		maxCountrySize = _.maxBy(countries, function(c) {
-			return c.orgs.length
-		}).orgs.length
 		return countries;
 	}
 
@@ -111,8 +107,11 @@ function MapView() {
 
 	function createMapContent() {
 		var countryScale = d3.scaleLinear()
-			.domain([0, maxCountrySize])
-			.range([5, width / 5]);
+			.domain([0, maxCircleSize])
+			.range([2, 50]);
+		var opacityScale = d3.scaleLinear()
+			.domain([0, maxCircleSize])
+			.range([0.8, 0.3]);
 
 		var circle = container
 			.selectAll("circle")
@@ -130,6 +129,9 @@ function MapView() {
 			.enter()
 			.append("circle")
 			.merge(circle)
+			.on("click", function(d){
+				console.log(d)
+			})
 			.attr("cx", function(d) {
 				return d.cx;
 			})
@@ -141,6 +143,12 @@ function MapView() {
 				if (d.orgs) return countryScale(d.orgs.length);
 				else return 1;
 			})
+			.style("fill-opacity", function(d, i) {
+				if (zoomLevel == 1 && d.orgs) return .6;
+				else if(zoomLevel > 1.5 && d.orgs) return opacityScale(d.orgs.length);
+				else return 0;
+			})
+
 	}
 
 	function createData() {
@@ -158,21 +166,29 @@ function MapView() {
 				return node;
 			})
 			data.forEach(function(d) {
-				var sameLocationNodes = _.filter(data, function(o) {
-					return o.cx == d.cx && o.cy == d.cy
-				})
-				if(!_.isEmpty(sameLocationNodes)){
-					sameLocationOrgs = _.map(sameLocationNodes, function(l){
-						l.orgs = [];
-						return l.orgs[0];
+				if(!d.duplicate){
+					var sameLocationNodes = _.filter(data, function(o) {
+						return o!=d && o.cx == d.cx && o.cy == d.cy
 					})
-					d.orgs = d.orgs.concat(sameLocationOrgs);
+					if(!_.isEmpty(sameLocationNodes)){
+						sameLocationOrgs = _.map(sameLocationNodes, function(l){
+							l.duplicate = true;
+							return l.orgs[0];
+						})
+						d.orgs = d.orgs.concat(sameLocationOrgs);
+						d.name = d.orgs[0].region || 'Multiple Orgs'
+					}
 				}
 			})
 			data = data.filter(function(n){
-				return !_.isEmpty(n.orgs)
+				if(!n.duplicate) return true
 			})
+			data = data.sort(function(a, b){
+				return b.orgs.length-a.orgs.length
+			})
+			console.log(data)
 		}
+		maxCircleSize = data[0].orgs.length
 		return data;
 	}
 
