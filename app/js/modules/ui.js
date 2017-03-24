@@ -4,12 +4,13 @@ function UserInterface() {
 	self.hide = hideUI;
 	self.show = showUI;
 	self.init = init;
+
 	self.openSelection = openSelectOverlay;
 	self.closeSelection = closeSelectOverlay;
+
+	// UI Panels
 	self.closeSearchPanel = closeSearchPanel;
 	self.openFilterTab = openFilterTab;
-
-	//made visible from outside to be used by orglist.js
 	self.openMapPanel = openMapPanel
 	self.openOrgPanel = openOrgPanel
 	self.openOrgList = openOrgList
