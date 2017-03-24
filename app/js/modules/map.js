@@ -16,11 +16,7 @@ function MapView() {
 	var orgs;
 
 	function createMap() {
-		orgs = APP.filter.orgs.filter(function(d) {
-			return _.isNumber(d.longitude) && _.isNumber(d.longitude);
-		})
-
-		APP.filter.registerViewUpdate(createMap);
+		APP.filter.registerViewUpdate(drawMap);
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
@@ -49,7 +45,10 @@ function MapView() {
 	}
 
 	function drawMap() {
-		data = createData()
+		orgs = APP.filter.orgs.filter(function(d) {
+			return _.isNumber(d.longitude) && _.isNumber(d.longitude);
+		})
+		data = prepareData()
 		createMapContent();
 	}
 
@@ -152,7 +151,7 @@ function MapView() {
 
 	}
 
-	function createData() {
+	function prepareData() {
 		var data;
 		if (zoomLevel == 1) {
 			data = countries
