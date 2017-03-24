@@ -4,7 +4,7 @@ function OrgPanel() {
 	self.prepareData = prepareData;
   self.drawRadar = drawRadar;
   self.drawBarChart = drawBarChart;
-	self.deleteMapPanelItems = deleteMapPanelItems;
+	self.deleteOrgPanelItems = deleteOrgPanelItems;
 
 
 	function fillHeader(_selectedOrg) {
@@ -175,7 +175,7 @@ function OrgPanel() {
   }
 
 
-  function deleteMapPanelItems() {
+  function deleteOrgPanelItems() {
     d3.select(".radar-svg").remove();
     d3.selectAll(".bar-chart").remove();
   }

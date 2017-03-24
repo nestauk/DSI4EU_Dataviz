@@ -18,7 +18,16 @@ function NetworkPanel() {
 			.domain([0, maxBar])
 			.range([0, 100])
 
-		selectedOrg.shared_prjs.forEach(function (o) {
+		//removing selectedOrg from the linked_orgs field of selectedOrg's shared prjs
+		var _shared_prjs = _.cloneDeep(selectedOrg.shared_prjs);
+		console.log(_shared_prjs)
+		_shared_prjs.forEach(function (f) {
+			_.remove(f.linked_orgs, function (e) {
+				return e.name == selectedOrg.name;
+			})
+		});
+
+		_shared_prjs.forEach(function (o) {
 
 			var list = $(".network-panel-scrolling ul").get(0)
 			var li = $("<li></li>")
@@ -47,12 +56,10 @@ function NetworkPanel() {
 		})
 		
 		function createOrgList(d) {
-			var orglist = "Shared with "+d.linked_orgs.length+" organisation"+plurOrSing(d.linked_orgs)+" :";
+			var orglist = "Shared with "+d.linked_orgs.length+" organisation"+plurOrSing(d.linked_orgs)+": ";
 			d.linked_orgs.forEach(function (l, i) {
-				if (l.name != selectedOrg.name) {
-					orglist = orglist.concat(l.name);
-					if (i != d.linked_orgs.length-1) orglist = orglist.concat(", ");
-				}
+				orglist = orglist.concat(l.name);
+				if (i != d.linked_orgs.length-1) orglist = orglist.concat(", ");
 			})
 			return orglist;
 		}

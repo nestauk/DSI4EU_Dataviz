@@ -226,7 +226,7 @@ function UserInterface() {
 		$('.map-list').css({ y: 0});
 		$('.map-panel').transition({ x:"-100%" }, 500, "easeOutQuart");
 		$('.map-list').transition({ x: 0, complete: function() {
-				APP.orgPanel.deleteMapPanelItems();
+				APP.orgPanel.deleteOrgPanelItems();
 			}
 		}, 500, "easeOutQuart");
 		APP.closeUIPanels = null;
@@ -234,9 +234,9 @@ function UserInterface() {
 
 	function closeOrgPanel() {
 		$(".remove-icon").off();
-		APP.orgPanel.deleteMapPanelItems();
+		APP.orgPanel.deleteOrgPanelItems();
 		$('.map-panel').transition({ x:"-100%", complete: function() {
-				APP.orgPanel.deleteMapPanelItems();
+				APP.orgPanel.deleteOrgPanelItems();
 			}
 		}, 500, "easeInQuart");
 		$('.map-list').transition({ y:"100%", x: 0 });

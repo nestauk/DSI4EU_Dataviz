@@ -23,7 +23,6 @@ function OrgList() {
 
 	function toOrgPanel(_org) {
 		$('.map-list').transition({ x:"100%" }, 500, "easeOutQuart");
-		// $('.org-panel-map').transition({ y:0 });
 		APP.ui.openOrgPanel(_org, true); //more than one org, go to orgList
 	}
 
