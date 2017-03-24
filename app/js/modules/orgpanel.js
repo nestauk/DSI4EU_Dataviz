@@ -22,7 +22,7 @@ function OrgPanel() {
 
     drawRadar(radarData, "technology");
     drawBarChart(barchart1Data, "focus");
-    drawBarChart(barchart2Data, "support");
+    drawBarChart(barchart2Data, "support_tags");
 
     function calculateMax(obj) {
       var max = d3.max(obj, function(d) {
@@ -175,12 +175,10 @@ function OrgPanel() {
   }
 
   function drawBarChart(data, field) {
+    console.log(field)
     data.sort(function(a, b) {
       return a.count < b.count;
     })
-    // var maxCountValue = d3.max(data, function(d) {
-    //   return d.count;
-    // })
     var rectHeight = 8,
       rectRound = 5,
       textToBarDist = 6,
@@ -192,7 +190,7 @@ function OrgPanel() {
         case "focus":
           return 4;
           break;
-        case "support":
+        case "support_tags":
           return 10;
           break;
         case "technology":
@@ -207,6 +205,7 @@ function OrgPanel() {
     var lScale = d3.scaleLinear()
       .domain([0, maxCountValue])
       .range([0, maxScaleValue - 16]);
+    var barColorScale = APP.getColorScale(field);
     var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
@@ -240,7 +239,10 @@ function OrgPanel() {
       })
       .attr("height", rectHeight)
       .attr("rx", rectRound)
-      .attr("fill", "white")
+      .attr("fill", function (d) {
+        if (field == "focus") return barColorScale(d.name);
+        else return "white";
+      })
   }
 
 
