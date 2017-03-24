@@ -86,7 +86,7 @@ function OnBoardingCanvas(_canvas, _app) {
     		.transition()
     		.ease(d3.easeExp)
     		.delay(function(d, i){
-    			return i*3
+    			return i
     		})
     		.duration(2000)
 			.attr('fill', function(d, i){
@@ -116,12 +116,12 @@ function OnBoardingCanvas(_canvas, _app) {
 
 
 	function one(){
-		enterElements('org', pointGrid(_app.dataset.orgs))
+		enterElements('org', pointGrid( _.cloneDeep(_app.dataset.orgs))) 
 	}
 
 
 	function two(){
-		enterElements('prj', pointGrid(_app.dataset.prjs))
+		enterElements('prj', pointGrid( _.cloneDeep(_app.dataset.prjs) ))
 	}
 
     function three(){

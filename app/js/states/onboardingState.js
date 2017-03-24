@@ -10,15 +10,15 @@ function onboardingState(){
 
 	var on_canvas = new OnBoardingCanvas(canvas, APP)
 
-	frag.forEach(function(d, i){
-		cont.find('.' + d).css({opacity:0})
-	})
+	cont.find('p').css({opacity:0})
 
 	function showFrag(sel){
-		cont.find(sel).css({y:30}).transition({opacity:1, y:0}, 1000, 'easeInOutQuint')
+		cont.find(sel).each(function(i, e){
+			$(this).css({y:30}).transition({opacity:1, delay:2200 + i*150, y:0}, 2000, 'easeInOutQuint')
+		})
 	}
 	function hideFrag(sel){
-		cont.find(sel).transition({opacity:0, y:-30}, 750, 'easeInOutQuint')
+		cont.find(sel).transition({opacity:0}, 750, 'easeInOutQuint')
 	}
 
 	cont.on('click', onSubStateClick)
@@ -64,7 +64,7 @@ function onboardingState(){
 
 		one: {
 			enter: function(option){
-				showFrag('.one')
+				showFrag('.one p')
 				on_canvas.one()
 			},
 			leave: function(option){
@@ -74,7 +74,7 @@ function onboardingState(){
 
 		two: {
 			enter: function(option){
-				showFrag('.two')
+				showFrag('.two p')
 				on_canvas.two()
 			},
 			leave: function(option){
