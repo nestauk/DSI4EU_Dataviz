@@ -34,6 +34,7 @@ function Dataset(){
 		self.prjs = cleanFieldValues(self.prjs, 'technology', 15)
 		createFieldList(self.prjs, 'focus')
 		addLinkedFields();
+		createFieldList(self.orgs, 'organisation_type')
 		cleanOrganisationData()
 		cleanProjectData()
 		createFieldList(self.prjs, 'countries')
@@ -66,7 +67,7 @@ function Dataset(){
 			o.shared_prjs = o.linked_prjs.filter(function (p) {
 				return p.linked_orgs.length > 1;
 			})
-
+			o.organisation_type = replaceOrganisationType(o.organisation_type)
 			delete o.address
 			delete o.size
 			delete o.created
@@ -110,18 +111,28 @@ function Dataset(){
 		var countValueTh = limitCount || false;
 		var modData = data.slice();
 		modData.forEach(function (c) {
-			c[field].forEach(function (e) {
-				var match = list.filter(function(f){ return f.name === e });
-	  		if ( _.isEmpty(match) ) {
-	  			list.push({
-	  				name: e,
-	  				count: 1
-	  			});
-	  		} else {
-	  			var index = _.findKey(list, function(o) { return o.name===e; });
-	  			list[index].count++;
-	  		}
-			})
+			if(Array.isArray(c[field])){
+				c[field].forEach(function (e) {
+					var match = list.filter(function(f){ return f.name === e });
+		  		if ( _.isEmpty(match) ) {
+		  			list.push({
+		  				name: e,
+		  				count: 1
+		  			});
+		  		} else {
+		  			var index = _.findKey(list, function(o) { return o.name===e; });
+		  			list[index].count++;
+		  		}
+				})
+			} else {
+				var match = list.filter(function(f){ return f.name === c[field] });
+				if ( _.isEmpty(match) && !_.isEmpty(c[field])) {
+					list.push({
+						name: c[field],
+						count: 1
+					});
+				}
+			}
 		})
 		list.sort(function(a,b) {
 		  return b.count - a.count;
@@ -137,6 +148,14 @@ function Dataset(){
 				}
 			});
 		}
+	}
+
+	function replaceOrganisationType(org_type){
+		if(org_type.toLowerCase() == 'Social enterprise, charity, foundation or other non-profit'.toLowerCase()) return 'Non-Profit';
+		if(org_type.toLowerCase() == 'Academia/Research organisation'.toLowerCase()) return 'Research';
+		if(org_type.toLowerCase() == 'For-profit business'.toLowerCase()) return 'For-profit Business';
+		if(org_type.toLowerCase() == 'Grassroots organisation or community network'.toLowerCase()) return 'Citizens organisation';
+		if(org_type.toLowerCase() == 'Government/Public Sector'.toLowerCase()) return 'Public Sector';
 	}
 
 	function cleanFieldValues(data, field, limitCount){
