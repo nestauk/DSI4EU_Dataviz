@@ -140,8 +140,12 @@ function Dataset(){
 		list.sort(function(a,b) {
 		  return b.count - a.count;
 		});
-		if(countValueTh) var slicedList = list.slice(0, countValueTh)
-		else var slicedList = list.slice(0);
+		if(countValueTh) {
+			var slicedList = list.slice(0, countValueTh)
+			slicedList.push({name: 'Others', count: 0})
+		}	else {
+			var slicedList = list.slice(0);
+		}
 		if(!self.fields[field]) {
 			self.fields[field] = _.map(slicedList, function(f){
 				return {
@@ -168,11 +172,13 @@ function Dataset(){
 			slicedValues.push(d.name);
 		})
 		data.forEach(function (c) {
-			c[field].forEach(function (e) {
+			c[field].forEach(function(e, i) {
 				if(!slicedValues.includes(e)) {
-					c[field] = _.without(c[field], e);
+					c[field][i] = 'Others'
+					// c[field] = _.without(c[field], e);
 				}
 			})
+			c[field] = _.uniq(c[field], 'name');
 		})
 		return data;
 	}
