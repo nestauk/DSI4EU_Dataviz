@@ -8,6 +8,7 @@ function mapState(){
 			APP.map.create();
 			APP.ui.show();
 			APP.setState('map')
+			APP.currentStateId = 2;
 			$('#main-view').fadeIn();
 		},
 		leave: function(option){
