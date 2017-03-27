@@ -70,7 +70,7 @@ function Filter() {
 			APP.dataset.fields[f].forEach(function(d) {
 				if (d.active) field.push({
 					field: f,
-					value: d.name
+					value: d.id
 				});
 			})
 			if (!_.isEmpty(field)) self.activeFilters.push(field);
@@ -84,17 +84,23 @@ function Filter() {
 				self.prjs = _.filter(self.prjs, function(p) {
 					return _.some(currentField, function(f) {
 						if (!p[f.field]) return true;
-						return _.includes(p[f.field], f.value);
+						return _.includes(flattenFieldIds(p[f.field]), f.value);
 					})
 				})
 				self.orgs = _.filter(self.orgs, function(o) {
 					return _.some(currentField, function(f) {
 						if (!o[f.field]) return true;
-						return _.includes(o[f.field], f.value);
+						return _.includes(flattenFieldIds(o[f.field]), f.value);
 					})
 				})
 			})
 		}
+	}
+
+	function flattenFieldIds(field){
+		return _.map(field, function(f){
+			return parseInt(f.id);
+		})
 	}
 
 	function resetAllFilters() {

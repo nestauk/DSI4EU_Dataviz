@@ -27,8 +27,6 @@ function ClusterView() {
 
 		APP.ui.updateViewFunction = createNewClusters;
 
-		console.log('creating cluster', cluster_field, subdivide_field)
-
 		projects = APP.filter.prjs;
 		organisations = APP.filter.orgs;
 		fields = APP.dataset.fields;
