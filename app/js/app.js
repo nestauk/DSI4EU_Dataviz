@@ -2,7 +2,7 @@
 
 	window.APP = {}
 	APP.currentStateId = 0;
-	APP.filter_fields = ["support_tags", "technology", "networkTags"];
+	APP.filter_fields = ["support_tags", "technology", "networkTags", "organisation_type"];
 
 	$(document).ready(function(){
 		APP.dataset = new Dataset();	

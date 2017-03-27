@@ -39,9 +39,9 @@ function Dataset(){
 		self.netDump = data.netDump;
 		createFieldList(self.prjs, 'focus')
 		addLinkedFields();
-		createFieldList(self.orgs, 'organisation_type')
 		cleanOrganisationData()
 		cleanProjectData()
+		createFieldList(self.orgs, 'organisation_type')
 		createFieldList(self.orgs, 'country', false, 'countries')
 		createFieldList(self.orgs, 'networkTags')
 		getNetworkStats()
@@ -73,7 +73,7 @@ function Dataset(){
 			o.shared_prjs = o.linked_prjs.filter(function (p) {
 				return p.linked_orgs.length > 1;
 			})
-			o.organisation_type.name = replaceOrganisationType(o.organisation_type.name)
+			o.organisation_type = replaceOrganisationType(o.organisation_type)
 			delete o.address
 			delete o.size
 			delete o.created
@@ -180,11 +180,13 @@ function Dataset(){
 	}
 
 	function replaceOrganisationType(org_type){
-		if(org_type.toLowerCase() == 'Social enterprise, charity, foundation or other non-profit'.toLowerCase()) return 'Non-Profit';
-		if(org_type.toLowerCase() == 'Academia/Research organisation'.toLowerCase()) return 'Research';
-		if(org_type.toLowerCase() == 'For-profit business'.toLowerCase()) return 'For-profit Business';
-		if(org_type.toLowerCase() == 'Grassroots organisation or community network'.toLowerCase()) return 'Citizens organisation';
-		if(org_type.toLowerCase() == 'Government/Public Sector'.toLowerCase()) return 'Public Sector';
+		if(org_type.name.toLowerCase() == 'Social enterprise, charity, foundation or other non-profit'.toLowerCase()) org_type.name = 'Non-Profit';
+		else if(org_type.name.toLowerCase() == 'Academia/Research organisation'.toLowerCase()) org_type.name = 'Research';
+		else if(org_type.name.toLowerCase() == 'For-profit business'.toLowerCase()) org_type.name = 'For-profit Business';
+		else if(org_type.name.toLowerCase() == 'Grassroots organisation or community network'.toLowerCase()) org_type.name = 'Citizens organisation';
+		else if(org_type.name.toLowerCase() == 'Government/Public Sector'.toLowerCase()) org_type.name = 'Public Sector';
+		else org_type.name = 'Others';
+		return [org_type]
 	}
 
 	function cleanFieldValues(data, field, limitCount){
