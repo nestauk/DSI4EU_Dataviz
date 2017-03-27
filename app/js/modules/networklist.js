@@ -7,6 +7,10 @@ function NetworkList() {
 
 		var network = getNetwork(org);	
 		$(".subtitle").text(network.orgs.length+_.pluralize(" Organisation", network.orgs.length)+", "+network.prjs.length+_.pluralize(" shared project", network.prjs.length));
+		
+		network.orgs.sort(function (a, b) {
+			return b.linked_orgs.length - a.linked_orgs.length;
+		})
 
 		var items = d3.select(".network-list-container .scrolling ul").selectAll(".network-list-item")
 			.data(network.orgs)

@@ -20,12 +20,15 @@ function NetworkPanel() {
 
 		//removing selectedOrg from the linked_orgs field of selectedOrg's shared prjs
 		var _shared_prjs = _.cloneDeep(selectedOrg.shared_prjs);
-		console.log(_shared_prjs)
 		_shared_prjs.forEach(function (f) {
 			_.remove(f.linked_orgs, function (e) {
 				return e.name == selectedOrg.name;
 			})
 		});
+
+		_shared_prjs.sort(function (a, b) {
+			return b.linked_orgs.length - a.linked_orgs.length;
+		})
 
 		_shared_prjs.forEach(function (o) {
 
