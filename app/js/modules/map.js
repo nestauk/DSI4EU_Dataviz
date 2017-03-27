@@ -32,13 +32,19 @@ function MapView() {
 			.attr("width", width)
 			.attr("height", height);
 
-		svg.call(d3.zoom().on("zoom", zoomMap))
-
 		map = svg.append("g")
 			.attr("class", "map");
 
 		countries = createCountries();
 		createMapGeometry();
+
+		svg.call(
+			d3.zoom()
+			.scaleExtent([0.35, 10]) 
+			.translateExtent([[-1500, -500], [1500, 1500]])
+			.on("zoom", zoomMap)
+			)
+
 		container = map.append("g")
 			.attr("id", "dots")
 		drawMap()
@@ -212,7 +218,7 @@ function MapView() {
 			current = 'countries'
 			zoomLevel = 1
 			drawMap()
-				}
+		}
 		map.attr("transform", transform.toString());
 	}
 
