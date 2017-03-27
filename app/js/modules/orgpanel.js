@@ -10,7 +10,7 @@ function OrgPanel() {
 
   function createPanel(org) {
     fillHeader(org);
-    var _radarData = prepareData(org, "technology");
+    var _radarData = prepareData(org, "support_tags");
     var barchart1Data = prepareData(org, "focus");
     var barchart2Data = prepareData(org, "support_tags");
     var radarData = completeData(_radarData, "technology");
@@ -20,7 +20,8 @@ function OrgPanel() {
     var maxB2 = calculateMax(barchart2Data);
     maxCountValue = Math.max(maxR, maxB1, maxB2);
 
-    drawRadar(radarData, "technology");
+    //drawRadar(radarData, "technology");
+    drawDonut(_radarData, "support_tags");
     drawBarChart(barchart1Data, "focus");
     drawBarChart(barchart2Data, "support_tags");
 
@@ -174,8 +175,55 @@ function OrgPanel() {
       })
   }
 
+
+  function drawDonut(data, field) {
+
+    d3.select(".radar-chart").select("h3")
+      .text(field)
+    var width = $(".modal-panel.map-panel").width() * 0.8,
+        height = width;
+    var radius = Math.min(width, height) / 2;
+    var donutColorScale = APP.getColorScale(field);
+
+    var arc = d3.arc()
+      .outerRadius(radius)
+      .innerRadius(80)
+
+    var pie = d3.pie()
+      .sort(null)
+      .value(function(d) { return d.count; });
+
+    var svg = d3.select(".radar").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "radar-svg")
+        .append("g")
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+      var g = svg.selectAll(".arc")
+        .data(pie(data))
+        .enter().append("g")
+          .attr("class", "arc");
+
+      g.append("path")
+        .style("fill", "none")
+        .attr("d", arc)
+        .transition()
+        .duration(1000)
+        .attrTween("d", arcTween)
+        .style("fill", function(d) { return donutColorScale(d.data.name); })
+
+      function arcTween(a) {
+        var i = d3.interpolate({endAngle: 0}, a);
+        return function(t) {
+          return arc(i(t));
+        };
+      }
+
+  }
+
+
   function drawBarChart(data, field) {
-    console.log(field)
     data.sort(function(a, b) {
       return a.count < b.count;
     })
