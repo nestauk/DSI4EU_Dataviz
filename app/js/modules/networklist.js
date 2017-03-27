@@ -5,7 +5,7 @@ function NetworkList() {
 
 	function fillList(org) {
 
-		var network = getNetwork(org);	
+		var network = APP.dataset.getNetworkData(org);	
 		$(".subtitle").text(network.orgs.length+_.pluralize(" Organisation", network.orgs.length)+", "+network.prjs.length+_.pluralize(" shared project", network.prjs.length));
 		
 		network.orgs.sort(function (a, b) {
@@ -49,30 +49,6 @@ function NetworkList() {
 			APP.ui.openNetworkPanel(org);
 		}
 	}
-
-	function getNetwork(org){
-		var network_orgs = []
-		var network_prjs = []
-		network_orgs.push(org)
-
-		getOrgNetwork(org)
-		function getOrgNetwork(org){
-			var prjs = _.difference(org.shared_prjs, network_prjs);
-			network_prjs = network_prjs.concat(prjs)
-				prjs.forEach(function(p){
-					var orgs = _.difference(p.linked_orgs, network_orgs);
-					network_orgs = network_orgs.concat(orgs)
-						orgs.forEach(function(o){
-							getOrgNetwork(o)
-						})
-				})
-		}
-		return {
-			prjs: network_prjs,
-			orgs: network_orgs
-		}
-	}
-
 
 	function flattenNetwork(network){
 		var flatten = _.map(network, function(n){

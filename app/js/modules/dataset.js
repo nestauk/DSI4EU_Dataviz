@@ -1,6 +1,8 @@
 function Dataset(){
 	var self = this;
 	self.loadData = loadData;
+	self.getNetworkStats = getNetworkStats;
+	self.getNetworkData = getNetworkData;
 	self.fields = {}
 
 	var organisations_path = 'data/organisations2.json';
@@ -42,6 +44,7 @@ function Dataset(){
 		cleanProjectData()
 		createFieldList(self.orgs, 'country', false, 'countries')
 		createFieldList(self.orgs, 'networkTags')
+		getNetworkStats()
 		console.log(self)
 	}
 
@@ -201,6 +204,49 @@ function Dataset(){
 			c[field] = _.uniq(c[field], 'name');
 		})
 		return data;
+	}
+
+	function getNetworkStats(){
+		var networks = [];
+		self.orgs.forEach(function(o){
+			var network = getNetworkData(o)
+			if(network.orgs.length > 1) networks.push(network)
+		})
+		networks = _.uniqBy(networks, function(n){
+			var org_ids = _.map(n.orgs, function(o){
+				return o.id
+			})
+			return org_ids.toString()
+		})
+	}
+
+	function getNetworkData(org){
+		var network_orgs = []
+		var network_prjs = []
+		network_orgs.push(org)
+
+		getOrgNetwork(org)
+		function getOrgNetwork(org){
+			var prjs = _.difference(org.shared_prjs, network_prjs);
+			network_prjs = network_prjs.concat(prjs)
+				prjs.forEach(function(p){
+					var orgs = _.difference(p.linked_orgs, network_orgs);
+					network_orgs = network_orgs.concat(orgs)
+						orgs.forEach(function(o){
+							getOrgNetwork(o)
+						})
+				})
+		}
+		network_prjs.sort(function(a, b){
+			return a.id - b.id
+		})
+		network_orgs.sort(function(a, b){
+			return a.id - b.id
+		})
+		return {
+			prjs: network_prjs,
+			orgs: network_orgs
+		}
 	}
 
 	function addLinkedFields(){
