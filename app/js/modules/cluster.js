@@ -106,7 +106,7 @@ function ClusterView() {
 	function drawSingleClusters() {
 		var clusterScale = d3.scaleLinear()
 			.domain([0, maxClusterValue])
-			.range([0, clusterWidth / 3]);
+			.range([2, clusterWidth / 3]);
 
 		var clusterCircles = clusterElements
 			.append('circle')
@@ -127,7 +127,7 @@ function ClusterView() {
 
 		var clusterScale = d3.scaleLinear()
 			.domain([0, maxSubdivisionValue])
-			.range([0, clusterWidth / scaleSvg(maxSubdivisionSum)]);
+			.range([2, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
 		var focusColorScale = APP.getColorScale('focus')
 		var otherColorScale = APP.getColorScale(field);
