@@ -85,7 +85,7 @@ function NetworkView() {
 		self.system.force("link").links(links);
 
 		nodes.forEach(function(n, i) {
-			hexStr = intToHex(i)
+			hexStr = intToHex(i+1)
 			lookupMap[hexStr] = n;
 			n.hex = hexStr
 		})
@@ -127,9 +127,8 @@ function NetworkView() {
 		canvas.click(function(e) {
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
-			var node = lookupMap[hex]
-			if(node.type == 'org') APP.ui.openNetworkList(node);
-			console.log(node.name, node.type, node.linked_orgs)
+			if(hex != '#000000') var node = lookupMap[hex]
+			if(node && node.type == 'org') APP.ui.openNetworkList(node);
 		})
 
 		canvas.mousewheel(function(e){
