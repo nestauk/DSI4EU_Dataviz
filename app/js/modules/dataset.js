@@ -222,6 +222,7 @@ function Dataset(){
 		var totalLinkedOrgs = _.sumBy(networks, function(n){
 			return n.orgs.length
 		})
+
 		var totalSharedPrjs = _.sumBy(networks, function(n){
 			return n.prjs.length
 		})
