@@ -147,7 +147,7 @@ function UserInterface() {
 	function openSearchPanel() {
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#search-button").off();
-		$('#search-input').focus()
+		if(!window.isMobile) $('#search-input').focus()
 		APP.search.reset();
 		search_panel.transition({ y: 0});
 		$(".search-container .close-modal").click(closeSearchPanel);
