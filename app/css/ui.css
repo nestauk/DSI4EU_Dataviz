@@ -800,7 +800,7 @@
 .ui .modal-panel.network-stats .network-stats-item {
 	color: #333333;
 	font-size: 1.2rem;
-	margin-bottom: 3rem;
+	margin-bottom: 4rem;
 }
 
 .ui .modal-panel.network-stats .network-stats-container .network-stats-orgs h3 {
@@ -811,18 +811,29 @@
 	color: #ffad69;
 }
 
-.ui .modal-panel.network-stats .network-stats-container .stats-bar {
-	margin-top: .5rem;
+.ui .modal-panel.network-stats .stats-bar .background {
+	position: absolute;
+	margin-top: 1rem;
+	height: .75rem;
+	background: #ccc;
+	border-radius: 1rem;
+	z-index: -10;
+	width: 90%;
+}
+
+.ui .modal-panel.network-stats .stats-bar .color {
+	position: absolute;
+	margin-top: 1rem;
 	height: .75rem;
 	border-radius: 1rem;
 	width: 0;
 }
 
-.ui .modal-panel.network-stats .network-stats-orgs .stats-bar {
+.ui .modal-panel.network-stats .network-stats-orgs .stats-bar .color {
 	background: #72abd6;
 }
 
-.ui .modal-panel.network-stats .network-stats-prjs .stats-bar {
+.ui .modal-panel.network-stats .network-stats-prjs .stats-bar .color {
 	background: #ffad69;
 }
 
