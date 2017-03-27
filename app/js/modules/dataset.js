@@ -40,7 +40,7 @@ function Dataset(){
 		createFieldList(self.orgs, 'organisation_type')
 		cleanOrganisationData()
 		cleanProjectData()
-		createFieldList(self.prjs, 'countries')
+		createFieldList(self.orgs, 'country', false, 'countries')
 		createFieldList(self.orgs, 'networkTags')
 		console.log(self)
 	}
@@ -70,7 +70,7 @@ function Dataset(){
 			o.shared_prjs = o.linked_prjs.filter(function (p) {
 				return p.linked_orgs.length > 1;
 			})
-			o.organisation_type = replaceOrganisationType(o.organisation_type)
+			o.organisation_type.name = replaceOrganisationType(o.organisation_type.name)
 			delete o.address
 			delete o.size
 			delete o.created
@@ -109,32 +109,49 @@ function Dataset(){
 		})
 	}
 
-	function createFieldList(data, field, limitCount){
+	function createFieldList(data, field, limitCount, altName){
 		var list = [];
 		var countValueTh = limitCount || false;
 		var modData = data.slice();
-		modData.forEach(function (c) {
+		modData.forEach(function (c, i) {
 			if(Array.isArray(c[field])){
 				c[field].forEach(function (e) {
-					var match = list.filter(function(f){ return f.name === e });
+					var match = list.filter(function(f){ return f.id === e.id });
 		  		if ( _.isEmpty(match) ) {
 		  			list.push({
-		  				name: e,
+		  				name: e.name,
+		  				id: e.id,
 		  				count: 1
 		  			});
 		  		} else {
-		  			var index = _.findKey(list, function(o) { return o.name===e; });
+		  			var index = _.findKey(list, function(o) { return o.id===e.id; });
 		  			list[index].count++;
 		  		}
 				})
-			} else {
+			} else if(_.isObject(c[field])){
+				var match = list.filter(function(f){ return f.name === c[field].name });
+				if ( _.isEmpty(match) && !_.isEmpty(c[field])) {
+					list.push({
+						name: c[field].name,
+						id: c[field].id,
+						count: 1
+					});
+				} else if(!_.isEmpty(match) && !_.isEmpty(c[field])){
+					var index = _.findKey(list, function(o) { return o.id===c[field].id; });
+					list[index].count++;
+				}
+			}	else if(_.isString(c[field])){
 				var match = list.filter(function(f){ return f.name === c[field] });
 				if ( _.isEmpty(match) && !_.isEmpty(c[field])) {
 					list.push({
 						name: c[field],
+						id: i,
 						count: 1
 					});
-				}
+				} else if(!_.isEmpty(match) && !_.isEmpty(c[field])){
+					var index = _.findKey(list, function(o) { return o.name===c[field]; });
+					list[index].count++;
+				}				
 			}
 		})
 		list.sort(function(a,b) {
@@ -142,15 +159,17 @@ function Dataset(){
 		});
 		if(countValueTh) {
 			var slicedList = list.slice(0, countValueTh)
-			slicedList.push({name: 'Others', count: 0})
+			slicedList.push({name: 'Others', count: 0, id:999})
 		}	else {
 			var slicedList = list.slice(0);
 		}
-		if(!self.fields[field]) {
-			self.fields[field] = _.map(slicedList, function(f){
+		var fieldName = altName || field
+		if(!self.fields[fieldName]) {
+			self.fields[fieldName] = _.map(slicedList, function(f){
 				return {
 					name: f.name,
-					id: idEncode(f.name),
+					id: parseInt(f.id),
+					alias: idEncode(f.name),
 					active: false
 				}
 			});
@@ -169,12 +188,13 @@ function Dataset(){
 		var slicedValues = [];
 		if(!self.fields[field]) createFieldList(data, field, limitCount)
 		self.fields[field].forEach(function (d) {
-			slicedValues.push(d.name);
+			slicedValues.push(d.id);
 		})
 		data.forEach(function (c) {
 			c[field].forEach(function(e, i) {
-				if(!slicedValues.includes(e)) {
-					c[field][i] = 'Others'
+				if(!slicedValues.includes(parseInt(e.id))) {
+					c[field][i].name = 'Others'
+					c[field][i].id = 999
 					// c[field] = _.without(c[field], e);
 				}
 			})

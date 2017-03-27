@@ -50,7 +50,7 @@ function OrgPanel() {
     orgPrjs.forEach(function(d) {
       d[field].forEach(function(e) {
         fieldCountsInit.push({
-          name: e,
+          name: e.name,
           count: 0
         })
       })
@@ -59,7 +59,7 @@ function OrgPanel() {
     orgPrjs.forEach(function(d) {
       d[field].forEach(function(e) {
         var el = _.find(fieldCounts, function(o) {
-          return o.name == e;
+          return o.name == e.name;
         });
         el.count++;
       })

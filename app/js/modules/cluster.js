@@ -42,7 +42,6 @@ function ClusterView() {
 		maxClusterValue = _.maxBy(clusters, function(g) {
 			return g.values.length
 		}).values.length
-
 		drawClusterElements();
 
 		if (!subdivide_field || subdivide_field == 'none') {
@@ -84,7 +83,10 @@ function ClusterView() {
 		var records = {
 			key: value,
 			values: _.filter(array, function(d) {
-				return _.includes(d[field], value)
+				return _.some(d[field], function(f){
+					if(_.isObject(f)) return f.name == value;
+					else return f == value;
+				})
 			})
 		}
 		return records;
