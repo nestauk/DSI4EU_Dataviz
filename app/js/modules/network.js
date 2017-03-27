@@ -20,7 +20,8 @@ function NetworkView() {
 	var minScale = .5
 	var maxScale = 2
 	var scaleFactor = .1;
-	var initialScale = scale = .8;
+	var scale = 1;
+	var baseScale = 0;
 
 
 	function createNetwork() {
@@ -124,6 +125,13 @@ function NetworkView() {
 			scaleCanvas(canvas)
 		}
 
+		d3.select(canvas[0]).call(
+			d3.zoom()
+			.scaleExtent([0.35, 7]) 
+			.translateExtent([[-1500, -1500], [1500, 1500]])
+			.on("zoom", zoomCanvas)
+			)
+
 		canvas.click(function(e) {
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
@@ -131,50 +139,13 @@ function NetworkView() {
 			if(node && node.type == 'org') APP.ui.openNetworkList(node);
 		})
 
-		canvas.mousewheel(function(e){
-			var delta = (e.deltaY / Math.abs(e.deltaY))*scaleFactor
-			if(scale+delta > minScale && scale+delta < maxScale){
-				scale += delta;
-				var mx = e.pageX - translateX / scale;
-				var my = e.pageY - translateY / scale;
-				offsetX = -(mx * delta);
-				offsetY = -(my * delta);
-				translateX += offsetX;
-				translateY += offsetY;
-				update();
-			}
-		})
-
-		$(document).on("mousedown touchstart", function(e){
-			dragging = true;
-			lastX = e.pageX || e.touches[0].pageX
-			lastY = e.pageY || e.touches[0].pageY
-		})
-
-		$(document).on("mousemove touchmove", function(e){
-			if(dragging){
-				var x = e.pageX || e.touches[0].pageX;
-				var y = e.pageY || e.touches[0].pageY;
-				translateX += x - lastX
-				translateY += y - lastY
-				lastX = x;
-				lastY = y;
-				update()
-			}
-		})
-
-		$(document).on("mouseup touchend", function(e){
-
-			// dumper
-			// var def = []
-			// nodes.forEach(function(d, i){
-			// 	var p = (d.linked_prjs) ? d.linked_prjs.length : 1
-			// 	def.push({x:d.x/width, y:d.y/height, t:d.type, p:p})
-			// })
-			// console.log(JSON.stringify(def))
-
-			dragging = false;
-		})
+		function zoomCanvas(){
+			var transform = d3.event.transform;
+			scale = transform.k
+			translateX = transform.x
+			translateY = transform.y
+			update()
+		}
 
 		function update() {
 			var r = 6;
@@ -231,13 +202,14 @@ function NetworkView() {
 	function scaleCanvas(canvas) {
 		canvas.attr("width", width * window.devicePixelRatio)
 		canvas.attr("height", height * window.devicePixelRatio)
+		baseScale = window.devicePixelRatio;
 		canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
 	}
 
 	function resetTransforms(){
 		translateX = 0;
 		translateY = 0;
-		scale = initialScale;
+		scale = 1;
 	}
 
 	function deleteNetwork() {
