@@ -660,8 +660,9 @@
 }
 
 .ui .modal-panel .scrolling ul {
-	max-height: 65vh;
-  overflow: auto;
+	/* conflict with other scrolling rule */
+	/*max-height: 65vh;
+    overflow: auto;*/
 }
 
 .ui .modal-panel .map-list-container .scrolling ul li {
