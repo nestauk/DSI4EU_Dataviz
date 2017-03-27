@@ -634,6 +634,19 @@
 	line-height: 1.7rem;
 }
 
+.ui .modal-panel .subtitle {
+	color: white;
+	font-size: 1.2rem;
+	line-height: 1.7rem;
+}
+
+.ui .modal-panel .subtitle::after {
+	content: "";
+	display: block;
+	height: .75rem;
+	border-bottom: .2rem solid white;
+}
+
 .ui .modal-panel .scrolling {
 	max-height: 65vh;
   overflow: auto;
@@ -709,9 +722,9 @@
 	border-bottom: .2rem solid white;
 }
 
-.ui .modal-panel .map-panel-container .subtitle {
-	display: inline-block;
+.ui .modal-panel .map-panel-container .org-subtitle {
 	font-size: 1.2rem;
+	line-height: 1.7rem;
 	margin-top: .8rem;
 }
 
