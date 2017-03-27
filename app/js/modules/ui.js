@@ -201,7 +201,12 @@ function UserInterface() {
 	}
 
 	function openOrgPanel(org, list) {
-		list ? $(".back-icon").show() : $(".back-icon").hide()
+		if (list) {
+			$(".back-icon").show();
+		} else {
+			$(".back-icon").hide();
+			$(".modal-nav-icons").addClass("from-list");
+		}
 		APP.orgPanel.create(org);
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$('.map-panel').transition({ x: 0});
@@ -228,7 +233,7 @@ function UserInterface() {
 				APP.orgPanel.delete();
 			}
 		}, 500, "easeInQuart");
-		$('.map-list').transition({ y:"100%", x: 0 });
+		$('.map-list').css({ y:"100%", x: 0 });
 		APP.closeUIPanels = null;
 	}
 
@@ -273,7 +278,7 @@ function UserInterface() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}
 		}, 500, "easeInQuart");
-		$('.network-list').transition({ y:"100%", x: 0 });
+		$('.network-list').css({ y:"100%", x: 0 });
 		APP.closeUIPanels = null;
 	}
 

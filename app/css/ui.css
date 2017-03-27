@@ -401,116 +401,7 @@
 	margin-bottom: 2rem;
 }
 
-.ui .modal-panel {
-	background: rgba(51,51,51,0.85);
-	background: rgba(0,0,0,0.85);
-	width: 100%;
-	padding: 1rem 1.2rem;
-	position: absolute;
-	top: 0;
-	z-index: 1;
-}
-
-.ui .modal-panel.info-panel {
-	height: 100%;
-	transform: translateY(100%);
-}
-
-.ui .modal-panel.info-panel p {
-	font-size: 1rem;
-	line-height: 1.6rem;
-	margin-top: 1rem;
-	margin-bottom: 3rem;
-}
-
-.ui .modal-panel.info-panel h2 {
-	font-size: 1.6rem;
-	line-height: 1.6rem;
-	margin-top: 1rem;
-}
-
-.ui .modal-panel .modal-container.info-container {
-	display: flex;	
-	flex-direction: column;
-	align-items: flex-start;
-}
-
-.ui .modal-panel .modal-container.map-list-container {
-	align-items: center;
-}
-
-.ui .modal-panel.info-panel .info-icon {
-	width: 4rem;
-	height: 4rem;
-	margin-bottom: 2rem;
-	align-self: center;
-}
-
-.ui .modal-panel .modal-nav-icons {
-	width: 100%;
-	display: flex;	
-}
-
-.ui .modal-panel .network-list-container .modal-nav-icons,
-.ui .modal-panel .map-list-container .modal-nav-icons {	
-	justify-content: flex-end;
-}
-
-.ui .modal-panel .network-panel-container .modal-nav-icons,
-.ui .modal-panel .map-panel-container .modal-nav-icons {
-	justify-content: space-between;
-}
-
-.ui .modal-panel .remove-icon {
-	width: 2rem;
-	height: 2rem;
-	margin-bottom: 1rem;
-	fill: #333333;
-}
-.ui .modal-panel .back-icon {
-	width: 2rem;
-	height: 2rem;
-	margin-bottom: 1rem;
-	align-self: flex-start;
-}
-.ui .modal-panel .link-icon {
-	width: 1.6rem;
-	height: 1.6rem;
-	margin-left: 1rem;
-}
-.ui .modal-panel .inverted-color {
-	fill: #ffffff;
-}
-.ui .modal-panel .secondary-color {
-	fill: #4dc4b0;
-}
-
-.ui .modal-panel.info-panel .legend-dot {
-	display: inline-block;
-	width: 1rem;
-	height: 1rem;
-	border-radius: 100%;
-	margin-right: 1rem;
-}
-
-.ui .legend-dot.focus-color-1{
-	background-color: #ffad69;
-}
-.ui .legend-dot.focus-color-2{
-	background-color: #f1d569;
-}
-.ui .legend-dot.focus-color-3{
-	background-color: #ff6769;
-}
-.ui .legend-dot.focus-color-4{
-	background-color: #f169c4;
-}
-.ui .legend-dot.org-color{
-	background-color: #72abd6;
-}
-.ui .legend-dot.prj-color{
-	background-color: #ffad69;
-}
+/* SEARCH */
 
 .ui .search-panel {
 	background: #ffffff;
@@ -601,6 +492,135 @@
 	color: #ffad69;
 }
 
+/* MODAL PANELS */
+
+.ui .modal-panel {
+	background: rgba(51,51,51,0.85);
+	background: rgba(0,0,0,0.85);
+	width: 100%;
+	padding: 1rem 1.2rem;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+
+.ui .modal-panel.info-panel {
+	height: 100%;
+	transform: translateY(100%);
+}
+
+.ui .modal-panel.info-panel p {
+	font-size: 1rem;
+	line-height: 1.6rem;
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+}
+
+.ui .modal-panel.info-panel h2 {
+	font-size: 1.6rem;
+	line-height: 1.6rem;
+	margin-top: 1rem;
+}
+
+.ui .modal-panel .modal-container.info-container {
+	display: flex;	
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.ui .modal-panel .modal-container.map-list-container {
+	align-items: center;
+}
+
+.ui .modal-panel .inverted-color {
+	fill: #ffffff;
+}
+.ui .modal-panel .secondary-color {
+	fill: #4dc4b0;
+}
+
+.ui .modal-panel.info-panel .legend-dot {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 100%;
+	margin-right: 1rem;
+}
+
+.ui .legend-dot.focus-color-1{
+	background-color: #ffad69;
+}
+.ui .legend-dot.focus-color-2{
+	background-color: #f1d569;
+}
+.ui .legend-dot.focus-color-3{
+	background-color: #ff6769;
+}
+.ui .legend-dot.focus-color-4{
+	background-color: #f169c4;
+}
+.ui .legend-dot.org-color{
+	background-color: #72abd6;
+}
+.ui .legend-dot.prj-color{
+	background-color: #ffad69;
+}
+
+.ui .modal-panel.info-panel .info-icon {
+	width: 4rem;
+	height: 4rem;
+	margin-bottom: 2rem;
+	align-self: center;
+}
+
+/* NAV ICONS */
+
+.ui .modal-panel .modal-nav-icons {
+	width: 100%;
+	display: flex;	
+}
+
+.ui .modal-panel.info-panel .modal-nav-icons,
+.ui .modal-panel .map-list-container .modal-nav-icons,
+.ui .modal-panel .network-list-container .modal-nav-icons,
+.ui .modal-panel .cluster-panel-container .modal-nav-icons {	
+	justify-content: flex-end;
+}
+
+.ui .modal-panel .network-panel-container .modal-nav-icons,
+.ui .modal-panel .map-panel-container .modal-nav-icons {
+	justify-content: space-between;
+}
+
+.ui .modal-panel .map-panel-container .modal-nav-icons.from-list {
+	justify-content: flex-end;
+}
+
+.ui .modal-panel .remove-icon {
+	width: 2rem;
+	height: 2rem;
+	margin-bottom: 1rem;
+	fill: #333333;
+}
+.ui .modal-panel .remove-icon.inverted-color {
+	fill: white;
+}
+.ui .modal-panel .back-icon {
+	width: 2rem;
+	height: 2rem;
+	margin-bottom: 1rem;
+	align-self: flex-start;
+}
+.ui .modal-panel .link-icon {
+	width: 1.6rem;
+	height: 1.6rem;
+	margin-left: 1rem;
+}
+
+.ui .modal-panel h2 {
+	line-height: 1.7rem;
+}
+
 .ui .modal-panel .scrolling {
 	max-height: 65vh;
   overflow: auto;
@@ -645,8 +665,9 @@
 
 .ui .modal-panel .map-list-container .scrolling ul li {
 	font-size: 1.6rem;
-	line-height: 3rem;
+	line-height: 2rem;
 	text-align: center;
+	margin-bottom: 1.5rem;
 }
 
 .ui .modal-panel.map-panel {
@@ -785,7 +806,7 @@
 }
 
 .ui .network-list .network-list-container .scrolling .networklist-text-container p {
-	line-height: 1.4rem;
+	line-height: 1.6rem;
 }
 
 .ui .network-list .network-list-container .scrolling .networklist-text-container p:hover {

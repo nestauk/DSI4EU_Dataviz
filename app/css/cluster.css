@@ -13,7 +13,7 @@ text.smallLabel{
 	text-anchor: middle;
 }
 .cluster-label {
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 }
 .cluster .circle.prj {
 	fill: #ffad69;

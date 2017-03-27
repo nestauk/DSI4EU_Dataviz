@@ -282,6 +282,9 @@ function OrgPanel() {
       .attr("y", function(d, i) {
         return offsetDist + textToBarDist + i * barToBarDist;
       })
+      .attr("width", 0)
+      .transition()
+      .duration(2000)
       .attr("width", function(d) {
         return lScale(d.count);
       })
