@@ -256,14 +256,17 @@ function UserInterface() {
 		APP.networkStats.delete();
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		APP.networkStats.create();
-		$(".network-stats").transition({ y: 0 }, 500, "easeOutQuart");
+		$(".network-stats").css({scale: 0, transformOrigin: '100% 100%'})
+		setTimeout(function(){	
+			$(".network-stats").transition({ scale: 1 }, 500, "easeOutQuart");
+		}, 1000)
 		$(".remove-icon").click(closeNetworkStats);
 		APP.closeUIPanels = closeNetworkStats;
 	}
 
 	function closeNetworkStats() {
 		$(".remove-icon").off();
-		$(".network-stats").transition({ y: "100%"}, 500, "easeInQuart");
+		$(".network-stats").transition({ scale: 0}, 500, "easeInQuart");
 		APP.closeUIPanels = null;
 	}
 
