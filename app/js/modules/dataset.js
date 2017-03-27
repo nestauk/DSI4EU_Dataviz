@@ -218,6 +218,20 @@ function Dataset(){
 			})
 			return org_ids.toString()
 		})
+
+		var totalLinkedOrgs = _.sumBy(networks, function(n){
+			return n.orgs.length
+		})
+		var totalSharedPrjs = _.sumBy(networks, function(n){
+			return n.prjs.length
+		})
+
+		var stats = {
+			totalNetworks: networks.length,
+			totalLinkedOrgs: totalLinkedOrgs,
+			totalSharedPrjs: totalSharedPrjs
+		}
+		 return stats;
 	}
 
 	function getNetworkData(org){
