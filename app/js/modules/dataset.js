@@ -3,8 +3,8 @@ function Dataset(){
 	self.loadData = loadData;
 	self.fields = {}
 
-	var organisations_path = 'data/organisations.json';
-	var projects_path = 'data/projects.json';
+	var organisations_path = 'data/organisations2.json';
+	var projects_path = 'data/projects2.json';
 	var map_path = 'data/world50m.json';
 	var countries_path = 'data/iso_3166_2_countries.csv';
 	var net_dump = 'data/net_dump.json';
