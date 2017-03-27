@@ -149,6 +149,19 @@ function UserInterface() {
 	function openSearchPanel() {
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#search-button").off();
+		var search_hint = 'Search'
+		switch(APP.state){
+			case 'map':
+			search_hint = 'Find an organisation'
+			break;
+			case 'network':
+			search_hint = 'Find a project or an organisation'
+			break;
+			case 'cluster':
+			search_hint = 'Find a cluster group'
+			break;
+		}
+		$('#search-input').attr('placeholder', search_hint)
 		if(!window.isMobile) $('#search-input').focus()
 		APP.search.reset();
 		search_panel.transition({ y: 0});

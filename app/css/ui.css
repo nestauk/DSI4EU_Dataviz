@@ -427,6 +427,10 @@
 	margin-top: 1rem;
 }
 
+.ui .search-title h2{
+	text-align: center;
+}
+
 .ui .modal-header {
 	width: 100%;
 	display: flex;
@@ -435,8 +439,8 @@
 
 .ui .search-container .search-bar {
 	height: 3rem;
-	padding: .5rem;
-	border: .1rem solid;
+	width: 100%;
+	/*border-bottom: .1rem solid #333;*/
 	background: none;
 	color: #333;
 	display: flex;
@@ -449,6 +453,14 @@
 	border: none;
 	flex: 1;
 	color: #333333;
+	text-align: center;
+	padding: .5rem;
+	border-bottom: .1rem solid #333;
+	transition: border .5s;
+}
+
+.ui .search-container .search-bar #search-input:focus {
+	border-bottom: .1rem solid #4dc4b0;
 }
 
 .ui .search-container .search-bar .search-icon {
