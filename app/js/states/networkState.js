@@ -8,7 +8,7 @@ function networkState(){
 			console.log('networkState :: enter');
 			APP.setState('network')
 			APP.network.create();
-
+			APP.ui.openNetworkStats();
 		},
 		leave: function(option){
 			console.log('networkState :: leave');

@@ -19,6 +19,8 @@ function UserInterface() {
 	self.openNetworkList = openNetworkList;
 	self.openNetworkPanel = openNetworkPanel;
 	self.closeNetworkPanel = closeNetworkPanel;
+	self.openNetworkStats = openNetworkStats;
+	self.closeNetworkStats = closeNetworkStats;
 	self.openClusterPanel = openClusterPanel;
 
 	self.updateView = updateView;
@@ -234,6 +236,21 @@ function UserInterface() {
 			}
 		}, 500, "easeInQuart");
 		$('.map-list').css({ y:"100%", x: 0 });
+		APP.closeUIPanels = null;
+	}
+
+	function openNetworkStats() {
+		APP.networkStats.delete();
+		if(APP.closeUIPanels) APP.closeUIPanels();
+		APP.networkStats.create();
+		$(".network-stats").transition({ y: 0 }, 500, "easeOutQuart");
+		$(".remove-icon").click(closeNetworkStats);
+		APP.closeUIPanels = closeNetworkStats;
+	}
+
+	function closeNetworkStats() {
+		$(".remove-icon").off();
+		$(".network-stats").transition({ y: "100%"}, 500, "easeInQuart");
 		APP.closeUIPanels = null;
 	}
 

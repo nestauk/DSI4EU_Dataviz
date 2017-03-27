@@ -17,6 +17,7 @@
 		APP.orgPanel = new OrgPanel();
 		APP.networkList = new NetworkList();
 		APP.networkPanel = new NetworkPanel();
+		APP.networkStats = new NetworkStats();
 		APP.clusterPanel = new ClusterPanel();
 		APP.search = new Search();
 		APP.ui = new UserInterface();

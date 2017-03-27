@@ -776,6 +776,42 @@
 .ui .modal-panel.network-stats .network-stats-container h2 {
 	color: #333333;
 	text-align: center;
+	margin-bottom: 5rem;
+}
+
+.ui .modal-panel.network-stats .network-stats-container h3 {
+	text-transform: capitalize;
+	font-size: 1.6rem;
+	margin-bottom: 1rem;
+}
+
+.ui .modal-panel.network-stats .network-stats-item {
+	color: #333333;
+	font-size: 1.2rem;
+	margin-bottom: 3rem;
+}
+
+.ui .modal-panel.network-stats .network-stats-container .network-stats-orgs h3 {
+	color: #72abd6;
+}
+
+.ui .modal-panel.network-stats .network-stats-container .network-stats-prjs h3 {
+	color: #ffad69;
+}
+
+.ui .modal-panel.network-stats .network-stats-container .stats-bar {
+	margin-top: .5rem;
+	height: .75rem;
+	border-radius: 1rem;
+	width: 0;
+}
+
+.ui .modal-panel.network-stats .network-stats-orgs .stats-bar {
+	background: #72abd6;
+}
+
+.ui .modal-panel.network-stats .network-stats-prjs .stats-bar {
+	background: #ffad69;
 }
 
 .ui .modal-panel.network-list {
@@ -880,7 +916,7 @@
 	content: "";
 	display: block;
 	height: .75rem;
-	border-bottom: .1rem solid #aaa;
+	border-bottom: .1rem solid #aaaaaa;
 }
 
 /* CLUSTER */
