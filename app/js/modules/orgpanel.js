@@ -10,20 +10,24 @@ function OrgPanel() {
 
   function createPanel(org) {
     fillHeader(org);
-    var _radarData = prepareData(org, "support_tags");
+    //var _radarData = prepareData(org, "technology");
+    //var radarData = completeData(_radarData, "technology");
+    //var donutData = prepareData(org, "support_tags");
     var barchart1Data = prepareData(org, "focus");
     var barchart2Data = prepareData(org, "support_tags");
-    var radarData = completeData(_radarData, "technology");
+    var barchart3Data = prepareData(org, "technology");
 
-    var maxR = calculateMax(_radarData);
+    //var maxR = calculateMax(_radarData);
     var maxB1 = calculateMax(barchart1Data);
     var maxB2 = calculateMax(barchart2Data);
-    maxCountValue = Math.max(maxR, maxB1, maxB2);
+    var maxB3 = calculateMax(barchart3Data);
+    maxCountValue = Math.max(maxB3, maxB1, maxB2);
 
     //drawRadar(radarData, "technology");
-    drawDonut(_radarData, "support_tags");
+    //drawDonut(donutData, "support_tags");
     drawBarChart(barchart1Data, "focus");
     drawBarChart(barchart2Data, "support_tags");
+    drawBarChart(barchart3Data, "technology");
 
     function calculateMax(obj) {
       var max = d3.max(obj, function(d) {
@@ -39,7 +43,7 @@ function OrgPanel() {
       .attr("href", org.url)
       .attr("target", "_blank");
     $(".map-panel-container .subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
-    $(".map-panel-container .org-type").html(org.organisation_type);
+    $(".map-panel-container .org-type").html(org.organisation_type.name);
     $(".map-panel-container .scrolling p").html(org.short_description);
   }
 
@@ -63,6 +67,9 @@ function OrgPanel() {
         });
         el.count++;
       })
+    })
+    fieldCounts.sort(function(a, b) {
+      return b.count - a.count;
     })
     return fieldCounts;
   }
@@ -224,32 +231,14 @@ function OrgPanel() {
 
 
   function drawBarChart(data, field) {
-    data.sort(function(a, b) {
-      return a.count < b.count;
-    })
+    
     var rectHeight = 8,
       rectRound = 5,
       textToBarDist = 6,
       barToBarDist = 44,
       offsetDist = 20;
 
-    function hMult() {
-      switch (field) {
-        case "focus":
-          return 4;
-          break;
-        case "support_tags":
-          return 10;
-          break;
-        case "technology":
-          return 16;
-          break;
-        default:
-          return 4;
-          break;
-      }
-    }
-    var height = barToBarDist * hMult();
+    var height = barToBarDist*data.length + 40;
     var lScale = d3.scaleLinear()
       .domain([0, maxCountValue])
       .range([0, maxScaleValue - 16]);
@@ -257,7 +246,10 @@ function OrgPanel() {
     var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
-      .text(field)
+      .text(function(){
+        if (field=="support_tags") return "Social area";
+        else return field;
+      })
     var barchartItems = barchartDiv.append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -275,18 +267,13 @@ function OrgPanel() {
       })
       .attr("width", width)
       .text(function(d) {
-        return d.name + ": " + d.count + _.pluralize(" project", d.count);
+        //return d.name + ": " + d.count + _.pluralize(" project", d.count);
+        return d.name;
       })
     barchartItems.append("rect")
       .attr("x", 0)
       .attr("y", function(d, i) {
         return offsetDist + textToBarDist + i * barToBarDist;
-      })
-      .attr("width", 0)
-      .transition()
-      .duration(2000)
-      .attr("width", function(d) {
-        return lScale(d.count);
       })
       .attr("height", rectHeight)
       .attr("rx", rectRound)
@@ -294,6 +281,13 @@ function OrgPanel() {
         if (field == "focus") return barColorScale(d.name);
         else return "white";
       })
+      .attr("width", 0)
+      .transition()
+      .duration(2000)
+      .attr("width", function(d) {
+        return lScale(d.count);
+      })
+
   }
 
 

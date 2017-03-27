@@ -583,6 +583,7 @@
 .ui .modal-panel.info-panel .modal-nav-icons,
 .ui .modal-panel .map-list-container .modal-nav-icons,
 .ui .modal-panel .network-list-container .modal-nav-icons,
+.ui .modal-panel .network-stats-container .modal-nav-icons,
 .ui .modal-panel .cluster-panel-container .modal-nav-icons {	
 	justify-content: flex-end;
 }
@@ -675,33 +676,35 @@
 	transform: translateX(-100%);
 }
 
-.ui .modal-panel .map-panel-container .org-title {
-	display: flex;	
-}
-
-.ui .modal-panel .map-panel-container .org-type {
-	display: inline-block;
-	font-size: 1.2rem;
-}
-
 .ui .modal-panel .map-panel-container .map-panel-title {
 	width: 100%;
 }
 
-.ui .modal-panel .subtitle {
+.ui .modal-panel .map-panel-container .org-title {
+	display: flex;	
+}
+
+.ui .modal-panel .org-type {
 	color: white;
 	font-size: 1.2rem;
 }
 
-.ui .modal-panel .subtitle::after {
+.ui .modal-panel .org-type::after {
 	content: "";
 	display: block;
 	height: .75rem;
 	border-bottom: .2rem solid white;
 }
 
+.ui .modal-panel .map-panel-container .subtitle {
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-top: .8rem;
+}
+
 .ui .modal-panel .map-panel-container p {
 	margin-top: 1rem;
+	line-height: 1.4rem;
 }
 
 .ui .modal-panel .map-panel-container .radar-chart {
@@ -753,6 +756,26 @@
 }
 
 /* NETWORK */
+
+.ui .modal-panel.network-stats {
+	background: rgba(230,230,230,0.85);
+	width: 90%;
+	padding: 1rem 1.2rem;
+	position: absolute;
+	top: 1rem;
+	left: 5%;
+	z-index: 2;
+}
+
+.ui .modal-panel.network-stats {
+	min-height: 100%;
+	transform: translateY(100%);
+}
+
+.ui .modal-panel.network-stats .network-stats-container h2 {
+	color: #333333;
+	text-align: center;
+}
 
 .ui .modal-panel.network-list {
 	min-height: 100%;
