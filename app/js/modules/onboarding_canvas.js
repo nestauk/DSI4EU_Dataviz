@@ -33,11 +33,11 @@ function OnBoardingCanvas(svg, _app) {
     var conn
 
     var mapx = d3.scaleLinear()
-        .domain([0, 2500])
+        .domain([0, 500])
         .range([0, w])
 
     var mapy = d3.scaleLinear()
-        .domain([0, 2500])
+        .domain([0, 500])
         .range([0, h])
 
     var mapr = (w>h) ? mapy : mapx
@@ -52,7 +52,7 @@ function OnBoardingCanvas(svg, _app) {
         conn.each(function(d) {
             node = d3.select(this);
             ctx.beginPath();
-            ctx.strokeStyle = rgbObToStr( '#dddddd', node.attr("opacity") )
+            ctx.strokeStyle = rgbObToStr( node.attr("stroke"), node.attr("opacity") )
             ctx.moveTo(mapx(node.attr("x1")), mapy(node.attr("y1")));
             ctx.lineTo(mapx(node.attr("x2")), mapy(node.attr("y2")));
             ctx.stroke();
@@ -88,7 +88,7 @@ function OnBoardingCanvas(svg, _app) {
         orgs.transition()
             .duration(2000)
             .delay(function(d, i){
-                return i*50
+                return Math.random()*5000
             })
             .ease(d3.easeExp)
             .attr('opacity', 1)
@@ -103,7 +103,7 @@ function OnBoardingCanvas(svg, _app) {
         prjs.transition()
             .duration(2000)
             .delay(function(d, i){
-                return i*50
+                return Math.random()*5000
             })
             .ease(d3.easeExp)
             .attr('opacity', 1)
@@ -116,9 +116,13 @@ function OnBoardingCanvas(svg, _app) {
         conn.transition()
             .duration(3000)
             .delay(function(d, i){
-                return i*50
+                return Math.random()*5000
             })
             .attr('opacity', 1)
+            .transition()
+            .duration(2000)
+            .attr('opacity', .2)
+
     }
 
     function four(){
@@ -139,16 +143,19 @@ function OnBoardingCanvas(svg, _app) {
         orgs = svg.selectAll('#org > *')
             .attr('opacity', 0)
             .attr('r', function(){
-                return d3.select(this).attr('r') * 5
+                var r = (d3.select(this).attr('r')>0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
+                return r * 5
             })
 
         prjs = svg.selectAll('#prj > *')
             .attr('opacity', 0)
             .attr('r', function(){
-                return d3.select(this).attr('r') * 5
+                var r = (d3.select(this).attr('r')>0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
+                return r * 5
             })
 
         conn = svg.selectAll('#conn > *')
+            .attr('stroke', '#111111')
             .attr('opacity', 0)
 
         timer = d3.timer(draw);
@@ -170,7 +177,10 @@ function OnBoardingCanvas(svg, _app) {
 
     function rgbObToStr(hex, a){
         var rgb = hexToRgb(hex)
-        var str = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + a + ')'
+        var str = ''
+        if(rgb){
+            str = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + a + ')'
+        }
         return str
     }
 

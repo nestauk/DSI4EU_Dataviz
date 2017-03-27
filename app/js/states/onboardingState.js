@@ -60,7 +60,7 @@ function onboardingState(){
 		one: {
 			enter: function(option){
 				showFrag('.one p')
-
+				cont.find('.one .num').text( APP.dataset.orgs.length )
 				on_canvas.one()
 			},
 			leave: function(option){
@@ -71,7 +71,7 @@ function onboardingState(){
 		two: {
 			enter: function(option){
 				showFrag('.two p')
-
+				cont.find('.two .num').text( APP.dataset.prjs.length )
 				on_canvas.two()
 			},
 			leave: function(option){
