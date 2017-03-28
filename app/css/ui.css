@@ -146,6 +146,8 @@
 
 .ui #filter-panel h2 {
 	text-align: center;
+	text-transform: capitalize;
+	letter-spacing: 0;
 }
 
 .ui .view-settings, .ui .view-filters {
@@ -221,6 +223,7 @@
 .ui .filters h3{
 	display: flex;
 	justify-content: space-between;
+	font-size: 1rem;
 }
 
 .ui .view-settings {
