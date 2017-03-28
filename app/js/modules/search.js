@@ -32,8 +32,21 @@ function Search() {
 			}
 			result.find('.search-result-name').highlight(query)
 			$('#search-results').append(result);
-			// addListener(clip, 'search', query, id);
+			addListener(result, r);
 		})
+	}
+
+	function addListener(result, r){
+		switch(APP.state){
+			case 'map':
+				result.click(function(){
+					APP.map.focus(r);
+					APP.ui.closeSearchPanel();
+				})
+			break;
+			default:
+			break;
+		}
 	}
 
 	function resetSearch(){

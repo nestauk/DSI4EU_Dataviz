@@ -2,6 +2,7 @@ function MapView() {
 	var self = this;
 	self.create = createMap;
 	self.delete = deleteMap;
+	self.focus = focusSearchResult;
 
 	var zoomLevel = 1;
 	var data;
@@ -12,8 +13,9 @@ function MapView() {
 	var height = 0
 	var current = 'countries'
 	var container;
-
+	var zoom;
 	var orgs;
+	var svg;
 
 	function createMap() {
 		APP.ui.updateViewFunction = drawMap;
@@ -22,10 +24,6 @@ function MapView() {
 
 		var projectionCenter = [36, 64]
 		var projectionScale = 500;
-		if(!APP.isMobile) {
-			projectionCenter = [0, 54]
-			projectionScale = 600
-		}
 
 		projection = d3.geoMercator()
 			.center(projectionCenter)
@@ -34,7 +32,7 @@ function MapView() {
 		path = d3.geoPath()
 			.projection(projection);
 
-		var svg = d3.select("#main-view").append("svg")
+		svg = d3.select("#main-view").append("svg")
 			.attr("id", "map-container")
 			.attr("width", width)
 			.attr("height", height);
@@ -45,12 +43,20 @@ function MapView() {
 		countries = createCountries();
 		createMapGeometry();
 
-		svg.call(
-			d3.zoom()
+		zoom = d3.zoom()
 			.scaleExtent([0.35, 10]) 
 			.translateExtent([[-1500, -500], [1500, 1500]])
 			.on("zoom", zoomMap)
-			)
+
+		svg.call(zoom)
+
+		if(!APP.isMobile) {
+			projectionCenter = [0, 54]
+			projectionScale = 600
+
+			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
+			svg.call(zoom.transform, t)
+		}
 
 		container = map.append("g")
 			.attr("id", "dots")
@@ -213,6 +219,18 @@ function MapView() {
 		}
 		maxCircleSize = data[0].orgs.length
 		return data;
+	}
+
+	function focusSearchResult(org){
+		zoomLevel = 2;
+		drawMap();
+		var search_org = _.find(data, function(n){
+			return _.includes(n.orgs, org)
+		})
+		var scale = 2
+		var translate = [search_org.cx-width/2, search_org.cy-height/2]
+		var t = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale);
+		svg.transition().call(zoom.transform, t)
 	}
 
 	function zoomMap() {
