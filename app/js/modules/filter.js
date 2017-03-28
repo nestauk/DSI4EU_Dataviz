@@ -184,6 +184,7 @@ function Filter() {
 				break;
 			case "cluster":
 				$('#cluster-group-by, #cluster-subdivide-by').off();
+				$('#cluster-subdivide-by option[value="'+APP.cluster.subdivide_field+'"]').attr("selected",true);
 				$('#cluster-group-by, #cluster-subdivide-by').change(function() {
 					var group_by = $('#cluster-group-by').val()
 					var subdivide_by = $('#cluster-subdivide-by').val()
