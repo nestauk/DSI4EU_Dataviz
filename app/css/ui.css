@@ -9,17 +9,6 @@
 	pointer-events: none;
 }
 
-@media screen and (min-width: 480px) {
-	.ui {
-		width: 33%;
-	}
-	.ui .tools-icon {
-		z-index: 2000;
-	}
-	.ui #filter-panel {
-		transform: translateY(100%);
-	}
-}
 #debug-button {
 	display: none;
 }
@@ -150,7 +139,6 @@
 
 .ui #filter-panel {
 	background: #333333;
-	width: 100%;
 	height: 100%;
 	padding: 0;
 	/*transform: translateY(-100%);*/
@@ -158,12 +146,6 @@
 
 .ui #filter-panel h2 {
 	text-align: center;
-}
-
-@media screen and (max-width: 480px) {
-	.ui #filter-panel {
-		transform: translateY(-100%);
-	}
 }
 
 .ui .view-settings, .ui .view-filters {
@@ -199,6 +181,8 @@
 .ui .settings-item .checkbox {
 	height: 1.5rem;
 	width: 1.5rem;
+	min-height: 1.5rem;
+	min-width: 1.5rem;
 	border: .1rem solid;
 	margin-right: 1rem;
 	display: flex;
@@ -286,6 +270,7 @@
 }
 
 .ui .filters .add-tags {
+	cursor: pointer;
 	margin-left: 1rem;
 }
 
@@ -370,6 +355,7 @@
 	margin: 2rem 0;
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 }
 
 .ui #filter-selection .select-content li span{
@@ -379,6 +365,7 @@
 
 .ui #filter-selection .select-content li > div{
 	flex: 1;
+	max-width: 2rem;
 }
 
 .ui #filter-selection .select-content li .icon-check {
