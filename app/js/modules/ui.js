@@ -186,11 +186,7 @@ function UserInterface() {
 		APP.infoPanel.create(APP.state);
 		$(".remove-icon").click(closeInfoPanel);
 		$(".network-stats-button button").click(openNetworkStats);
-<<<<<<< HEAD
-		APP.closeUIPanels = closeInfoPanel;
-=======
 		APP.closeCurrentPanel = closeInfoPanel
->>>>>>> Update UI panel closing functions
 	}
 
 	function closeInfoPanel() {
