@@ -25,3 +25,63 @@ html, body {
 		font-size: 130%;
 	}
 }
+
+@media screen and (min-width: 480px) {
+	html {
+		font-size: 90%;
+	}
+	.ui header, .ui .modal-panel{
+		width: 34%;
+	}
+	.ui .tools-icon {
+		z-index: 2000;
+	}
+	.ui #filter-panel {
+		transform: translateY(100%);
+	}
+	.ui header {
+		flex: 1;
+	}
+	.ui .nav {
+		height: 100%;
+	}
+	.ui .sub-nav {
+		display: none;
+	}
+	.ui footer {
+		position: absolute;
+		right: 0;
+		height: 100%;
+		width: 10%;
+	}
+	.ui footer .tools{
+		flex-direction: column;
+		align-items: flex-end;
+		justify-content: flex-start;
+	}
+	.ui .overlay-modal .overlay-content{
+		width: 60%;
+	}
+	.ui .search-panel {
+		width: 100%;
+		right: 0;
+		top: 0;
+		background: rgba(255,255,255,.9)
+	}
+	.ui select {
+		background-image: none;
+		font-size: 1rem;
+	}
+	.cluster .ui .settings-item div {
+		margin: 0 .4rem;
+	}
+	#map-show-connections {
+		cursor: pointer;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.ui #filter-panel {
+		transform: translateY(-100%);
+	}
+}
