@@ -13,16 +13,16 @@ function NetworkView() {
 		height = 0;
 
 	var lookupMap = {};
-	var translateX = 0, lastX = false;
-	var translateY = 0, lastY = false;
+	var translateX = 0,
+		lastX = false;
+	var translateY = 0,
+		lastY = false;
 	var dragging = false;
 
 	var minScale = .5
 	var maxScale = 2
 	var scaleFactor = .1;
-	var scale = 1;
-	var baseScale = 0;
-
+	var scale = initialScale = 1;
 
 	function createNetwork() {
 		resetTransforms()
@@ -33,11 +33,11 @@ function NetworkView() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
-		if(self.showLinkedOnly){ 
-			var prjs = _.filter(APP.filter.prjs, function(p){
+		if (self.showLinkedOnly) {
+			var prjs = _.filter(APP.filter.prjs, function(p) {
 				return p.linked_orgs.length > 1;
 			})
-			var orgs = _.filter(APP.filter.orgs, function(o){
+			var orgs = _.filter(APP.filter.orgs, function(o) {
 				return !_.isEmpty(o.shared_prjs);
 			})
 		} else {
@@ -48,13 +48,13 @@ function NetworkView() {
 
 		orgs = _.filter(orgs, function(o) {
 			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
-				if(self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
+				if (self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
 				return _.includes(APP.filter.prjs, p);
 			})
 		});
 		prjs = _.filter(prjs, function(p) {
 			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
-				if(self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
+				if (self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
 				return _.includes(APP.filter.orgs, o);
 			})
 		});
@@ -86,7 +86,7 @@ function NetworkView() {
 		self.system.force("link").links(links);
 
 		nodes.forEach(function(n, i) {
-			hexStr = intToHex(i+1)
+			hexStr = intToHex(i + 1)
 			lookupMap[hexStr] = n;
 			n.hex = hexStr
 		})
@@ -121,25 +121,33 @@ function NetworkView() {
 
 		$("#main-view").append(lookupCanvas)
 
-		if(window.devicePixelRatio > 1) {
+		if (window.devicePixelRatio > 1) {
 			scaleCanvas(canvas)
 		}
 
-		d3.select(canvas[0]).call(
-			d3.zoom()
-			.scaleExtent([0.35, 7]) 
-			.translateExtent([[-1500, -1500], [1500, 1500]])
+		var zoom = d3.zoom()
+			.scaleExtent([0.35, 7])
+			.translateExtent([
+				[-1600, -1500],
+				[1600, 1500]
+			])
 			.on("zoom", zoomCanvas)
-			)
+
+		var zoomable = d3.select(canvas[0])
+		zoomable.call(zoom)
+		if (!window.isMobile) {
+			zoomable.call(zoom.translateBy, 250, 0)
+			zoomable.call(zoom.scaleBy, .6)
+		}
 
 		canvas.click(function(e) {
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
-			if(hex != '#000000') var node = lookupMap[hex]
-			if(node && node.type == 'org') APP.ui.openNetworkList(node);
+			if (hex != '#000000') var node = lookupMap[hex]
+			if (node && node.type == 'org') APP.ui.openNetworkList(node);
 		})
 
-		function zoomCanvas(){
+		function zoomCanvas() {
 			var transform = d3.event.transform;
 			scale = transform.k
 			translateX = transform.x
@@ -152,9 +160,9 @@ function NetworkView() {
 			updateLookup(r)
 
 			c.save();
-			c.clearRect(0, 0, width,  height);
+			c.clearRect(0, 0, width, height);
 			c.scale(scale, scale)
-			c.translate(translateX/scale, translateY/scale)
+			c.translate(translateX / scale, translateY / scale)
 
 			links.forEach(function(d) {
 				c.strokeStyle = "lightgrey";
@@ -185,7 +193,7 @@ function NetworkView() {
 			lc.save();
 			lc.clearRect(0, 0, width, height);
 			lc.scale(scale, scale)
-			lc.translate(translateX/scale, translateY/scale)
+			lc.translate(translateX / scale, translateY / scale)
 
 			nodes.forEach(function(d, i) {
 				lc.fillStyle = d.hex;
@@ -202,22 +210,40 @@ function NetworkView() {
 	function scaleCanvas(canvas) {
 		canvas.attr("width", width * window.devicePixelRatio)
 		canvas.attr("height", height * window.devicePixelRatio)
-		baseScale = window.devicePixelRatio;
 		canvas[0].getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio)
 	}
 
-	function resetTransforms(){
+	function resetTransforms() {
 		translateX = 0;
 		translateY = 0;
-		scale = 1;
+		scale = initialScale;
 	}
 
 	function deleteNetwork() {
-		self.system = null;
+		resetNodes(nodes)
+		resetNodes(links)
+		nodes = []
+		links = []
+		if (self.system) {
+			self.system.nodes(nodes);
+			self.system.force("link").links(links);
+			self.system = null;
+		}
 		$("#network-container").remove();
 		$("#network-lookup").remove();
 		lookupMap = null;
 		$(document).off();
+	}
+
+	function resetNodes(array) {
+		if (array && !_.isEmpty(array)) {
+			array.forEach(function(n, i) {
+				delete array[i].vx
+				delete array[i].vy
+				delete array[i].x
+				delete array[i].y
+			})
+		}
 	}
 
 }
