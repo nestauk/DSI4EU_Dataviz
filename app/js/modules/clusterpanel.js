@@ -22,7 +22,11 @@ function ClusterPanel() {
 			.data(selectedCluster.values)
 				.enter()
 				.append("li")
-					.attr("class", "cluster-item")	
+					.attr("class", "cluster-item")
+					.on("click", clusterItemDetail);
+
+		items.append("div")
+			.attr("class", "line")
 
 		var circleContainer = items.append("div")
 			.attr("class", "cluster-circle-container")
@@ -46,19 +50,39 @@ function ClusterPanel() {
 					return colorScale(d.key);
 				});
 
-		items.append("div")
+		var text = items.append("div")
 			.attr("class", "cluster-text-container")
-				.append("div")
-					.text(function (d) {
-						return d.key+": "+d.values.length;
-					})
-					.each(generatePrjList)
-					.on("click", clusterItemDetail)
 
+		text.append("div")
+			.attr("class", "cluster-text")
+			.text(function (d) {
+				return d.key;
+			})
+
+		var cta = text.append("div")
+			.attr("class", "cluster-cta")
+			
+
+		cta.append("div")
+			.style("display", "inline-block")
+				.append("svg")
+					.attr("class", "down-icon inverted-color")
+				.append("use")
+					.attr("xlink:href", "#down-icon")
+
+		cta.append("div")
+			.style("display", "inline-block")
+			.text(function (d) {
+				return "Show "+d.values.length+" projects";
+			})
+
+		cta.each(generatePrjList)
+		
 		function clusterItemDetail() {
-			if (d3.event.target == this) {
-				$(this).find("ul").toggleClass("invisible");
-			}
+			$(this).find("ul").toggleClass("invisible");
+			// if (d3.event.target == this) {
+			// 	$(this).find("ul").toggleClass("invisible");
+			// }
 		}
 
 		function generatePrjList(e, i) {
