@@ -20,9 +20,16 @@ function MapView() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
+		var projectionCenter = [36, 64]
+		var projectionScale = 500;
+		if(!APP.isMobile) {
+			projectionCenter = [0, 54]
+			projectionScale = 600
+		}
+
 		projection = d3.geoMercator()
-			.center([36, 64])
-			.scale(500)
+			.center(projectionCenter)
+			.scale(projectionScale)
 
 		path = d3.geoPath()
 			.projection(projection);
@@ -113,7 +120,7 @@ function MapView() {
 			.range([2, 50]);
 		var opacityScale = d3.scaleLinear()
 			.domain([0, maxCircleSize])
-			.range([.8, .4]);
+			.range([.8, .3]);
 
 		var circle = container
 			.selectAll("circle")
