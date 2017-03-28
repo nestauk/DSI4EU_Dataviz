@@ -11,6 +11,7 @@ function ClusterView() {
 	var maxClusterValue = 0;
 	var maxSubdivisionValue = 0;
 	var maxSubdivisionSum = 0;
+	var container;
 
 	self.cluster_field = 'countries';
 	self.subdivide_field = 'focus';
@@ -30,6 +31,9 @@ function ClusterView() {
 		projects = APP.filter.prjs;
 		organisations = APP.filter.orgs;
 		fields = APP.dataset.fields;
+
+		container = d3.select('#main-view').append("div")
+			.attr("id", "cluster-container")
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();
@@ -91,8 +95,7 @@ function ClusterView() {
 	}
 
 	function drawClusterElements() {
-		clusterElements = d3.select('#main-view').append("div")
-			.attr("id", "cluster-container")
+		clusterElements = container
 				.selectAll('svg')
 				.data(clusters)
 				.enter()
