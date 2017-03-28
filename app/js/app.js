@@ -11,6 +11,7 @@
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;
 		APP.getColorScale = getColorScale;
+		APP.closeUIPanels = closeUIPanels;
 
 		APP.filter = new Filter();
 		APP.infoPanel = new InfoPanel();
@@ -74,6 +75,10 @@
 	    	$('body').removeClass(APP.state)
 	    	APP.state = state;
 	    	$('body').addClass(APP.state)
+	    }
+
+	    function closeUIPanels(){
+	    	if(APP.closeCurrentPanel) APP.closeCurrentPanel();
 	    }
 
 	    function getColorScale(field) {
