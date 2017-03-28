@@ -181,6 +181,7 @@ function UserInterface() {
 		$("#info-button").off();
 		$('.info-panel.'+APP.state).transition({ y: 0});
 		$(".remove-icon").click(closeInfoPanel);
+		$(".network-stats-button button").click(openNetworkStats);
 		APP.closeUIPanels = closeInfoPanel
 	}
 
@@ -253,6 +254,7 @@ function UserInterface() {
 	}
 
 	function openNetworkStats() {
+		$(".network-stats-button button").off();
 		APP.networkStats.delete();
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		APP.networkStats.create();

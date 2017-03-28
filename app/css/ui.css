@@ -585,6 +585,18 @@
 	align-self: center;
 }
 
+.ui .modal-panel.info-panel .network-stats-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 4rem;
+	width: 100%;
+}
+
+.ui .modal-panel.info-panel .network-stats-button button {
+	color: white;
+}
+
 /* NAV ICONS */
 
 .ui .modal-panel .modal-nav-icons {
@@ -801,7 +813,7 @@
 .ui .modal-panel.network-stats .network-stats-container h2 {
 	color: #333333;
 	text-align: center;
-	margin-bottom: 5rem;
+	margin-bottom: 6rem;
 }
 
 .ui .modal-panel.network-stats .network-stats-container h3 {
@@ -810,10 +822,15 @@
 	margin-bottom: 1rem;
 }
 
+.ui .modal-panel.network-stats .network-stats-container .stats-paragraph {
+	font-size: 1rem;
+	margin-top: .5rem;
+}
+
 .ui .modal-panel.network-stats .network-stats-item {
 	color: #333333;
 	font-size: 1.2rem;
-	margin-bottom: 4rem;
+	margin-bottom: 6rem;
 }
 
 .ui .modal-panel.network-stats .network-stats-container .network-stats-orgs h3 {
