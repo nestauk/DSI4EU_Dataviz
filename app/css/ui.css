@@ -540,6 +540,19 @@
 	align-items: flex-start;
 }
 
+.ui .modal-panel.info-panel .legenda {
+	max-height: 35vh;
+  overflow: auto;
+  padding-right: 10px;
+	width: 100%;
+}
+
+.ui .modal-panel.info-panel .legenda ul li .legend-text {
+	display: inline-block;
+	line-height: 1.2rem;
+	width: 90%;
+}
+
 .ui .modal-panel .modal-container.map-list-container {
 	align-items: center;
 }
@@ -553,24 +566,12 @@
 
 .ui .modal-panel.info-panel .legend-dot {
 	display: inline-block;
-	width: 1rem;
-	height: 1rem;
+	width: .8rem;
+	height: .8rem;
 	border-radius: 100%;
 	margin-right: 1rem;
 }
 
-.ui .legend-dot.focus-color-1{
-	background-color: #ffad69;
-}
-.ui .legend-dot.focus-color-2{
-	background-color: #f1d569;
-}
-.ui .legend-dot.focus-color-3{
-	background-color: #ff6769;
-}
-.ui .legend-dot.focus-color-4{
-	background-color: #f169c4;
-}
 .ui .legend-dot.org-color{
 	background-color: #72abd6;
 }

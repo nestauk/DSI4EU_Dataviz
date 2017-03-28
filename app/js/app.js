@@ -13,6 +13,7 @@
 		APP.getColorScale = getColorScale;
 
 		APP.filter = new Filter();
+		APP.infoPanel = new InfoPanel();
 		APP.orgList = new OrgList();
 		APP.orgPanel = new OrgPanel();
 		APP.networkList = new NetworkList();

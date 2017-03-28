@@ -179,10 +179,12 @@ function UserInterface() {
 	function openInfoPanel() {
 		if(APP.closeUIPanels) APP.closeUIPanels();
 		$("#info-button").off();
+		APP.infoPanel.delete(APP.state);
 		$('.info-panel.'+APP.state).transition({ y: 0});
+		APP.infoPanel.create(APP.state);
 		$(".remove-icon").click(closeInfoPanel);
 		$(".network-stats-button button").click(openNetworkStats);
-		APP.closeUIPanels = closeInfoPanel
+		APP.closeUIPanels = closeInfoPanel;
 	}
 
 	function closeInfoPanel() {
