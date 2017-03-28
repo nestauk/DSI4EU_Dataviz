@@ -31,7 +31,7 @@ html, body {
 		font-size: 90%;
 	}
 	.ui header, .ui .modal-panel{
-		width: 34%;
+		width: 33%;
 	}
 	.ui .tools-icon {
 		z-index: 2000;

@@ -148,6 +148,7 @@
 	text-align: center;
 	text-transform: capitalize;
 	letter-spacing: 0;
+	font-size: 1.5rem;
 }
 
 .ui .view-settings, .ui .view-filters {
