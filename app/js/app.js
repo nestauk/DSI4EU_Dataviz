@@ -22,6 +22,7 @@
 		APP.networkStats = new NetworkStats();
 		APP.clusterPanel = new ClusterPanel();
 		APP.search = new Search();
+		APP.share = new Share();
 		APP.ui = new UserInterface();
 
 	    var timeline = ["loader", "onboarding", "map", "network", "cluster", "share"];

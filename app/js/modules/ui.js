@@ -45,6 +45,7 @@ function UserInterface() {
 		createFilterSections();
 		$("#filter-selection").hide();
 		$(".sub-nav-label").click(openFilterPanel);
+		$("#share-button").click(openSharePanel);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
 	}
@@ -146,6 +147,35 @@ function UserInterface() {
 		APP.filter_fields.forEach(function(f){
 			APP.filter.createList(f)
 		})
+	}
+
+	function openSharePanel() {
+		APP.closeUIPanels();
+		$("#share-button").off();
+		var share_hint = 'Share'
+		switch(APP.state){
+			case 'map':
+			share_hint = 'Share a map'
+			break;
+			case 'network':
+			share_hint = 'Share a network'
+			break;
+			case 'cluster':
+			share_hint = 'Share a cluster'
+			break;
+		}
+		$(".share-panel").transition({ y: 0});
+		$(".share-container .close-modal").click(closeSharePanel);
+		$(".share-icon").click(APP.share.social("dataviz"));
+		APP.closeCurrentPanel = closeSharePanel
+	}
+
+	function closeSharePanel() {
+		$(".share-container .close-modal").off();
+		$(".share-icon").off()
+		$(".share-panel").transition({ y: "100%"});
+		$("#share-button").click(openSharePanel);
+		APP.closeCurrentPanel = null;
 	}
 
 	function openSearchPanel() {
