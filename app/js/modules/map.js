@@ -50,10 +50,7 @@ function MapView() {
 
 		svg.call(zoom)
 
-		if(!APP.isMobile) {
-			projectionCenter = [0, 54]
-			projectionScale = 600
-
+		if(!window.isMobile) {
 			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
 			svg.call(zoom.transform, t)
 		}
