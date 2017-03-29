@@ -166,7 +166,8 @@ function UserInterface() {
 		}
 		$(".share-panel").transition({ y: 0});
 		$(".share-container .close-modal").click(closeSharePanel);
-		$(".share-icon").click(APP.share.social("dataviz"));
+		$(".share-icon").click(APP.share.social("dataviz", "http://digitalsocial.eu"));
+		APP.share.embedLink("http://www.digitalsocial.eu/permalink")
 		APP.closeCurrentPanel = closeSharePanel
 	}
 
