@@ -113,12 +113,15 @@ function ClusterView() {
 
 		var clusterCircles = clusterElements
 			.append('circle')
-			.attr('r', function(d) {
-				return clusterScale(d.values.length)
-			})
 			.attr("cx", clusterWidth / 2)
 			.attr("cy", clusterHeight / 2)
 			.attr("class", "circle prj")
+			.transition()
+				.duration(500)
+				.delay(400)
+			.attr('r', function(d) {
+				return clusterScale(d.values.length)
+			})
 
 		clusterElements.each(addLabel)
 	}
@@ -161,13 +164,16 @@ function ClusterView() {
 				.attr('transform', function(d) {
 					return "translate(" + (d.x + clusterWidth / 2) + "," + (d.y + clusterHeight / 2) + ")";
 				})
-				.attr("r", function(d) {
-					return d.r
-				})
 				.style("fill", function(d) {
 					if (field === "focus") {
 						return focusColorScale(d.key);
 					} else return otherColorScale(d.key);
+				})
+				.transition()
+				.duration(500)
+				.delay(400)
+				.attr("r", function(d) {
+					return d.r
 				})
 		}
 	}
