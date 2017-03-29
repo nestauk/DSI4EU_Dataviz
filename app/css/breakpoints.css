@@ -63,10 +63,10 @@ html, body {
 		width: 60%;
 	}
 	.ui .search-panel {
-		width: 100%;
-		right: 0;
-		top: 0;
-		background: rgba(255,255,255,.9)
+		width: 80%;
+		left: 10%;
+		right: 10%;
+		background: rgba(255,255,255,.95)
 	}
 	.ui select {
 		background-image: none;
