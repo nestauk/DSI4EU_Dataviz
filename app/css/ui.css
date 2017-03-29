@@ -1020,7 +1020,7 @@
 	align-items: flex-start;
 	justify-content: center;
 	color: white;
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	width: 75%;
 	padding-left: 1rem;
 }
@@ -1031,7 +1031,7 @@
 }
 
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container a:hover {
-	text-decoration: underline;
+	color: #ffad69;
 }
 
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .cluster-cta {
