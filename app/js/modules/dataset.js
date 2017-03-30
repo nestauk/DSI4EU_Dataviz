@@ -237,14 +237,19 @@ function Dataset(){
 		 return stats;
 	}
 
-	function getNetworkData(org){
+	function getNetworkData(node, localNetwork){
+		if(node.type != 'org') org = node.linked_orgs[0]
+		else org = node;
+
 		var network_orgs = []
 		var network_prjs = []
 		network_orgs.push(org)
 
 		getOrgNetwork(org)
 		function getOrgNetwork(org){
-			var prjs = _.difference(org.shared_prjs, network_prjs);
+			var prjs_data = org.shared_prjs
+			if(localNetwork) prjs_data = org.linked_prjs
+			var prjs = _.difference(prjs_data, network_prjs);
 			network_prjs = network_prjs.concat(prjs)
 				prjs.forEach(function(p){
 					var orgs = _.difference(p.linked_orgs, network_orgs);
