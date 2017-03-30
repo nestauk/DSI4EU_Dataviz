@@ -44,6 +44,12 @@ function Search() {
 					APP.ui.closeSearchPanel();
 				})
 			break;
+			case 'network':
+				result.click(function(){
+					APP.network.focus(r);
+					APP.ui.closeSearchPanel();
+				})
+			break;
 			default:
 			break;
 		}

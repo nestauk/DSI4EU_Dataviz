@@ -2,6 +2,7 @@ function NetworkView() {
 	var self = this;
 	self.create = createNetwork;
 	self.delete = deleteNetwork;
+	self.focus = focusSearchResult;
 
 	self.showLinkedOnly = false;
 
@@ -23,6 +24,9 @@ function NetworkView() {
 	var maxScale = 2
 	var scaleFactor = .1;
 	var scale = initialScale = 1;
+	var currentActiveNetwork = null;
+	var currentResultFocus = null;
+	var canvas, zoom, zoomable;
 
 	function createNetwork() {
 		resetTransforms()
@@ -97,7 +101,7 @@ function NetworkView() {
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
 
-		var canvas = $("<canvas></canvas>")
+		canvas = $("<canvas></canvas>")
 			.attr("width", width)
 			.attr("height", height)
 			.css({
@@ -125,26 +129,32 @@ function NetworkView() {
 			scaleCanvas(canvas)
 		}
 
-		var zoom = d3.zoom()
-			.scaleExtent([0.35, 7])
-			.translateExtent([
-				[-1600, -1500],
-				[1600, 1500]
-			])
+		zoom = d3.zoom()
+			// .scaleExtent([0.35, 7])
+			// .translateExtent([
+			// 	[-1600, -1500],
+			// 	[1600, 1500]
+			// ])
 			.on("zoom", zoomCanvas)
 
-		var zoomable = d3.select(canvas[0])
+		zoomable = d3.select(canvas[0])
 		zoomable.call(zoom)
 		if (!window.isMobile) {
-			zoomable.call(zoom.translateBy, 250, 0)
-			zoomable.call(zoom.scaleBy, .6)
+			var t = d3.zoomIdentity.translate(250, 0).scale(.6);
+			zoomable.call(zoom.transform, t)
 		}
 
 		canvas.click(function(e) {
+			currentResultFocus = null;
+			currentActiveNetwork = null;
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
 			if (hex != '#000000') var node = lookupMap[hex]
-			if (node && node.type == 'org') APP.ui.openNetworkList(node);
+				if(node){
+					currentActiveNetwork = APP.dataset.getNetworkData(node, true);
+				} 
+			update();
+			// if (node && node.type == 'org') APP.ui.openNetworkList(node);
 		})
 
 		function zoomCanvas() {
@@ -177,9 +187,12 @@ function NetworkView() {
 				if (d.type === 'prj') {
 					r = 4
 					c.fillStyle = "salmon";
+					if(currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) 	c.fillStyle = '#FDC9C8'
 				} else {
 					c.fillStyle = "steelblue";
+					if(currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) 	c.fillStyle = '#B4CCE0'
 				}
+				if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
 				c.beginPath();
 				c.moveTo(d.x + r, d.y);
 				c.arc(d.x, d.y, r, 0, 2 * Math.PI);
@@ -205,6 +218,19 @@ function NetworkView() {
 
 			lc.restore();
 		}
+	}
+
+	function focusSearchResult(result){
+		console.log(result)
+		var scale = 3
+		var translate = [width/2-result.x, height/2-result.y]
+		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
+		zoomable.transition().duration(500).call(zoom.transform, t).on("end", function(){
+			// zoomable.transition().call(zoom.scaleTo, scale)
+		})
+
+		currentActiveNetwork = APP.dataset.getNetworkData(result, true);
+		currentResultFocus = result
 	}
 
 	function scaleCanvas(canvas) {
