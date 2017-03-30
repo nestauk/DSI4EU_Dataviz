@@ -152,28 +152,28 @@ function UserInterface() {
 	function openSharePanel() {
 		APP.closeUIPanels();
 		$("#share-button").off();
-		var share_hint = 'Share'
-		switch(APP.state){
-			case 'map':
-			share_hint = 'Share a map'
-			break;
-			case 'network':
-			share_hint = 'Share a network'
-			break;
-			case 'cluster':
-			share_hint = 'Share a cluster'
-			break;
-		}
+		// var share_copy = 'Share'
+		// switch(APP.state){
+		// 	case 'map':
+		// 	share_copy = 'Share a map'
+		// 	break;
+		// 	case 'network':
+		// 	share_copy = 'Share a network'
+		// 	break;
+		// 	case 'cluster':
+		// 	share_copy = 'Share a cluster'
+		// 	break;
+		// }
 		$(".share-panel").transition({ y: 0});
 		$(".share-container .close-modal").click(closeSharePanel);
 		$(".share-icon").click(APP.share.social("dataviz", "http://digitalsocial.eu"));
-		APP.share.embedLink("http://www.digitalsocial.eu/permalink")
-		APP.closeCurrentPanel = closeSharePanel
+		APP.share.embedLink("http://www.digitalsocial.eu/permalink");
+		APP.closeCurrentPanel = closeSharePanel;
 	}
 
 	function closeSharePanel() {
 		$(".share-container .close-modal").off();
-		$(".share-icon").off()
+		$(".share-icon").off();
 		$(".share-panel").transition({ y: "100%"});
 		$("#share-button").click(openSharePanel);
 		APP.closeCurrentPanel = null;
@@ -274,7 +274,7 @@ function UserInterface() {
 				APP.orgPanel.delete();
 			}
 		}, 500, "easeOutQuart");
-		APP.closeCurrentPanel = null;
+		APP.closeCurrentPanel = closeOrgList;
 	}
 
 	function closeOrgPanel() {
@@ -338,7 +338,7 @@ function UserInterface() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}
 		}, 500, "easeOutQuart");
-		APP.closeCurrentPanel = null;
+		APP.closeCurrentPanel = closeNetworkList;
 	}
 
 	function closeNetworkPanel() {

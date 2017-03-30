@@ -42,9 +42,37 @@ function OrgPanel() {
     $(".map-panel-container .org-link")
       .attr("href", org.url)
       .attr("target", "_blank");
-    $(".map-panel-container .org-subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
     $(".map-panel-container .org-type").html(org.organisation_type[0].name);
-    $(".map-panel-container .scrolling p").html(org.short_description);
+    
+    if (org.linked_prjs.length == 0) {
+      $(".map-panel-container .org-subtitle").html("This organisation has no projects");
+      insertCta("projects");
+    } else {
+      $(".map-panel-container .org-subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
+    }
+
+    if (org.short_description == "") {
+      if (org.linked_prjs.length == 0) {
+        //do nothing
+      } else {
+        $(".map-panel-container .scrolling p").html("This organisation has no description.");
+        insertCta("description");
+      }
+    } else {
+      $(".map-panel-container .scrolling p").html(org.short_description);
+    }
+  }
+
+
+  function insertCta(parameter) {
+    var cta = d3.select(".map-panel-container .org-panel-cta").append("div")
+      .attr("class", "cta-container")
+    cta.append("p")
+      .html("Is this your organisation? Update your profile here.")
+    cta.append("button")
+      .attr("class", "orgpanel-cta")
+      .attr("onclick", "location.href='http://www.digitalsocial.eu/login'")
+      .text("Update "+parameter)
   }
 
 
@@ -247,7 +275,8 @@ function OrgPanel() {
       .attr("class", "bar-chart")
     barchartDiv.append("h3")
       .text(function(){
-        if (field=="support_tags") return "Social area";
+        if (data.length==0) { return ""; }
+        else if (field=="support_tags") { return "Social area"; }
         else return field;
       })
     var barchartItems = barchartDiv.append("svg")
@@ -294,6 +323,7 @@ function OrgPanel() {
   function deleteOrgPanelItems() {
     d3.select(".radar-svg").remove();
     d3.selectAll(".bar-chart").remove();
+    d3.select(".map-panel-container .org-panel-cta .cta-container").remove();
   }
 
 
