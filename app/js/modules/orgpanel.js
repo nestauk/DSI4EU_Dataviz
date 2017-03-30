@@ -53,7 +53,7 @@ function OrgPanel() {
 
     if (org.short_description == "") {
       if (org.linked_prjs.length == 0) {
-        //do nothing
+        $(".cta-container .orgpanel-cta").text("Update organisation")
       } else {
         $(".map-panel-container .scrolling p").html("This organisation has no description.");
         insertCta("description");
@@ -72,6 +72,7 @@ function OrgPanel() {
     cta.append("button")
       .attr("class", "orgpanel-cta")
       .attr("onclick", "location.href='http://www.digitalsocial.eu/login'")
+      // .attr("formtarget", "_blank") //NOT WORKING
       .text("Update "+parameter)
   }
 
