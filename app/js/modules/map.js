@@ -16,6 +16,7 @@ function MapView() {
 	var zoom;
 	var orgs;
 	var svg;
+	var currentSearchResult = null;
 
 	function createMap() {
 		APP.ui.updateViewFunction = drawMap;
@@ -154,6 +155,9 @@ function MapView() {
 			.attr("cy", function(d) {
 				return d.cy;
 			})
+			.classed("active", function(d){
+				return d.orgs.includes(currentSearchResult);
+			})
 			.transition()
 			.delay(function(d, i){
 				return 2+i
@@ -224,16 +228,12 @@ function MapView() {
 		var search_org = _.find(data, function(n){
 			return _.includes(n.orgs, org)
 		})
+		currentSearchResult = org;
 		var scale = 3
 		var translate = [width/2-search_org.cx, height/2-search_org.cy]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
 		svg.transition().duration(500).call(zoom.transform, t).on("end", function(){
 			svg.transition().call(zoom.scaleTo, scale)
-		})
-
-		map.selectAll('circle')
-		.classed('active', function(d){
-			return d==search_org
 		})
 	}
 
