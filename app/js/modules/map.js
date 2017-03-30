@@ -224,10 +224,17 @@ function MapView() {
 		var search_org = _.find(data, function(n){
 			return _.includes(n.orgs, org)
 		})
-		var scale = 2
-		var translate = [search_org.cx-width/2, search_org.cy-height/2]
-		var t = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale);
-		svg.transition().call(zoom.transform, t)
+		var scale = 3
+		var translate = [width/2-search_org.cx, height/2-search_org.cy]
+		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
+		svg.transition().duration(500).call(zoom.transform, t).on("end", function(){
+			svg.transition().call(zoom.scaleTo, scale)
+		})
+
+		map.selectAll('circle')
+		.classed('active', function(d){
+			return d==search_org
+		})
 	}
 
 	function zoomMap() {
@@ -241,7 +248,9 @@ function MapView() {
 			zoomLevel = 1
 			drawMap()
 		}
-		map.attr("transform", transform.toString());
+		// map.attr("transform", transform.toString());
+		map.attr("transform",  "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
+		
 	}
 
 	function deleteMap() {

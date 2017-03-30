@@ -22,4 +22,9 @@
 	fill: steelblue;
 	fill-opacity: .5;
 	stroke: none;
+  transition: fill .5s;
+}
+
+#dots circle.active {
+  fill: #1DC9A0;
 }
