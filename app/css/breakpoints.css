@@ -32,6 +32,7 @@ html, body {
 	}
 	.ui header, .ui .modal-panel{
 		width: 33%;
+		max-width: 28rem;
 	}
 	.ui .tools-icon {
 		z-index: 2000;
@@ -77,6 +78,10 @@ html, body {
 	}
 	#map-show-connections {
 		cursor: pointer;
+	}
+	.network-popup {
+	    min-width: 15rem;
+	    max-width: 30rem;
 	}
 }
 
