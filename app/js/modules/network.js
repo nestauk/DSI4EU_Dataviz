@@ -38,6 +38,8 @@ function NetworkView() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
+		if(!window.isMobile) width = width - $('.ui header').width();
+
 		if (self.showLinkedOnly) {
 			var prjs = _.filter(APP.filter.prjs, function(p) {
 				return p.linked_orgs.length > 1;
@@ -141,8 +143,7 @@ function NetworkView() {
 		zoomable = d3.select(canvas[0])
 		zoomable.call(zoom)
 		if (!window.isMobile) {
-			var t = d3.zoomIdentity.translate(250, 0).scale(.6);
-			zoomable.call(zoom.transform, t)
+			zoomable.call(zoom.scaleTo, .6)
 		}
 
 		canvas.click(function(e) {

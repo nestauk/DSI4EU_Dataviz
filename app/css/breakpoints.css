@@ -83,7 +83,7 @@ html, body {
 	    min-width: 15rem;
 	    max-width: 30rem;
 	}
-	.cluster #cluster-container{
+	.cluster #cluster-container, #network-container {
 	  position: absolute;
 	  right: 0;
 	}
