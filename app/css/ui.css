@@ -601,8 +601,8 @@
 }
 
 .ui .modal-panel.info-panel p {
-	font-size: 1rem;
-	line-height: 1.6rem;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
 	margin-top: 1rem;
 	margin-bottom: 3rem;
 }
@@ -614,13 +614,14 @@
 }
 
 .ui .modal-panel .modal-container.info-container {
+	height: 100%;
 	display: flex;	
 	flex-direction: column;
 	align-items: flex-start;
 }
 
 .ui .modal-panel.info-panel .legenda {
-	max-height: 35vh;
+  flex: 1;
   overflow: auto;
   padding-right: 10px;
 	width: 100%;
