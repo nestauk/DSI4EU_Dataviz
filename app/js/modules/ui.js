@@ -228,6 +228,7 @@ function UserInterface() {
 	}
 
 	function openMapPanel(data) {
+		if(data.type && data.type=='org') return openOrgPanel(data, false)
 		if (data.orgs.length == 1) {
 			openOrgPanel(data.orgs[0], false); 
 		}
