@@ -243,7 +243,6 @@ function MapView() {
 		})
 		var scale = 3
 		var w = width / 2
-		// if(!window.isMobile) w = w+$('.ui header').width()/scale;
 		if(!window.isMobile) w = (width - $('.ui header').width()/scale) / 2 + $('.ui header').width()/scale;
 		var translate = [w - search_org.cx, height / 2 - search_org.cy]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
@@ -263,9 +262,7 @@ function MapView() {
 			zoomLevel = 1
 			drawMap()
 		}
-		// map.attr("transform", transform.toString());
 		map.attr("transform", "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
-
 	}
 
 	function deleteMap() {
