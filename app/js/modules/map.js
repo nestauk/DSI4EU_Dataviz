@@ -101,7 +101,15 @@ function MapView() {
 				return a !== b;
 			}))
 			.attr("id", "state-borders")
-			.attr("d", path);
+			.attr("d", path)
+
+			svg.on("click", function(d){
+				if(currentSearchResult) {
+					currentSearchResult = null;
+					map.selectAll(".active")
+					.classed("active", false)
+				} 
+			})
 	}
 
 	function getCountryCentroids(countryPaths) {
@@ -147,7 +155,9 @@ function MapView() {
 			.append("circle")
 			.merge(circle)
 			.on("click", function(d){
-				APP.ui.openMapPanel(d)
+				console.log(d, currentSearchResult)
+				if(d.orgs.includes(currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
+				else APP.ui.openMapPanel(d)
 			})
 			.attr("cx", function(d) {
 				return d.cx;
