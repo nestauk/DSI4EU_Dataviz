@@ -42,15 +42,22 @@ function ClusterPanel() {
 		circleContainer
 			.append("div")
 				.attr("class", "cluster-panel-circle")
+				.style("background", function (d) {
+					return colorScale(d.key);
+				})
+				.style("width", 0)
+				.style("height", 0)
+				.transition()
+				.duration(500)
+				.delay(function (d, i) {
+					return 100*i;
+				})
 				.style("width", function(d){
 					return circleDivScale(d.values.length)+"px";
 				})
 				.style("height", function(d){
 					return circleDivScale(d.values.length)+"px";
 				})
-				.style("background", function (d) {
-					return colorScale(d.key);
-				});
 
 		var text = items.append("div")
 			.attr("class", "cluster-text-container")
@@ -63,7 +70,6 @@ function ClusterPanel() {
 
 		var cta = text.append("div")
 			.attr("class", "cluster-cta")
-			
 
 		cta.append("div")
 			.style("display", "inline-block")
@@ -96,7 +102,7 @@ function ClusterPanel() {
 				})
 			} else {
 				el.height(0);
-				el.transition({height: elH+"px"}, 1000, "easeOutQuint");
+				el.transition({height: elH+"px"}, 3000, "easeOutQuint");
 				list.find(".down-icon").transition({scale: -1});
 				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Show", "Hide");
