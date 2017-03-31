@@ -170,7 +170,7 @@ function Filter() {
 			case "map":
 				$('#map-show-connections').off()
 				$('#map-show-connections').click(function() {
-					APP.map.showConnections = !APP.map.showConnections
+					APP.map.showLinks = !APP.map.showLinks
 					$('#map-show-connections').toggleClass('active')
 				})
 				break;

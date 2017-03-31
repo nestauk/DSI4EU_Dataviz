@@ -4,6 +4,8 @@ function MapView() {
 	self.delete = deleteMap;
 	self.focus = focusSearchResult;
 
+	self.showLinks = false;
+
 	var zoomLevel = 1;
 	var data;
 	var map, path, projection;
@@ -17,6 +19,7 @@ function MapView() {
 	var orgs;
 	var svg;
 	var currentSearchResult = null;
+	var connections = [];
 
 	function createMap() {
 		APP.ui.updateViewFunction = drawMap;
@@ -158,7 +161,7 @@ function MapView() {
 			.append("circle")
 			.merge(circle)
 			.on("click", function(d) {
-				if (d.orgs.includes(currentSearchResult))	APP.ui.openMapPanel(currentSearchResult)
+				if (d.orgs.includes(currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
 				else APP.ui.openMapPanel(d)
 			})
 			.attr("cx", function(d) {
@@ -176,16 +179,50 @@ function MapView() {
 			})
 			.duration(400)
 			.attr("r", function(d, i) {
+				// if(self.showLinks && zoomLevel == 2) return 2
 				if (d.orgs && d.orgs.length > 1) return countryScale(d.orgs.length);
 				else return 1;
 			})
 			.style("fill-opacity", function(d, i) {
 				if (zoomLevel == 1 && d.orgs) return .6;
-				else if (zoomLevel > 1.5 && d.orgs) return opacityScale(d.orgs.length);
-				else if (zoomLevel > 1.5 && d.orgs.length <= 1) return 1;
+				else if (zoomLevel == 2 && d.orgs) return opacityScale(d.orgs.length);
+				else if (zoomLevel == 2 && d.orgs.length <= 1) return 1;
 				else return 0;
 			})
 
+		var arc = map
+			.selectAll('.map-connection')
+			.data(connections)
+
+		arc
+			.exit()
+			.transition()
+			.delay(function(d, i) {
+				return i * 5;
+			})
+			.attr("stroke-dashoffset", function(d) {
+				return this.getTotalLength()
+			})
+			.remove()
+
+		arc
+			.enter()
+			.append('path')
+			.attr("class", "map-connection")
+			.merge(arc)
+			.attr('d', path)
+			.style('fill', 'none')
+			.attr("stroke-dasharray", function(d) {
+				return this.getTotalLength() + " " + this.getTotalLength()
+			})
+			.attr("stroke-dashoffset", function(d) {
+				return this.getTotalLength()
+			})
+			.transition()
+			.delay(function(d, i) {
+				return i * 5;
+			})
+			.attr("stroke-dashoffset", 0);
 	}
 
 	function prepareData() {
@@ -231,6 +268,8 @@ function MapView() {
 			})
 		}
 		maxCircleSize = data[0].orgs.length
+		connections = [];
+		if (zoomLevel == 2 && self.showLinks) connections = createConnections(data)
 		return data;
 	}
 
@@ -243,12 +282,47 @@ function MapView() {
 		})
 		var scale = 3
 		var w = width / 2
-		if(!window.isMobile) w = (width - $('.ui header').width()/scale) / 2 + $('.ui header').width()/scale;
+		if (!window.isMobile) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
 		var translate = [w - search_org.cx, height / 2 - search_org.cy]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
 		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
 			svg.transition().call(zoom.scaleTo, scale)
 		})
+	}
+
+	function createConnections(data) {
+		var shared_prjs = []
+		data.forEach(function(n, i) {
+			n.orgs.forEach(function(o, k) {
+				o.shared_prjs.forEach(function(p) {
+					var project = _.find(shared_prjs, function(fp) {
+						return fp.id == p.id
+					})
+					if (!project) {
+						project = {
+							id: p.id,
+							points: []
+						}
+						shared_prjs.push(project)
+					}
+					project.points.push([+o.longitude, +o.latitude])
+				})
+			})
+		})
+		shared_prjs = shared_prjs.filter(function(d, i) {
+			return d.points && d.points.length > 2
+		})
+		var features = []
+		shared_prjs.forEach(function(p, i) {
+			features.push({
+				type: 'Feature',
+				geometry: {
+					coordinates: [p.points],
+					type: 'Polygon'
+				}
+			})
+		})
+		return features;
 	}
 
 	function zoomMap() {

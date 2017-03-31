@@ -28,3 +28,8 @@
 #dots circle.active {
   fill: #1DC9A0;
 }
+
+.map-connection {
+  stroke: rgba(0,0,0,0.2);
+  stroke-width: .3;
+}
