@@ -45,13 +45,16 @@ function MapView() {
 		createMapGeometry();
 
 		zoom = d3.zoom()
-			.scaleExtent([0.35, 10]) 
-			.translateExtent([[-1500, -500], [1500, 1500]])
+			.scaleExtent([0.35, 10])
+			.translateExtent([
+				[-1500, -500],
+				[1500, 1500]
+			])
 			.on("zoom", zoomMap)
 
 		svg.call(zoom)
 
-		if(!window.isMobile) {
+		if (!window.isMobile) {
 			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
 			svg.call(zoom.transform, t)
 		}
@@ -103,13 +106,13 @@ function MapView() {
 			.attr("id", "state-borders")
 			.attr("d", path)
 
-			svg.on("click", function(d){
-				if(currentSearchResult) {
-					currentSearchResult = null;
-					map.selectAll(".active")
+		svg.on("click", function(d) {
+			if (currentSearchResult) {
+				currentSearchResult = null;
+				map.selectAll(".active")
 					.classed("active", false)
-				} 
-			})
+			}
+		})
 	}
 
 	function getCountryCentroids(countryPaths) {
@@ -136,15 +139,15 @@ function MapView() {
 
 		var circle = container
 			.selectAll("circle")
-			.data(data, function(d){
+			.data(data, function(d) {
 				return d.name
 			})
 
 		circle
 			.exit()
 			.transition()
-			.delay(function(d, i){
-				return 2+i
+			.delay(function(d, i) {
+				return 2 + i
 			})
 			.duration(400)
 			.attr("r", 0)
@@ -154,9 +157,8 @@ function MapView() {
 			.enter()
 			.append("circle")
 			.merge(circle)
-			.on("click", function(d){
-				console.log(d, currentSearchResult)
-				if(d.orgs.includes(currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
+			.on("click", function(d) {
+				if (d.orgs.includes(currentSearchResult))	APP.ui.openMapPanel(currentSearchResult)
 				else APP.ui.openMapPanel(d)
 			})
 			.attr("cx", function(d) {
@@ -165,22 +167,22 @@ function MapView() {
 			.attr("cy", function(d) {
 				return d.cy;
 			})
-			.classed("active", function(d){
+			.classed("active", function(d) {
 				return d.orgs.includes(currentSearchResult);
 			})
 			.transition()
-			.delay(function(d, i){
-				return 2+i
+			.delay(function(d, i) {
+				return 2 + i
 			})
 			.duration(400)
 			.attr("r", function(d, i) {
-				if (d.orgs && d.orgs.length>1) return countryScale(d.orgs.length);
+				if (d.orgs && d.orgs.length > 1) return countryScale(d.orgs.length);
 				else return 1;
 			})
 			.style("fill-opacity", function(d, i) {
 				if (zoomLevel == 1 && d.orgs) return .6;
-				else if(zoomLevel > 1.5 && d.orgs) return opacityScale(d.orgs.length);
-				else if(zoomLevel > 1.5 && d.orgs.length<=1) return 1;
+				else if (zoomLevel > 1.5 && d.orgs) return opacityScale(d.orgs.length);
+				else if (zoomLevel > 1.5 && d.orgs.length <= 1) return 1;
 				else return 0;
 			})
 
@@ -188,7 +190,7 @@ function MapView() {
 
 	function prepareData() {
 		orgs = APP.filter.orgs.filter(function(d) {
-			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && _.some(APP.filter.prjs, function(p){
+			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && _.some(APP.filter.prjs, function(p) {
 				return _.includes(d.linked_prjs, p)
 			});
 		})
@@ -207,12 +209,12 @@ function MapView() {
 				return node;
 			})
 			data.forEach(function(d) {
-				if(!d.duplicate){
+				if (!d.duplicate) {
 					var sameLocationNodes = _.filter(data, function(o) {
-						return o!=d && o.cx == d.cx && o.cy == d.cy
+						return o != d && o.cx == d.cx && o.cy == d.cy
 					})
-					if(!_.isEmpty(sameLocationNodes)){
-						sameLocationOrgs = _.map(sameLocationNodes, function(l){
+					if (!_.isEmpty(sameLocationNodes)) {
+						sameLocationOrgs = _.map(sameLocationNodes, function(l) {
 							l.duplicate = true;
 							return l.orgs[0];
 						})
@@ -221,28 +223,31 @@ function MapView() {
 					}
 				}
 			})
-			data = data.filter(function(n){
-				if(!n.duplicate) return true
+			data = data.filter(function(n) {
+				if (!n.duplicate) return true
 			})
-			data = data.sort(function(a, b){
-				return b.orgs.length-a.orgs.length
+			data = data.sort(function(a, b) {
+				return b.orgs.length - a.orgs.length
 			})
 		}
 		maxCircleSize = data[0].orgs.length
 		return data;
 	}
 
-	function focusSearchResult(org){
+	function focusSearchResult(org) {
+		currentSearchResult = org;
 		zoomLevel = 2;
 		drawMap();
-		var search_org = _.find(data, function(n){
+		var search_org = _.find(data, function(n) {
 			return _.includes(n.orgs, org)
 		})
-		currentSearchResult = org;
 		var scale = 3
-		var translate = [width/2-search_org.cx, height/2-search_org.cy]
+		var w = width / 2
+		// if(!window.isMobile) w = w+$('.ui header').width()/scale;
+		if(!window.isMobile) w = (width - $('.ui header').width()/scale) / 2 + $('.ui header').width()/scale;
+		var translate = [w - search_org.cx, height / 2 - search_org.cy]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
-		svg.transition().duration(500).call(zoom.transform, t).on("end", function(){
+		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
 			svg.transition().call(zoom.scaleTo, scale)
 		})
 	}
@@ -253,14 +258,14 @@ function MapView() {
 			current = 'orgs'
 			zoomLevel = 2
 			drawMap()
-		} else if(transform.k < 1.5 && current != 'countries'){
+		} else if (transform.k < 1.5 && current != 'countries') {
 			current = 'countries'
 			zoomLevel = 1
 			drawMap()
 		}
 		// map.attr("transform", transform.toString());
-		map.attr("transform",  "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
-		
+		map.attr("transform", "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
+
 	}
 
 	function deleteMap() {
