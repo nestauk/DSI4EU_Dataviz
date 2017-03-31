@@ -283,6 +283,8 @@ function NetworkView() {
 		resetNodes(links)
 		nodes = []
 		links = []
+		if (infoPopup) removeInfoPopup();
+		currentActiveNetwork = null;
 		if (self.system) {
 			self.system.nodes(nodes);
 			self.system.force("link").links(links);
