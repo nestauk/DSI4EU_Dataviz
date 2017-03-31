@@ -9,7 +9,7 @@ function MapView() {
 	var zoomLevel = 1;
 	var data;
 	var map, path, projection;
-	var countries;
+	var countries, countryPaths;
 	var maxCircleSize = 0;
 	var width = 0
 	var height = 0
@@ -44,7 +44,7 @@ function MapView() {
 		map = svg.append("g")
 			.attr("class", "map");
 
-		countries = createCountries();
+		countries = createCountries(APP.dataset.orgs);
 		createMapGeometry();
 
 		zoom = d3.zoom()
@@ -57,6 +57,8 @@ function MapView() {
 
 		svg.call(zoom)
 
+		getMaxValues()
+
 		if (!window.isMobile) {
 			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
 			svg.call(zoom.transform, t)
@@ -68,14 +70,19 @@ function MapView() {
 	}
 
 	function drawMap() {
-		data = prepareData()
+		data = prepareData(APP.filter.orgs, APP.filter.prjs)
 		createMapContent();
 	}
 
-	function createCountries() {
+	function getMaxValues(){
+		var data = prepareData(APP.filter.orgs, APP.filter.prjs);
+		maxCircleSize = data[0].orgs.length
+	}
+
+	function createCountries(orgs) {
 		countries = []
 		APP.dataset.fields.countries.forEach(function(c) {
-			var country_orgs = _.filter(APP.filter.orgs, function(o) {
+			var country_orgs = _.filter(orgs, function(o) {
 				return o.country == c.name
 			})
 			countries.push({
@@ -90,7 +97,7 @@ function MapView() {
 		var topology = APP.dataset.maptopo;
 		var states = topojson.feature(topology, topology.objects.countries).features;
 
-		var countryPaths = map.append("g")
+		countryPaths = map.append("g")
 			.attr("id", "states")
 			.selectAll("path")
 			.data(states)
@@ -225,16 +232,16 @@ function MapView() {
 			.attr("stroke-dashoffset", 0);
 	}
 
-	function prepareData() {
-		orgs = APP.filter.orgs.filter(function(d) {
-			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && _.some(APP.filter.prjs, function(p) {
+	function prepareData(orgs_data, prjs_data) {
+		orgs = orgs_data.filter(function(d) {
+			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && _.some(prjs_data, function(p) {
 				return _.includes(d.linked_prjs, p)
 			});
 		})
-
 		var data;
 		if (zoomLevel == 1) {
-			data = countries
+			data = createCountries(orgs);
+			getCountryCentroids(countryPaths)
 		} else {
 			data = _.map(orgs, function(o) {
 				var node = {
@@ -267,7 +274,6 @@ function MapView() {
 				return b.orgs.length - a.orgs.length
 			})
 		}
-		maxCircleSize = data[0].orgs.length
 		connections = [];
 		if (zoomLevel == 2 && self.showLinks) connections = createConnections(data)
 		return data;
