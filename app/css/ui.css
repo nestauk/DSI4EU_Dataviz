@@ -586,7 +586,7 @@
 /* MODAL PANELS */
 
 .ui .modal-panel {
-	background: rgba(51,51,51,0.85);
+	/*background: rgba(51,51,51,0.85);*/
 	background: rgba(0,0,0,0.85);
 	width: 100%;
 	padding: 1rem 1.2rem;
@@ -730,6 +730,8 @@
 	margin-left: 1rem;
 	margin-top: .5rem;
 }
+
+/* MODAL PANELS */
 
 .ui .modal-panel h2 {
 	font-size: 2rem;
@@ -1171,4 +1173,8 @@
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .sub-list-items {
 	line-height: 1.4rem;
 	margin-bottom: 1.4rem;
+}
+
+.ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .sub-list-items a {
+	display: block;
 }

@@ -14,6 +14,9 @@ function ClusterPanel() {
 	}
 
 	function drawPanel(selectedCluster) {
+
+		var subListH = [];
+
 		var maxCircle = selectedCluster.values[0].values.length; //max circle size
 		var colorScale = APP.getColorScale(APP.cluster.subdivide_field);
 	
@@ -23,7 +26,9 @@ function ClusterPanel() {
 				.enter()
 				.append("li")
 					.attr("class", "cluster-item")
-					.on("click", clusterItemDetail);
+					.on("click", function (d, i) {
+						clusterItemDetail(this, i);
+					});
 
 		var circleContainer = items.append("div")
 			.attr("class", "cluster-circle-container")
@@ -75,23 +80,25 @@ function ClusterPanel() {
 			})
 
 		cta.each(generatePrjList)
+
 		
-		function clusterItemDetail() {
-			var el = $(this).find("ul");
-			var listLength = $(this).find("ul li").length;
-			var elH = listLength*40;
+		function clusterItemDetail(list, index) {
+			var list = $(list);
+			var el = list.find("ul");
+			var elH = subListH[index];
+
 			el.toggleClass("invisible");
 			if (el.hasClass("invisible")) {
-				el.transition({height: 0}, 1000, "easeInQuint")
-				$(this).find(".down-icon").transition({scale: 1});
-				$(this).find(".cta-text").text(function () {
+				el.transition({height: 0}, 1000, "easeInQuint");
+				list.find(".down-icon").transition({scale: 1});
+				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Hide", "Show");
 				})
 			} else {
 				el.height(0);
-				el.transition({height: elH+"px"}, 1000, "easeOutQuint")
-				$(this).find(".down-icon").transition({scale: -1});
-				$(this).find(".cta-text").text(function () {
+				el.transition({height: elH+"px"}, 1000, "easeOutQuint");
+				list.find(".down-icon").transition({scale: -1});
+				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Show", "Hide");
 				})
 			}
@@ -102,7 +109,7 @@ function ClusterPanel() {
 
 		function generatePrjList(e, i) {
 			d3.select(this).append("ul")
-				.attr("class", "sub-list invisible")
+				.attr("class", "sub-list")
 					.selectAll("sub-list-items")
 					.data(e.values)
 					.enter()
@@ -116,6 +123,9 @@ function ClusterPanel() {
 							.text(function (f) {
 								return f.name;
 							})
+			//computed height of the list just generated
+			subListH[i] = $(this).find("ul").outerHeight();
+			$(".sub-list").addClass("invisible")
 		}
 
 	}
