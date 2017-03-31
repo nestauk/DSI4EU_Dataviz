@@ -102,7 +102,7 @@ function ClusterPanel() {
 				})
 			} else {
 				el.height(0);
-				el.transition({height: elH+"px"}, 3000, "easeOutQuint");
+				el.transition({height: elH+"px"}, 1000, "easeOutQuint");
 				list.find(".down-icon").transition({scale: -1});
 				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Show", "Hide");

@@ -5,10 +5,13 @@ function OrgPanel() {
   self.delete = deleteOrgPanelItems
 
   var maxCountValue;
-  var width = $(".modal-panel.map-panel").width(),
-      maxScaleValue = width;
+  var width, maxScaleValue;
 
   function createPanel(org) {
+
+    width = $(".map-panel-container").width();
+    maxScaleValue = width;
+
     fillHeader(org);
     //var _radarData = prepareData(org, "technology");
     //var radarData = completeData(_radarData, "technology");
@@ -25,16 +28,19 @@ function OrgPanel() {
 
     //drawRadar(radarData, "technology");
     //drawDonut(donutData, "support_tags");
-    drawBarChart(barchart1Data, "focus");
-    drawBarChart(barchart2Data, "support_tags");
-    drawBarChart(barchart3Data, "technology");
+    if (barchart1Data.length != 0) drawBarChart(barchart1Data, "focus");
+    if (barchart2Data.length != 0) drawBarChart(barchart2Data, "support_tags");
+    if (barchart3Data.length != 0) drawBarChart(barchart3Data, "technology");
 
-    function calculateMax(obj) {
-      var max = d3.max(obj, function(d) {
-        return d.count;
-      })
-      return max;
+    function calculateMax(array) {
+      if (array.length != 0){
+        var max = d3.max(array, function(d) {
+          return d.count;
+        })
+        return max;
+      } else return 0;
     }
+
   }
 
   function fillHeader(org) {
@@ -261,62 +267,64 @@ function OrgPanel() {
 
   function drawBarChart(data, field) {
     
-    var rectHeight = 8,
-      rectRound = 5,
-      textToBarDist = 6,
-      barToBarDist = 44,
-      offsetDist = 20;
+    if (data.length != 0) {
+      var rectHeight = 8,
+        rectRound = 5,
+        textToBarDist = 6,
+        barToBarDist = 44,
+        offsetDist = 20;
 
-    var height = barToBarDist*data.length + 40;
-    var lScale = d3.scaleLinear()
-      .domain([0, maxCountValue])
-      .range([0, maxScaleValue - 16]);
-    var barColorScale = APP.getColorScale(field);
-    var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
-      .attr("class", "bar-chart")
-    barchartDiv.append("h3")
-      .text(function(){
-        if (data.length==0) { return ""; }
-        else if (field=="support_tags") { return "Social area"; }
-        else return field;
-      })
-    var barchartItems = barchartDiv.append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("class", "barchart-svg")
-      .selectAll(".bar-chart-item." + field)
-      .data(data)
-      .enter()
-      .append("g")
-      .attr("class", "bar-chart-item " + field)
-    barchartItems.append("text")
-      .attr("class", "bar-chart-caption")
-      .attr("x", 0)
-      .attr("y", function(d, i) {
-        return offsetDist + i * barToBarDist;
-      })
-      .attr("width", width)
-      .text(function(d) {
-        //return d.name + ": " + d.count + _.pluralize(" project", d.count);
-        return d.name;
-      })
-    barchartItems.append("rect")
-      .attr("x", 0)
-      .attr("y", function(d, i) {
-        return offsetDist + textToBarDist + i * barToBarDist;
-      })
-      .attr("height", rectHeight)
-      .attr("rx", rectRound)
-      .attr("fill", function (d) {
-        if (field == "focus") return barColorScale(d.name);
-        else return "white";
-      })
-      .attr("width", 0)
-      .transition()
-      .duration(2000)
-      .attr("width", function(d) {
-        return lScale(d.count);
-      })
+      var height = barToBarDist*data.length + 20;
+      var lScale = d3.scaleLinear()
+        .domain([0, maxCountValue])
+        .range([0, maxScaleValue - 20]);
+      var barColorScale = APP.getColorScale(field);
+      var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
+        .attr("class", "bar-chart")
+      barchartDiv.append("h3")
+        .text(function(){
+          if (data.length==0) { return ""; }
+          else if (field=="support_tags") { return "Social area"; }
+          else return field;
+        })
+      var barchartItems = barchartDiv.append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class", "barchart-svg")
+        .selectAll(".bar-chart-item." + field)
+        .data(data)
+        .enter()
+        .append("g")
+        .attr("class", "bar-chart-item " + field)
+      barchartItems.append("text")
+        .attr("class", "bar-chart-caption")
+        .attr("x", 0)
+        .attr("y", function(d, i) {
+          return offsetDist + i * barToBarDist;
+        })
+        .attr("width", width)
+        .text(function(d) {
+          //return d.name + ": " + d.count + _.pluralize(" project", d.count);
+          return d.name;
+        })
+      barchartItems.append("rect")
+        .attr("x", 0)
+        .attr("y", function(d, i) {
+          return offsetDist + textToBarDist + i * barToBarDist;
+        })
+        .attr("height", rectHeight)
+        .attr("rx", rectRound)
+        .attr("fill", function (d) {
+          if (field == "focus") return barColorScale(d.name);
+          else return "white";
+        })
+        .attr("width", 0)
+        .transition()
+        .duration(2000)
+        .attr("width", function(d) {
+          return lScale(d.count);
+        })
+    }
 
   }
 
