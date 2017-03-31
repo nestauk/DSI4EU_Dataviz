@@ -44,23 +44,23 @@ function OrgPanel() {
       .attr("target", "_blank");
     $(".map-panel-container .org-type").html(org.organisation_type[0].name);
     
-    if (org.linked_prjs.length == 0) {
+    if (org.linked_prjs.length == 0 && org.short_description == "") {
+      $(".map-panel-container .org-subtitle").html("This organisation has no projects");
+      $(".map-panel-container .scrolling p").html("This organisation has no description.");
+      insertCta("organisation");
+    } else if (org.linked_prjs.length == 0 && org.short_description != "") {
       $(".map-panel-container .org-subtitle").html("This organisation has no projects");
       insertCta("projects");
+      $(".map-panel-container .scrolling p").html(org.short_description);
+    } else if (org.linked_prjs.length > 0 && org.short_description == "") {
+      $(".map-panel-container .org-subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
+      $(".map-panel-container .scrolling p").html("This organisation has no description.");
+      insertCta("description");
     } else {
       $(".map-panel-container .org-subtitle").html(org.linked_prjs.length+_.pluralize(" project", org.linked_prjs.length));
-    }
-
-    if (org.short_description == "") {
-      if (org.linked_prjs.length == 0) {
-        $(".cta-container .orgpanel-cta").text("Update organisation")
-      } else {
-        $(".map-panel-container .scrolling p").html("This organisation has no description.");
-        insertCta("description");
-      }
-    } else {
       $(".map-panel-container .scrolling p").html(org.short_description);
     }
+
   }
 
 
