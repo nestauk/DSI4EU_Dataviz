@@ -15,6 +15,9 @@ text.smallLabel{
 .cluster-label {
 	font-size: 1.25rem;
 }
+.cluster-label:first-letter {
+	text-transform: uppercase;
+}
 .cluster .circle.prj {
 	fill: #ffad69;
 }

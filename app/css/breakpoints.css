@@ -83,6 +83,13 @@ html, body {
 	    min-width: 15rem;
 	    max-width: 30rem;
 	}
+	.cluster #cluster-container{
+	  position: absolute;
+	  right: 0;
+	}
+	.cluster #main-view {
+		padding-top: 0;
+	}
 }
 
 @media screen and (max-width: 480px) {

@@ -35,10 +35,13 @@ function ClusterView() {
 		container = d3.select('#main-view').append("div")
 			.attr("id", "cluster-container")
 
-		width = $("#main-view").width();
+		if(!window.isMobile) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
+		else $("#cluster-container").width($("#main-view").width())
+		width = $("#cluster-container").width();
 		height = $("#main-view").height();
 		clusterWidth = width / 2
 		clusterHeight = height / 2
+		if(!window.isMobile) clusterWidth = width/2.2
 
 		clusters = createGroups(projects, cluster_field)
 		maxClusterValue = _.maxBy(clusters, function(g) {
@@ -191,7 +194,7 @@ function ClusterView() {
 	}
 
 	function deleteCluster() {
-		$(".cluster-svg").remove();
+		$("#cluster-container").remove();
 	}
 
 

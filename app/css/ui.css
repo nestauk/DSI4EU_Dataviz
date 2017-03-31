@@ -360,6 +360,7 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
+	text-transform: capitalize;
 }
 
 .ui #filter-selection .select-content li span{
