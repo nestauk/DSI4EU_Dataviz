@@ -27,6 +27,7 @@ function NetworkView() {
 	var currentActiveNetwork = null;
 	var currentResultFocus = null;
 	var canvas, zoom, zoomable;
+	var infoPopup;
 
 	function createNetwork() {
 		resetTransforms()
@@ -145,19 +146,20 @@ function NetworkView() {
 		}
 
 		canvas.click(function(e) {
+			if (infoPopup) removeInfoPopup();
 			currentResultFocus = null;
 			currentActiveNetwork = null;
 			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
 			hex = rgbToHex(rgb)
 			if (hex != '#000000') var node = lookupMap[hex]
-				if(node){
-					currentActiveNetwork = APP.dataset.getNetworkData(node, true);
-				} 
+			if (node) {
+				focusSearchResult(node)
+			}
 			update();
-			// if (node && node.type == 'org') APP.ui.openNetworkList(node);
 		})
 
 		function zoomCanvas() {
+			if (infoPopup) removeInfoPopup();
 			var transform = d3.event.transform;
 			scale = transform.k
 			translateX = transform.x
@@ -187,12 +189,12 @@ function NetworkView() {
 				if (d.type === 'prj') {
 					r = 4
 					c.fillStyle = "salmon";
-					if(currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) 	c.fillStyle = '#FDC9C8'
+					if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#FDC9C8'
 				} else {
 					c.fillStyle = "steelblue";
-					if(currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) 	c.fillStyle = '#B4CCE0'
+					if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#B4CCE0'
 				}
-				if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
+				// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
 				c.beginPath();
 				c.moveTo(d.x + r, d.y);
 				c.arc(d.x, d.y, r, 0, 2 * Math.PI);
@@ -220,17 +222,48 @@ function NetworkView() {
 		}
 	}
 
-	function focusSearchResult(result){
-		console.log(result)
+	function focusSearchResult(result) {
 		var scale = 3
-		var translate = [width/2-result.x, height/2-result.y]
+		var translate = [width / 2 - result.x, height / 2 - result.y]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
-		zoomable.transition().duration(500).call(zoom.transform, t).on("end", function(){
-			// zoomable.transition().call(zoom.scaleTo, scale)
+		zoomable.transition().duration(500).call(zoom.transform, t).on("end", function() {
+			createInfoPopup(result);
 		})
 
 		currentActiveNetwork = APP.dataset.getNetworkData(result, true);
 		currentResultFocus = result
+	}
+
+	function createInfoPopup(result) {
+		if (currentActiveNetwork.orgs.length > 1) {
+			infoPopup = $('<div class="network-popup"><h3 class="network-' + result.type + '">' + result.name + '</h3><p class="network-cta">See network</p></div>');
+			infoPopup.click(function() {
+				APP.ui.openNetworkList(result);
+			})
+		} else {
+			infoPopup = $('<div class="network-popup"><h3 class="network-' + result.type + '">' + result.name + '</h3></div>');
+		}
+		$('#main-view').append(infoPopup)
+		infoPopup.css({
+			top: height / 2 - (infoPopup.outerHeight() + 20),
+			left: width / 2 - infoPopup.outerWidth() / 2,
+			scale: 0
+		})
+
+		infoPopup.transition({
+			scale: 1
+		})
+	}
+
+	function removeInfoPopup() {
+		infoPopup.off();
+		infoPopup.transition({
+			scale: 0,
+			complete: function() {
+				$(this).remove()
+			}
+		})
+		infoPopup = null;
 	}
 
 	function scaleCanvas(canvas) {

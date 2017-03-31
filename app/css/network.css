@@ -8,3 +8,30 @@
 .network-org {
 	fill: steelblue;
 }
+.network-popup {
+    position: absolute;
+    border: .1rem solid #333;
+    padding: .5rem 1rem;
+    background: rgba(255, 255, 255, .85);
+    min-width: 40%;
+    max-width: 60%;
+}
+.network-popup h3 {
+	color: steelblue;
+	text-transform: capitalize;
+	text-align: center;
+}
+.network-popup h3.network-prj {
+	color: salmon;
+}
+
+.network-popup .network-cta {
+	font-weight: bold;
+	text-align: center;
+	font-size: 1rem;
+	text-transform: uppercase;
+	width: 80%;
+	margin: .5rem auto 0;
+	padding-top: .5rem;
+	border-top: .1rem solid lightgrey;
+}
