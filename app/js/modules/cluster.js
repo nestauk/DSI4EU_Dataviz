@@ -44,6 +44,13 @@ function ClusterView() {
 		if(!window.isMobile) clusterWidth = width/2.2
 
 		clusters = createGroups(projects, cluster_field)
+
+		if(cluster_field == 'countries'){
+			clusters = clusters.filter(function(c){
+				return _.includes(validCountries, c.key)
+			})
+		}
+
 		maxClusterValue = _.maxBy(clusters, function(g) {
 			return g.values.length
 		}).values.length
@@ -74,10 +81,14 @@ function ClusterView() {
 
 	function createGroups(array, field) {
 		var groups = [];
+		if(field != 'linked_orgs'){
 		fields[field].forEach(function(f) {
 			var group = groupByFieldValue(array, field, f.name)
 			if(!_.isEmpty(group.values)) groups.push(group)
 		})
+		} else {
+			groups = groupByOrg(array);
+		}
 		groups.sort(function(a, b) {
 			return b.values.length - a.values.length
 		})
@@ -95,6 +106,21 @@ function ClusterView() {
 			})
 		}
 		return records;
+	}
+
+	function groupByOrg(projects){
+		var groups = []
+		var orgs = APP.filter.orgs.filter(function(o){
+			return !_.isEmpty(o.linked_prjs)
+		})
+		orgs.forEach(function(o){
+			var group = {
+				key: o.name,
+				values: _.intersection(o.linked_prjs, projects)
+			}
+			groups.push(group)
+		})
+		return groups;
 	}
 
 	function drawClusterElements() {
