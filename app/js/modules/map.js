@@ -235,9 +235,9 @@ function MapView() {
 
 	function prepareData(orgs_data, prjs_data) {
 		orgs = orgs_data.filter(function(d) {
-			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && _.some(prjs_data, function(p) {
+			return _.isNumber(d.longitude) && _.isNumber(d.longitude) && (_.some(prjs_data, function(p) {
 				return _.includes(d.linked_prjs, p)
-			});
+			}) || prjs_data.length === APP.dataset.prjs.length) ;
 		})
 		var data;
 		if (zoomLevel == 1) {
