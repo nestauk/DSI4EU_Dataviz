@@ -25,7 +25,7 @@ function MapView() {
 		APP.ui.updateViewFunction = drawMap;
 		width = $("#main-view").width();
 		height = $("#main-view").height();
-
+		zoomLevel = 1;
 		var projectionCenter = [36, 64]
 		var projectionScale = 500;
 
@@ -56,12 +56,15 @@ function MapView() {
 			.on("zoom", zoomMap)
 
 		svg.call(zoom)
-
 		getMaxValues()
 
 		if (!window.isMobile) {
 			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
 			svg.call(zoom.transform, t)
+		}
+
+		if(zoomLevel != 2){
+			$('#map-show-connections').addClass('disabled')
 		}
 
 		container = map.append("g")
@@ -75,7 +78,7 @@ function MapView() {
 	}
 
 	function getMaxValues(){
-		var data = prepareData(APP.filter.orgs, APP.filter.prjs);
+		var data = prepareData(APP.dataset.orgs, APP.dataset.prjs);
 		maxCircleSize = data[0].orgs.length
 	}
 
@@ -337,10 +340,12 @@ function MapView() {
 		if (transform.k > 1.5 && current != 'orgs') {
 			current = 'orgs'
 			zoomLevel = 2
+			$('#map-show-connections').removeClass('disabled')
 			drawMap()
 		} else if (transform.k < 1.5 && current != 'countries') {
 			current = 'countries'
 			zoomLevel = 1
+			$('#map-show-connections').addClass('disabled')
 			drawMap()
 		}
 		map.attr("transform", "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
