@@ -295,6 +295,7 @@ function NetworkView() {
 		if (self.system) {
 			self.system.nodes(nodes);
 			self.system.force("link").links(links);
+			self.system.stop()
 			self.system = null;
 		}
 		$("#network-wrapper").remove();
