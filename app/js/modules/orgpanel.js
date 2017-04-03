@@ -71,15 +71,13 @@ function OrgPanel() {
 
 
   function insertCta(parameter) {
-    var cta = d3.select(".map-panel-container .org-panel-cta").append("div")
-      .attr("class", "cta-container")
-    cta.append("p")
-      .html("Is this your organisation? Update your profile here.")
-    cta.append("button")
+    var cta = d3.select(".map-panel-container .org-panel-cta")
+      .html("Is this your organisation? Update your profile ")
+    cta.append("span").append("a")
       .attr("class", "orgpanel-cta")
       .attr("onclick", "location.href='http://www.digitalsocial.eu/login'")
       // .attr("formtarget", "_blank") //NOT WORKING
-      .text("Update "+parameter)
+      .text("here")
   }
 
 
@@ -276,7 +274,7 @@ function OrgPanel() {
 
       var height = barToBarDist*data.length + 20;
       var lScale = d3.scaleLinear()
-        .domain([0, maxCountValue])
+        .domain([0, maxCountValue]) //maxCountValue. Per scalare tutto sul max di tutte le org: maxCountValue = 19
         .range([0, maxScaleValue - 20]);
       var barColorScale = APP.getColorScale(field);
       var barchartDiv = d3.select(".map-panel-container .scrolling").append("div")
@@ -320,7 +318,7 @@ function OrgPanel() {
         })
         .attr("width", 0)
         .transition()
-        .duration(2000)
+        .duration(1000)
         .attr("width", function(d) {
           return lScale(d.count);
         })
@@ -332,7 +330,7 @@ function OrgPanel() {
   function deleteOrgPanelItems() {
     d3.select(".radar-svg").remove();
     d3.selectAll(".bar-chart").remove();
-    d3.select(".map-panel-container .org-panel-cta .cta-container").remove();
+    d3.select(".map-panel-container .org-panel-cta").html("");
   }
 
 
