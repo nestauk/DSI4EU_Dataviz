@@ -2,11 +2,14 @@
 	padding-top: 6rem;
 }
 .cluster #cluster-container{
-	max-height: 100vh;
-  overflow: auto;
   display: flex;
   flex-wrap: wrap;
+<<<<<<< 49be22eadd7f968735252a4e85a22ee0bed201a0
   overflow-y: scroll; /* has to be scroll, not auto */
+=======
+  max-height: 100vh;
+  overflow-y: auto; 
+>>>>>>> onboarding progress
   -webkit-overflow-scrolling: touch;
 }
 text {

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0' />
+
+        <link rel="stylesheet" type="text/css" href="node_modules/normalize.css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/general.css">
+        <link rel="stylesheet" type="text/css" href="css/fonts.css">
+        <link rel="stylesheet" type="text/css" href="css/breakpoints.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/ui.css">
+        <link rel="stylesheet" type="text/css" href="css/network.css">
+        <link rel="stylesheet" type="text/css" href="css/map.css">
+        <link rel="stylesheet" type="text/css" href="css/cluster.css">
+        <link rel="stylesheet" type="text/css" href="css/onboarding.css">
+
+
+        <style type="text/css">
+        p{
+            display: none;
+        }
+        #onboarding-view > svg{
+            display: none;
+        }
+        </style>
+    </head>
+    <body>
+
+
+        <div process="views/_onboarding.html"></div>
+
+
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/stateman/stateman.js"></script>
+        <script src="node_modules/bowser/bowser.js"></script>
+        <script src="node_modules/fastclick/lib/fastclick.js"></script>
+        <script src="js/detectmobilebrowser.js"></script>
+        <script src="node_modules/d3/build/d3.min.js"></script>
+        <script src="node_modules/jquery.transit/jquery.transit.js"></script>
+        <script src="node_modules/jquery-highlight/jquery.highlight.js"></script>
+        <script src="node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
+        <script src="node_modules/topojson/dist/topojson.min.js"></script>
+        <script src="node_modules/lodash/lodash.js"></script>
+        <script src="node_modules/lodash-inflection/lib/lodash-inflection.js"></script>
+        <script src="node_modules/d3-grid/d3-grid.js"></script>
+        <script src="js/common.js"></script>
+        <script src="js/libs/utils.js"></script>
+        <script src="js/modules/dataset.js"></script>
+        <script src="js/modules/search.js"></script>
+        <script src="js/modules/filter.js"></script>
+        <script src="js/modules/orglist.js"></script>
+        <script src="js/modules/orgpanel.js"></script>
+        <script src="js/modules/networklist.js"></script>
+        <script src="js/modules/networkpanel.js"></script>
+        <script src="js/modules/clusterpanel.js"></script>
+        <script src="js/modules/map.js"></script>
+        <script src="js/modules/network.js"></script>
+        <script src="js/modules/cluster.js"></script>
+        <script src="js/modules/onboarding_canvas.js"></script>
+        <script src="js/modules/onboarding_svg.js"></script>
+        <script src="js/modules/ui.js"></script>
+
+
+        
+
+        <script src="node_modules/static-player/static-player.js"></script>
+        <script type="text/javascript">
+        ;(function ($){
+            window.StaticPlayer.getInstance().begin()
+
+            $(document).ready(function(){
+                window.oo = new OnBoardingSvg()
+
+                setTimeout(function(){
+                    window.oo.enter()
+                })
+                
+
+                $('#onboarding-view').show()
+            })
+        })(jQuery)
+        </script>
+
+
+    </body>
+</html>

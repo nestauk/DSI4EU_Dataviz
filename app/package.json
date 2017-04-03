@@ -19,6 +19,9 @@
     "stateman": "^0.3.0-beta.2",
     "topojson": "^2.2.0"
   },
+  "standard": {
+    "globals": ["jQuery"]
+  },
   "devDependencies": {
     "lodash": "^4.17.4",
     "static-player": "0.0.11"

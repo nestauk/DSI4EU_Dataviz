@@ -14,3 +14,5 @@ nbproject
 tmp/
 ignore
 *.app
+
+.sublime-project

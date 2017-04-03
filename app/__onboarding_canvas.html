@@ -61,24 +61,19 @@
 
 	    <script src="node_modules/static-player/static-player.js"></script>
 	    <script type="text/javascript">
+	    ;(function ($){
+			window.StaticPlayer.getInstance().begin()
 
-	    	window.StaticPlayer.getInstance().begin()
+			$(document).ready(function(){
+				setTimeout(function(){
+					window.oo = new OnBoardingCanvas()
+					window.oo.init()
+				}, 100)
 
-	    	$(document).ready(function(){
-
-	    		setTimeout(function(){
-	    				window.oo = new OnBoardingCanvas()
-		    			window.oo.init()
-
-		    			window.oo.one()
-	    		}, 1000)
-		    	
-
-		    	$('#onboarding-view').show()
-		    })
-
-	    	
-	    </script>
+				$('#onboarding-view').show()
+			})
+		})(jQuery)
+		</script>
 
 
 	</body>
