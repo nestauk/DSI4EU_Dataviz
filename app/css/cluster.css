@@ -2,10 +2,11 @@
 	padding-top: 6rem;
 }
 .cluster #cluster-container{
-	max-height: 100vh;
-  overflow: auto;
   display: flex;
   flex-wrap: wrap;
+  max-height: 100vh;
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch;
 }
 text {
 	text-anchor: middle;
