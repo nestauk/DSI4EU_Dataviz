@@ -429,7 +429,7 @@
 /* SHARE */
 
 .ui .share-panel {
-	background: #ffffff;
+	background: rgba(255, 255, 255, .85);
 	color: #333333;
 	width: 100%;
 	height: 100%;
@@ -517,7 +517,7 @@
 /* SEARCH */
 
 .ui .search-panel {
-	background: #ffffff;
+	background: rgba(255, 255, 255, .85);
 	color: #333333;
 	width: 100%;
 	height: 100%;
