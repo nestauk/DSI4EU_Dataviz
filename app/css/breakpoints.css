@@ -33,6 +33,7 @@ html, body {
 	.ui header, .ui .modal-panel{
 		width: 33%;
 		max-width: 28rem;
+		min-width: 20rem;
 	}
 	.ui .tools-icon {
 		z-index: 2000;
@@ -83,9 +84,10 @@ html, body {
 	    min-width: 15rem;
 	    max-width: 30rem;
 	}
-	.cluster #cluster-container, #network-container {
+	.cluster #cluster-container, #network-wrapper {
 	  position: absolute;
 	  right: 0;
+	  top: 0;
 	}
 	.cluster #main-view {
 		padding-top: 0;

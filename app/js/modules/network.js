@@ -26,7 +26,7 @@ function NetworkView() {
 	var scale = initialScale = 1;
 	var currentActiveNetwork = null;
 	var currentResultFocus = null;
-	var canvas, zoom, zoomable;
+	var container, canvas, zoom, zoomable;
 	var infoPopup;
 
 	function createNetwork() {
@@ -38,7 +38,7 @@ function NetworkView() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 
-		if(!window.isMobile) width = width - $('.ui header').width();
+		if (!window.isMobile) width = width - $('.ui header').width();
 
 		if (self.showLinkedOnly) {
 			var prjs = _.filter(APP.filter.prjs, function(p) {
@@ -104,6 +104,10 @@ function NetworkView() {
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
 
+		container = $('<div id="network-wrapper"></div>');
+
+		$("#main-view").append(container)
+
 		canvas = $("<canvas></canvas>")
 			.attr("width", width)
 			.attr("height", height)
@@ -113,20 +117,22 @@ function NetworkView() {
 			})
 			.attr("id", "network-container")
 
-		$("#main-view").append(canvas)
+		container.append(canvas)
+
 		var c = canvas[0].getContext("2d");
+
 		var lookupCanvas = canvas.clone()
 			.attr("id", "network-lookup")
 			.css({
 				position: 'absolute',
-				top: 0,
 				left: 0,
-				'pointer-events': 'none',
-				display: 'none'
+				top: 0,
+				display: 'none',
+				'pointer-events': 'none'
 			})
 		var lc = lookupCanvas[0].getContext("2d");
 
-		$("#main-view").append(lookupCanvas)
+		container.append(lookupCanvas)
 
 		if (window.devicePixelRatio > 1) {
 			scaleCanvas(canvas)
@@ -147,16 +153,19 @@ function NetworkView() {
 		}
 
 		canvas.click(function(e) {
+			console.log(e)
 			if (infoPopup) removeInfoPopup();
 			currentResultFocus = null;
 			currentActiveNetwork = null;
-			var rgb = lc.getImageData(e.pageX, e.pageY, 1, 1).data
+			var rgb = lc.getImageData(e.offsetX, e.offsetY, 1, 1).data
 			hex = rgbToHex(rgb)
+			console.log(hex)
 			if (hex != '#000000') var node = lookupMap[hex]
 			if (node) {
+				console.log(node)
 				focusSearchResult(node)
+				update();
 			}
-			update();
 		})
 
 		function zoomCanvas() {
@@ -244,7 +253,7 @@ function NetworkView() {
 		} else {
 			infoPopup = $('<div class="network-popup"><h3 class="network-' + result.type + '">' + result.name + '</h3></div>');
 		}
-		$('#main-view').append(infoPopup)
+		container.append(infoPopup)
 		infoPopup.css({
 			top: height / 2 - (infoPopup.outerHeight() + 20),
 			left: width / 2 - infoPopup.outerWidth() / 2,
