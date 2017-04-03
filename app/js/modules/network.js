@@ -164,8 +164,8 @@ function NetworkView() {
 			if (node) {
 				console.log(node)
 				focusSearchResult(node)
-				update();
 			}
+			update();
 		})
 
 		function zoomCanvas() {
