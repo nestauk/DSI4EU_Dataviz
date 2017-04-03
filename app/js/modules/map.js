@@ -226,6 +226,7 @@ function MapView() {
 				return this.getTotalLength()
 			})
 			.transition()
+			.duration(2500)
 			.delay(function(d, i) {
 				return i * 5;
 			})
