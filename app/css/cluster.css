@@ -4,6 +4,8 @@
 .cluster #cluster-container{
 	max-height: 100vh;
   overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 text {
 	text-anchor: middle;
@@ -14,10 +16,19 @@ text.smallLabel{
 }
 .cluster-label {
 	font-size: 1.25rem;
+	text-align: center;
+}
+.cluster-label span{
+	max-width: 50%;
 }
 .cluster-label:first-letter {
 	text-transform: uppercase;
 }
 .cluster .circle.prj {
 	fill: #ffad69;
+}
+.cluster-wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
 }

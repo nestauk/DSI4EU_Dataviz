@@ -3,7 +3,7 @@ function ClusterView() {
 	self.create = createNewClusters;
 	self.delete = deleteCluster;
 
-	var width, height, clusterWidth, clusterHeight, clusterElements;
+	var width, height, clusterWidth, clusterHeight, clusterElements, clusterWrappers;
 	var projects;
 	var organisations;
 	var fields;
@@ -124,10 +124,14 @@ function ClusterView() {
 	}
 
 	function drawClusterElements() {
-		clusterElements = container
-				.selectAll('svg')
+		clusterWrappers = container
+				.selectAll('div')
 				.data(clusters)
 				.enter()
+				.append('div')
+				.attr("class", "cluster-wrapper")
+
+		clusterElements = clusterWrappers
 				.append('svg')
 				.attr('width', clusterWidth)
 				.attr('height', clusterHeight)
@@ -152,7 +156,7 @@ function ClusterView() {
 				return clusterScale(d.values.length)
 			})
 
-		clusterElements.each(addLabel)
+		clusterWrappers.each(addLabel)
 	}
 
 	function drawSubdividedClusters(field) {
@@ -168,7 +172,7 @@ function ClusterView() {
 		var otherColorScale = APP.getColorScale(field);
 
 		clusterElements.each(drawSubdivisions)
-		clusterElements.each(addLabel)
+		clusterWrappers.each(addLabel)
 
 
 		function drawSubdivisions(e, i) {
@@ -209,11 +213,9 @@ function ClusterView() {
 
 	function addLabel(e, i) {
 		var clusterLabels = d3.select(this)
-			.append('text')
+			.append('p')
 			.attr("class", "cluster-label")
-			.attr("x", clusterWidth / 2)
-			.attr("y", clusterHeight - 30)
-			.attr("text-anchor", "middle")
+			.append('span')
 			.text(function(d) {
 				return d.key
 			})
