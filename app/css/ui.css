@@ -599,68 +599,68 @@
 	color: #ffad69;
 }
 
-/* MODAL PANELS */
+/* INFO PANELS */
 
-.ui .modal-panel {
-	/*background: rgba(51,51,51,0.85);*/
-	background: rgba(0,0,0,0.85);
+.ui .info-panel {
+	background: rgba(250,250,250,0.85);
 	width: 100%;
-	padding: 1rem 1.2rem;
+	height: 100%;
+	padding: 2rem;
 	position: absolute;
 	top: 0;
+	color: #333333;
 	z-index: 1;
-}
-
-.ui .modal-panel.info-panel {
-	height: 100%;
 	transform: translateY(100%);
 }
 
-.ui .modal-panel.info-panel p {
+.ui .info-panel p {
 	font-size: 1.2rem;
 	line-height: 1.8rem;
 	margin-top: 1rem;
 	margin-bottom: 3rem;
 }
 
-.ui .modal-panel.info-panel h2 {
+.ui .info-panel h2 {
 	font-size: 1.6rem;
 	line-height: 1.6rem;
 	margin-top: 1rem;
+	text-align: center;
 }
 
-.ui .modal-panel .modal-container.info-container {
+.ui .info-container {
 	height: 100%;
 	display: flex;	
 	flex-direction: column;
 	align-items: flex-start;
 }
 
-.ui .modal-panel.info-panel .legenda {
+.ui .info-container .textbox{
+	margin-top: 1rem;
+}
+
+.ui .info-panel .legenda {
   flex: 1;
   overflow: auto;
   padding-right: 10px;
 	width: 100%;
 }
 
-.ui .modal-panel.info-panel .legenda ul li .legend-text {
+.ui .info-panel .legenda::before {
+  content: "";
+	display: block;
+	width: 75%;
+	margin: 0 auto;
+	height: .75rem;
+	border-top: .15rem solid #aaaaaa;
+}
+
+.ui .info-panel .legenda ul li .legend-text {
 	display: inline-block;
 	line-height: 1.2rem;
 	width: 90%;
 }
 
-.ui .modal-panel .modal-container.map-list-container {
-	align-items: center;
-}
-
-.ui .modal-panel .inverted-color {
-	fill: #ffffff;
-}
-.ui .modal-panel .secondary-color {
-	fill: #4dc4b0;
-}
-
-.ui .modal-panel.info-panel .legend-dot {
+.ui .info-panel .legend-dot {
 	display: inline-block;
 	width: .8rem;
 	height: .8rem;
@@ -675,33 +675,34 @@
 	background-color: #ffad69;
 }
 
-.ui .modal-panel.info-panel .info-icon {
+.ui .info-panel .info-icon {
 	width: 4rem;
 	height: 4rem;
 	margin-bottom: 2rem;
 	align-self: center;
 }
 
-.ui .modal-panel.info-panel .network-stats-button {
+.ui .info-panel .info-container .network-stats-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 4rem;
 	width: 100%;
+	height: 8rem;
 }
 
-.ui .modal-panel.info-panel .network-stats-button button {
-	color: white;
+.ui .info-panel .network-stats-button button {
+	color: #333333;
 }
 
 /* NAV ICONS */
 
-.ui .modal-panel .modal-nav-icons {
+.ui .modal-panel .modal-nav-icons,
+.ui .info-panel .modal-nav-icons {
 	width: 100%;
 	display: flex;	
 }
 
-.ui .modal-panel.info-panel .modal-nav-icons,
+.ui .info-panel .modal-nav-icons,
 .ui .modal-panel .map-list-container .modal-nav-icons,
 .ui .modal-panel .network-list-container .modal-nav-icons,
 .ui .modal-panel .network-stats-container .modal-nav-icons,
@@ -718,7 +719,8 @@
 	justify-content: flex-end;
 }
 
-.ui .modal-panel .remove-icon {
+.ui .modal-panel .remove-icon,
+.ui .info-panel .remove-icon {
 	width: 2rem;
 	height: 2rem;
 	margin-bottom: 1rem;
@@ -749,6 +751,27 @@
 }
 
 /* MODAL PANELS */
+
+.ui .modal-panel {
+	/*background: rgba(51,51,51,0.85);*/
+	background: rgba(0,0,0,0.85);
+	width: 100%;
+	padding: 2rem;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+
+.ui .modal-panel .modal-container.map-list-container {
+	align-items: center;
+}
+
+.ui .modal-panel .inverted-color {
+	fill: #ffffff;
+}
+.ui .modal-panel .secondary-color {
+	fill: #4dc4b0;
+}
 
 .ui .modal-panel h2 {
 	font-size: 2rem;
@@ -921,7 +944,7 @@
 /* NETWORK */
 
 .ui .modal-panel.network-stats {
-	background: rgba(250,250,250,0.9);
+	background: rgba(250,250,250,0.85);
 	width: 90%;
 	padding: 1rem 1.2rem;
 	position: absolute;
