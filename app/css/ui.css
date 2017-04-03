@@ -203,6 +203,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: opacity .5s;
+}
+
+.ui .settings-item.disabled {
+	pointer-events: none;
+	opacity: .5;
 }
 
 .ui .settings-item .checkbox {
@@ -368,6 +374,12 @@
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+}
+
+.ui .modal-header .close-modal{
+	height: 2rem;
+	width: 2rem;
+	fill: #333333;
 }
 
 .ui #filter-selection .select-content {
