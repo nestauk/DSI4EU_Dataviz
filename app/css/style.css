@@ -26,10 +26,15 @@ button {
 	font-weight: 500;
 	cursor: pointer;
 	border-radius: 2rem;
+	transition: background .5s;
 }
 
 button:focus {
 	outline: none;
+}
+
+button:hover{
+	background: #1DC9A0;
 }
 
 h2 {

@@ -28,7 +28,7 @@ html, body {
 
 @media screen and (min-width: 480px) {
 	html {
-		font-size: 90%;
+		font-size: 80%;
 	}
 	.ui header, .ui .modal-panel{
 		width: 33%;
@@ -91,6 +91,9 @@ html, body {
 	}
 	.cluster #main-view {
 		padding-top: 0;
+	}
+	.ui .modal-header {
+		justify-content: flex-end;
 	}
 }
 

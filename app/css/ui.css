@@ -74,7 +74,7 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: .5rem;
-	background: #333333;
+	background: #222;
 }
 
 .ui .nav .nav-icon {
@@ -146,9 +146,33 @@
 
 .ui #filter-panel h2 {
 	text-align: center;
-	text-transform: capitalize;
-	letter-spacing: 0;
-	font-size: 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05rem;
+	font-size: 1.4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ui #filter-panel h2:before {
+	flex: 1;
+	content: ' ';
+	display: block;
+	height: 1px;
+	border-top: .1rem solid #ffffff;
+	margin-right: 1rem;
+}
+.ui #filter-panel h2:after {
+	flex: 1;
+	content: ' ';
+	display: block;
+	height: 1px;
+	border-top: .1rem solid #ffffff;
+	margin-left: 1rem;
+}
+
+.ui #filters-container {
+	margin-top: 1rem;
 }
 
 .ui .view-settings, .ui .view-filters {
@@ -228,7 +252,9 @@
 }
 
 .ui .view-settings {
-	background: #666666;
+	background: #333333;
+	padding-bottom: 2rem;
+	padding-top: 1.2rem;
 }
 
 .ui .filters .filters-count {
@@ -239,7 +265,7 @@
 
 .ui .filters .tags-container {
 	flex: 1;
-	border-bottom: .1rem solid #ffffff;
+	border-bottom: .1rem solid #aaaaaa;
 	padding-bottom: .5rem;
 }
 
@@ -264,6 +290,7 @@
 	align-items: center;
 	font-size: 1.15rem;
 	line-height: 1.15rem;
+	cursor: pointer;
 }
 
 .ui .filters .tags-container li .icon-remove{
@@ -325,7 +352,6 @@
 	width: 90%;
 	padding: 1rem 1rem;
 	background: #ffffff;
-	border-radius: .8%;
 	box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
 	color: #333333;
 	max-height: 60vh;
@@ -335,18 +361,13 @@
 .ui .overlay-modal button{
 	color: #333333;
 	border: .15rem solid #1DC9A0;
-	margin: auto;
+	margin: 0 1rem;
 }
 
 .ui .modal-header {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-}
-
-.ui .modal-header .close-modal{
-	height: 2rem;
-	width: 2rem;
-	fill: #333333;
 }
 
 .ui #filter-selection .select-content {
@@ -509,12 +530,6 @@
 
 .ui .search-title h2{
 	text-align: center;
-}
-
-.ui .modal-header {
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
 }
 
 .ui .search-container .search-bar {
