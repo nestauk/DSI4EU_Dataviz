@@ -93,7 +93,7 @@ function NetworkView() {
 		self.system.force("link").links(links);
 
 		nodes.forEach(function(n, i) {
-			hexStr = intToHex(i + 1)
+			hexStr = intToHex(10*i)
 			lookupMap[hexStr] = n;
 			n.hex = hexStr
 		})
@@ -153,16 +153,13 @@ function NetworkView() {
 		}
 
 		canvas.click(function(e) {
-			console.log(e)
 			if (infoPopup) removeInfoPopup();
 			currentResultFocus = null;
 			currentActiveNetwork = null;
 			var rgb = lc.getImageData(e.offsetX, e.offsetY, 1, 1).data
 			hex = rgbToHex(rgb)
-			console.log(hex)
 			if (hex != '#000000') var node = lookupMap[hex]
 			if (node) {
-				console.log(node)
 				focusSearchResult(node)
 			}
 			update();
@@ -300,8 +297,7 @@ function NetworkView() {
 			self.system.force("link").links(links);
 			self.system = null;
 		}
-		$("#network-container").remove();
-		$("#network-lookup").remove();
+		$("#network-wrapper").remove();
 		lookupMap = null;
 		$(document).off();
 	}
