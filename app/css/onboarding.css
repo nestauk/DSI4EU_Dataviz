@@ -33,3 +33,7 @@
 #onboarding-view canvas{
 	border: 1px solid red;
 }
+
+#onboarding-view button{
+	background: #fff;
+}
