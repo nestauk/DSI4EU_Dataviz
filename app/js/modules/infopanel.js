@@ -7,7 +7,7 @@ function InfoPanel() {
 		switch(state){
 			case "map":
 				var frag = $("<li><div class='legend-dot org-color'></div><div class='legend-text'>Organisations</div></li>");
-				$(".info-panel.map .info-container .legenda ul").get(0).append(frag.get(0));
+				$("#info-map .legenda ul").get(0).append(frag.get(0));
 			break;
 			case "network":
 				createNetworkStats()
@@ -18,7 +18,7 @@ function InfoPanel() {
 					var subdivideData = APP.dataset.fields[APP.cluster.subdivide_field];
 					var fieldColorScale = APP.getColorScale(APP.cluster.subdivide_field);
 				} else var subdivideData = [{name: "Projects", color: "#ffad69"}]
-				var item = d3.select(".info-panel.cluster .info-container .legenda ul").selectAll(".legenda-item")
+				var item = d3.select("#info-cluster .legenda ul").selectAll(".legenda-item")
 					.data(subdivideData)
 					.enter()
 					.append("li")
@@ -55,7 +55,7 @@ function InfoPanel() {
 	}
 
 	function deleteLegend(state) {
-		d3.selectAll(".info-panel."+state+" .info-container .legenda ul li").remove();
+		d3.selectAll("#info-"+APP.state+" .legenda ul li").remove();
 	}
 
 }

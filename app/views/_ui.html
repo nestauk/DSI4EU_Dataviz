@@ -38,16 +38,21 @@
     <section class="content">
         <section process="views/_filters.html" id="filter-panel" class="modal-panel" process-keep></section>
         <section class="share"></section>
-        <section process="views/_search.html" class="search-panel" process-keep></section>
-        <section process="views/_share.html" class="share-panel" process-keep></section>
+        <section class="modal-panel" id="tools-panel">
+        	<section class="modal-nav-icons">
+        		<div process="img/ui/icon-remove.svg" class="close-modal remove-icon" process-keep></div>
+        	</section>
+	        <section process="views/_search.html"></section>
+	        <section process="views/_share.html"></section>
+	        <section process="views/_info-map.html"></section>
+	        <section process="views/_info-network.html"></section>
+	        <section process="views/_info-cluster.html"></section>
+        </section>
         <section process="views/_map-list.html" class="modal-panel map-list" process-keep></section>
         <section process="views/_map-panel.html" class="modal-panel map-panel" process-keep></section>
         <section process="views/_network-list.html" class="modal-panel network-list" process-keep></section>
         <section process="views/_network-panel.html" class="modal-panel network-panel" process-keep></section>
         <section process="views/_cluster-panel.html" class="modal-panel cluster-panel" process-keep></section>
-        <section process="views/_info-map.html" class="info-panel map" process-keep></section>
-        <section process="views/_info-network.html" class="info-panel network" process-keep></section>
-        <section process="views/_info-cluster.html" class="info-panel cluster" process-keep></section>
         <footer>
             <section class="tools">
                 <div process="img/ui/icon-share.svg" id="share-button" class="tools-icon" process-keep></div>

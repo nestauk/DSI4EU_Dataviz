@@ -9,7 +9,6 @@ function UserInterface() {
 	self.closeSelection = closeSelectOverlay;
 
 	// UI Panels
-	self.closeSearchPanel = closeSearchPanel;
 	self.openFilterPanel = openFilterPanel;
 	self.openInfoPanel = openInfoPanel;
 	self.openMapPanel = openMapPanel
@@ -55,14 +54,15 @@ function UserInterface() {
 		$("#share-button").click(openSharePanel);
 		$("#search-button").click(openSearchPanel);
 		$("#info-button").click(openInfoPanel);
+		$('.tools-container').hide();
 	}
 
 	function updateNavigation(){
+		APP.closeUIPanels();
 		if(!window.isMobile) APP.filter.createViewSettings();
 		$('.nav .current').removeClass('current')
 		switch(APP.state){
 			case "map":
-
 				$('#nav-current-bg').transition({
 					left: "0%",
 					x: "0%"
@@ -162,7 +162,10 @@ function UserInterface() {
 		$(".share-container .close-modal").click(closeSharePanel);
 		$(".share-icon").click(APP.share.social("dataviz", "http://digitalsocial.eu"));
 		APP.share.embedLink("http://www.digitalsocial.eu/permalink");
-		APP.closeCurrentPanel = closeSharePanel;
+		openToolsPanel($('#tools-share'), function(){
+			$(".share-icon").off();
+			$("#share-button").click(openSharePanel);
+		})
 	}
 
 	function closeSharePanel() {
@@ -174,7 +177,6 @@ function UserInterface() {
 	}
 
 	function openSearchPanel() {
-		APP.closeUIPanels();
 		$("#search-button").off();
 		var search_hint = 'Search'
 		switch(APP.state){
@@ -191,33 +193,19 @@ function UserInterface() {
 		$('#search-input').attr('placeholder', search_hint)
 		if(!window.isMobile) $('#search-input').focus()
 		APP.search.reset();
-		search_panel.transition({ y: 0});
-		$(".search-container .close-modal").click(closeSearchPanel);
-		APP.closeCurrentPanel = closeSearchPanel
-	}
-
-	function closeSearchPanel() {
-		$(".search-container .close-modal").off();
-		search_panel.transition({ y: "100%"});
-		$("#search-button").click(openSearchPanel);
-		APP.closeCurrentPanel = null;
+		openToolsPanel($('#tools-search'), function(){
+			$("#search-button").click(openSearchPanel);
+		})
 	}
 
 	function openInfoPanel() {
-		APP.closeUIPanels();
 		$("#info-button").off();
+		console.log(APP.state)
 		APP.infoPanel.delete(APP.state);
-		$('.info-panel.'+APP.state).transition({ y: 0});
+		openToolsPanel($('#info-'+APP.state), function(){
+			$("#info-button").click(openInfoPanel)
+		})
 		APP.infoPanel.create(APP.state);
-		$(".remove-icon").click(closeInfoPanel)
-		APP.closeCurrentPanel = closeInfoPanel
-	}
-
-	function closeInfoPanel() {
-		$(".remove-icon").off();
-		$('.info-panel.'+APP.state).transition({ y:"100%" });
-		$("#info-button").click(openInfoPanel);
-		APP.closeCurrentPanel = null;
 	}
 
 	function openMapPanel(data) {
@@ -228,6 +216,24 @@ function UserInterface() {
 		else {
 			openOrgList(data); 
 		}
+	}
+
+	function openToolsPanel(view, reset){
+		APP.closeUIPanels();
+		$('.tools-container').hide();
+		if(view && view instanceof jQuery) view.show();
+		$('#tools-panel').transition({ y: 0});
+		$("#tools-panel .close-modal").click(function(){
+			closeToolsPanel(view);
+			if(reset) reset();
+		});
+		APP.closeCurrentPanel = closeToolsPanel
+	}
+
+	function closeToolsPanel(view){
+		$("#tools-panel .close-modal").off();
+		$('#tools-panel').transition({ y: "100%"});
+		APP.closeCurrentPanel = null;
 	}
 
 	function openOrgList(orgs) {
