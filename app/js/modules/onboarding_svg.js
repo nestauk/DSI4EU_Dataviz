@@ -7,8 +7,15 @@
     var cont = $('#onboarding-view .upper')
     var svg = d3.select('#onboarding-view .svg svg')
 
-    var data = [{label: 'AAAAAAAAAAAAAAA', value: 200}, {label: 'AAA', value: 180}, {label: 'AAA', value: 160}, {label: 'AAA', value: 230},
-    {label: 'AAA', value: 200}]
+    var data = [{label: 'education', value: 200},
+      {label: 'healthcare', value: 180},
+      {label: 'democracy', value: 160},
+      {label: 'environment', value: 230},
+      {label: 'employment', value: 200}]
+
+    for (var i = 0; i < 10; ++i) {
+      data.push({label: '', value: Math.random() * 40})
+    }
 
     function enter () {
       var w = cont.width()
@@ -30,7 +37,7 @@
         .append('g')
 
       elemns.append('circle')
-        .style('fill', 'blue')
+        .style('fill', '#35D8B8')
         .attr('r', 0)
         .attr('cx', function (d, i) {
           return d.x

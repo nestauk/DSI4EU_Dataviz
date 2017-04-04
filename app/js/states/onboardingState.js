@@ -19,7 +19,7 @@
       dotsContainer.find('div').removeClass('active')
       dotsContainer.find('div:nth-child(' + sec + ')').addClass('active')
       nextBtn.attr('href', sections[sec])
-      nextCnt.css({opacity: 0, scale: 2}).transition({opacity: 1, scale: 1, delay: delays[sec]}, 1000, 'easeInOutQuart')
+      nextCnt.css({opacity: 0, scale: 0}).transition({opacity: 1, scale: 1, delay: delays[sec]}, 1000, 'easeInOutQuart')
     }
     function setNextBtnOut (sec) {
       nextCnt.transition({opacity: 0, scale: 0}, 500, 'easeInOutQuart')
