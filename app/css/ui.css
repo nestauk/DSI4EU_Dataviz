@@ -449,8 +449,10 @@
 	line-height: 1.8rem;
 }
 
-.ui .share-container .share-title {
-	margin-top: 1rem;
+.ui .share-container #share-social {
+	display: flex;	
+	flex-direction: column;
+	align-items: center;
 }
 
 .ui .share-container h2{
@@ -458,13 +460,9 @@
 	text-align: center;
 }
 
-.ui .share-container .share-social-text {
-	margin-top: 1rem;
-}
-
 .ui .share-container .share-social-buttons {
 	margin-top: 2rem;
-	width: 100%;
+	width: 70%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -490,7 +488,6 @@
 }
 
 .ui .share-container .share-embed-text {
-	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
 

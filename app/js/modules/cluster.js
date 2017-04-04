@@ -168,8 +168,8 @@ function ClusterView() {
 			.domain([0, maxSubdivisionValue])
 			.range([2, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
-		var focusColorScale = APP.getColorScale('focus')
-		var otherColorScale = APP.getColorScale(field);
+		var circleScale
+		field==="focus" ? circleScale = APP.getColorScale("focus") : APP.getColorScale(field) 
 
 		clusterElements.each(drawSubdivisions)
 		clusterWrappers.each(addLabel)
@@ -198,9 +198,9 @@ function ClusterView() {
 					return "translate(" + (d.x + clusterWidth / 2) + "," + (d.y + clusterHeight / 2) + ")";
 				})
 				.style("fill", function(d) {
-					if (field === "focus") {
-						return focusColorScale(d.key);
-					} else return otherColorScale(d.key);
+					console.log(d.key)
+					console.log(circleScale(d.key))
+					return circleScale(d.key);
 				})
 				.transition()
 				.duration(500)

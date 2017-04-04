@@ -43,6 +43,8 @@ function ClusterPanel() {
 			.append("div")
 				.attr("class", "cluster-panel-circle")
 				.style("background", function (d) {
+					console.log("panel, "+d.key)
+					console.log("panel, "+colorScale(d.key))
 					return colorScale(d.key);
 				})
 				.style("width", 0)
