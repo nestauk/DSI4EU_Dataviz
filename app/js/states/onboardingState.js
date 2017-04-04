@@ -8,12 +8,15 @@
     var delays = [0, 2500, 5000, 3000, 3000, 2000]
     var timer
     var dotsContainer = cont.find('.dots')
+    var circ = $('#onboarding-view .svg svg')
+    var circR = circ.find('circle')
 
     var onCanvas = new _OnBoardingCanvas()
     var onSvg = new _OnBoardingSvg()
 
     cont.find('p').css({opacity: 0})
     nextCnt.css({opacity: 0})
+    circ.css({scale: 0})
 
     function setNextBtnIn (sec) {
       dotsContainer.find('div').removeClass('active')
@@ -52,6 +55,9 @@
 
           onCanvas.one()
 
+          circ.css({scale: 0})
+            .transition({delay: 1000, scale: 1}, 1000)
+
           setNextBtnIn(1)
         },
         leave: function (option) {
@@ -68,6 +74,9 @@
             .transition({delay: 250, opacity: 0, y: -30}, 1500, 'easeInOutQuart')
 
           onSvg.enter()
+
+          circ.transition({delay: 1000, scale: 0.6}, 1500, 'easeInOutQuart')
+            .transition({delay: 250, scale: 0}, 1500, 'easeInOutQuart')
 
           setNextBtnIn(2)
         },
@@ -99,6 +108,9 @@
 
           onCanvas.three()
           onSvg.exit()
+
+          circR.css({fill: '#f28244'})
+          circ.transition({delay: 750, scale: 0.8}, 1500, 'easeInOutQuart')
 
           setNextBtnIn(3)
         },
@@ -134,6 +146,9 @@
             })
           }, 1000)
 
+          circR.css({fill: '#b164a5'})
+          circ.transition({delay: 750, scale: 0.8}, 1500, 'easeInOutQuart')
+
           setNextBtnIn(4)
         },
         leave: function (option) {
@@ -149,6 +164,10 @@
         enter: function (option) {
           cont.find('.five p').css({opacity: 0, y: 30}).transition({opacity: 1, y: 0}, 3000, 'easeInOutQuint')
           onCanvas.five()
+
+          circR.css({fill: '#f6f6f6'})
+          circ.transition({delay: 750, scale: 1}, 1500, 'easeInOutQuart')
+
           setNextBtnIn(5)
         },
         leave: function (option) {

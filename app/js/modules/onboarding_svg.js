@@ -4,8 +4,7 @@
     self.enter = enter
     self.exit = exit
 
-    var cont = $('#onboarding-view .upper')
-    var svg = d3.select('#onboarding-view .svg svg')
+    var svg = d3.select('#onboarding-view .packing svg').append('g')
 
     var data = [{label: 'education', value: 200},
       {label: 'healthcare', value: 180},
