@@ -717,53 +717,79 @@
 	align-self: center;
 }
 
-.ui .info-panel.network .network-stats-container {
-	flex: 1;
-  overflow: auto;
+.ui .info-panel.network .textbox:after {
+	content: "";
+	height: .75rem;
+	width: 70%;
+	border-bottom: .15rem solid #aaaaaa;
 }
 
-.ui .info-panel.network .network-stats-container {
-	display: flex;
-	flex-direction: column;
+.ui .info-panel.network .legenda .network-stats-item {
+	color: #333333;
+	font-size: 1.2rem;
+	margin-bottom: 3rem;
 }
 
-.ui .info-panel.network .network-stats-container h3 {
+.ui .info-panel.network .legenda h3 {
 	text-transform: none;
 	font-size: 1rem;
 	margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
 }
 
-.ui .info-panel.network .network-stats-container h3:before {
+.ui .info-panel.network .network-stats-item h3:before {
 	content: "";
-	width: 1rem;
-	height: 1rem;
-	
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 1rem;
+	margin-right: 1rem;
 }
 
-.ui .info-panel.network .network-stats-container .stats-paragraph {
-	font-size: 1rem;
+.ui .info-panel.network .network-stats-item.network-stats-orgs h3:before {
+	background: #72abd6;
+}
+
+.ui .info-panel.network .network-stats-item.network-stats-prjs h3:before {
+	background: #ffad69;
+}
+
+.ui .info-panel.network .network-stats-item .stats-caption span {
+	font-size: 1.4rem;
+	float:right;
+	margin-right: 1rem;
+}
+
+.ui .info-panel.network .legenda .stats-paragraph {
+	font-size: .9rem;
 	margin-top: .5rem;
+	width: 95%;
 }
 
-.ui .info-panel.network .network-stats-item {
-	color: #333333;
-	font-size: 1.2rem;
-	margin-bottom: 6rem;
+.ui .info-panel.network .stats-bar {
+	position: relative;
+	margin-top: 1rem;
+	height: .75rem;
+	border-radius: 1rem;
+	width: 95%;
 }
 
 .ui .info-panel.network .stats-bar .background {
-	position: relative;
-	margin-top: 1rem;
+	position: absolute;
+	margin-top: 0;
+	margin-left: 0;
 	height: .75rem;
 	background: #ccc;
 	border-radius: 1rem;
 	z-index: -10;
-	width: 90%;
+	width: 100%;
 }
 
 .ui .info-panel.network .stats-bar .color {
-	position: relative;
-	margin-top: 1rem;
+	position: absolute;
+	margin-top: 0;
+	margin-left: 0;
 	height: .75rem;
 	border-radius: 1rem;
 	width: 0;
