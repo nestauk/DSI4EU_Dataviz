@@ -41,7 +41,7 @@
 	border:1px solid #1FCFAA;
 }
 
-#onboarding-view .next a:hover{
+.desktop #onboarding-view .next a:hover{
 	background-color: #ffffff;
 }
 

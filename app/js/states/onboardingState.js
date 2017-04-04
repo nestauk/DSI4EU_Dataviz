@@ -5,7 +5,7 @@
     var nextCnt = cont.find('.board_footer .next')
     var nextBtn = cont.find('.board_footer .next a')
     var sections = ['', '#/onboarding/two', '#/onboarding/three', '#/onboarding/four', '#/onboarding/five', '#/map']
-    var delays = [0, 3000, 5000, 3000, 3000, 3000]
+    var delays = [0, 2500, 5000, 3000, 3000, 2000]
     var timer
     var dotsContainer = cont.find('.dots')
 
