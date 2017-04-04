@@ -27,10 +27,6 @@ function UserInterface() {
 	self.updateView = updateView;
 	self.updateViewFunction = null;
 
-	var nav_next = $('#nav-next');
-	var nav_current = $('#nav-current');
-	var nav_prev = $('#nav-prev');
-
 	var filter_tab = $('#filter-panel');
 	var search_panel = $(".search-panel");
 
@@ -38,6 +34,18 @@ function UserInterface() {
 
 	function init(){
 		updateNavigation();	
+		$('#nav-map').click(function(){
+			APP.stator.go("map", { encode: false})
+			updateNavigation();
+		})
+		$('#nav-network').click(function(){
+			APP.stator.go("network", { encode: false})
+			updateNavigation();
+		})
+		$('#nav-cluster').click(function(){
+			APP.stator.go("cluster", { encode: false})
+			updateNavigation();
+		})
 		$('#clear-all-filters').click(function(){
 			APP.filter.resetFilters()
 			createFilterSections()
@@ -51,47 +59,34 @@ function UserInterface() {
 		$("#info-button").click(openInfoPanel);
 	}
 
-	function addNavInteractions(){
-		nav_next.off();
-		nav_prev.off();
-		if(APP.state != "cluster"){
-			nav_next.click(function(){
-				APP.moveForward();
-			})
-		}
-		if(APP.state != "map"){
-			nav_prev.click(function(){
-				APP.moveBackward();
-			})
-		}
-	}
-
 	function updateNavigation(){
 		if(!window.isMobile) APP.filter.createViewSettings();
-		addNavInteractions();
-		var nav_map = $('#nav-map');
-		var nav_network = $('#nav-network');
-		var nav_cluster = $('#nav-cluster');
+		$('.nav .current').removeClass('current')
 		switch(APP.state){
 			case "map":
-				nav_current.append(nav_map);
-				nav_next.prepend(nav_network);
-				nav_prev.append(nav_cluster);
+
+				$('#nav-current-bg').transition({
+					left: "0%",
+					x: "0%"
+				}, 500, "easeInOutQuart")
+				$('#nav-map').addClass('current')
 			break;
 			case "network":
-				nav_current.append(nav_network);
-				nav_next.prepend(nav_cluster);
-				nav_prev.append(nav_map);
+				$('#nav-current-bg').transition({
+					left: "50%",
+					x: "-50%"
+				}, 500, "easeInOutQuart")
+				$('#nav-network').addClass('current')
 			break;
 			case "cluster":
-				nav_current.append(nav_cluster);
-				nav_next.prepend(nav_map);
-				nav_prev.append(nav_network);
+				$('#nav-current-bg').transition({
+					left: "100%",
+					x: "-100%"
+				}, 500, "easeInOutQuart")
+				$('#nav-cluster').addClass('current')
 			break;
 			default:
-				nav_current.append(nav_map);
-				nav_next.prepend(nav_network);
-				nav_prev.append(nav_cluster);
+				$('#nav-map').addClass('current')
 			break;
 		}
 	}
