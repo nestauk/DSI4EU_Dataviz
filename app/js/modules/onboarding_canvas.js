@@ -137,6 +137,7 @@
       prjs.transition()
         .duration(3000)
         .attr('fill', '#cccccc')
+        .attr('r', 2)
     }
 
     function five () {

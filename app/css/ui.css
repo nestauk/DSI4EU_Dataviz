@@ -1250,4 +1250,6 @@
 	background: #333;
 	color: white;
 	padding: 2rem;
+	display: block;
+	z-index:9999;
 }

@@ -70,7 +70,7 @@
         .transition()
         .duration(750)
         .delay(function (d, i) {
-          return i * 100 + 500
+          return i * 100 + 1500
         })
         .style('opacity', 1)
     }
