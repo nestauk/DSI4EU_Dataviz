@@ -124,37 +124,47 @@
     function four () {
       currentStep = 4
       orgs.transition()
-                .duration(3000)
-                .delay(function (d, i) {
-                  return Math.random() * 5000
-                })
-                .ease(d3.easeExp)
-                .attr('opacity', 1)
-                .attr('r', function () {
-                  return d3.select(this).attr('r') / 5
-                })
+        .duration(3000)
+        .delay(function (d, i) {
+          return Math.random() * 5000
+        })
+        .ease(d3.easeExp)
+        .attr('opacity', 1)
+        .attr('r', function () {
+          return d3.select(this).attr('ir') / 5
+        })
 
       prjs.transition()
         .duration(3000)
-        .attr('fill', '#cccccc')
+        // .attr('fill', '#cccccc')
         .attr('r', 2)
+        .attr('cx', function () {
+          return d3.select(this).attr('fcx')
+        })
+        .attr('cy', function () {
+          return d3.select(this).attr('fcy')
+        })
     }
 
     function five () {
       currentStep = 5
       conn.transition()
-                .duration(3000)
-                .delay(function (d, i) {
-                  return Math.random() * 5000
-                })
-                .attr('opacity', 1)
-                .transition()
-                .duration(2000)
-                .attr('opacity', 0.2)
+        .duration(3000)
+        .delay(function (d, i) {
+          return Math.random() * 5000
+        })
+        .attr('opacity', 1)
+        .transition()
+        .duration(2000)
+        .attr('opacity', 0.2)
 
       orgs.transition()
         .duration(3000)
-        .attr('fill', '#cccccc')
+        // .attr('fill', '#cccccc')
+        .attr('opacity', 1)
+        .attr('r', function () {
+          return d3.select(this).attr('ir') / 5
+        })
     }
 
     function begin () {
@@ -165,13 +175,15 @@
 
       orgs = svg.selectAll('#org > *')
                 .attr('opacity', 0)
-                .attr('r', function () {
+                .attr('fill', '#b164a5')
+                .attr('ir', function () {
                   var r = (d3.select(this).attr('r') > 0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
                   return r * 5
                 })
 
       prjs = svg.selectAll('#prj > *')
                 .attr('opacity', 0)
+                .attr('fill', '#f28244')
                 .attr('r', function () {
                   var r = (d3.select(this).attr('r') > 0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
                   return Math.random() * 3 + 2

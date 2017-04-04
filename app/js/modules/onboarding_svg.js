@@ -18,8 +18,8 @@
     }
 
     function enter () {
-      var w = cont.width()
-      var h = cont.height()
+      var w = 500// cont.width()
+      var h = 500// cont.height()
 
       var struct = d3.hierarchy({root: 'root', children: data})
         .sum(function (d, i) {

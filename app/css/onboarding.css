@@ -34,11 +34,11 @@
 	padding: .5rem 2rem;
 	font-size: 1.3rem;
 	border-radius: 25px;
-	background-color: #1FCFAA;
+	background-color: #1dc9a0;
 	text-decoration: none;
 	color: black;
 	text-transform: uppercase;
-	border:1px solid #1FCFAA;
+	border:1px solid #1dc9a0;
 }
 
 .desktop #onboarding-view .next a:hover{
@@ -100,7 +100,7 @@
 }
 #onboarding-view .dots > div.active{
 	transform: scale(2);
-	background-color: #2FD2AF;
+	background-color: #1dc9a0;
 }
 
 
