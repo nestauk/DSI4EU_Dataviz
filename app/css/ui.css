@@ -67,10 +67,17 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
-	padding: .5rem;
+	padding: 1rem;
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+.safari .ui .nav .nav-icons, .safari .ui .nav .nav-bg, .safari #nav-current {
+	height: auto;
+}
+.safari .ui .nav {
+	min-height: 74px;
 }
 
 .ui .nav .nav-icons, .ui .nav .nav-bg {
@@ -78,7 +85,7 @@
 }
 
 .ui .nav .nav-icon {
-	height: 3.5rem;
+	height: 4rem;
 	width: 100%;
 	display: flex;
 }
@@ -142,9 +149,14 @@
 }
 
 .ui .sub-nav {
-	background: #4D4D4D;
+	background: #333333;
 	z-index: 1;
 	height: 40%;
+	transition: background .5s;
+}
+
+.ui .sub-nav.open {
+	background: #444;
 }
 
 .ui .sub-nav-label {
@@ -535,6 +547,7 @@
 	border: .15rem solid #1dc9a0;
 	border-radius: 2rem;
 	font-size: 1.4rem;
+	background: none;
 }
 
 /* SEARCH */
