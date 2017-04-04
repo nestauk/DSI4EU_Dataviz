@@ -367,6 +367,10 @@
 	color: #333;
 }
 
+.ui #tools-panel h2{
+	text-transform: uppercase;
+}
+
 .ui .overlay-modal {
 	width: 100%;
 	height: 100%;
