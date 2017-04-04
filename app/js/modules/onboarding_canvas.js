@@ -107,7 +107,7 @@
       prjs.transition()
         .duration(3000)
         .delay(function (d, i) {
-          return i * 5
+          return i * 20
         })
         .ease(d3.easeExp)
         .attr('opacity', 1)
@@ -163,7 +163,7 @@
                 .attr('opacity', 0)
                 .attr('r', function () {
                   var r = (d3.select(this).attr('r') > 0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
-                  return r
+                  return Math.random() * 3
                 })
                 .attr('fcx', function () {
                   return d3.select(this).attr('cx')
@@ -173,7 +173,7 @@
                 })
 
       conn = svg.selectAll('#conn > *')
-                .attr('stroke', '#777777')
+                .attr('stroke', '#cccccc')
                 .attr('opacity', 0)
 
       timer = d3.timer(draw)

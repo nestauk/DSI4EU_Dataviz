@@ -57,6 +57,7 @@
       elemns.append('text')
         .style('fill', 'white')
         .style('opacity', 0)
+        .style('font-family', 'Montserrat')
         .text(function (d, i) {
           return d.data.label
         })
