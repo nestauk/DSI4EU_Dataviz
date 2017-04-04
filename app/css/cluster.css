@@ -2,10 +2,11 @@
 	padding-top: 6rem;
 }
 .cluster #cluster-container{
+	max-height: 100%;
+  overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  max-height: 100vh;
-  overflow-y: scroll; /* has to be scroll, not auto */
+  padding-bottom: 2rem;
   -webkit-overflow-scrolling: touch;
 }
 text {
@@ -32,4 +33,7 @@ text.smallLabel{
 	display: flex;
 	flex-direction: column;
 	width: 50%;
+}
+.cluster-wrapper svg {
+	width: 100%;
 }
