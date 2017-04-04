@@ -171,7 +171,7 @@ function MapView() {
 			.append("circle")
 			.merge(circle)
 			.on("click", function(d) {
-				if (d.orgs.includes(currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
+				if (_.includes(d.orgs, currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
 				else APP.ui.openMapPanel(d)
 			})
 			.attr("cx", function(d) {
@@ -181,7 +181,7 @@ function MapView() {
 				return d.cy;
 			})
 			.classed("active", function(d) {
-				return d.orgs.includes(currentSearchResult);
+				return _.includes(d.orgs, currentSearchResult);
 			})
 			.transition()
 			.delay(function(d, i) {

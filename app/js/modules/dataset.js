@@ -197,7 +197,7 @@ function Dataset(){
 		})
 		data.forEach(function (c) {
 			c[field].forEach(function(e, i) {
-				if(!slicedValues.includes(parseInt(e.id))) {
+				if(!_.includes(slicedValues, parseInt(e.id))) {
 					c[field][i].name = 'Others'
 					c[field][i].id = 999
 					// c[field] = _.without(c[field], e);
