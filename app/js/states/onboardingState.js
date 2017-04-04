@@ -1,15 +1,29 @@
-/* global APP, OnBoardingCanvas */
-;(function (window, $) {
+/* global APP */
+;(function (window, $, _OnBoardingCanvas, _OnBoardingSvg) {
   function init () {
     var cont = $('#onboarding-view')
+    var nextCnt = cont.find('.board_footer .next')
     var nextBtn = cont.find('.board_footer .next a')
+    var sections = ['', '#/onboarding/two', '#/onboarding/three', '#/onboarding/four', '#/onboarding/five', '#/map']
+    var delays = [0, 3000, 5000, 3000, 3000, 3000]
     var timer
     var dotsContainer = cont.find('.dots')
 
-    var onCanvas = new OnBoardingCanvas()
-    var onSvg = new OnBoardingSvg()
+    var onCanvas = new _OnBoardingCanvas()
+    var onSvg = new _OnBoardingSvg()
 
     cont.find('p').css({opacity: 0})
+    nextCnt.css({opacity: 0})
+
+    function setNextBtnIn (sec) {
+      dotsContainer.find('div').removeClass('active')
+      dotsContainer.find('div:nth-child(' + sec + ')').addClass('active')
+      nextBtn.attr('href', sections[sec])
+      nextCnt.css({opacity: 0, scale: 2}).transition({opacity: 1, scale: 1, delay: delays[sec]}, 1000, 'easeInOutQuart')
+    }
+    function setNextBtnOut (sec) {
+      nextCnt.transition({opacity: 0, scale: 0}, 500, 'easeInOutQuart')
+    }
 
     var obj = {
       enter: function (option) {
@@ -32,41 +46,41 @@
 
       one: {
         enter: function (option) {
-          cont.find('.one p').css({opacity: 0, y: 30}).transition({opacity: 1, y: 0}, 750, 'easeInOutQuint')
+          cont.find('.one p')
+            .css({opacity: 0, y: 30})
+            .transition({delay: 1000, opacity: 1, y: 0}, 1500, 'easeInOutQuart')
 
           onCanvas.one()
 
-          dotsContainer.find('div').removeClass('active')
-          dotsContainer.find('div:nth-child(1)').addClass('active')
-
-          nextBtn.attr('href', '#/onboarding/two')
+          setNextBtnIn(1)
         },
         leave: function (option) {
-          cont.find('.one p').transition({opacity: 0}, 750, 'easeInOutQuint')
+          cont.find('.one p').transition({opacity: 0, y: -30}, 1500, 'easeInOutQuart')
+          setNextBtnOut()
         }
       },
 
       two: {
         enter: function (option) {
-          cont.find('.two p').css({y: 30}).transition({opacity: 1, y: 0}, 2000, 'easeInOutQuint')
+          cont.find('.two p')
+            .css({y: 30})
+            .transition({delay: 1000, opacity: 1, y: 0}, 1500, 'easeInOutQuart')
+            .transition({delay: 250, opacity: 0, y: -30}, 1500, 'easeInOutQuart')
 
-          onCanvas.two()
           onSvg.enter()
 
-          dotsContainer.find('div').removeClass('active')
-          dotsContainer.find('div:nth-child(2)').addClass('active')
-
-          nextBtn.attr('href', '#/onboarding/three')
+          setNextBtnIn(2)
         },
         leave: function (option) {
-          cont.find('.two p').transition({opacity: 0}, 750, 'easeInOutQuint')
+          cont.find('.two p').transition({opacity: 0, y: -30}, 1500, 'easeInOutQuart')
+          setNextBtnOut()
         }
       },
 
       three: {
         enter: function (option) {
-          cont.find('.three p:first-child').css({y: -30}).transition({opacity: 1, y: 0}, 2000, 'easeInOutQuint')
-          cont.find('.three p:last-child').css({y: 30}).transition({opacity: 1, y: 0}, 2000, 'easeInOutQuint')
+          cont.find('.three p:first-child').css({y: -30}).transition({delay: 250, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
+          cont.find('.three p:last-child').css({y: 30}).transition({delay: 500, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
 
           setTimeout(function () {
             cont.find('.three p:nth-child(2)').css({opacity: 1})
@@ -75,34 +89,34 @@
             var cnt = 0
             timer = setInterval(function () {
               num.text(cnt)
-              cnt += 12
+              cnt += 9
               if (cnt >= lim) {
                 clearTimeout(timer)
                 num.text(lim)
               }
             })
-          }, 500)
+          }, 1000)
 
           onCanvas.three()
           onSvg.exit()
 
-          dotsContainer.find('div').removeClass('active')
-          dotsContainer.find('div:nth-child(3)').addClass('active')
-
-          nextBtn.attr('href', '#/onboarding/four')
+          setNextBtnIn(3)
         },
         leave: function (option) {
-          cont.find('.three p:first-child').transition({opacity: 0, y: -50}, 500, 'easeInOutQuint')
-          cont.find('.three p:last-child').transition({opacity: 0, y: 50}, 500, 'easeInOutQuint')
-          cont.find('.three p:nth-child(2)').transition({opacity: 0}, 500, 'easeInOutQuint')
+          cont.find('.three p:first-child').transition({opacity: 0, y: -50}, 500, 'easeInOutQuart')
+          cont.find('.three p:last-child').transition({opacity: 0, y: 50}, 500, 'easeInOutQuart')
+          cont.find('.three p:nth-child(2)').transition({opacity: 0}, 500, 'easeInOutQuart')
           clearTimeout(timer)
+          setNextBtnOut()
         }
       },
 
       four: {
         enter: function (option) {
-          cont.find('.four p:first-child').css({y: -30}).transition({opacity: 1, y: 0}, 2000, 'easeInOutQuint')
-          cont.find('.four p:last-child').css({y: 30}).transition({opacity: 1, y: 0}, 2000, 'easeInOutQuint')
+          cont.find('.four p:first-child').css({y: -30}).transition({opacity: 1, y: 0}, 3000, 'easeInOutQuart')
+          cont.find('.four p:last-child').css({y: 30}).transition({delay: 500, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
+
+          onCanvas.four()
 
           setTimeout(function () {
             cont.find('.four p:nth-child(2)').css({opacity: 1})
@@ -112,38 +126,34 @@
             var cnt = 0
             timer = setInterval(function () {
               num.text(cnt)
-              cnt += 15
+              cnt += 10
               if (cnt >= lim) {
                 clearTimeout(timer)
                 num.text(lim)
               }
             })
-          }, 500)
+          }, 1000)
 
-          dotsContainer.find('div').removeClass('active')
-          dotsContainer.find('div:nth-child(4)').addClass('active')
-
-          nextBtn.attr('href', '#/onboarding/five')
+          setNextBtnIn(4)
         },
         leave: function (option) {
-          cont.find('.four p:first-child').transition({opacity: 0, y: -50}, 500, 'easeInOutQuint')
-          cont.find('.four p:last-child').transition({opacity: 0, y: 50}, 500, 'easeInOutQuint')
-          cont.find('.four p:nth-child(2)').transition({opacity: 0}, 500, 'easeInOutQuint')
+          cont.find('.four p:first-child').transition({opacity: 0, y: -50}, 500, 'easeInOutQuart')
+          cont.find('.four p:last-child').transition({opacity: 0, y: 50}, 500, 'easeInOutQuart')
+          cont.find('.four p:nth-child(2)').transition({opacity: 0}, 500, 'easeInOutQuart')
+          setNextBtnOut()
           clearTimeout(timer)
         }
       },
 
       five: {
         enter: function (option) {
-          cont.find('.five p').css({opacity: 0, y: 30}).transition({delay: 500, opacity: 1, y: 0}, 750, 'easeInOutQuint')
-
-          dotsContainer.find('div').removeClass('active')
-          dotsContainer.find('div:nth-child(5)').addClass('active')
-
-          nextBtn.attr('href', '#/map')
+          cont.find('.five p').css({opacity: 0, y: 30}).transition({opacity: 1, y: 0}, 3000, 'easeInOutQuint')
+          onCanvas.five()
+          setNextBtnIn(5)
         },
         leave: function (option) {
           cont.find('.five p').transition({opacity: 0}, 750, 'easeInOutQuint')
+          setNextBtnOut()
         }
       }
 
@@ -153,4 +163,4 @@
   }
 
   window.onboardingState = init
-})(window, jQuery)
+})(window, window.jQuery, window.OnBoardingCanvas, window.OnBoardingSvg)
