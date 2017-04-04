@@ -168,8 +168,7 @@ function ClusterView() {
 			.domain([0, maxSubdivisionValue])
 			.range([2, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
-		var circleScale
-		field==="focus" ? circleScale = APP.getColorScale("focus") : APP.getColorScale(field) 
+		var circleScale = APP.getColorScale(field)
 
 		clusterElements.each(drawSubdivisions)
 		clusterWrappers.each(addLabel)

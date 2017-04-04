@@ -682,7 +682,7 @@
 .ui .info-panel .legenda::before {
   content: "";
 	display: block;
-	width: 75%;
+	width: 100%;
 	margin: 0 auto;
 	height: .75rem;
 	border-top: .15rem solid #aaaaaa;
