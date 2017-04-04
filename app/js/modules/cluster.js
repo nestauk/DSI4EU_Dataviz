@@ -198,8 +198,6 @@ function ClusterView() {
 					return "translate(" + (d.x + clusterWidth / 2) + "," + (d.y + clusterHeight / 2) + ")";
 				})
 				.style("fill", function(d) {
-					console.log(d.key)
-					console.log(circleScale(d.key))
 					return circleScale(d.key);
 				})
 				.transition()

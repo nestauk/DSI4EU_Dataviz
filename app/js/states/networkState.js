@@ -8,9 +8,11 @@ function networkState(){
 			console.log('networkState :: enter');
 			APP.setState('network')
 			APP.network.create();
-			if(!APP.network.statsShown){
+			var el = _.find(APP.viewShown, function (d) {	return d.name === APP.state	})
+			if( !el.shown ){
+				console.log("first time on network!")
 				setTimeout(function(){	
-					APP.network.statsShown = true;
+					el.shown = true;
 					APP.ui.openNetworkStats();
 				}, 1000)
 			}

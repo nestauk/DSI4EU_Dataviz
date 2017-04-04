@@ -10,8 +10,12 @@ function mapState(){
 			APP.ui.show();
 			APP.currentStateId = 2;
 			$('#main-view').fadeIn();
-
-			console.log(APP.getColorScale("focus")("Open data"));
+			var el = _.find(APP.viewShown, function (d) {	return d.name === APP.state	})
+			if( !el.shown ) {
+				console.log("first time on map!")
+				el.shown = true;
+			}
+			
 		},
 		leave: function(option){
 			console.log('mapState :: leave');
