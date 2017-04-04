@@ -371,9 +371,10 @@
 }
 
 .ui .modal-header {
+	fill: #333333;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 
 .ui .modal-header .close-modal{
@@ -444,27 +445,21 @@
 	display: flex;	
 	flex-direction: column;
 	height: 100%;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
 }
 
 .ui .share-container .share-title {
 	margin-top: 1rem;
 }
 
-.ui .share-container .share-title h2{
-	text-align: center;
-}
-
-.ui .share-container .share-social-subtitle {
+.ui .share-container h2{
 	margin-top: 1rem;
-	font-size: 1.4rem;
-	text-transform: capitalize;
 	text-align: center;
 }
 
 .ui .share-container .share-social-text {
 	margin-top: 1rem;
-	font-size: 1rem;
-	line-height: 1.6rem;
 }
 
 .ui .share-container .share-social-buttons {
@@ -488,30 +483,27 @@
 }
 
 .ui .share-container #share-embed {
-	border-top: .15rem solid #dddddd;
-}
-
-.ui .share-container .share-embed-subtitle {
-	margin-top: 3rem;
-	font-size: 1.2rem;
-	text-transform: capitalize;
-	text-align: center;
+	border-top: .15rem solid #aaaaaa;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .ui .share-container .share-embed-text {
 	margin-top: 1rem;
-	font-size: .8rem;
 	margin-bottom: 1rem;
 }
 
 .ui .share-container #share-embed input {
-	padding: .5rem;
+	justify-content: center;
+	padding: .8rem 1.6rem;
 	color: #333333;
 	height: 100%;
-	width: 100%;
+	width: 80%;
 	margin-top: 1rem;
-	font-size: 1.2rem;
 	border: .15rem solid #4dc4b0;
+	border-radius: 2rem;
+	font-size: 1.4rem;
 }
 
 /* SEARCH */
@@ -670,6 +662,7 @@
 	display: inline-block;
 	line-height: 1.2rem;
 	width: 90%;
+	font-weight: 700;
 }
 
 .ui .info-panel .legend-dot {
@@ -735,7 +728,6 @@
 .ui .info-panel .remove-icon {
 	width: 2rem;
 	height: 2rem;
-	margin-bottom: 1rem;
 	fill: #333333;
 }
 .ui .modal-panel .remove-icon.inverted-color {
