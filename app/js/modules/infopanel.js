@@ -6,12 +6,12 @@ function InfoPanel() {
 	function createLegend(state) {
 		switch(state){
 			case "map":
-				var frag = $("<li><div class='legend-dot org-color'></div>Organisations</li>");
+				var frag = $("<li><div class='legend-dot org-color'></div><div class='legend-text'>Organisations</div></li>");
 				$(".info-panel.map .info-container .legenda ul").get(0).append(frag.get(0));
 			break;
 			case "network":
-				var frag1 = $("<li><div class='legend-dot org-color'></div>Organisations</li>");
-				var frag2 = $("<li><div class='legend-dot prj-color'></div>Projects</li>");
+				var frag1 = $("<li><div class='legend-dot org-color'></div><div class='legend-text'>Organisations</div></li>");
+				var frag2 = $("<li><div class='legend-dot prj-color'></div><div class='legend-text'>Projects</div></li>");
 				$(".info-panel.network .info-container .legenda ul").get(0).append(frag1.get(0));
 				$(".info-panel.network .info-container .legenda ul").get(0).append(frag2.get(0));
 			break;

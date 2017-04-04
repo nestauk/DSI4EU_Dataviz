@@ -10,6 +10,8 @@ function mapState(){
 			APP.ui.show();
 			APP.currentStateId = 2;
 			$('#main-view').fadeIn();
+
+			console.log(APP.getColorScale("focus")("Open data"));
 		},
 		leave: function(option){
 			console.log('mapState :: leave');
