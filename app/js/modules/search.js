@@ -41,13 +41,13 @@ function Search() {
 			case 'map':
 				result.click(function(){
 					APP.map.focus(r);
-					APP.ui.closeSearchPanel();
+					APP.ui.closeUIPanels();
 				})
 			break;
 			case 'network':
 				result.click(function(){
 					APP.network.focus(r);
-					APP.ui.closeSearchPanel();
+					APP.ui.closeUIPanels();
 				})
 			break;
 			default:
