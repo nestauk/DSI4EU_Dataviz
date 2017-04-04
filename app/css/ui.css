@@ -9,18 +9,6 @@
 	pointer-events: none;
 }
 
-#debug-button {
-	display: none;
-}
-
-.map #debug-button {
-	display: block;
-}
-
-#debug-button svg {
-	fill:red;
-}
-
 .ui header {
 	width: 100%;
 	z-index: 2;
@@ -264,7 +252,7 @@
 
 .ui .settings-item.active .checkbox .icon-check{
 	display: inline;
-	fill:  #4DC4B0;
+	fill:  #1dc9a0;
 }
 
 .cluster .ui .settings-item div{
@@ -452,7 +440,7 @@
 .ui #filter-selection .select-content li .icon-check {
 	height: 1.5rem;
 	width: 1.5rem;
-	fill: #4DC4B0;
+	fill: #1dc9a0;
 	vertical-align: middle;
 	display: none;
 }
@@ -514,7 +502,7 @@
 	width: 5rem;
 	height: 5rem;
 	margin-bottom: 2rem;
-	fill: #4dc4b0;
+	fill: #1dc9a0;
 	/*stroke-width: .25rem;*/
 }
 
@@ -540,7 +528,7 @@
 	height: 100%;
 	width: 80%;
 	margin-top: 1rem;
-	border: .15rem solid #4dc4b0;
+	border: .15rem solid #1dc9a0;
 	border-radius: 2rem;
 	font-size: 1.4rem;
 }
@@ -586,7 +574,7 @@
 }
 
 .ui .search-container .search-bar #search-input:focus {
-	border-bottom: .1rem solid #4dc4b0;
+	border-bottom: .1rem solid #1dc9a0;
 }
 
 .ui .search-container .search-bar .search-icon {
@@ -712,6 +700,9 @@
 .ui .info-container#info-network .legenda .network-stats-item {
 	color: #333333;
 	font-size: 1.2rem;
+}
+
+.ui .info-panel.network .legenda .network-stats-item.network-stats-orgs {
 	margin-bottom: 3rem;
 }
 
@@ -834,7 +825,7 @@
 	margin-right: .5rem;
 }
 .ui .modal-panel.cluster-panel .down-icon.inverted-color {
-	fill: #4dc4b0;
+	fill: #1dc9a0;
 }
 .ui .modal-panel .link-icon {
 	width: 1.6rem;
@@ -863,7 +854,7 @@
 	fill: #ffffff;
 }
 .ui .modal-panel .secondary-color {
-	fill: #4dc4b0;
+	fill: #1dc9a0;
 }
 
 .ui .modal-panel h2 {
@@ -921,7 +912,7 @@
 
 .ui .modal-panel .map-list-container h3 {
 	font-size: 1.6rem;
-	color: #4dc4b0;
+	color: #1dc9a0;
 	text-align: center;
 }
 
@@ -930,7 +921,7 @@
 	text-align: center;
 	display: block;
 	height: .75rem;
-	border-bottom: .2rem solid #4dc4b0;
+	border-bottom: .2rem solid #1dc9a0;
 }
 
 .ui .modal-panel .map-list-container .scrolling ul li {
@@ -951,6 +942,11 @@
 
 .ui .modal-panel .map-panel-container .org-title {
 	display: flex;	
+}
+
+.ui .modal-panel .map-panel-container .org-title h2 a {
+	text-decoration: underline;
+	color: #1dc9a0;	
 }
 
 .ui .modal-panel .org-type {
@@ -983,7 +979,7 @@
 
 .ui .modal-panel .map-panel-container .org-panel-cta span {
 	text-decoration: underline;
-	color: #4dc4b0;
+	color: #1dc9a0;
 }
 
 .ui .modal-panel .map-panel-container .scrolling h3 {
@@ -1001,14 +997,14 @@
 }
 
 .ui .modal-panel .map-panel-container .radar-path {
-	fill: #4dc4b0;
-	/*stroke: #4dc4b0;
+	fill: #1dc9a0;
+	/*stroke: #1dc9a0;
 	stroke-width: 3;
 	fill: none;*/
 }
 
 .ui .modal-panel .map-panel-container .radar-dots {
-	fill: #4dc4b0;
+	fill: #1dc9a0;
 	stroke: none;
 }
 

@@ -44,7 +44,10 @@ function OrgPanel() {
   }
 
   function fillHeader(org) {
-    $(".map-panel-container h2").html(org.name);
+    $(".map-panel-container h2 a")
+      .attr("href", org.url)
+      .attr("target", "_blank")
+      .html(org.name);
     $(".map-panel-container .org-link")
       .attr("href", org.url)
       .attr("target", "_blank");
