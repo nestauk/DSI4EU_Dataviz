@@ -6,6 +6,8 @@
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
 }
 text {
 	text-anchor: middle;
