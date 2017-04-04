@@ -11,6 +11,7 @@ function UserInterface() {
 	// UI Panels
 	self.closeSearchPanel = closeSearchPanel;
 	self.openFilterPanel = openFilterPanel;
+	self.openInfoPanel = openInfoPanel;
 	self.openMapPanel = openMapPanel
 	self.openOrgPanel = openOrgPanel
 	self.openOrgList = openOrgList

@@ -29,11 +29,11 @@
 
 	    APP.stator.go("loader", {encode: false})
 
-	    APP.viewShown = [
-		    {	name: "map", shown: false },
-		    {	name: "network", shown: false },
-		    {	name: "cluster", shown: false }
-	    ]
+	    APP.views = {
+	    	map: {shown: false},
+	    	network: {shown: false},
+	    	cluster: {shown: false}
+		  }
 
 	    APP.dataset.loadData(function(){
 	    	APP.filter.init();

@@ -8,10 +8,12 @@ function clusterState(){
 			console.log('clusterState :: enter');
 			APP.cluster.create();
 			APP.setState('cluster')
-			var el = _.find(APP.viewShown, function (d) {	return d.name === APP.state	})
-			if( !el.shown ) {
+			if( !APP.views.cluster.shown ) {
 				console.log("first time on cluster!")
-				el.shown = true;
+				APP.views.cluster.shown = true;
+				setTimeout(function(){	
+					APP.ui.openInfoPanel();
+				}, 1000)
 			}
 		},
 		leave: function(option){

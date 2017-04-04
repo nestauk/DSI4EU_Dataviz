@@ -8,12 +8,11 @@ function networkState(){
 			console.log('networkState :: enter');
 			APP.setState('network')
 			APP.network.create();
-			var el = _.find(APP.viewShown, function (d) {	return d.name === APP.state	})
-			if( !el.shown ){
+			if( !APP.views.network.shown ){
 				console.log("first time on network!")
+				APP.views.network.shown = true;
 				setTimeout(function(){	
-					el.shown = true;
-					APP.ui.openNetworkStats();
+					APP.ui.openInfoPanel();
 				}, 1000)
 			}
 		},

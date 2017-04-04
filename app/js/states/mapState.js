@@ -10,10 +10,12 @@ function mapState(){
 			APP.ui.show();
 			APP.currentStateId = 2;
 			$('#main-view').fadeIn();
-			var el = _.find(APP.viewShown, function (d) {	return d.name === APP.state	})
-			if( !el.shown ) {
+			if( !APP.views.map.shown ) {
 				console.log("first time on map!")
-				el.shown = true;
+				APP.views.map.shown = true;
+				setTimeout(function(){	
+					APP.ui.openInfoPanel();
+				}, 1000)
 			}
 			
 		},
