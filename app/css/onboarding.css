@@ -25,6 +25,26 @@
 	justify-content:center;
 }
 
+#onboarding-view .next{
+
+	margin-bottom: 1rem;
+
+}
+#onboarding-view .next a{
+	padding: .5rem 2rem;
+	font-size: 1.3rem;
+	border-radius: 25px;
+	background-color: #1FCFAA;
+	text-decoration: none;
+	color: black;
+	text-transform: uppercase;
+	border:1px solid #1FCFAA;
+}
+
+#onboarding-view .next a:hover{
+	background-color: #ffffff;
+}
+
 #onboarding-view section.step{
 	padding: 2rem;
 }
