@@ -98,7 +98,7 @@
 	    			return APP.supportColorScale
 	    		break
 	    		case ("technology"):
-	    			return APP.texhColorScale
+	    			return APP.techColorScale
 	    		break
 	    	}
 	    }
@@ -114,7 +114,7 @@
 
 		   	APP.techColorScale = d3.scaleOrdinal()
 		    		.domain(APP.dataset.fields["technology"].map(function (d) { return d.name }))
-		    		.range(d3.schemeCategory20);
+		    		.range(["#f8bfd1", "#ef90aa", "#e56183", "#ec7263", "#f28244", "#fab045", "#f8e668", "#afdc7b", "#66d38d", "#009a9a", "#00a9c2", "#00b8ea", "#25a2d8", "#4a8bc6", "#8579b6", "#b164a5"]);
 	    }
 
   })

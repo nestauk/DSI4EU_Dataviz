@@ -626,11 +626,11 @@
 .ui #search-results .search-result-type {
 	margin-right: .5rem;
 	font-weight: bold;
-	color: #72abd6;
+	color: #b164a5;
 }
 
 .ui #search-results .search-result-type.prj{
-	color: #ffad69;
+	color: #f28244;
 }
 
 /* INFO PANELS */
@@ -704,10 +704,10 @@
 }
 
 .ui .legend-dot.org-color{
-	background-color: #72abd6;
+	background-color: #b164a5;
 }
 .ui .legend-dot.prj-color{
-	background-color: #ffad69;
+	background-color: #f28244;
 }
 
 .ui .info-panel .info-icon {
@@ -748,11 +748,11 @@
 }
 
 .ui .info-panel.network .network-stats-item.network-stats-orgs h3:before {
-	background: #72abd6;
+	background: #b164a5;
 }
 
 .ui .info-panel.network .network-stats-item.network-stats-prjs h3:before {
-	background: #ffad69;
+	background: #f28244;
 }
 
 .ui .info-panel.network .network-stats-item .stats-caption span {
@@ -796,11 +796,11 @@
 }
 
 .ui .info-panel.network .network-stats-orgs .stats-bar .color {
-	background: #72abd6;
+	background: #b164a5;
 }
 
 .ui .info-panel.network .network-stats-prjs .stats-bar .color {
-	background: #ffad69;
+	background: #f28244;
 }
 
 /* NAV ICONS */
@@ -1082,7 +1082,7 @@
 	justify-content: center;
 	margin-top: 1rem;
 	border-radius: 100%;
-	background: #72abd6;
+	background: #b164a5;
 	width: 50%;
 }
 
@@ -1107,7 +1107,7 @@
 }
 
 .ui .network-list .network-list-container .scrolling .networklist-text-container p:hover {
-	color: #72abd6;
+	color: #b164a5;
 }
 
 .ui .modal-panel .scrolling ul {
@@ -1130,12 +1130,12 @@
 }
 
 .ui .network-panel .scrolling .network-panel-item .network-panel-item-title a:hover {
-	color: #ffad69;;
+	color: #f28244;;
 }
 
 .ui .network-panel .scrolling .network-panel-item .network-panel-item-bar {
 	margin-top: .5rem;
-	background: #ffad69;
+	background: #f28244;
 	height: .75rem;
 	border-radius: 1rem;
 }
@@ -1219,7 +1219,7 @@
 }
 
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container a:hover {
-	color: #ffad69;
+	color: #f28244;
 }
 
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .cluster-cta {

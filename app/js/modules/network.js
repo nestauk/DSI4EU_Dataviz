@@ -195,10 +195,10 @@ function NetworkView() {
 			nodes.forEach(function(d) {
 				if (d.type === 'prj') {
 					r = 4
-					c.fillStyle = "salmon";
+					c.fillStyle = "#f28244";
 					if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#FDC9C8'
 				} else {
-					c.fillStyle = "steelblue";
+					c.fillStyle = "#b164a5";
 					if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#B4CCE0'
 				}
 				// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'

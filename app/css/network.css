@@ -3,10 +3,10 @@
 	stroke-width: 1;
 }
 .network-prj {
-	fill: salmon;
+	fill: #f28244;
 }
 .network-org {
-	fill: steelblue;
+	fill: #b164a5;
 }
 .network-popup {
     position: absolute;
@@ -17,12 +17,12 @@
     max-width: 60%;
 }
 .network-popup h3 {
-	color: steelblue;
+	color: #b164a5;
 	text-transform: capitalize;
 	text-align: center;
 }
 .network-popup h3.network-prj {
-	color: salmon;
+	color: #f28244;
 }
 
 .network-popup .network-cta {

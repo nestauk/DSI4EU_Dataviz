@@ -19,7 +19,7 @@
   pointer-events: none;
 }
 #dots circle {
-	fill: steelblue;
+	fill: #b164a5;
 	fill-opacity: .5;
 	stroke: none;
   transition: fill .5s;
