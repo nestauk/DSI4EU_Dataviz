@@ -204,7 +204,7 @@
 .ui #filters-container {
 	height: 100%;
 	margin-top: 2rem;
-	overflow-y: scroll; /* has to be scroll, not auto */
+	overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
