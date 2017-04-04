@@ -4,12 +4,12 @@
 
 #onboarding-view p{
 	font-size: 1.8rem;
-	line-height: 2.4rem;
+	line-height: 3rem;
 	font-weight: bold;
 }
 
 #onboarding-view .num{
-	font-size: 3.8rem;
+	font-size: 4.8rem;
 	line-height: 4rem;
 }
 
@@ -26,11 +26,11 @@
 }
 
 #onboarding-view section.step{
-	padding: 1rem;
+	padding: 2rem;
 }
 
 #onboarding-view .big{
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 	line-height: 2.8rem;
 }
 
@@ -42,6 +42,10 @@
 /*	border: 1px solid green;
 */	width: 100%;
 	height: 100%;
+}
+
+#onboarding-view .svg svg text{
+	font-size: 14px;
 }
 
 #onboarding-view .divider{
@@ -87,5 +91,16 @@
 	}
 	#onboarding-view section.five > div{
 		width: 50%;
+	}
+	#onboarding-view p{
+		font-size: 2.8rem;
+		line-height: 5rem;
+	}
+	#onboarding-view .big{
+		font-size: 4rem;
+		line-height: 5rem;
+	}
+	#onboarding-view .svg svg text{
+		font-size: 18px;
 	}
 }

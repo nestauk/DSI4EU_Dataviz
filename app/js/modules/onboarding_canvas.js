@@ -60,7 +60,8 @@
         orgs.each(function (d) {
           node = d3.select(this)
           ctx.beginPath()
-          ctx.fillStyle = rgbObToStr(node.attr('fill'), node.attr('opacity'))
+          var fill = (node.attr('fill').indexOf('rgb') >= 0) ? node.attr('fill') : rgbObToStr(node.attr('fill'), node.attr('opacity'))
+          ctx.fillStyle = fill
           ctx.arc(mapx(node.attr('cx')), mapy(node.attr('cy')), mapr(node.attr('r')), 0, Math.PI * 2)
           ctx.fill()
           ctx.closePath()
@@ -70,7 +71,8 @@
       prjs.each(function (d) {
         node = d3.select(this)
         ctx.beginPath()
-        ctx.fillStyle = rgbObToStr(node.attr('fill'), node.attr('opacity'))
+        var fill = (node.attr('fill').indexOf('rgb') >= 0) ? node.attr('fill') : rgbObToStr(node.attr('fill'), node.attr('opacity'))
+        ctx.fillStyle = fill
         ctx.arc(mapx(node.attr('cx')), mapy(node.attr('cy')), mapr(node.attr('r')), 0, Math.PI * 2)
         ctx.fill()
         ctx.closePath()
@@ -131,6 +133,10 @@
                 .attr('r', function () {
                   return d3.select(this).attr('r') / 5
                 })
+
+      prjs.transition()
+        .duration(3000)
+        .attr('fill', '#cccccc')
     }
 
     function five () {
@@ -144,6 +150,10 @@
                 .transition()
                 .duration(2000)
                 .attr('opacity', 0.2)
+
+      orgs.transition()
+        .duration(3000)
+        .attr('fill', '#cccccc')
     }
 
     function begin () {
@@ -163,7 +173,7 @@
                 .attr('opacity', 0)
                 .attr('r', function () {
                   var r = (d3.select(this).attr('r') > 0) ? d3.select(this).attr('r') : d3.select(this).attr('rx')
-                  return Math.random() * 3
+                  return Math.random() * 3 + 2
                 })
                 .attr('fcx', function () {
                   return d3.select(this).attr('cx')
