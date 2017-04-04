@@ -1,5 +1,4 @@
-/* global d3 */
-;(function (window, $) {
+;(function (window, $, d3) {
   function init (svg, _app) {
     var self = this
     self.init = begin
@@ -45,7 +44,7 @@
       ctx.rect(0, 0, w, h)
       ctx.fill()
 
-      if (currentStep >= 4) {
+      if (currentStep >= 5) {
         conn.each(function (d) {
           node = d3.select(this)
           ctx.beginPath()
@@ -57,7 +56,7 @@
         })
       }
 
-      if (currentStep >= 3) {
+      if (currentStep >= 4) {
         orgs.each(function (d) {
           node = d3.select(this)
           ctx.beginPath()
@@ -87,9 +86,11 @@
           return Math.random() * h
         })
         .transition()
-        .duration(15000)
-        .delay(function (d, i) {
+        .duration(function (d, i) {
           return Math.random() * 15000
+        })
+        .delay(function (d, i) {
+          return (Math.random() * prjs.size()) * 100
         })
         .ease(d3.easeExp)
         .attr('opacity', 1)
@@ -103,10 +104,27 @@
 
     function three () {
       currentStep = 3
+      prjs.transition()
+        .duration(3000)
+        .delay(function (d, i) {
+          return i * 5
+        })
+        .ease(d3.easeExp)
+        .attr('opacity', 1)
+        .attr('cx', function () {
+          return d3.select(this).attr('fcx')
+        })
+        .attr('cy', function () {
+          return d3.select(this).attr('fcy')
+        })
+    }
+
+    function four () {
+      currentStep = 4
       orgs.transition()
-                .duration(5000)
+                .duration(3000)
                 .delay(function (d, i) {
-                  return Math.random() * 10000
+                  return Math.random() * 5000
                 })
                 .ease(d3.easeExp)
                 .attr('opacity', 1)
@@ -115,8 +133,8 @@
                 })
     }
 
-    function four () {
-      currentStep = 4
+    function five () {
+      currentStep = 5
       conn.transition()
                 .duration(3000)
                 .delay(function (d, i) {
@@ -126,10 +144,6 @@
                 .transition()
                 .duration(2000)
                 .attr('opacity', 0.2)
-    }
-
-    function five () {
-      currentStep = 5
     }
 
     function begin () {
@@ -159,7 +173,7 @@
                 })
 
       conn = svg.selectAll('#conn > *')
-                .attr('stroke', '#777')
+                .attr('stroke', '#777777')
                 .attr('opacity', 0)
 
       timer = d3.timer(draw)
@@ -189,4 +203,4 @@
   }
 
   window.OnBoardingCanvas = init
-})(window, jQuery)
+})(window, window.jQuery, window.d3)

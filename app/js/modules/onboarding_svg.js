@@ -1,5 +1,4 @@
-/* global d3 */
-;(function (window, $) {
+;(function (window, $, d3) {
   function init () {
     var self = this
     self.enter = enter
@@ -40,9 +39,9 @@
           return d.y
         })
         .transition()
-        .duration(750)
+        .duration(1000)
         .delay(function (d, i) {
-          return i * 100
+          return i * 200 + 3500
         })
         .attr('r', function (d, i) {
           return d.r
@@ -85,4 +84,4 @@
   }
 
   window.OnBoardingSvg = init
-})(window, jQuery)
+})(window, window.jQuery, window.d3)

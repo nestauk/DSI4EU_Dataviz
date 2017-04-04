@@ -4,12 +4,8 @@
 .cluster #cluster-container{
   display: flex;
   flex-wrap: wrap;
-<<<<<<< 49be22eadd7f968735252a4e85a22ee0bed201a0
-  overflow-y: scroll; /* has to be scroll, not auto */
-=======
   max-height: 100vh;
-  overflow-y: auto; 
->>>>>>> onboarding progress
+  overflow-y: scroll; /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
 }
 text {
