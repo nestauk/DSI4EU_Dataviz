@@ -1218,3 +1218,10 @@
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .sub-list-items a {
 	display: block;
 }
+
+/* LOADER */
+#loader-view {
+	background: #333;
+	color: white;
+	padding: 2rem;
+}
