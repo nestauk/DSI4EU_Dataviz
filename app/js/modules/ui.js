@@ -20,8 +20,6 @@ function UserInterface() {
 	self.openNetworkList = openNetworkList;
 	self.openNetworkPanel = openNetworkPanel;
 	self.closeNetworkPanel = closeNetworkPanel;
-	self.openNetworkStats = openNetworkStats;
-	self.closeNetworkStats = closeNetworkStats;
 	self.openClusterPanel = openClusterPanel;
 
 	self.updateView = updateView;
@@ -211,8 +209,7 @@ function UserInterface() {
 		APP.infoPanel.delete(APP.state);
 		$('.info-panel.'+APP.state).transition({ y: 0});
 		APP.infoPanel.create(APP.state);
-		$(".remove-icon").click(closeInfoPanel);
-		$(".network-stats-button button").click(openNetworkStats);
+		$(".remove-icon").click(closeInfoPanel)
 		APP.closeCurrentPanel = closeInfoPanel
 	}
 
@@ -284,25 +281,7 @@ function UserInterface() {
 		$('.map-list').css({ y:"100%", x: 0 });
 		APP.closeCurrentPanel = null;
 	}
-
-	function openNetworkStats() {
-		if(APP.state != 'network') return;
-		$(".network-stats-button button").off();
-		APP.networkStats.delete();
-		APP.closeUIPanels();
-		APP.networkStats.create();
-		$(".network-stats").css({scale: 0, transformOrigin: '100% 100%'})
-		$(".network-stats").transition({ scale: 1 }, 500, "easeOutQuart");
-		$(".remove-icon").click(closeNetworkStats);
-		APP.closeCurrentPanel = closeNetworkStats;
-	}
-
-	function closeNetworkStats() {
-		$(".remove-icon").off();
-		$(".network-stats").transition({ scale: 0}, 500, "easeInQuart");
-		APP.closeCurrentPanel = null;
-	}
-
+	
 	function openNetworkList(org) {
 		APP.networkList.delete();
 		APP.closeUIPanels();
