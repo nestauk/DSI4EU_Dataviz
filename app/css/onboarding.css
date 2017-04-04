@@ -31,18 +31,19 @@
 
 }
 #onboarding-view .next a{
-	padding: .5rem 2rem;
+	display: block;
+	padding: .75rem 2rem;
 	font-size: 1.3rem;
 	border-radius: 25px;
-	background-color: #1dc9a0;
 	text-decoration: none;
-	color: black;
+	color: white;
 	text-transform: uppercase;
 	border:1px solid #1dc9a0;
 }
 
 .desktop #onboarding-view .next a:hover{
-	background-color: #ffffff;
+	background-color: #1dc9a0;
+	color: black;
 }
 
 #onboarding-view section.step{
@@ -84,13 +85,22 @@
 }
 #onboarding-view .divider .lower{
 	width: 100%;
+	background-color: #222;
 }
 
 
 #onboarding-view .board_footer{
-	padding: 1rem;
+	padding: 2rem;
 	position: inherit;
 	flex-direction: column;
+}
+
+#onboarding-view .gotit a{
+	text-decoration: none;
+	color: white;
+	text-transform: uppercase;
+	border-bottom: 2px solid #1dc9a0;
+	display: block;
 }
 
 #onboarding-view .dots{
@@ -98,14 +108,15 @@
 	align-items: center;
 }
 #onboarding-view .dots > div{
-	width: 12px;
-	height: 3px;
+	width: 8px;
+	height: 8px;
 	margin: 1rem;
+	border-radius: 50%;
 	transition: all .5s ease-in-out;
 	background-color: #999;
 }
 #onboarding-view .dots > div.active{
-	transform: scale(2);
+	transform: scale(1.5);
 	background-color: #1dc9a0;
 }
 

@@ -36,7 +36,7 @@
         .append('g')
 
       elemns.append('circle')
-        .style('fill', '#35D8B8')
+        .style('fill', '#f6f6f6')
         .attr('r', 0)
         .attr('cx', function (d, i) {
           return d.x
@@ -54,8 +54,9 @@
         })
 
       elemns.append('text')
-        .style('fill', 'white')
+        .style('fill', 'black')
         .style('opacity', 0)
+        .style('text-transform', 'uppercase')
         .style('font-family', 'Montserrat')
         .text(function (d, i) {
           return d.data.label
