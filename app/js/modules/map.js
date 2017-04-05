@@ -23,8 +23,6 @@ function MapView() {
 	var connections = [];
 
 	function createMap() {
-		APP.ui.updateViewFunction = self.update;
-
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 		zoomLevel = 1;

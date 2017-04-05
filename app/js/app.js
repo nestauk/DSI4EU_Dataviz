@@ -56,7 +56,7 @@
 				html5: false
 			})
 
-			if (!APP.stator.current && !_.includes(APP.stator.current.name, 'onboarding')) {
+			if (APP.stator.current.name && !_.includes(APP.stator.current.name, 'onboarding')) {
 				APP.defaultLandingState.name = APP.stator.current.name;
 				APP.defaultLandingState.param = APP.stator.param;
 			}
