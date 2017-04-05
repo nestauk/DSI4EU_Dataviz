@@ -65,7 +65,7 @@
           return d.x
         })
         .attr('dy', function (d, i) {
-          return d.y
+          return d.y + 5
         })
         .transition()
         .duration(750)
