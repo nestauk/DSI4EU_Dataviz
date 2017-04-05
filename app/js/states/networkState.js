@@ -15,6 +15,8 @@ function networkState(){
 					APP.ui.openInfoPanel();
 				}, 1000)
 			}
+			// APP.coachMarks.show()
+			// APP.coachMarks.place($("#filter-tab"))
 		},
 		leave: function(option){
 			console.log('networkState :: leave');

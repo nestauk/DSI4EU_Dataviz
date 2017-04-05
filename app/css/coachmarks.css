@@ -1,0 +1,12 @@
+.view.coachmarks {
+	z-index: 600;
+}
+
+.view.coachmarks .mark {
+	position: absolute;
+	top: 3rem;
+	left: 3rem;
+	width: 3rem;
+	height: 3rem;
+	background: red;
+}
