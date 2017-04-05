@@ -291,7 +291,7 @@ function UserInterface() {
 			y: 0
 		});
 		$('.map-panel').transition({
-			x: "-100%"
+			x: "100%"
 		}, 500, "easeOutQuart");
 		$('.map-list').transition({
 			x: 0,
@@ -306,7 +306,7 @@ function UserInterface() {
 		$(".remove-icon").off();
 		APP.orgPanel.delete();
 		$('.map-panel').transition({
-			x: "-100%",
+			x: "100%",
 			complete: function() {
 				APP.orgPanel.delete();
 			}
@@ -354,7 +354,7 @@ function UserInterface() {
 			y: 0
 		});
 		$('.network-panel').transition({
-			x: "-100%"
+			x: "100%"
 		}, 500, "easeOutQuart");
 		$('.network-list').transition({
 			x: 0,
@@ -368,7 +368,7 @@ function UserInterface() {
 	function closeNetworkPanel() {
 		$(".remove-icon").off();
 		$('.network-panel').transition({
-			x: "-100%",
+			x: "100%",
 			complete: function() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}

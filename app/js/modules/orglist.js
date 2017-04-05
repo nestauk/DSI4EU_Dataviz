@@ -25,7 +25,7 @@ function OrgList() {
 	}
 
 	function toOrgPanel(org) {
-		$('.map-list').transition({ x:"100%" }, 500, "easeOutQuart");
+		$('.map-list').transition({ x:"-100%" }, 500, "easeOutQuart");
 		APP.ui.openOrgPanel(org, true);
 	}
 

@@ -946,7 +946,7 @@
 
 .ui .modal-panel.map-panel {
 	height: 100%;
-	transform: translateX(-100%);
+	transform: translateX(100%);
 }
 
 .ui .modal-panel .map-panel-container .map-panel-title {
@@ -1052,7 +1052,7 @@
 
 .ui .modal-panel.network-panel {
 	height: 100%;
-	transform: translateX(-100%);
+	transform: translateX(100%);
 }
 
 .ui .network-list .scrolling ul {
