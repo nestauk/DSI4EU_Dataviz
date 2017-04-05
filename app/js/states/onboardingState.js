@@ -16,7 +16,7 @@
 
     cont.find('p').css({opacity: 0})
     nextCnt.css({opacity: 0})
-    circ.css({scale: 0})
+    circ.css({scale: 0, opacity:.8})
 
     function setNextBtnIn (sec) {
       dotsContainer.find('div').removeClass('active')
