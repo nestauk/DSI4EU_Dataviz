@@ -14,6 +14,10 @@ function clusterState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 1000)
+				setTimeout(function(){	
+					APP.coachMarks.show()
+					APP.coachMarks.place($("#filter-tab"))
+				}, 8000)
 			}
 		},
 		leave: function(option){

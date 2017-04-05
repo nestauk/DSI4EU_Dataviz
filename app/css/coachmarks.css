@@ -2,11 +2,60 @@
 	z-index: 600;
 }
 
-.view.coachmarks .mark {
+.view.coachmarks .callout {
 	position: absolute;
-	top: 3rem;
-	left: 3rem;
-	width: 3rem;
-	height: 3rem;
-	background: red;
+	width: 10rem;
+	background-color: #1dc9a0;
+	min-height: 3rem;
+	background-image: -moz-linear-gradient(top, #444, #444);
+	color: #fff;
+	padding: 1rem;
+	border-radius: .5rem;
+	border: 1px solid #1dc9a0;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.callout::before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	border: 0.8em solid transparent;
+	position: absolute;
+}
+
+.callout.top::before {
+	left: 45%;
+	bottom: -20px;
+	border-top: 10px solid #1dc9a0;
+}
+
+.callout.bottom::before {
+	left: 45%;
+	top: -20px;
+	border-bottom: 10px solid #1dc9a0;
+}
+
+.callout.left::before {
+	right: -20px;
+	top: 40%;
+	border-left: 10px solid #1dc9a0;
+}
+
+.callout.right::before {
+	left: -20px;
+	top: 40%;
+	border-right: 10px solid #1dc9a0;
+}
+
+.callout.top-left::before {
+	left: 7px;
+	bottom: -20px;
+	border-top: 10px solid #1dc9a0;
+}
+
+.callout.top-right::before {
+	right: 7px;
+	bottom: -20px;
+	border-top: 10px solid #1dc9a0;
 }
