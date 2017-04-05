@@ -717,10 +717,7 @@
 .ui .info-container#info-network .legenda .network-stats-item {
 	color: #333333;
 	font-size: 1.2rem;
-}
-
-.ui .info-panel.network .legenda .network-stats-item.network-stats-orgs {
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 }
 
 .ui .info-container#info-network .legenda h3 {

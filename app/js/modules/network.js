@@ -196,10 +196,10 @@ function NetworkView() {
 				if (d.type === 'prj') {
 					r = 4
 					c.fillStyle = "#f28244";
-					if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#FDC9C8'
+					if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#f5d9ca'
 				} else {
 					c.fillStyle = "#b164a5";
-					if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#B4CCE0'
+					if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#e5d2e2'
 				}
 				// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
 				c.beginPath();

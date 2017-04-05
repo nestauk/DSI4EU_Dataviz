@@ -49,8 +49,11 @@ function NetworkPanel() {
 
 			var barDiv = $("<div></div>")
 				.addClass("network-panel-item-bar")
-				.css("width", barScale(o.linked_orgs.length)+"%")
+				//.css("width", barScale(o.linked_orgs.length)+"%")
+				.css("width", 0)
 			li.get(0).append(barDiv.get(0));
+
+			barDiv.transition({width: barScale(o.linked_orgs.length)+"%"}, 1000)
 
 			var orgsDiv = $("<div></div>")
 				.addClass("network-panel-item-org")
