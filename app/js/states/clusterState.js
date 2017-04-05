@@ -8,6 +8,7 @@ function clusterState(){
 			APP.cluster.create();
 			APP.setState('cluster')
 			APP.ui.updateViewFunction = APP.cluster.update;
+			APP.ui.updateNavigation()
 			APP.permalink.parseUrlParameters(option.param);
 			if( !APP.views.cluster.shown ) {
 				console.log("first time on cluster!")

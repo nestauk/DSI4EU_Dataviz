@@ -34,15 +34,12 @@ function UserInterface() {
 		updateNavigation();
 		$('#nav-map').click(function() {
 			APP.stator.go("map")
-			updateNavigation();
 		})
 		$('#nav-network').click(function() {
 			APP.stator.go("network")
-			updateNavigation();
 		})
 		$('#nav-cluster').click(function() {
 			APP.stator.go("cluster")
-			updateNavigation();
 		})
 		$('#clear-all-filters').click(function() {
 			APP.filter.resetFilters()
