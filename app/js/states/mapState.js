@@ -5,6 +5,7 @@ function mapState(){
 		enter: function(option){
 			console.log('mapState :: enter');
 			APP.setState('map')
+			APP.ui.updateViewFunction = APP.map.update;
 			APP.permalink.parseUrlParameters(option.param);
 			if(option.param.x){
 				var t = {

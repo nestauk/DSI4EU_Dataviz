@@ -33,6 +33,7 @@ function NetworkView() {
 	var infoPopup;
 
 	function createNetwork() {
+    console.log('create network')
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
@@ -105,9 +106,9 @@ function NetworkView() {
 
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
-
+    console.log('drawcanvas')
 		container = $('<div id="network-wrapper"></div>');
-    container.css({opacity: 0, 'pointer-events': 'none'})
+    // container.css({opacity: 0, 'pointer-events': 'none'})
 
 		$("#main-view").append(container)
 
@@ -316,7 +317,7 @@ function NetworkView() {
 			})
 		}
 	}
-  
+
   function pause () {
     self.system.stop()
   }

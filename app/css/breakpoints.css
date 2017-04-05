@@ -88,9 +88,6 @@ html, body {
 	  right: 0;
 	  top: 0;
 	}
-	.cluster #main-view {
-		padding-top: 0;
-	}
 	.ui .modal-header {
 		justify-content: flex-end;
 	}
