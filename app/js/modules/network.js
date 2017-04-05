@@ -4,6 +4,8 @@ function NetworkView() {
 	self.delete = deleteNetwork;
 	self.focus = focusSearchResult;
 	self.update = createNetwork
+  self.pause = pause
+  self.restart = restart
 
 	self.showLinkedOnly = false;
 
@@ -105,6 +107,7 @@ function NetworkView() {
 		self.system.on("tick", update);
 
 		container = $('<div id="network-wrapper"></div>');
+    container.css({opacity: 0, 'pointer-events': 'none'})
 
 		$("#main-view").append(container)
 
@@ -313,5 +316,11 @@ function NetworkView() {
 			})
 		}
 	}
-
+  
+  function pause () {
+    self.system.stop()
+  }
+  function restart () {
+    self.system.restart()
+  }
 }

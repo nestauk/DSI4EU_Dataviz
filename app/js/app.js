@@ -1,5 +1,4 @@
-;
-(function(window, $, undefined) {
+;(function(window, $, undefined) {
 
 	window.APP = {}
 	APP.currentStateId = 0;
@@ -39,14 +38,23 @@
 		APP.stator = new States();
 
 		APP.dataset.loadData(function() {
-			APP.loader.stop();
 			APP.filter.init();
+
+			APP.map = new MapView()
+    	APP.map.create()
+
+    	APP.network = new NetworkView()
+    	APP.network.create()
+    	APP.network.pause()
+
+			APP.loader.stop();
 			APP.currentStateId = 1;
 			APP.ui.init();
 			createColorScales();
 			APP.stator.start({
 				html5: false
 			})
+
 			if (!APP.stator.current || !_.includes(APP.stator.current.name, 'onboarding')) {
 				APP.defaultLandingState.name = APP.stator.current.name;
 				APP.defaultLandingState.param = APP.stator.param;
