@@ -37,7 +37,7 @@ function Permalink(){
 		if(_.isEmpty(filters)) APP.filter_fields.forEach(function(f){
 			APP.filter.createList(f);
 		})
-
+			console.log('update view')
 		APP.ui.updateViewFunction()
 	}
 

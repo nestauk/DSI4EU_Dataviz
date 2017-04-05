@@ -41,7 +41,7 @@
 	border:1px solid #1dc9a0;
 }
 
-.desktop #onboarding-view .next a:hover{
+.mouse #onboarding-view .next a:hover{
 	background-color: #1dc9a0;
 	color: black;
 }

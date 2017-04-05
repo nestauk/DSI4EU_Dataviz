@@ -4,6 +4,8 @@ function NetworkView() {
 	self.delete = deleteNetwork;
 	self.focus = focusSearchResult;
 	self.update = createNetwork
+  self.pause = pause
+  self.restart = restart
 
 	self.showLinkedOnly = false;
 
@@ -31,6 +33,7 @@ function NetworkView() {
 	var infoPopup;
 
 	function createNetwork() {
+    console.log('create network')
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
@@ -103,8 +106,9 @@ function NetworkView() {
 
 	function drawCanvasNetwork() {
 		self.system.on("tick", update);
-
+    console.log('drawcanvas')
 		container = $('<div id="network-wrapper"></div>');
+    // container.css({opacity: 0, 'pointer-events': 'none'})
 
 		$("#main-view").append(container)
 
@@ -314,4 +318,10 @@ function NetworkView() {
 		}
 	}
 
+  function pause () {
+    self.system.stop()
+  }
+  function restart () {
+    self.system.restart()
+  }
 }

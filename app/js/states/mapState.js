@@ -1,13 +1,11 @@
 function mapState(){
 
-	APP.map = new MapView();
-
 	return {
 		url: "map",
 		enter: function(option){
 			console.log('mapState :: enter');
 			APP.setState('map')
-			APP.map.create();
+			APP.ui.updateViewFunction = APP.map.update;
 			APP.permalink.parseUrlParameters(option.param);
 			if(option.param.x){
 				var t = {
@@ -17,6 +15,7 @@ function mapState(){
 				}
 				APP.map.defaultPosition(t)
 			}
+			$('#map-container').css({opacity:1, "pointer-events":"auto"})
 			APP.currentStateId = 2;
 			if( !APP.views.map.shown ) {
 				console.log("first time on map!")
@@ -33,9 +32,7 @@ function mapState(){
 		},
 		leave: function(option){
 			console.log('mapState :: leave');
-
-			APP.map.delete();
-			
+			$('#map-container').css({opacity:0, "pointer-events":"none"})
 		},
 		update: function(option){
 			APP.permalink.parseUrlParameters(option.param);
