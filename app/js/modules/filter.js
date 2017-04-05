@@ -161,7 +161,8 @@ function Filter() {
 	}
 
 	function createFilterLabel() {
-		var label = 'filters'
+		var label
+		APP.state==='cluster' ? label = 'group and filter' : label = 'filter'
 		var count = _.sumBy(self.activeFilters, function(field) {
 			return field.length;
 		})

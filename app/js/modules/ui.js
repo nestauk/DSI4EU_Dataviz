@@ -70,6 +70,7 @@ function UserInterface() {
 		$('.nav .current').removeClass('current')
 		switch (APP.state) {
 			case "map":
+				$("#filter-tab .sub-nav-label").html("filter")
 				$('#nav-current-bg').transition({
 					left: "0%",
 					x: "0%"
@@ -77,6 +78,7 @@ function UserInterface() {
 				$('#nav-map').addClass('current')
 				break;
 			case "network":
+				$("#filter-tab .sub-nav-label").html("filter")
 				$('#nav-current-bg').transition({
 					left: "50%",
 					x: "-50%"
@@ -84,6 +86,7 @@ function UserInterface() {
 				$('#nav-network').addClass('current')
 				break;
 			case "cluster":
+				$("#filter-tab .sub-nav-label").html("group and filter")
 				$('#nav-current-bg').transition({
 					left: "100%",
 					x: "-100%"
@@ -109,7 +112,7 @@ function UserInterface() {
 		self.closeUIPanels();
 		APP.filter.createViewSettings();
 		$('.sub-nav').addClass('open')
-		$('.sub-nav-label').text("close filters")
+		$('.sub-nav-label').text("close")
 		$('.sub-nav-label').off();
 		filter_tab.transition({
 			y: 0
