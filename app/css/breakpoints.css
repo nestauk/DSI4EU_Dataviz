@@ -51,15 +51,17 @@ html, body {
 		display: none;
 	}
 	.ui footer {
-		position: absolute;
 		right: 0;
-		height: 100%;
-		width: 10%;
+		padding: 1rem;
+		width: auto;
 	}
 	.ui footer .tools{
 		flex-direction: column;
 		align-items: flex-end;
 		justify-content: flex-start;
+	}
+	.ui footer .tools > div{
+		margin-top: 1rem;
 	}
 	.ui .overlay-modal .overlay-content{
 		width: 60%;
@@ -92,7 +94,7 @@ html, body {
 		padding-top: 0;
 	}
 	.ui .modal-header {
-		justify-content: flex-end;
+		justify-content: space-between;
 	}
 }
 

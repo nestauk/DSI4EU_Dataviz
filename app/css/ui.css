@@ -375,7 +375,7 @@
 }
 
 .ui #tools-panel {
-	background: rgba(246, 246, 246, .95);
+	background: #f6f6f6;
 	color: #333;
 }
 
@@ -399,15 +399,15 @@
 .ui .overlay-modal .overlay-content{
 	width: 90%;
 	padding: 1rem 1rem;
-	background: #ffffff;
+	background-color: #444444;
 	box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
-	color: #333333;
+	color: #fff;
 	max-height: 60vh;
 	overflow: hidden;
 }
 
 .ui .overlay-modal button{
-	color: #333333;
+	color: #fff;
 	border: .15rem solid #1DC9A0;
 	margin: 0 1rem;
 }
@@ -432,6 +432,7 @@
 .ui #filter-selection .select-content {
 	max-height: 50vh;
 	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .ui #filter-selection .select-content li {
@@ -850,7 +851,7 @@
 /* MODAL PANELS */
 
 .ui .modal-panel {
-	background: rgba(31,31,31,0.95);
+	background: #333333;
 	width: 100%;
 	padding: 2rem;
 	position: absolute;
