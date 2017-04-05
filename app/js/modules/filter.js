@@ -7,6 +7,7 @@ function Filter() {
 	self.activeFilters = [];
 	self.resetFilters = resetAllFilters;
 	self.init = init;
+	self.update = updateFilters
 
 	var tagsLimit = 3
 
@@ -27,17 +28,22 @@ function Filter() {
 		var filterList = d3.select(section)
 			.select(".tags-list")
 			.selectAll("li")
-			.data(selected_trim)
-
-		var filterEl = filterList.enter()
-			.append("li")
-			.on("click", function(d) {
-				d.active = false;
-				$(this).remove();
-				createFilterList(field)
+			.data(selected_trim, function(d){
+				return d.name
 			})
 
-		filterEl.append("span")
+		var filterEl = filterList
+			.enter()
+			.append("li")
+			.on("click", null)
+			.on("click", function(d) {
+				d.active = false;
+				APP.permalink.go();
+			})
+
+		filterEl
+			.append("span")
+			.merge(filterEl)
 			.text(function(d) {
 				return d.name;
 			})
@@ -56,7 +62,7 @@ function Filter() {
 
 		$(section + " .filters-count").html('<strong>' + selected.value().length + '</strong> of <strong>' + APP.dataset.fields[field].length + '</strong>')
 
-		$(section + " .add-tags").click(function(e) {
+		$(section + " .add-tags").off().click(function(e) {
 			e.stopPropagation();
 			createSelectionList(field, '#filter-select-list');
 			APP.ui.openSelection();
@@ -66,14 +72,14 @@ function Filter() {
 	function updateFilters() {
 		self.activeFilters = [];
 		APP.filter_fields.forEach(function(f) {
-			var field = [];
+			var field = {
+				field: f,
+				values: []
+			};
 			APP.dataset.fields[f].forEach(function(d) {
-				if (d.active) field.push({
-					field: f,
-					value: d.id
-				});
+				if (d.active) field.values.push(d.id);
 			})
-			if (!_.isEmpty(field)) self.activeFilters.push(field);
+			if (!_.isEmpty(field.values)) self.activeFilters.push(field);
 		})
 
 		self.prjs = APP.dataset.prjs
@@ -82,20 +88,20 @@ function Filter() {
 		if (!_.isEmpty(self.activeFilters)) {
 			self.activeFilters.forEach(function(currentField) {
 				self.prjs = _.filter(self.prjs, function(p) {
-					return _.some(currentField, function(f) {
-						if (!p[f.field]) return true;
-						return _.includes(flattenFieldIds(p[f.field]), f.value);
+					return _.some(currentField.values, function(f) {
+						if (!p[currentField.field]) return true;
+						return _.includes(flattenFieldIds(p[currentField.field]), f);
 					})
 				})
 				self.orgs = _.filter(self.orgs, function(o) {
-					return _.some(currentField, function(f) {
-						if (!o[f.field]) return true;
-						return _.includes(flattenFieldIds(o[f.field]), f.value);
+					return _.some(currentField.values, function(f) {
+						if (!o[currentField.field]) return true;
+						return _.includes(flattenFieldIds(o[currentField.field]), f);
 					})
 				})
 			})
 		}
-		if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
+		// if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
 	}
 
 	function flattenFieldIds(field){
@@ -110,7 +116,7 @@ function Filter() {
 				d.active = false;
 			})
 		})
-		createFilterList()
+		APP.permalink.go();
 	}
 
 	function createSelectionList(field, el) {
@@ -191,7 +197,7 @@ function Filter() {
 					var group_by = $('#cluster-group-by').val()
 					var subdivide_by = $('#cluster-subdivide-by').val()
 					APP.cluster.create(group_by, subdivide_by)
-					APP.closeUIPanels();
+					APP.ui.closeUIPanels();
 					if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
 				});
 				break;

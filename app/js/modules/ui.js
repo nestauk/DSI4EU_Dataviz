@@ -20,6 +20,7 @@ function UserInterface() {
 	self.openNetworkPanel = openNetworkPanel;
 	self.closeNetworkPanel = closeNetworkPanel;
 	self.openClusterPanel = openClusterPanel;
+	self.closeUIPanels = closeUIPanels
 
 	self.updateView = updateView;
 	self.updateViewFunction = null;
@@ -64,7 +65,7 @@ function UserInterface() {
 	}
 
 	function updateNavigation() {
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		if (!window.isMobile) APP.filter.createViewSettings();
 		$('.nav .current').removeClass('current')
 		switch (APP.state) {
@@ -105,7 +106,7 @@ function UserInterface() {
 	}
 
 	function openFilterPanel() {
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		APP.filter.createViewSettings();
 		$('.sub-nav').addClass('open')
 		$('.sub-nav-label').text("close filters")
@@ -114,7 +115,7 @@ function UserInterface() {
 			y: 0
 		})
 		$('.sub-nav-label').click(closeFilterPanel)
-		if (window.isMobile) APP.closeCurrentPanel = closeFilterPanel
+		if (window.isMobile) self.closeCurrentPanel = closeFilterPanel
 	}
 
 	function closeFilterPanel() {
@@ -122,20 +123,15 @@ function UserInterface() {
 		$('.sub-nav-label').html(APP.filter.createLabel())
 		$('.sub-nav').removeClass('open')
 		filter_tab.transition({
-			y: "-100%",
-			complete: function() {
-				updateView();
-			}
+			y: "-100%"
 		})
 		$('.sub-nav-label').click(openFilterPanel)
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openSelectOverlay() {
 		$('#filter-selection').fadeIn();
-		$('body').on("click", function(e) {
-			closeSelectOverlay();
-		});
+		$('body').on("click", closeSelectOverlay);
 		$('#filter-selection .overlay-content').click(function(e) {
 			e.stopPropagation();
 		})
@@ -143,11 +139,13 @@ function UserInterface() {
 	}
 
 	function closeSelectOverlay() {
-		APP.filter.createList(APP.filter.currentFieldSelection)
+		$('#confirm-selection').off();
+		// APP.filter.createList(APP.filter.currentFieldSelection)
 		$('body').off("click")
 		$('#filter-selection').fadeOut(function() {
 			$('#filter-select-list').empty();
 		});
+		APP.permalink.go();
 	}
 
 	function createFilterSections() {
@@ -157,7 +155,7 @@ function UserInterface() {
 	}
 
 	function openSharePanel() {
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$("#share-button").off();
 		// var share_copy = 'Share'
 		// switch(APP.state){
@@ -190,7 +188,7 @@ function UserInterface() {
 			y: "100%"
 		});
 		$("#share-button").click(openSharePanel);
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openSearchPanel() {
@@ -235,7 +233,7 @@ function UserInterface() {
 	}
 
 	function openToolsPanel(view, reset) {
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$('.tools-container').hide();
 		if (view && view instanceof jQuery) view.show();
 		$('#tools-panel').transition({
@@ -245,7 +243,7 @@ function UserInterface() {
 		$("#tools-panel .close-modal").click(function() {
 			closeToolsPanel(view);
 		});
-		APP.closeCurrentPanel = closeToolsPanel
+		self.closeCurrentPanel = closeToolsPanel
 	}
 
 	function closeToolsPanel(view) {
@@ -254,18 +252,18 @@ function UserInterface() {
 		$('#tools-panel').transition({
 			y: "100%"
 		});
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openOrgList(orgs) {
 		APP.orgList.delete();
 		APP.orgList.create(orgs);
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$('.map-list').transition({
 			y: 0
 		});
 		$(".remove-icon").click(closeOrgList);
-		APP.closeCurrentPanel = closeOrgList;
+		self.closeCurrentPanel = closeOrgList;
 	}
 
 	function closeOrgList() {
@@ -273,7 +271,7 @@ function UserInterface() {
 		$('.map-list').transition({
 			y: "100%"
 		});
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openOrgPanel(org, list) {
@@ -284,13 +282,13 @@ function UserInterface() {
 			$(".modal-nav-icons").addClass("from-list");
 		}
 		APP.orgPanel.create(org);
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$('.map-panel').transition({
 			x: 0
 		});
 		$(".remove-icon").click(closeOrgPanel);
 		$(".back-icon").click(backToOrgList);
-		APP.closeCurrentPanel = closeOrgPanel;
+		self.closeCurrentPanel = closeOrgPanel;
 	}
 
 	function backToOrgList() {
@@ -307,7 +305,7 @@ function UserInterface() {
 				APP.orgPanel.delete();
 			}
 		}, 500, "easeOutQuart");
-		APP.closeCurrentPanel = closeOrgList;
+		self.closeCurrentPanel = closeOrgList;
 	}
 
 	function closeOrgPanel() {
@@ -323,18 +321,18 @@ function UserInterface() {
 			y: "100%",
 			x: 0
 		});
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openNetworkList(org) {
 		APP.networkList.delete();
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		APP.networkList.create(org)
 		$(".network-list").transition({
 			y: 0
 		}, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkList);
-		APP.closeCurrentPanel = closeNetworkList;
+		self.closeCurrentPanel = closeNetworkList;
 	}
 
 	function closeNetworkList() {
@@ -342,18 +340,18 @@ function UserInterface() {
 		$(".network-list").transition({
 			y: "100%"
 		}, 500, "easeInQuart");
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openNetworkPanel(org) {
 		APP.networkPanel.fillPanel(org)
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$('.network-panel').transition({
 			x: 0
 		}, 500, "easeOutQuart");
 		$(".remove-icon").click(closeNetworkPanel);
 		$(".back-icon").click(backToNetworkList);
-		APP.closeCurrentPanel = closeNetworkPanel;
+		self.closeCurrentPanel = closeNetworkPanel;
 	}
 
 	function backToNetworkList() {
@@ -370,7 +368,7 @@ function UserInterface() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}
 		}, 500, "easeOutQuart");
-		APP.closeCurrentPanel = closeNetworkList;
+		self.closeCurrentPanel = closeNetworkList;
 	}
 
 	function closeNetworkPanel() {
@@ -385,7 +383,7 @@ function UserInterface() {
 			y: "100%",
 			x: 0
 		});
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
 	}
 
 	function openClusterPanel(data) {
@@ -394,12 +392,12 @@ function UserInterface() {
 		var selectedCluster = data;
 		APP.clusterPanel.fillHeader(selectedCluster);
 		APP.clusterPanel.drawPanel(selectedCluster);
-		APP.closeUIPanels();
+		self.closeUIPanels();
 		$('.cluster-panel').transition({
 			y: 0
 		});
 		$(".remove-icon").click(closeClusterPanel);
-		APP.closeCurrentPanel = closeClusterPanel;
+		self.closeCurrentPanel = closeClusterPanel;
 	}
 
 	function closeClusterPanel() {
@@ -407,7 +405,11 @@ function UserInterface() {
 		$('.cluster-panel').transition({
 			y: "100%"
 		});
-		APP.closeCurrentPanel = null;
+		self.closeCurrentPanel = null;
+	}
+
+	function closeUIPanels() {
+		if (self.closeCurrentPanel) self.closeCurrentPanel();
 	}
 
 	function updateView(updateViewFunction) {

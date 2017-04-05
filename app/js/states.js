@@ -1,39 +1,36 @@
-;(function (window, $, undefined) {
+function States() {
+	var self = this;
+	var stator = new StateMan();
+	stator.navigateDefault = navigateDefault
 
-	'use strict'
+	var onboarding = new onboardingState()
 
-	// debug only
-	if(window.location && window.location.hash.indexOf('#')>=0){
-		window.location.href="/"
-	}
+	stator.state({
 
-	$(document).ready(function(){
+			"onboarding": onboarding,
+			"onboarding.one": onboarding.one,
+			"onboarding.two": onboarding.two,
+			"onboarding.three": onboarding.three,
+			"onboarding.four": onboarding.four,
+			"onboarding.five": onboarding.five,
+			"map": new mapState(),
+			"network": new networkState(),
+			"cluster": new clusterState(),
+			"share": new shareState()
 
-		APP.stator = new StateMan();
-
-		var onboarding = new onboardingState()
-
-		APP.stator.state({
-
-		  "loader": new loaderState(),
-		  "onboarding": onboarding,
-		  "onboarding.one": onboarding.one,
-		  "onboarding.two": onboarding.two,
-		  "onboarding.three": onboarding.three,
-		  "onboarding.four": onboarding.four,
-		  "onboarding.five": onboarding.five,
-		  "map": new mapState(),
-		  "network": new networkState(),
-		  "cluster": new clusterState(),
-		  "share": new shareState()
-
-		}).on("notfound", function(){
-		  this.go("loader")
-		}).start({html5:false});
-
-	})
-
-
-})(window, window.jQuery);
-
-
+		})
+		// .on("notfound", function(options) {
+		// 	console.log('NOTFOUND', options, window.location)
+		// 	this.go("map")
+		// })
+		// .start({
+		// 	html5: false
+		// });
+		// 
+		function navigateDefault(){
+			$('#main-view').fadeIn();
+			APP.ui.show();
+			APP.stator.go(APP.defaultLandingState.name, {param: APP.defaultLandingState.param})
+		}
+		return stator
+}

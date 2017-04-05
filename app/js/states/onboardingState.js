@@ -14,6 +14,11 @@
     var onCanvas = new _OnBoardingCanvas()
     var onSvg = new _OnBoardingSvg()
 
+    $('.gotit').click(function(e){
+      e.preventDefault();
+      APP.stator.navigateDefault();
+    })
+
     cont.find('p').css({opacity: 0})
     nextCnt.css({opacity: 0})
     circ.css({scale: 0})
@@ -21,8 +26,14 @@
     function setNextBtnIn (sec) {
       dotsContainer.find('div').removeClass('active')
       dotsContainer.find('div:nth-child(' + sec + ')').addClass('active')
-      nextBtn.attr('href', sections[sec])
       nextCnt.css({opacity: 0, scale: 0}).transition({opacity: 1, scale: 1, delay: delays[sec]}, 1000, 'easeInOutQuart')
+      if(sec == sections.length - 1){
+        nextBtn.removeAttr('href')
+        nextBtn.click(function(e) {
+          e.preventDefault()
+          APP.stator.navigateDefault();
+        })
+      } else nextBtn.attr('href', sections[sec])
     }
     function setNextBtnOut (sec) {
       nextCnt.transition({opacity: 0, scale: 0}, 500, 'easeInOutQuart')
@@ -39,6 +50,7 @@
 
       leave: function (option) {
         console.log('onboardingState :: leave')
+        window.localStorage.setItem('visited', true)
 
         cont.transition({opacity: 0,
           complete: function () {

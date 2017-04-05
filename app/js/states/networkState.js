@@ -4,10 +4,11 @@ function networkState(){
 
 	return {
 		enter: function(option){
-			$('#main-view').show();
 			console.log('networkState :: enter');
 			APP.setState('network')
 			APP.network.create();
+			APP.ui.updateViewFunction = APP.network.update;
+			APP.permalink.parseUrlParameters(option.param);
 			if( !APP.views.network.shown ){
 				console.log("first time on network!")
 				APP.views.network.shown = true;
@@ -21,6 +22,9 @@ function networkState(){
 
 			APP.network.delete();
 			
+		},
+		update: function(option){
+			APP.permalink.parseUrlParameters(option.param);
 		}
 	}
 

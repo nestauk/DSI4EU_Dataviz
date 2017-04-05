@@ -3,6 +3,7 @@ function NetworkView() {
 	self.create = createNetwork;
 	self.delete = deleteNetwork;
 	self.focus = focusSearchResult;
+	self.update = createNetwork
 
 	self.showLinkedOnly = false;
 
@@ -33,7 +34,6 @@ function NetworkView() {
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
-		APP.ui.updateViewFunction = createNetwork;
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();

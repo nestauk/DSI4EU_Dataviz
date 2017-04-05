@@ -3,13 +3,21 @@ function mapState(){
 	APP.map = new MapView();
 
 	return {
+		url: "map",
 		enter: function(option){
 			console.log('mapState :: enter');
 			APP.setState('map')
 			APP.map.create();
-			APP.ui.show();
+			APP.permalink.parseUrlParameters(option.param);
+			if(option.param.x){
+				var t = {
+					x: +option.param.x,
+					y: +option.param.y,
+					k: +option.param.k
+				}
+				APP.map.defaultPosition(t)
+			}
 			APP.currentStateId = 2;
-			$('#main-view').fadeIn();
 			if( !APP.views.map.shown ) {
 				console.log("first time on map!")
 				APP.views.map.shown = true;
@@ -28,6 +36,9 @@ function mapState(){
 
 			APP.map.delete();
 			
+		},
+		update: function(option){
+			APP.permalink.parseUrlParameters(option.param);
 		}
 	}
 

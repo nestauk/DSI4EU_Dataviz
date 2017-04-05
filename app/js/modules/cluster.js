@@ -2,6 +2,7 @@ function ClusterView() {
 	var self = this;
 	self.create = createNewClusters;
 	self.delete = deleteCluster;
+	self.update = createNewClusters;
 
 	var width, height, clusterWidth, clusterHeight, clusterElements, clusterWrappers;
 	var projects;
@@ -25,8 +26,6 @@ function ClusterView() {
 		var subdivide_field = self.subdivide_field;
 
 		deleteCluster();
-
-		APP.ui.updateViewFunction = createNewClusters;
 
 		projects = APP.filter.prjs;
 		organisations = APP.filter.orgs;

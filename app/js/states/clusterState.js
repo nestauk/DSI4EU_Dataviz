@@ -4,10 +4,11 @@ function clusterState(){
 
 	return {
 		enter: function(option){
-			$('#main-view').show();
 			console.log('clusterState :: enter');
 			APP.cluster.create();
 			APP.setState('cluster')
+			APP.ui.updateViewFunction = APP.cluster.update;
+			APP.permalink.parseUrlParameters(option.param);
 			if( !APP.views.cluster.shown ) {
 				console.log("first time on cluster!")
 				APP.views.cluster.shown = true;
@@ -25,6 +26,9 @@ function clusterState(){
 
 			APP.cluster.delete();
 			
+		},
+		update: function(option){
+			APP.permalink.parseUrlParameters(option.param);
 		}
 	}
 

@@ -3,8 +3,9 @@ function MapView() {
 	self.create = createMap;
 	self.delete = deleteMap;
 	self.focus = focusSearchResult;
-
+	self.update = drawMap
 	self.showLinks = false;
+	self.defaultPosition = setDefaultMapPosition;
 
 	var zoomLevel = 1;
 	var data;
@@ -22,7 +23,8 @@ function MapView() {
 	var connections = [];
 
 	function createMap() {
-		APP.ui.updateViewFunction = drawMap;
+		APP.ui.updateViewFunction = self.update;
+
 		width = $("#main-view").width();
 		height = $("#main-view").height();
 		zoomLevel = 1;
@@ -50,18 +52,14 @@ function MapView() {
 		zoom = d3.zoom()
 			.scaleExtent([0.35, 10])
 			.translateExtent([
-				[-1500, -500],
-				[1500, 1500]
+				[-1400, -500],
+				[1800, 1500]
 			])
 			.on("zoom", zoomMap)
+			.on("end", updateViewSettings)
 
 		svg.call(zoom)
-		getMaxValues()
 
-		if (!window.isMobile) {
-			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
-			svg.call(zoom.transform, t)
-		}
 
 		if(zoomLevel != 2){
 			$('#map-show-connections').addClass('disabled')
@@ -69,6 +67,13 @@ function MapView() {
 
 		container = map.append("g")
 			.attr("id", "dots")
+
+		if (!window.isMobile) {
+			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
+			svg.call(zoom.transform, t)
+		}
+
+		getMaxValues()
 		drawMap()
 	}
 
@@ -291,13 +296,8 @@ function MapView() {
 			return _.includes(n.orgs, org)
 		})
 		var scale = 3
-		var w = width / 2
-		if (!window.isMobile) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
-		var translate = [w - search_org.cx, height / 2 - search_org.cy]
-		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
-		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
-			svg.transition().call(zoom.scaleTo, scale)
-		})
+		var t = {x: search_org.cx, y: search_org.cy, k: scale}
+		focusOnPoint(t)
 	}
 
 	function createConnections(data) {
@@ -349,6 +349,36 @@ function MapView() {
 			drawMap()
 		}
 		map.attr("transform", "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
+	}
+
+	function focusOnPoint(transform){
+		var w = width / 2
+		var scale = transform.k
+		if (!window.isMobile) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
+		var translate = [w - transform.x, height / 2 - transform.y]
+		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
+		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
+			svg.transition().call(zoom.scaleTo, scale)
+		})
+	}
+
+	function setDefaultMapPosition(transform){
+		focusOnPoint(transform)
+	}
+
+	function updateViewSettings(){
+		console.log(d3.event)
+		var tr = $('#map-container > g')[0]
+		var pt = $('#map-container')[0].createSVGPoint();
+		pt.x = width / 2
+		pt.y = height / 2
+		pt = pt.matrixTransform(tr.getScreenCTM().inverse());
+		APP.permalink.viewSettings = {
+			x: pt.x,
+			y: pt.y,
+			k: d3.event.transform.k
+		};
+		APP.permalink.go()
 	}
 
 	function deleteMap() {
