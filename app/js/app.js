@@ -7,6 +7,8 @@
 	$(document).ready(function(){
 		APP.dataset = new Dataset();	
 		
+		APP.loader = new Loader();
+
 		APP.setState = setState;
 		APP.moveForward = moveForward;
 		APP.moveBackward = moveBackward;
