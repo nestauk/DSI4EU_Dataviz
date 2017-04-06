@@ -24,7 +24,6 @@ function Permalink(){
 	}
 
 	function setActiveFilters(filters){
-		console.log(APP.ui)
 		filters.forEach(function(f){
 			var field = APP.filter_fields[f.key];
 			f.values.forEach(function(v){
@@ -37,7 +36,6 @@ function Permalink(){
 		if(_.isEmpty(filters)) APP.filter_fields.forEach(function(f){
 			APP.filter.createList(f);
 		})
-			console.log('update view')
 		APP.ui.updateViewFunction()
 	}
 
@@ -50,10 +48,8 @@ function Permalink(){
 			});
 			if(!_.isEmpty(active)) params['f'+APP.filter_fields.indexOf(k)] = active.join(',')
 		})
-		console.log(self.viewSettings)
 		_.keys(self.viewSettings).forEach(function(k){
 			var value = self.viewSettings[k];
-			console.log(k, value)
 			params[k] = value
 			if(!_.isNaN(+value)) params[k] = Math.round(params[k]*1000)/1000
 		})
