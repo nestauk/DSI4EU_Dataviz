@@ -164,10 +164,11 @@ function Filter() {
 		var label
 		APP.state==='cluster' ? label = 'group and filter' : label = 'filter'
 		var count = _.sumBy(self.activeFilters, function(field) {
-			return field.length;
+			return field.values.length;
 		})
 
 		if (count > 0) label = '<strong>' + count + '</strong> active ' + _.pluralize('filters', count);
+		console.log(label)
 		return label;
 	}
 
