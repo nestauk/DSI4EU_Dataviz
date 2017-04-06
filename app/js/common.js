@@ -16,6 +16,12 @@
      	$('html').addClass('mouse')
     }
 
+    if($(window).width()>$(window).height()){
+        $('html').addClass('landscape')
+    }else{
+        $('html').addClass('portrait')
+    }
+
 	var styles = window.getComputedStyle(document.documentElement, '')
 	var pre = (Array.prototype.slice
 	      .call(styles)
