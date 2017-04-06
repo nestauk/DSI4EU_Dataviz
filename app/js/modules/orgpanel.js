@@ -78,8 +78,8 @@ function OrgPanel() {
       .html("Is this your organisation? Update your profile ")
     cta.append("span").append("a")
       .attr("class", "orgpanel-cta")
-      .attr("onclick", "location.href='http://www.digitalsocial.eu/login'")
-      // .attr("formtarget", "_blank") //NOT WORKING
+      .attr("href", "http://www.digitalsocial.eu/login")
+      .attr("target", "_blank")
       .text("here")
   }
 
