@@ -9,6 +9,7 @@
 	APP.filter_fields = ["support_tags", "technology", "networkTags", "organisation_type"];
 
 	$(document).ready(function() {
+		console.log('ready')
 		APP.dataset = new Dataset();
 		APP.loader = new Loader();
 

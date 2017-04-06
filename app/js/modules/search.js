@@ -2,6 +2,8 @@ function Search() {
 	var self = this;
 	self.reset = resetSearch;
 
+	console.log('Search', $('#search-input'))
+
 	$('#search-input').keydown(_.debounce(createResultsList, 250));
 
 	function createResultsList() {

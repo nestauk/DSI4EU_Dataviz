@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "lodash": "^4.17.4",
-    "static-player": "0.0.11"
+    "static-player": "0.0.13"
   }
 }

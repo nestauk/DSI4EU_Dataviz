@@ -845,6 +845,9 @@
 	position: absolute;
 	pointer-events: none;
 }
+.ui .subpanel-wrapper > section{
+	pointer-events: auto;
+}
 
 .ui #tools-panel .modal-nav-icons,
 .ui .modal-panel .map-list-container .modal-nav-icons,
