@@ -363,7 +363,7 @@ function MapView() {
 	function focusOnPoint(transform) {
 		var w = width / 2
 		var scale = transform.k
-		if (!window.isMobile) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
+		if (!window.isMobile && !APP.embed) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
 		var translate = [w - transform.x, height / 2 - transform.y]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
 		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
