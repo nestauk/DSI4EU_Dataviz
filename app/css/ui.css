@@ -149,7 +149,7 @@
 }
 
 .ui .sub-nav {
-	background: #333333;
+	background: #444;
 	z-index: 1;
 	height: 40%;
 	transition: background .5s;
@@ -429,6 +429,16 @@
 	height: 2rem;
 	width: 2rem;
 	fill: #333333;
+}
+
+.ui #clear-selection{
+	border-radius: 0;
+	border: none;
+	border-bottom: 1px solid #00CA9F;
+	padding: 0;
+}
+.ui #clear-selection:hover{
+	background-color: inherit;
 }
 
 .ui #filter-selection .select-content {
