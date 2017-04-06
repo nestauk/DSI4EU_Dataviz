@@ -30,7 +30,6 @@ function States() {
 		function navigateDefault(){
 			$('#main-view').fadeIn();
 			APP.ui.show();
-			console.log('Default',APP.defaultLandingState.name)
 			APP.stator.go(APP.defaultLandingState.name, {param: APP.defaultLandingState.param})
 		}
 		return stator

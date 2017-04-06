@@ -54,7 +54,6 @@ function Dataset(){
         createFieldList(self.orgs, 'country', false, 'countries')
         createFieldList(self.orgs, 'networkTags')
         getNetworkStats()
-        console.log(self)
     }
 
     function addCountryNames(map, countries){
