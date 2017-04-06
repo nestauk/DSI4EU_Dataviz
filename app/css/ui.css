@@ -9,6 +9,10 @@
 	pointer-events: none;
 }
 
+.ui select{
+	-webkit-appearance: button;
+}
+
 .ui header {
 	width: 100%;
 	z-index: 2;
