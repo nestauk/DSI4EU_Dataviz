@@ -5,6 +5,15 @@ function Dataset(){
     self.getNetworkData = getNetworkData
     self.fields = {}
 
+    self.fields.names_map = {
+        'countries': 'Countries',
+        'focus': 'Tech Focus',
+        'networkTags': 'Network Tags',
+        'organisation_type': 'Organisation Type',
+        'support_tags': 'Social Area',
+        'technology': 'Technology'
+    }
+
     var organisations_path = 'data/organisations2.json'
     var projects_path = 'data/projects2.json'
     var map_path = window.isMobile ? 'data/world110m.json' : 'data/world50m.json'
