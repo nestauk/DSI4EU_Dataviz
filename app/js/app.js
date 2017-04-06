@@ -46,7 +46,7 @@
     	APP.network = new NetworkView()
     	APP.network.create()
     	APP.network.pause()
-    	$('#network-wrapper').css({opacity: 0, 'pointer-events': 'auto'})
+    	$('#network-wrapper').css({opacity: 0, 'pointer-events': 'none'})
 
 			APP.loader.stop();
 			APP.currentStateId = 1;

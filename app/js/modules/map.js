@@ -71,7 +71,7 @@ function MapView() {
 			var t = d3.zoomIdentity.translate(400, -100).scale(1.1);
 			svg.call(zoom.transform, t)
 		}
-
+		$('#map-container').css({opacity:0, "pointer-events":"none"})
 		getMaxValues()
 		drawMap()
 	}
@@ -366,7 +366,6 @@ function MapView() {
 	}
 
 	function updateViewSettings(){
-		console.log(d3.event)
 		var tr = $('#map-container > g')[0]
 		var pt = $('#map-container')[0].createSVGPoint();
 		pt.x = width / 2
