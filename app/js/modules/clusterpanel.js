@@ -1,14 +1,35 @@
 function ClusterPanel() {
 	var self = this;
+	self.initPanel = initPanel;
 	self.fillHeader = fillHeader;
 	self.drawPanel = drawPanel;
 	self.deleteClusterPanelItems = deleteClusterPanelItems;
+
+	function initPanel (selectedCluster) {
+		//console.log(selectedCluster)
+		if(selectedCluster.values[0].hasOwnProperty("key")){ //subdivided by something
+			fillHeader(selectedCluster)
+			drawPanel(selectedCluster)
+		} else { //subdivided by NONE
+			fillHeaderNoSub(selectedCluster)
+			drawPanelNoSub(selectedCluster)
+		}
+	}
 
 	function fillHeader(selectedCluster) {
 		var all_values = _.map(selectedCluster.values, function(c){
 			return c.values;
 		})
 		var all_prjs = _.uniq([].concat.apply([], all_values))
+		$(".cluster-panel-container h2").html(selectedCluster.key);
+		$(".cluster-panel-container .subtitle").html(all_prjs.length+" projects");
+	}
+
+	function fillHeaderNoSub(selectedCluster) {
+		var all_values = _.map(selectedCluster.values, function(c){
+			return c;
+		})
+		var all_prjs = _.uniq(all_values)
 		$(".cluster-panel-container h2").html(selectedCluster.key);
 		$(".cluster-panel-container .subtitle").html(all_prjs.length+" projects");
 	}
@@ -43,8 +64,6 @@ function ClusterPanel() {
 			.append("div")
 				.attr("class", "cluster-panel-circle")
 				.style("background", function (d) {
-					console.log("panel, "+d.key)
-					console.log("panel, "+colorScale(d.key))
 					return colorScale(d.key);
 				})
 				.style("width", 0)
@@ -136,6 +155,10 @@ function ClusterPanel() {
 			$(".sub-list").addClass("invisible")
 		}
 
+	}
+
+	function drawPanelNoSub(selectedCluster) {
+		
 	}
 
 	function deleteClusterPanelItems() {

@@ -148,6 +148,9 @@ function ClusterView() {
 			.attr("cx", clusterWidth / 2)
 			.attr("cy", clusterHeight / 2)
 			.attr("class", "circle prj")
+			// .on("click", function(d){
+			// 	APP.ui.openClusterPanel(d)
+			// })
 			.transition()
 				.duration(500)
 				.delay(400)

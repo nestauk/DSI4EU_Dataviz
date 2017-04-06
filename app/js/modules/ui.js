@@ -384,8 +384,7 @@ function UserInterface() {
 		// off listeneres on clusters?
 		APP.clusterPanel.deleteClusterPanelItems();
 		var selectedCluster = data;
-		APP.clusterPanel.fillHeader(selectedCluster);
-		APP.clusterPanel.drawPanel(selectedCluster);
+		APP.clusterPanel.initPanel(selectedCluster);
 		self.closeUIPanels();
 		$('.cluster-panel').transition({
 			y: 0
