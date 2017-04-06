@@ -185,7 +185,7 @@ function Filter() {
 				})
 				break;
 			case "network":
-				if(APP.network.showLinkedOnly) $('#network-linked-only').addClass('active')
+				if(!APP.network.showLinkedOnly) $('#network-linked-only').addClass('active')
 				$('#network-linked-only').off()
 				$('#network-linked-only').click(function() {
 					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
