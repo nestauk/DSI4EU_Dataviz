@@ -107,7 +107,7 @@ function UserInterface() {
 		$('.sub-nav-label').off();
 		filter_tab.transition({
 			y: 0
-		})
+		}, 750, 'easeInOutQuint')
 		$('.sub-nav-label').click(closeFilterPanel)
 		if (window.isMobile) self.closeCurrentPanel = closeFilterPanel
 	}
@@ -118,7 +118,7 @@ function UserInterface() {
 		$('.sub-nav').removeClass('open')
 		filter_tab.transition({
 			y: "-100%"
-		})
+		}, 750, 'easeInOutQuint')
 		$('.sub-nav-label').click(openFilterPanel)
 		self.closeCurrentPanel = null;
 	}
@@ -232,7 +232,7 @@ function UserInterface() {
 		if (view && view instanceof jQuery) view.show();
 		$('#tools-panel').transition({
 			y: 0
-		});
+		}, 750, 'easeInOutQuint');
 		if(reset) self.resetTools = reset;
 		$("#tools-panel .close-modal").click(function() {
 			closeToolsPanel(view);
@@ -245,7 +245,7 @@ function UserInterface() {
 		$("#tools-panel .close-modal").off();
 		$('#tools-panel').transition({
 			y: "100%"
-		});
+		}, 750, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 	}
 

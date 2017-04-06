@@ -502,7 +502,6 @@
 .ui .share-container {
 	display: flex;	
 	flex-direction: column;
-	height: 100%;
 	font-size: 1.2rem;
 	line-height: 1.8rem;
 }
@@ -569,7 +568,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	height: 100%;
 }
 
 .ui .search-title {
