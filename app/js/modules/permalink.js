@@ -37,7 +37,6 @@ function Permalink(){
 		if(_.isEmpty(filters)) APP.filter_fields.forEach(function(f){
 			APP.filter.createList(f);
 		})
-		if(!window.isMobile) APP.ui.updateViewFunction()
 	}
 
 	function go(){

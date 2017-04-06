@@ -143,6 +143,7 @@ function UserInterface() {
 			$('#filter-select-list').empty();
 		})
 		APP.permalink.go();
+		if(!window.isMobile) updateView();
 	}
 
 	function createFilterSections() {

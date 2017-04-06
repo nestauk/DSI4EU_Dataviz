@@ -116,6 +116,7 @@ function Filter() {
 			})
 		})
 		APP.permalink.go();
+		if(!window.isMobile) updateView();
 	}
 
 	function createSelectionList(field, el) {
@@ -174,18 +175,22 @@ function Filter() {
 		$('#settings-' + APP.state).show();
 		switch (APP.state) {
 			case "map":
+				if(APP.map.showLinks) $('#map-show-connections').addClass('active')
 				$('#map-show-connections').off()
 				$('#map-show-connections').click(function() {
 					APP.map.showLinks = !APP.map.showLinks
 					APP.permalink.go()
+					if(!window.isMobile) APP.ui.updateView();
 					$('#map-show-connections').toggleClass('active')
 				})
 				break;
 			case "network":
+				if(APP.network.showLinkedOnly) $('#network-linked-only').addClass('active')
 				$('#network-linked-only').off()
 				$('#network-linked-only').click(function() {
 					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
 					APP.permalink.go()
+					if(!window.isMobile) APP.ui.updateView();
 					$('#network-linked-only').toggleClass('active')
 				})
 				break;
@@ -198,6 +203,7 @@ function Filter() {
 					APP.cluster.cluster_field = group_by
 					APP.cluster.subdivide_field = subdivide_by
 					APP.permalink.go()
+					if(!window.isMobile) APP.ui.updateView();
 					APP.ui.closeUIPanels();
 				});
 				break;
