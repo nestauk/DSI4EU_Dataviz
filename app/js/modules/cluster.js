@@ -19,12 +19,9 @@ function ClusterView() {
 
 	var validCountries = ["Albania", "Andorra", "Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Malta", "Moldova", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom"];
 
-	function createNewClusters(clusterField, subdivideField) {
-		if(clusterField) self.cluster_field = clusterField
-		if(subdivideField) self.subdivide_field = subdivideField
+	function createNewClusters() {
 		var cluster_field = self.cluster_field;
 		var subdivide_field = self.subdivide_field;
-
 		deleteCluster();
 
 		projects = APP.filter.prjs;
