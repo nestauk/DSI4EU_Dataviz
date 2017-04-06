@@ -31,7 +31,8 @@ function Share() {
   }
 
   function embedPermalink(link){
-    $("#share-embed input").attr("value", link);
+    var code = '<iframe src="'+link+'"></iframe>';
+    $("#share-embed input").attr("value", code);
   }
 
 }
