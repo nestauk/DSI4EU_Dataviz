@@ -29,10 +29,26 @@ text.smallLabel{
 	fill: #f28244;
 }
 .cluster-wrapper {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	width: 50%;
 }
+.cluster-wrapper p::after {
+	content: "";
+	display: block;
+	height: 1rem;
+	width: 85%;
+	border-bottom: .15rem solid #aaa;
+}
+.cluster-wrapper:nth-child(odd) p::after {
+	position: absolute;
+	right: 0;
+}
+.cluster-wrapper:nth-child(even) p::after {
+	margin-left: 0;
+}
+
 .cluster-wrapper svg {
 	width: 100%;
 }

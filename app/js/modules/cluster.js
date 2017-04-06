@@ -39,7 +39,8 @@ function ClusterView() {
 		width = $("#cluster-container").width();
 		height = $("#main-view").height();
 		clusterWidth = width / 2
-		clusterHeight = height / 2
+		//clusterHeight = height / 2
+		clusterHeight = clusterWidth
 		if(!window.isMobile) clusterWidth = width/2.2
 
 		clusters = createGroups(projects, cluster_field)
@@ -186,7 +187,7 @@ function ClusterView() {
 			d3.packSiblings(subdivisions)
 			var subs = d3.select(this)
 
-			subs.on("click", function(d){
+			clusterWrappers.on("click", function(d){
 				APP.ui.openClusterPanel(d)
 			})
 
