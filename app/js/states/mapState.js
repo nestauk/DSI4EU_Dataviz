@@ -1,5 +1,7 @@
 function mapState(){
 
+	var timeout
+
 	return {
 		url: "map",
 		enter: function(option){
@@ -24,7 +26,7 @@ function mapState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 1000)
-				setTimeout(function(){	
+				timeout = setTimeout(function(){	
 					APP.coachMarks.show()
 					APP.coachMarks.place($("#filter-tab"))
 				}, 8000)
@@ -34,6 +36,8 @@ function mapState(){
 		leave: function(option){
 			console.log('mapState :: leave');
 			$('#map-container').css({opacity:0, "pointer-events":"none"})
+			console.log(timeout)
+			clearTimeout(timeout)
 		},
 		update: function(option){
 			APP.permalink.parseUrlParameters(option.param);

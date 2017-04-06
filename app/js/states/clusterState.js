@@ -1,5 +1,6 @@
 function clusterState(){
 
+	var timeout
 	APP.cluster = new ClusterView();
 
 	return {
@@ -16,7 +17,7 @@ function clusterState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 1000)
-				setTimeout(function(){	
+				timeout = setTimeout(function(){	
 					APP.coachMarks.show()
 					APP.coachMarks.place($("#filter-tab"))
 				}, 8000)
@@ -24,7 +25,7 @@ function clusterState(){
 		},
 		leave: function(option){
 			console.log('clusterState :: leave');
-
+			clearTimeout(timeout)
 			APP.cluster.delete();
 			
 		},
