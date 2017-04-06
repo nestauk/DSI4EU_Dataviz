@@ -1,5 +1,6 @@
 #onboarding-view{
 	display: none;
+	z-index: 9999;
 }
 
 #onboarding-view p{

@@ -55,3 +55,6 @@ hr{
     pointer-events:auto;
 }
 
+.noint{
+	pointer-events:none;
+}

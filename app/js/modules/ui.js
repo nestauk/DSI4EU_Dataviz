@@ -28,7 +28,9 @@ function UserInterface() {
 	var filter_tab = $('#filter-panel');
 	var search_panel = $(".search-panel");
 
-	$('#user-interface').hide();
+	var thereIsAPanel = false
+
+	$('#user-interface').css({opacity:0})
 
 	function init() {
 		updateNavigation();
@@ -47,7 +49,7 @@ function UserInterface() {
 		});
 		$('#clear-all-filters').hide();
 		createFilterSections();
-		$("#filter-selection").hide();
+		$("#filter-selection").hide()
 		$(".sub-nav-label").click(openFilterPanel);
 		$("#share-button").click(openSharePanel);
 		$("#search-button").click(openSearchPanel);
@@ -89,12 +91,12 @@ function UserInterface() {
 	}
 
 	function hideUI() {
-		$('#user-interface').fadeOut();
+		$('#user-interface').transition({opacity:0}, 500, 'easeInOutQuint');
 	}
 
 	function showUI() {
 		if (!window.isMobile) openFilterPanel()
-		$('#user-interface').fadeIn();
+		$('#user-interface').transition({opacity:1}, 750, 'easeInOutQuint');
 	}
 
 	function openFilterPanel() {
@@ -122,7 +124,7 @@ function UserInterface() {
 	}
 
 	function openSelectOverlay() {
-		$('#filter-selection').fadeIn();
+		$('#filter-selection').fadeIn()
 		$('body').on("click", closeSelectOverlay);
 		$('#filter-selection .overlay-content').click(function(e) {
 			e.stopPropagation();
@@ -136,7 +138,7 @@ function UserInterface() {
 		$('body').off("click")
 		$('#filter-selection').fadeOut(function() {
 			$('#filter-select-list').empty();
-		});
+		})
 		APP.permalink.go();
 	}
 
@@ -147,6 +149,7 @@ function UserInterface() {
 	}
 
 	function openSharePanel() {
+		console.log('open share')
 		self.closeUIPanels();
 		$("#share-button").off();
 		// var share_copy = 'Share'
@@ -163,7 +166,7 @@ function UserInterface() {
 		// }
 		$(".share-panel").transition({
 			y: 0
-		});
+		}, 750, 'easeInOutQuint');
 		$(".share-container .close-modal").click(closeSharePanel);
 		$(".share-icon").click(APP.share.social("dataviz", "http://digitalsocial.eu"));
 		APP.share.embedLink("http://www.digitalsocial.eu/permalink");
@@ -174,16 +177,19 @@ function UserInterface() {
 	}
 
 	function closeSharePanel() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
+		console.log('close share', t)
 		$(".share-container .close-modal").off();
 		$(".share-icon").off();
 		$(".share-panel").transition({
 			y: "100%"
-		});
+		}, t, 'easeInOutQuint');
 		$("#share-button").click(openSharePanel);
 		self.closeCurrentPanel = null;
 	}
 
 	function openSearchPanel() {
+		console.log('open search')
 		$("#search-button").off();
 		var search_hint = 'Search'
 		switch (APP.state) {
@@ -206,6 +212,7 @@ function UserInterface() {
 	}
 
 	function openInfoPanel() {
+		console.log('open infopanel')
 		$("#info-button").off();
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
@@ -215,6 +222,7 @@ function UserInterface() {
 	}
 
 	function openMapPanel(data) {
+		console.log('open infopanel')
 		if (data.type && data.type == 'org') return openOrgPanel(data, false)
 		if (data.orgs.length == 1) {
 			openOrgPanel(data.orgs[0], false);
@@ -238,12 +246,15 @@ function UserInterface() {
 	}
 
 	function closeToolsPanel(view) {
+		var t = (self.closeCurrentPanel) ? 0 : 750
+		console.log('close tool', t)
 		if (self.resetTools) self.resetTools();
 		$("#tools-panel .close-modal").off();
 		$('#tools-panel').transition({
 			y: "100%"
-		}, 750, 'easeInOutQuint');
+		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
+		thereIsAPanel=false
 	}
 
 	function openOrgList(orgs) {
@@ -252,16 +263,17 @@ function UserInterface() {
 		self.closeUIPanels();
 		$('.map-list').transition({
 			y: 0
-		});
+		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeOrgList);
 		self.closeCurrentPanel = closeOrgList;
 	}
 
 	function closeOrgList() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
 		$(".remove-icon").off();
 		$('.map-list').transition({
 			y: "100%"
-		});
+		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 	}
 
@@ -276,7 +288,7 @@ function UserInterface() {
 		self.closeUIPanels();
 		$('.map-panel').transition({
 			x: 0
-		});
+		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeOrgPanel);
 		$(".back-icon").click(backToOrgList);
 		self.closeCurrentPanel = closeOrgPanel;
@@ -300,6 +312,7 @@ function UserInterface() {
 	}
 
 	function closeOrgPanel() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
 		$(".remove-icon").off();
 		APP.orgPanel.delete();
 		$('.map-panel').transition({
@@ -307,7 +320,7 @@ function UserInterface() {
 			complete: function() {
 				APP.orgPanel.delete();
 			}
-		}, 500, "easeInQuart");
+		}, t, "easeInOutQuint");
 		$('.map-list').css({
 			y: "100%",
 			x: 0
@@ -321,16 +334,17 @@ function UserInterface() {
 		APP.networkList.create(org)
 		$(".network-list").transition({
 			y: 0
-		}, 500, "easeOutQuart");
+		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeNetworkList);
 		self.closeCurrentPanel = closeNetworkList;
 	}
 
 	function closeNetworkList() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
 		$(".remove-icon").off();
 		$(".network-list").transition({
 			y: "100%"
-		}, 500, "easeInQuart");
+		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 	}
 
@@ -339,7 +353,7 @@ function UserInterface() {
 		self.closeUIPanels();
 		$('.network-panel').transition({
 			x: 0
-		}, 500, "easeOutQuart");
+		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeNetworkPanel);
 		$(".back-icon").click(backToNetworkList);
 		self.closeCurrentPanel = closeNetworkPanel;
@@ -363,13 +377,14 @@ function UserInterface() {
 	}
 
 	function closeNetworkPanel() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
 		$(".remove-icon").off();
 		$('.network-panel').transition({
 			x: "100%",
 			complete: function() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}
-		}, 500, "easeInQuart");
+		}, t, "easeInOutQuint");
 		$('.network-list').css({
 			y: "100%",
 			x: 0
@@ -385,16 +400,17 @@ function UserInterface() {
 		self.closeUIPanels();
 		$('.cluster-panel').transition({
 			y: 0
-		});
+		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeClusterPanel);
 		self.closeCurrentPanel = closeClusterPanel;
 	}
 
 	function closeClusterPanel() {
+		var t = (self.closeCurrentPanel) ? 0 : 750
 		$(".remove-icon").off();
 		$('.cluster-panel').transition({
 			y: "100%"
-		});
+		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 	}
 
