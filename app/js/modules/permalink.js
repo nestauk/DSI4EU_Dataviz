@@ -1,6 +1,7 @@
 function Permalink(){
 	var self = this;
 	self.viewSettings = {};
+	self.createUrl = createUrl
 	self.parseUrlParameters = parseUrlParameters
 	self.go = go
 
@@ -56,6 +57,13 @@ function Permalink(){
 			if(!_.isNaN(+value)) params[k] = Math.round(params[k]*1000)/1000
 		})
  		APP.stator.go(APP.stator.current.name, {param: params})
+	}
+
+	function createUrl(){
+		var params = APP.stator.param
+ 		params.e = 1
+ 		var currentUrl = window.location.origin + '/#' + APP.stator.encode( APP.stator.current.name, params )
+ 		return currentUrl
 	}
 
 	function getViewSettings(params){
