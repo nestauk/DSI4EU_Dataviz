@@ -20,6 +20,7 @@ function Dataset(){
           .await(function(error, orgData, prjData, mapData, countriesData, netDumpData){
             if(error) {
                 console.log(error)
+                $('#loader-view h3').text('Error: ' + error)
                 return
             }
             prepareData({orgs: orgData, prjs: prjData, map: mapData, countries: countriesData, netDump:netDumpData})
