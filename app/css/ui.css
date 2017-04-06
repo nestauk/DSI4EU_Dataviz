@@ -178,7 +178,7 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.05rem;
-	font-size: 1.4rem;
+	font-size: 1.8rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -209,7 +209,7 @@
 }
 
 .ui .view-settings, .ui .view-filters {
-	padding: 1rem;
+	padding: 2rem;
 }
 
 .ui .view-filters h2{
@@ -222,6 +222,33 @@
 
 .ui .view-filters button{
 	color: #fff;
+}
+
+.ui #settings-cluster .settings-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.ui #settings-cluster .settings-item div {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.ui #settings-cluster .settings-item > div:first-child {
+	margin-bottom: 2rem;;
+}
+
+.ui #settings-cluster .settings-item p {
+	flex: 2;
+	text-transform: uppercase;
+	font-size: 1.2rem;
+}
+
+.ui #settings-cluster .settings-item select {
+	flex: 3;
+	font-weight: 700;
+	padding: .3rem;
 }
 
 .ui .view-settings {
@@ -287,13 +314,15 @@
 .ui .filters h3{
 	display: flex;
 	justify-content: space-between;
-	font-size: 1rem;
+	font-size: 1.2rem;
 }
 
 .ui .view-settings {
 	background: #333333;
 	padding-bottom: 2rem;
 	padding-top: 1.2rem;
+	padding-right: 2rem;
+	padding-left: 2rem;
 }
 
 .ui .filters .filters-count {
