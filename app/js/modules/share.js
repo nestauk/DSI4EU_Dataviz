@@ -32,7 +32,13 @@ function Share() {
 
   function embedPermalink(link){
     var code = '<iframe src="'+link+'"></iframe>';
-    $("#share-embed input").attr("value", code);
+    $("#share-embed input")
+      .attr("value", code)
+
+    $("#share-embed button").click(function(){
+      $("#share-embed input").select();
+      document.execCommand('copy');
+    });
   }
 
 }
