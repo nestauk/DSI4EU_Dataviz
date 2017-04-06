@@ -50,7 +50,7 @@
 
       leave: function (option) {
         console.log('onboardingState :: leave')
-        //window.localStorage.setItem('visited', true)
+        APP.storage.set('visited', true)
 
         cont.transition({opacity: 0,
           complete: function () {

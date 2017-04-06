@@ -27,6 +27,7 @@
 		APP.ui = new UserInterface();
 		APP.coachMarks = new CoachMarks();
 		APP.permalink = new Permalink();
+		APP.storage = new Storage();
 
 		APP.loader.start();
 
