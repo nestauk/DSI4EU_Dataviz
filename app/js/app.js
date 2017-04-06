@@ -93,6 +93,12 @@
 			}
 		}
 
+		function listenForOrientation(){
+			APP.stator.on('orientationchange', function(){
+				
+			})
+		}
+
 		function createColorScales() {
 			APP.focusColorScale = d3.scaleOrdinal()
 				.domain(APP.dataset.fields["focus"].map(function(d) {

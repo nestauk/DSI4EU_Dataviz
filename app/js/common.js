@@ -16,11 +16,14 @@
      	$('html').addClass('mouse')
     }
 
-    if($(window).width()>$(window).height()){
-        $('html').addClass('landscape')
-    }else{
-        $('html').addClass('portrait')
-    }
+    $(window).on('resize', function(){
+        if($(window).width()>$(window).height()){
+            $('html').addClass('landscape').removeClass('portrait')
+        }else{
+            $('html').addClass('portrait').removeClass('landscape')
+        }
+    })
+    
 
 	var styles = window.getComputedStyle(document.documentElement, '')
 	var pre = (Array.prototype.slice

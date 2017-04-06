@@ -63,10 +63,10 @@ function handleOrientationChanges () {
   var orientationEvent = supportsOrientationChange ? 'orientationchange' : 'resize'
   // hard refresh when orientation changes
   $(window).on(orientationEvent, function (event) {
+    _writeOrientationAttr(orientation)
     var temp = _getOrientation()
     if (temp !== orientation) {
       orientation = temp
-      _writeOrientationAttr(orientation)
       APP.stator.emit('orientationchange')
       // only in desktop-like view refresh objects init
       if (reloadCheck || _needReload(orientation)) {

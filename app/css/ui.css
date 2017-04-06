@@ -1326,5 +1326,24 @@
 	color: white;
 	padding: 2rem;
 	display: block;
+	z-index:10000;
+}
+
+
+#turn-view {
+	background: #333;
+	padding: 2rem;
 	z-index:9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	opacity: 0;
+}
+.landscape #turn-view{
+	pointer-events: all;
+	opacity: 1;
+}
+#turn-view img {
+	width: 120px;
 }
