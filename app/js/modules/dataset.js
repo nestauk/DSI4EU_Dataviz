@@ -14,8 +14,10 @@ function Dataset(){
         'technology': 'Technology'
     }
 
-    var organisations_path = 'data/organisations2.json'
-    var projects_path = 'data/projects2.json'
+    //var organisations_path = 'data/organisations2.json'
+    //var projects_path = 'data/projects2.json'
+    var organisations_path = 'https://digitalsocial.eu/export/organisations.json'
+    var projects_path = 'https://digitalsocial.eu/export/projects.json'
     var map_path = window.isMobile ? 'data/world110m.json' : 'data/world50m.json'
     var countries_path = 'data/iso_3166_2_countries.csv'
 
