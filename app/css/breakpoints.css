@@ -8,11 +8,11 @@ html, body {
 	}
 }
 
-@media (min-width: 767px) {
+/*@media (min-width: 767px) {
 	html, body{
 		font-size: 100%;
 	}
-}
+}*/
 
 @media (min-width: 1020px) {
 	html, body{
@@ -26,7 +26,7 @@ html, body {
 	}
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 769px) {
 	html {
 		font-size: 80%;
 	}

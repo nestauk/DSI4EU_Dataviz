@@ -45,7 +45,7 @@ function NetworkList() {
 			})
 
 		function toNetworkPanel(org) {
-			$('.network-list').transition({ x:"-100%" }, 500, "easeOutQuart");
+			$('.network-list').transition({ x:"-100%" }, 750, "easeInOutQuint");
 			APP.ui.openNetworkPanel(org);
 		}
 	}
