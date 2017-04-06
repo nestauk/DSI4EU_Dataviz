@@ -397,6 +397,13 @@
 .ui .tools .tools-icon{
 	height: 4rem;
 	width: 4rem;
+	cursor: pointer;
+}
+.mouse .ui .tools .tools-icon path{
+	transition: fill .25s;
+}
+.mouse .ui .tools .tools-icon:hover path:first-child{
+	fill: #1DC9A0;
 }
 
 .ui .tools .tools-icon .icon-circle{
