@@ -168,7 +168,7 @@ function UserInterface() {
 			y: 0
 		}, 750, 'easeInOutQuint');
 		$(".share-container .close-modal").click(closeSharePanel);
-		$(".share-icon").click(APP.share.social("dataviz", "http://digitalsocial.eu"));
+		$(".share-icon").click(APP.share.social("Check out @DSI4EU's #dataviz showing the network of #DSI across Europe", "http://digitalsocial.eu"));
 		APP.share.embedLink("http://www.digitalsocial.eu/permalink");
 		openToolsPanel($('#tools-share'), function() {
 			$(".share-icon").off();

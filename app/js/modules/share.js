@@ -11,7 +11,7 @@ function Share() {
 
     var tw = 'https://twitter.com/intent/tweet?'
         tw += 'url=' + encodeURIComponent(link)
-        tw += '&text=' + encodeURIComponent('#dsi4eu ' + txt)
+        tw += '&text=' + encodeURIComponent(txt)
 
         var fb = 'https://www.facebook.com/sharer/sharer.php?'
         fb += 'u=' + encodeURIComponent(link)

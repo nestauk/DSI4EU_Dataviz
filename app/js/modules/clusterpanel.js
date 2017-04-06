@@ -111,9 +111,6 @@ function ClusterPanel() {
 					.attr("xlink:href", "#down-icon")
 
 		items.each(generatePrjList)
-
-		console.log(subListH)
-
 		
 		function clusterItemDetail(list, index) {
 			var list = $(list);
