@@ -6,8 +6,8 @@ function networkState () {
       $('#network-wrapper').css({opacity: 1, 'pointer-events': 'auto'})
 			APP.network.restart()
 			APP.ui.updateViewFunction = APP.network.update;
-			APP.ui.updateNavigation()
 			APP.permalink.parseUrlParameters(option.param);
+			APP.ui.updateNavigation()
 			if( !APP.views.network.shown ){
 				console.log("first time on network!")
 				APP.views.network.shown = true;

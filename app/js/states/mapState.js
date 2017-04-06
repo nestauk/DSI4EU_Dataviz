@@ -8,8 +8,8 @@ function mapState(){
 			console.log('mapState :: enter');
 			APP.setState('map')
 			APP.ui.updateViewFunction = APP.map.update;
-			APP.ui.updateNavigation()
 			APP.permalink.parseUrlParameters(option.param);
+			APP.ui.updateNavigation()
 			if(option.param.x){
 				var t = {
 					x: +option.param.x,

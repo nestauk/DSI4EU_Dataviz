@@ -207,7 +207,6 @@ function UserInterface() {
 
 	function openInfoPanel() {
 		$("#info-button").off();
-		console.log(APP.state)
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
 			$("#info-button").click(openInfoPanel)
