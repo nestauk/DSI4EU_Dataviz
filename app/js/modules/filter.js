@@ -196,7 +196,7 @@ function Filter() {
 					var group_by = $('#cluster-group-by').val()
 					var subdivide_by = $('#cluster-subdivide-by').val()
 					APP.cluster.cluster_field = group_by
-					APP.cluster.subdivide_field = subdivide_field
+					APP.cluster.subdivide_field = subdivide_by
 					APP.permalink.go()
 					APP.ui.closeUIPanels();
 				});
