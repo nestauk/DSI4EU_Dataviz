@@ -77,6 +77,8 @@ html, body {
 	}
 	.ui .subpanel-wrapper{
 		width: 33%;
+		max-width: 28rem;
+		min-width: 20rem;
 	}
 
 	.cluster .ui .settings-item div {

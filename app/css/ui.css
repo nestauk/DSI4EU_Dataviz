@@ -169,8 +169,8 @@
 
 .ui #filter-panel {
 	background: #333333;
-	height: 100%;
-	padding: 0;
+/*	height: 100%;
+*/	padding: 0;
 	/*transform: translateY(-100%);*/
 }
 
