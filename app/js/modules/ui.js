@@ -161,7 +161,6 @@ function UserInterface() {
 		}, 750, 'easeInOutQuint');
 		$(".share-container .close-modal").click(closeSharePanel);
 		$(".share-icon").click(APP.share.social("Check out @DSI4EU's #dataviz showing the network of #DSI across Europe", "http://digitalsocial.eu"));
-		APP.share.embedLink(APP.permalink.createUrl());
 		openToolsPanel($('#tools-share'), function() {
 			$(".share-icon").off();
 			$("#share-button").click(openSharePanel);
