@@ -1229,9 +1229,15 @@
 
 .ui .cluster-panel .scrolling .cluster-item {
 	display: flex;
+	flex-direction: column;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	border-bottom: .1rem solid #aaaaaa;
+}
+
+.ui .cluster-panel .scrolling .cluster-item-header {
+	display: flex;
+	width: 100%;
 }
 
 .ui .cluster-panel .scrolling .cluster-item .line::after {
@@ -1276,7 +1282,10 @@
 }
 
 .ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .cluster-cta {
+	display: flex;
 	font-size: 1rem;
+	width: 100%;
+	justify-content: space-between;
 }
 
 .ui .cluster-panel .scrolling .cluster-item .cluster-panel-circle {
@@ -1285,16 +1294,22 @@
 	border-radius: 100%;
 }
 
+.ui .cluster-panel .scrolling .item-content {
+	padding-left: 1rem;
+	width: 75%;
+	align-self: flex-end;
+}
+
 .ui .cluster-panel .scrolling .sub-list.invisible {
 	display: none;
 }
 
-.ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .sub-list-items {
+.ui .cluster-panel .cluster-panel-container .scrolling .sub-list-items {
 	line-height: 1.4rem;
 	margin-bottom: 1.4rem;
 }
 
-.ui .cluster-panel .cluster-panel-container .scrolling .cluster-text-container .sub-list-items a {
+.ui .cluster-panel .cluster-panel-container .scrolling .sub-list-items a {
 	text-decoration: underline;
 	color: #1dc9a0;
 	display: block;

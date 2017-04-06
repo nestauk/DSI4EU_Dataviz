@@ -36,7 +36,7 @@ function ClusterPanel() {
 
 	function drawPanel(selectedCluster) {
 
-		var subListH = [];
+		//var subListH = [];	//for drop-down animation
 
 		var maxCircle = selectedCluster.values[0].values.length; //max circle size
 		var colorScale = APP.getColorScale(APP.cluster.subdivide_field);
@@ -51,7 +51,10 @@ function ClusterPanel() {
 						clusterItemDetail(this, i);
 					});
 
-		var circleContainer = items.append("div")
+		var itemHeader = items.append("div")
+			.attr("class", "cluster-item-header")
+
+		var circleContainer = itemHeader.append("div")
 			.attr("class", "cluster-circle-container")
 
 		var circleContainerW = $(".cluster-circle-container").width(); //circle container size
@@ -80,7 +83,7 @@ function ClusterPanel() {
 					return circleDivScale(d.values.length)+"px";
 				})
 
-		var text = items.append("div")
+		var text = itemHeader.append("div")
 			.attr("class", "cluster-text-container")
 
 		text.append("div")
@@ -93,65 +96,67 @@ function ClusterPanel() {
 			.attr("class", "cluster-cta")
 
 		cta.append("div")
+			.attr("class", "cta-text")
+			.style("display", "inline-block")
+			.text(function (d) {
+				return "Show "+d.values.length+_.pluralize(" project", d.values.length);
+			})
+		
+		cta.append("div")
+			.attr("class", "cta-arrow")
 			.style("display", "inline-block")
 				.append("svg")
 					.attr("class", "down-icon inverted-color")
 				.append("use")
 					.attr("xlink:href", "#down-icon")
 
-		cta.append("div")
-			.attr("class", "cta-text")
-			.style("display", "inline-block")
-			.text(function (d) {
-				return "Show "+d.values.length+_.pluralize(" project", d.values.length);
-			})
+		items.each(generatePrjList)
 
-		cta.each(generatePrjList)
+		console.log(subListH)
 
 		
 		function clusterItemDetail(list, index) {
 			var list = $(list);
 			var el = list.find("ul");
-			var elH = subListH[index];
+			//var elH = subListH[index];
 
 			el.toggleClass("invisible");
 			if (el.hasClass("invisible")) {
-				el.transition({height: 0}, 1000, "easeInQuint");
+				//el.transition({height: 0}, 1000, "easeInQuint");
 				list.find(".down-icon").transition({scale: 1});
 				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Hide", "Show");
 				})
 			} else {
-				el.height(0);
-				el.transition({height: elH+"px"}, 1000, "easeOutQuint");
+				//el.height(0);
+				//el.transition({height: elH+"px"}, 1000, "easeOutQuint");
 				list.find(".down-icon").transition({scale: -1});
 				list.find(".cta-text").text(function () {
 			    return $(this).text().replace("Show", "Hide");
 				})
 			}
-			// if (d3.event.target == this) {
-			// 	$(this).find("ul").toggleClass("invisible");
-			// }
 		}
 
 		function generatePrjList(e, i) {
-			d3.select(this).append("ul")
-				.attr("class", "sub-list")
-					.selectAll("sub-list-items")
-					.data(e.values)
-					.enter()
-					.append("li")
-						.attr("class", "sub-list-items")
-						.append("a")
-							.attr("href", function (d) {
-								return d.url;
-							})
-							.attr("target", "_blank")
-							.text(function (f) {
-								return f.name;
-							})
-			//computed height of the list just generated
-			subListH[i] = $(this).find("ul").outerHeight();
+			d3.select(this).append("div")
+				.attr("class", "item-content")
+					.append("ul")
+					.attr("class", "sub-list")
+						.selectAll("sub-list-items")
+						.data(e.values)
+						.enter()
+						.append("li")
+							.attr("class", "sub-list-items")
+							.append("a")
+								.attr("href", function (d) {
+									return d.url;
+								})
+								.attr("target", "_blank")
+								.text(function (f) {
+									return f.name;
+								})
+			//computed height of the list just generated, for drop-down list animation
+			// subListH[i] = $(this).find("ul").outerHeight();
 			$(".sub-list").addClass("invisible")
 		}
 
