@@ -49,10 +49,9 @@ function Filter() {
 			})
 
 		filterEl.insert("div", ":first-child")
-			.append('svg')
+			.append('img')
 			.attr("class", "icon-remove")
-			.append('use')
-			.attr("x‌​link:href", "#icon-remove")
+			.attr("src", "img/ui/icon-remove-white.svg")
 
 		filterList.exit()
 			.remove()
@@ -142,10 +141,9 @@ function Filter() {
 			})
 		filterEl
 			.insert("div", ":first-child")
-			.append("svg")
+			.append("img")
 			.attr("class", "icon-check")
-			.append('use')
-			.attr("x‌​link:href", "#icon-check")
+			.attr("src", "img/ui/icon-check-green.svg")
 
 		$('#clear-selection').off().click(function() {
 			clearSelectedField(field)
