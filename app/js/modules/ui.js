@@ -118,7 +118,10 @@ function UserInterface() {
 		$('.sub-nav-label').html(APP.filter.createLabel())
 		$('.sub-nav').removeClass('open')
 		filter_tab.transition({
-			y: "-100%"
+			y: "-100%",
+			complete: function(){
+				updateView();
+			}
 		}, 750, 'easeInOutQuint')
 		$('.sub-nav-label').click(openFilterPanel)
 		self.closeCurrentPanel = null;
@@ -135,7 +138,6 @@ function UserInterface() {
 
 	function closeSelectOverlay() {
 		$('#confirm-selection').off();
-		// APP.filter.createList(APP.filter.currentFieldSelection)
 		$('body').off("click")
 		$('#filter-selection').fadeOut(function() {
 			$('#filter-select-list').empty();
@@ -407,7 +409,7 @@ function UserInterface() {
 		if (self.closeCurrentPanel) self.closeCurrentPanel();
 	}
 
-	function updateView(updateViewFunction) {
+	function updateView() {
 		if (self.updateViewFunction) self.updateViewFunction();
 	}
 

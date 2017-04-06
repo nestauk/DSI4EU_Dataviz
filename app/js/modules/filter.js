@@ -177,7 +177,7 @@ function Filter() {
 				$('#map-show-connections').off()
 				$('#map-show-connections').click(function() {
 					APP.map.showLinks = !APP.map.showLinks
-					if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
+					APP.permalink.go()
 					$('#map-show-connections').toggleClass('active')
 				})
 				break;
@@ -185,7 +185,7 @@ function Filter() {
 				$('#network-linked-only').off()
 				$('#network-linked-only').click(function() {
 					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
-					if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
+					APP.permalink.go()
 					$('#network-linked-only').toggleClass('active')
 				})
 				break;
@@ -195,9 +195,10 @@ function Filter() {
 				$('#cluster-group-by, #cluster-subdivide-by').change(function() {
 					var group_by = $('#cluster-group-by').val()
 					var subdivide_by = $('#cluster-subdivide-by').val()
-					APP.cluster.create(group_by, subdivide_by)
+					APP.cluster.cluster_field = group_by
+					APP.cluster.subdivide_field = subdivide_field
+					APP.permalink.go()
 					APP.ui.closeUIPanels();
-					if(!window.isMobile && APP.ui.updateViewFunction) APP.ui.updateViewFunction()
 				});
 				break;
 		}
