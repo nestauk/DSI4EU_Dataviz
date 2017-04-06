@@ -49,10 +49,14 @@
 	        <section process="views/_info-cluster.html"></section>
         </section>
         <section process="views/_map-list.html" class="modal-panel map-list" process-keep></section>
-        <section process="views/_map-panel.html" class="modal-panel map-panel" process-keep></section>
         <section process="views/_network-list.html" class="modal-panel network-list" process-keep></section>
-        <section process="views/_network-panel.html" class="modal-panel network-panel" process-keep></section>
-        <section process="views/_cluster-panel.html" class="modal-panel cluster-panel" process-keep></section>
+
+        <div class="subpanel-wrapper">
+            <section process="views/_map-panel.html" class="modal-panel map-panel" process-keep></section>
+            <section process="views/_network-panel.html" class="modal-panel network-panel" process-keep></section>
+            <section process="views/_cluster-panel.html" class="modal-panel cluster-panel" process-keep></section>
+        </div>
+        
         <footer>
             <section class="tools">
                 <div process="img/ui/icon-share.svg" id="share-button" class="tools-icon" process-keep></div>

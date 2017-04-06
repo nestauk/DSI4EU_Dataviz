@@ -203,9 +203,9 @@
 
 .ui #filters-container {
 	height: 100%;
-	margin-top: 2rem;
+	padding-top: 2rem;
 	overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
 }
 
 .ui .view-settings, .ui .view-filters {
@@ -800,6 +800,14 @@
 	display: flex;	
 }
 
+
+.ui .subpanel-wrapper{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+}
+
 .ui #tools-panel .modal-nav-icons,
 .ui .modal-panel .map-list-container .modal-nav-icons,
 .ui .modal-panel .network-list-container .modal-nav-icons,
@@ -856,6 +864,8 @@
 	position: absolute;
 	top: 0;
 	z-index: 1;
+	overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .ui .modal-panel .modal-container.map-list-container {
@@ -891,8 +901,7 @@
 
 .ui .modal-panel .scrolling {
 	flex: 1;
-  overflow: auto;
-  padding-right: 10px;
+
 }
 
 .ui .modal-panel .map-list-container,
@@ -917,9 +926,8 @@
 }
 
 .ui .modal-panel .map-list-container .map-list-title {
-	display: flex;
 	width: 100%;
-	justify-content: center;
+	padding-top: 3rem;	
 }
 
 .ui .modal-panel .map-list-container h3 {
@@ -946,6 +954,7 @@
 .ui .modal-panel.map-panel {
 	height: 100%;
 	transform: translateX(100%);
+	width: 100%;
 }
 
 .ui .modal-panel .map-panel-container .map-panel-title {
@@ -954,6 +963,7 @@
 
 .ui .modal-panel .map-panel-container .org-title {
 	display: flex;	
+	padding-top: 3rem;
 }
 
 .ui .modal-panel .map-panel-container .org-title h2 a {
@@ -1052,6 +1062,7 @@
 .ui .modal-panel.network-panel {
 	height: 100%;
 	transform: translateX(100%);
+	width: 100%;
 }
 
 .ui .network-list .scrolling ul {
@@ -1154,6 +1165,7 @@
 .ui .modal-panel.cluster-panel {
 	height: 100%;
 	transform: translateY(100%);
+	width: 100%;
 }
 
 .ui .modal-panel .cluster-panel-container .cluster-panel-title {
@@ -1163,7 +1175,6 @@
 
 .ui .cluster-panel .cluster-panel-container .scrolling {
 	max-height: 65vh;
-  overflow: auto;
   padding-right: 10px;
   margin-top: 0 !important;
 }

@@ -75,6 +75,10 @@ html, body {
 		background-image: none;
 		font-size: 1rem;
 	}
+	.ui .subpanel-wrapper{
+		width: 33%;
+	}
+
 	.cluster .ui .settings-item div {
 		margin: 0 .4rem;
 	}
