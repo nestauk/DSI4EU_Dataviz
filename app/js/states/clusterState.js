@@ -20,7 +20,7 @@ function clusterState(){
 				APP.views.cluster.shown = true;
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
-					if (isMobile) {
+					if (window.isMobile) {
 						$(".cluster-wrapper").click( function (e) {
 							e.stopPropagation()	
 							APP.coachMarks.show()
