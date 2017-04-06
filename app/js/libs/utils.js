@@ -26,3 +26,56 @@ function intToHex(int) {
 
 	return hexStr;
 }
+
+var orientMQ = window.matchMedia("screen and (min-width: 769px)")
+function handleOrientationChanges () {
+  function _getOrientation () {
+    // if orientation is 0 or 180 we are in portrait mode
+    if (_.isUndefined(window.orientation)) {
+      // window.orientation is undefined on desktop so check on media query
+      if (!orientMQ.matches) {
+        return 'portrait'
+      } else {
+        return 'landscape'
+      }
+    }
+    else if (window.orientation == 0 || window.orientation == 180) {
+      return 'portrait'
+    } else {
+      return 'landscape'
+    }
+  }
+  function _writeOrientationAttr (orientation) {
+    $('html').attr('orientation', orientation)
+  }
+
+  function _needReload (orientation) {
+    return orientation === 'landscape' && orientMQ.matches
+  }
+
+  // get the current orientation
+  var orientation = _getOrientation()
+  _writeOrientationAttr(orientation)
+
+  var reloadCheck = _needReload(orientation)
+  // support both onorientationchange and resize event
+  var supportsOrientationChange = 'onorientationchange' in window
+  var orientationEvent = supportsOrientationChange ? 'orientationchange' : 'resize'
+  // hard refresh when orientation changes
+  $(window).on(orientationEvent, function (event) {
+    var temp = _getOrientation()
+    if (temp !== orientation) {
+      orientation = temp
+      _writeOrientationAttr(orientation)
+      APP.stator.emit('orientationchange')
+      // only in desktop-like view refresh objects init
+      if (reloadCheck || _needReload(orientation)) {
+        APP.loader.start()
+        // add timeout to fix reload issue on firefox
+        setTimeout(function() {
+          window.location.reload()
+        }, 500);
+      }
+    }
+  })
+}

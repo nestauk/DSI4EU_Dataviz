@@ -30,6 +30,7 @@
 		APP.storage = new Storage();
 
 		APP.loader.start();
+		handleOrientationChanges();
 
 		APP.views = {
 			map: { shown: false },

@@ -3,6 +3,9 @@ function Loader() {
   loader.start = function(option) {
       console.log('loaderState :: enter')
       $('#loader-view').show()
+      $('#loader-view').transition({
+        y: '0%',
+      }, 500, 'easeInOutQuint')
     },
     loader.stop = function(option) {
       console.log('loaderState :: leave')
