@@ -16,16 +16,18 @@ function clusterState(){
 				APP.views.cluster.shown = true;
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
+					if (isMobile) {
+						$(".cluster-wrapper").click( function (e) {
+							e.stopPropagation()	
+							APP.coachMarks.show()
+							APP.coachMarks.place($("#filter-tab"))
+						})
+					}
 				}, 1000)
-				timeout = setTimeout(function(){	
-					APP.coachMarks.show()
-					APP.coachMarks.place($("#filter-tab"))
-				}, 8000)
 			}
 		},
 		leave: function(option){
 			console.log('clusterState :: leave');
-			clearTimeout(timeout)
 			APP.cluster.delete();
 			
 		},

@@ -101,6 +101,7 @@ function UserInterface() {
 
 	function openFilterPanel() {
 		self.closeUIPanels();
+		$(".cluster-wrapper").off("click")
 		APP.filter.createViewSettings();
 		$('.sub-nav').addClass('open')
 		$('.sub-nav-label').text("close")
@@ -152,18 +153,6 @@ function UserInterface() {
 		console.log('open share')
 		self.closeUIPanels();
 		$("#share-button").off();
-		// var share_copy = 'Share'
-		// switch(APP.state){
-		// 	case 'map':
-		// 	share_copy = 'Share a map'
-		// 	break;
-		// 	case 'network':
-		// 	share_copy = 'Share a network'
-		// 	break;
-		// 	case 'cluster':
-		// 	share_copy = 'Share a cluster'
-		// 	break;
-		// }
 		$(".share-panel").transition({
 			y: 0
 		}, 750, 'easeInOutQuint');

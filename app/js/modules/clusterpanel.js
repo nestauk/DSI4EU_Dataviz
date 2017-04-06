@@ -61,7 +61,7 @@ function ClusterPanel() {
 
 		var circleDivScale = d3.scaleLinear()
 			.domain([0, maxCircle])	
-			.range([0, circleContainerW])
+			.range([2, circleContainerW])
 
 		circleContainer
 			.append("div")
