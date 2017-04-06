@@ -102,6 +102,7 @@
 	text-transform: uppercase;
 	border-bottom: 2px solid #1dc9a0;
 	display: block;
+	cursor: pointer;
 }
 
 #onboarding-view .dots{

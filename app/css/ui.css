@@ -950,8 +950,8 @@
 .ui .modal-panel .network-list-container,
 .ui .modal-panel .network-panel-container,
 .ui .modal-panel .cluster-panel-container {
-	height: 100%;
-	display: flex;
+/*	height: 100%;
+*/	display: flex;
 	flex-direction: column;
 }
 
@@ -1237,6 +1237,7 @@
 .ui .cluster-panel .scrolling .cluster-item .cluster-circle-container {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	width: 25%;
 }
 
