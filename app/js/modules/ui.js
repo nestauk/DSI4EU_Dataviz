@@ -21,6 +21,7 @@ function UserInterface() {
 	self.closeNetworkPanel = closeNetworkPanel;
 	self.openClusterPanel = openClusterPanel;
 	self.closeUIPanels = closeUIPanels
+	self.enableEmbedOverlay = enableEmbedOverlay
 
 	self.updateView = updateView;
 	self.updateViewFunction = null;
@@ -403,6 +404,10 @@ function UserInterface() {
 			y: "100%"
 		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
+	}
+
+	function enableEmbedOverlay(){
+		$('#embed-overlay').show();
 	}
 
 	function closeUIPanels() {
