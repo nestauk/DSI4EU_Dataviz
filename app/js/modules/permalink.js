@@ -41,6 +41,8 @@ function Permalink(){
 
 	function go(){
 		var params = {}
+
+		params = getViewSettings(params);
 		_.keys(APP.dataset.fields).forEach(function(k){
 			var field = APP.dataset.fields[k];
 			var active = _.map(_.filter(field, 'active'), function(f){
@@ -53,7 +55,25 @@ function Permalink(){
 			params[k] = value
 			if(!_.isNaN(+value)) params[k] = Math.round(params[k]*1000)/1000
 		})
- 		APP.stator.go(APP.stator.current.name, {param: params})
+ 		APP.stator.go(APP.stator.current.name, {param: params, encode:false})
+ 		var url = '#' + APP.stator.encode(APP.stator.current.name, params)
+ 		window.history.replaceState({}, '', url)
+	}
+
+	function getViewSettings(params){
+		switch(APP.state){
+			case 'map':
+				params.l = +APP.map.showLinks
+			break;
+			case 'network':
+				params.l = +APP.network.showLinkedOnly
+			break;
+			case 'cluster':
+				params.g = APP.cluster.cluster_field
+				params.g = APP.cluster.subdivide_field
+			break;
+		}
+		return params
 	}
 
 }
