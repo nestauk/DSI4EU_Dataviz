@@ -31,7 +31,7 @@ function ClusterView() {
 		container = d3.select('#main-view').append("div")
 			.attr("id", "cluster-container")
 
-		if(!window.isMobile) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
+		if(!window.isMobile && !APP.embed) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
 		else $("#cluster-container").width($("#main-view").width())
 		width = $("#cluster-container").width();
 		height = $("#main-view").height();
