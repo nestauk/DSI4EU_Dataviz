@@ -10,6 +10,7 @@
     "d3": "^4.7.1",
     "d3-grid": "git+https://github.com/abusedmedia/d3-grid.git",
     "fastclick": "^1.0.6",
+    "inobounce": "^0.1.4",
     "jquery": "^3.1.1",
     "jquery-highlight": "^3.4.0",
     "jquery-mousewheel": "^3.1.13",
@@ -20,7 +21,9 @@
     "topojson": "^2.2.0"
   },
   "standard": {
-    "globals": ["jQuery"]
+    "globals": [
+      "jQuery"
+    ]
   },
   "devDependencies": {
     "lodash": "^4.17.4",
