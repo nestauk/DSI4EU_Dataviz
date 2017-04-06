@@ -67,21 +67,21 @@ function UserInterface() {
 				$('#nav-current-bg').transition({
 					left: "0%",
 					x: "0%"
-				}, 500, "easeInOutQuart")
+				}, 750, "easeInOutQuint")
 				$('#nav-map').addClass('current')
 				break;
 			case "network":
 				$('#nav-current-bg').transition({
 					left: "50%",
 					x: "-50%"
-				}, 500, "easeInOutQuart")
+				}, 750, "easeInOutQuint")
 				$('#nav-network').addClass('current')
 				break;
 			case "cluster":
 				$('#nav-current-bg').transition({
 					left: "100%",
 					x: "-100%"
-				}, 500, "easeInOutQuart")
+				}, 750, "easeInOutQuint")
 				$('#nav-cluster').addClass('current')
 				break;
 			default:
@@ -91,7 +91,7 @@ function UserInterface() {
 	}
 
 	function hideUI() {
-		$('#user-interface').transition({opacity:0}, 500, 'easeInOutQuint');
+		$('#user-interface').transition({opacity:0}, 750, 'easeInOutQuint');
 	}
 
 	function showUI() {
@@ -301,13 +301,13 @@ function UserInterface() {
 		});
 		$('.map-panel').transition({
 			x: "100%"
-		}, 500, "easeOutQuart");
+		}, 750, "easeInOutQuint");
 		$('.map-list').transition({
 			x: 0,
 			complete: function() {
 				APP.orgPanel.delete();
 			}
-		}, 500, "easeOutQuart");
+		}, 750, "easeInOutQuint");
 		self.closeCurrentPanel = closeOrgList;
 	}
 
@@ -366,13 +366,13 @@ function UserInterface() {
 		});
 		$('.network-panel').transition({
 			x: "100%"
-		}, 500, "easeOutQuart");
+		}, 750, "easeInOutQuint");
 		$('.network-list').transition({
 			x: 0,
 			complete: function() {
 				APP.networkPanel.deleteNetworkPanelItems();
 			}
-		}, 500, "easeOutQuart");
+		}, 750, "easeInOutQuint");
 		self.closeCurrentPanel = closeNetworkList;
 	}
 
