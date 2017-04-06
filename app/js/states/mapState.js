@@ -10,6 +10,10 @@ function mapState(){
 			APP.ui.updateViewFunction = APP.map.update;
 			APP.permalink.parseUrlParameters(option.param);
 			APP.ui.updateNavigation()
+
+			if(!_.isNaN(+option.param.l)) APP.map.showLinks = +option.param.l
+			else APP.map.showLinks = 0
+
 			if(option.param.x){
 				var t = {
 					x: +option.param.x,
@@ -26,7 +30,7 @@ function mapState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 1000)
-				if (isMobile) {
+				if (window.isMobile) {
 					timeout = setTimeout(function(){	
 						APP.coachMarks.show()
 						APP.coachMarks.place($("#filter-tab"))
