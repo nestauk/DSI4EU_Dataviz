@@ -6,10 +6,14 @@ function clusterState(){
 	return {
 		enter: function(option){
 			console.log('clusterState :: enter');
-			APP.cluster.create();
 			APP.setState('cluster')
 			APP.ui.updateViewFunction = APP.cluster.update;
 			APP.permalink.parseUrlParameters(option.param);
+			
+			if(_.isString(option.param.g)) APP.cluster.cluster_field = option.param.g
+			if(_.isString(option.param.s)) APP.cluster.subdivide_field = option.param.s
+
+			APP.cluster.create();
 			APP.ui.updateNavigation()
 			if( !APP.views.cluster.shown ) {
 				console.log("first time on cluster!")

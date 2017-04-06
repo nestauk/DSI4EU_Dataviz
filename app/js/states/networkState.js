@@ -4,11 +4,23 @@ function networkState () {
 			console.log('networkState :: enter');
 			APP.setState('network')
       $('#network-wrapper').css({opacity: 1, 'pointer-events': 'auto'})
-			APP.network.restart()
 			APP.ui.updateViewFunction = APP.network.update;
 			APP.permalink.parseUrlParameters(option.param);
 			APP.ui.updateNavigation()
-			if( !APP.views.network.shown ){
+
+			if(!_.isNaN(+option.param.l)) APP.network.showLinkedOnly = +option.param.l
+			else APP.network.showLinkedOnly = 1
+
+			APP.network.restart()
+
+			if(option.param.org || option.param.prj){
+				var set = option.param.org ? APP.filter.orgs : APP.filter.prjs
+				var node = _.find(set, {id: parseInt(option.param.org) || parseInt(option.param.prj)});
+				console.log(node)
+				APP.network.focus(node)
+			}
+
+			if( !APP.views.network.shown){
 				console.log("first time on network!")
 				APP.views.network.shown = true;
 				setTimeout(function(){	
