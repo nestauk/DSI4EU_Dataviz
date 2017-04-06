@@ -40,7 +40,7 @@ module.exports = function (grunt, options) {
         {
           expand: true,
           cwd: options.folders.app,
-          src:  path.join('assets', 'imgs', '*.{jpg,png,bmp,gif}'),
+          src:  path.join('img', 'ui', '*.{svg,jpg,png,bmp,gif}'),
           dest: path.join(options.folders.dist)
         },
         {

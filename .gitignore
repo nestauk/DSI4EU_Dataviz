@@ -16,3 +16,6 @@ ignore
 *.app
 
 .sublime-project
+
+__onboarding_canvas.html
+__onboarding_svg.html

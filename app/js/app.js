@@ -62,6 +62,9 @@
 			if (APP.stator.current.name && !_.includes(APP.stator.current.name, 'onboarding')) {
 				APP.defaultLandingState.name = APP.stator.current.name;
 				APP.defaultLandingState.param = APP.stator.param;
+				APP.embed = (APP.stator.param.e === '1') ? '1' : '0'
+
+				if(APP.embed === '1') $('#user-interface').hide()
 			}
 			if (window.localStorage.getItem('visited')) {
 				APP.stator.navigateDefault();
