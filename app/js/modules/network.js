@@ -102,8 +102,8 @@ function NetworkView() {
 			if (hex != '#000000') var node = lookupMap[hex]
 			if (node) {
 				focusSearchResult(node)
-				updateViewSettings();
 			}
+			updateViewSettings();
 			update();
 		})
 
@@ -293,12 +293,12 @@ function NetworkView() {
 	}
 
 	function updateViewSettings() {
+		var settings = {};
 		if (currentResultFocus) {
-			var settings = {};
 			settings[currentResultFocus.type] = currentResultFocus.id;
-			APP.permalink.viewSettings = settings
-			APP.permalink.go();
 		}
+		APP.permalink.viewSettings = settings
+		APP.permalink.go();
 	}
 
 	function deleteNetwork() {
