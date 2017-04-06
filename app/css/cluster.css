@@ -16,8 +16,11 @@ text.smallLabel{
 	text-anchor: middle;
 }
 .cluster-label {
-	font-size: 1.25rem;
+	font-size: 1.2rem;
+	line-height: 1.6rem;
 	text-align: center;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 .cluster-label span{
 	max-width: 50%;
@@ -34,18 +37,19 @@ text.smallLabel{
 	flex-direction: column;
 	width: 50%;
 }
-.cluster-wrapper p::after {
+.cluster-wrapper::after {
 	content: "";
 	display: block;
 	height: 1rem;
 	width: 85%;
 	border-bottom: .15rem solid #aaa;
 }
-.cluster-wrapper:nth-child(odd) p::after {
+.cluster-wrapper:nth-child(odd)::after {
 	position: absolute;
 	right: 0;
 }
-.cluster-wrapper:nth-child(even) p::after {
+.cluster-wrapper:nth-child(even)::after {
+	position: absolute;
 	margin-left: 0;
 }
 
