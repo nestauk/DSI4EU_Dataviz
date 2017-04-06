@@ -40,7 +40,10 @@ function NetworkView() {
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();
-		if (!window.isMobile) width = width - $('.ui header').width();
+		if (!window.isMobile && !APP.embed){
+			width = width - $('.ui header').width();
+		console.log('WIDTH', width)
+		}
 
 		self.system = d3.forceSimulation()
 			.force("link", d3.forceLink().id(function(d) {
@@ -88,9 +91,6 @@ function NetworkView() {
 
 		zoomable = d3.select(canvas[0])
 		zoomable.call(zoom)
-		if (!window.isMobile) {
-			zoomable.call(zoom.scaleTo, .6)
-		}
 
 		canvas.click(function(e) {
 			var lc = lookupCanvas[0].getContext("2d");
@@ -209,7 +209,6 @@ function NetworkView() {
 			c.arc(d.x, d.y, r, 0, 2 * Math.PI);
 			c.fill();
 		});
-
 		c.restore();
 
 		function updateLookup(r) {
