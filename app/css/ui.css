@@ -1340,7 +1340,7 @@
 	pointer-events: none;
 	opacity: 0;
 }
-.landscape #turn-view{
+.mobile.landscape #turn-view{
 	pointer-events: all;
 	opacity: 1;
 }
