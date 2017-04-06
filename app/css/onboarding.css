@@ -101,7 +101,8 @@
 	text-decoration: none;
 	color: white;
 	text-transform: uppercase;
-	border-bottom: 2px solid #1dc9a0;
+	border-bottom: 1px solid #1dc9a0;
+	padding-bottom: .4rem;
 	display: block;
 	cursor: pointer;
 }

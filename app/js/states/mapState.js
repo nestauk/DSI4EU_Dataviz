@@ -26,10 +26,12 @@ function mapState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 1000)
-				timeout = setTimeout(function(){	
-					APP.coachMarks.show()
-					APP.coachMarks.place($("#filter-tab"))
-				}, 8000)
+				if (isMobile) {
+					timeout = setTimeout(function(){	
+						APP.coachMarks.show()
+						APP.coachMarks.place($("#filter-tab"))
+					}, 8000)
+				}
 			}
 			
 		},
