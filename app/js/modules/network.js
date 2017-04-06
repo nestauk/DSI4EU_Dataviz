@@ -3,11 +3,12 @@ function NetworkView() {
 	self.create = createNetwork;
 	self.delete = deleteNetwork;
 	self.focus = focusSearchResult;
-	self.update = createNetwork
-  self.pause = pause
-  self.restart = restart
+	self.point = focusOnPoint;
+	self.update = drawNetwork
+	self.pause = pause
+	self.restart = restart
 
-	self.showLinkedOnly = false;
+	self.showLinkedOnly = true;
 
 	self.system = null;
 
@@ -29,60 +30,17 @@ function NetworkView() {
 	var scale = initialScale = 1;
 	var currentActiveNetwork = null;
 	var currentResultFocus = null;
-	var container, canvas, zoom, zoomable;
+	var container, canvas, lookupCanvas, zoom, zoomable;
 	var infoPopup;
 
 	function createNetwork() {
-    console.log('create network')
 		resetTransforms()
 		deleteNetwork()
 		lookupMap = {};
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();
-
 		if (!window.isMobile) width = width - $('.ui header').width();
-
-		if (self.showLinkedOnly) {
-			var prjs = _.filter(APP.filter.prjs, function(p) {
-				return p.linked_orgs.length > 1;
-			})
-			var orgs = _.filter(APP.filter.orgs, function(o) {
-				return !_.isEmpty(o.shared_prjs);
-			})
-		} else {
-			var orgs = APP.filter.orgs
-			var prjs = APP.filter.prjs
-		}
-
-
-		orgs = _.filter(orgs, function(o) {
-			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
-				if (self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
-				return _.includes(APP.filter.prjs, p);
-			})
-		});
-		prjs = _.filter(prjs, function(p) {
-			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
-				if (self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
-				return _.includes(APP.filter.orgs, o);
-			})
-		});
-
-
-		links = []
-		nodes = orgs.concat(prjs)
-
-		orgs.forEach(function(o) {
-			o.linked_prjs.forEach(function(p) {
-				if (_.includes(prjs, p)) {
-					links.push({
-						source: o,
-						target: p
-					})
-				}
-			})
-		})
 
 		self.system = d3.forceSimulation()
 			.force("link", d3.forceLink().id(function(d) {
@@ -91,24 +49,7 @@ function NetworkView() {
 			.force("charge", d3.forceManyBody().strength(-150).distanceMax(100))
 			.force("center", d3.forceCenter(width / 2, height / 2))
 
-		self.system.nodes(nodes);
-
-		self.system.force("link").links(links);
-
-		nodes.forEach(function(n, i) {
-			hexStr = intToHex(10*i)
-			lookupMap[hexStr] = n;
-			n.hex = hexStr
-		})
-
-		drawCanvasNetwork()
-	}
-
-	function drawCanvasNetwork() {
-		self.system.on("tick", update);
-    console.log('drawcanvas')
 		container = $('<div id="network-wrapper"></div>');
-    // container.css({opacity: 0, 'pointer-events': 'none'})
 
 		$("#main-view").append(container)
 
@@ -121,11 +62,7 @@ function NetworkView() {
 			})
 			.attr("id", "network-container")
 
-		container.append(canvas)
-
-		var c = canvas[0].getContext("2d");
-
-		var lookupCanvas = canvas.clone()
+		lookupCanvas = canvas.clone()
 			.attr("id", "network-lookup")
 			.css({
 				position: 'absolute',
@@ -134,9 +71,8 @@ function NetworkView() {
 				display: 'none',
 				'pointer-events': 'none'
 			})
-		var lc = lookupCanvas[0].getContext("2d");
 
-		container.append(lookupCanvas)
+		container.append(canvas, lookupCanvas)
 
 		if (window.devicePixelRatio > 1) {
 			scaleCanvas(canvas)
@@ -157,6 +93,7 @@ function NetworkView() {
 		}
 
 		canvas.click(function(e) {
+			var lc = lookupCanvas[0].getContext("2d");
 			if (infoPopup) removeInfoPopup();
 			currentResultFocus = null;
 			currentActiveNetwork = null;
@@ -165,55 +102,115 @@ function NetworkView() {
 			if (hex != '#000000') var node = lookupMap[hex]
 			if (node) {
 				focusSearchResult(node)
+				updateViewSettings();
 			}
 			update();
 		})
 
-		function zoomCanvas() {
-			if (infoPopup) removeInfoPopup();
-			var transform = d3.event.transform;
-			scale = transform.k
-			translateX = transform.x
-			translateY = transform.y
-			update()
+		drawNetwork();
+	}
+
+	function prepareData() {
+		if (self.showLinkedOnly) {
+			var prjs = _.filter(APP.filter.prjs, function(p) {
+				return p.linked_orgs.length > 1;
+			})
+			var orgs = _.filter(APP.filter.orgs, function(o) {
+				return !_.isEmpty(o.shared_prjs);
+			})
+		} else {
+			var orgs = APP.filter.orgs
+			var prjs = APP.filter.prjs
 		}
 
-		function update() {
-			var r = 6;
-			updateLookup(r)
+		orgs = _.filter(orgs, function(o) {
+			return !_.isEmpty(o.linked_prjs) && _.some(o.linked_prjs, function(p) {
+				if (self.showLinkedOnly) return _.includes(APP.filter.prjs, p) && p.linked_orgs.length > 1;
+				return _.includes(APP.filter.prjs, p);
+			})
+		});
+		prjs = _.filter(prjs, function(p) {
+			return !_.isEmpty(p.linked_orgs) && _.some(p.linked_orgs, function(o) {
+				if (self.showLinkedOnly) return _.includes(APP.filter.orgs, o) && !_.isEmpty(o.shared_prjs);
+				return _.includes(APP.filter.orgs, o);
+			})
+		});
 
-			c.save();
-			c.clearRect(0, 0, width, height);
-			c.scale(scale, scale)
-			c.translate(translateX / scale, translateY / scale)
+		links = []
+		nodes = orgs.concat(prjs)
 
-			links.forEach(function(d) {
-				c.strokeStyle = "lightgrey";
-				c.lineWidth = 1;
-				c.beginPath();
-				c.moveTo(d.source.x, d.source.y);
-				c.lineTo(d.target.x, d.target.y);
-				c.stroke();
-			});
-
-			nodes.forEach(function(d) {
-				if (d.type === 'prj') {
-					r = 4
-					c.fillStyle = "#f28244";
-					if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#f5d9ca'
-				} else {
-					c.fillStyle = "#b164a5";
-					if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#e5d2e2'
+		orgs.forEach(function(o) {
+			o.linked_prjs.forEach(function(p) {
+				if (_.includes(prjs, p)) {
+					links.push({
+						source: o,
+						target: p
+					})
 				}
-				// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
-				c.beginPath();
-				c.moveTo(d.x + r, d.y);
-				c.arc(d.x, d.y, r, 0, 2 * Math.PI);
-				c.fill();
-			});
+			})
+		})
+	}
 
-			c.restore();
-		}
+	function drawNetwork() {
+		prepareData();
+		self.system.nodes(nodes);
+		self.system.force("link").links(links);
+
+		nodes.forEach(function(n, i) {
+			hexStr = intToHex(10 * i)
+			lookupMap[hexStr] = n;
+			n.hex = hexStr
+		})
+		self.system.on("tick", update);
+		restart();
+	}
+
+	function zoomCanvas() {
+		if (infoPopup) removeInfoPopup();
+		var transform = d3.event.transform;
+		scale = transform.k
+		translateX = transform.x
+		translateY = transform.y
+		update()
+	}
+
+	function update() {
+		var r = 6;
+		var c = canvas[0].getContext("2d");
+		var lc = lookupCanvas[0].getContext("2d");
+		updateLookup(r)
+
+		c.save();
+		c.clearRect(0, 0, width, height);
+		c.scale(scale, scale)
+		c.translate(translateX / scale, translateY / scale)
+
+		links.forEach(function(d) {
+			c.strokeStyle = "lightgrey";
+			c.lineWidth = 1;
+			c.beginPath();
+			c.moveTo(d.source.x, d.source.y);
+			c.lineTo(d.target.x, d.target.y);
+			c.stroke();
+		});
+
+		nodes.forEach(function(d) {
+			if (d.type === 'prj') {
+				r = 4
+				c.fillStyle = "#f28244";
+				if (currentActiveNetwork && !_.includes(currentActiveNetwork.prjs, d)) c.fillStyle = '#f5d9ca'
+			} else {
+				c.fillStyle = "#b164a5";
+				if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#e5d2e2'
+			}
+			// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
+			c.beginPath();
+			c.moveTo(d.x + r, d.y);
+			c.arc(d.x, d.y, r, 0, 2 * Math.PI);
+			c.fill();
+		});
+
+		c.restore();
 
 		function updateLookup(r) {
 			lc.save();
@@ -234,6 +231,8 @@ function NetworkView() {
 	}
 
 	function focusSearchResult(result) {
+		currentActiveNetwork = APP.dataset.getNetworkData(result, true);
+		currentResultFocus = result
 		var scale = 3
 		var translate = [width / 2 - result.x, height / 2 - result.y]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
@@ -241,8 +240,12 @@ function NetworkView() {
 			createInfoPopup(result);
 		})
 
-		currentActiveNetwork = APP.dataset.getNetworkData(result, true);
-		currentResultFocus = result
+	}
+
+	function focusOnPoint(transform) {
+		var scale = transform.k
+		var t = d3.zoomIdentity.translate(transform.x, transform.y);
+		zoomable.transition().duration(500).call(zoom.transform, t);
 	}
 
 	function createInfoPopup(result) {
@@ -289,13 +292,21 @@ function NetworkView() {
 		scale = initialScale;
 	}
 
+	function updateViewSettings() {
+		if (currentResultFocus) {
+			var settings = {};
+			settings[currentResultFocus.type] = currentResultFocus.id;
+			APP.permalink.viewSettings = settings
+			APP.permalink.go();
+		}
+	}
+
 	function deleteNetwork() {
 		resetNodes(nodes)
 		resetNodes(links)
 		nodes = []
 		links = []
 		if (infoPopup) removeInfoPopup();
-		currentActiveNetwork = null;
 		if (self.system) {
 			self.system.nodes(nodes);
 			self.system.force("link").links(links);
@@ -318,10 +329,11 @@ function NetworkView() {
 		}
 	}
 
-  function pause () {
-    self.system.stop()
-  }
-  function restart () {
-    self.system.restart()
-  }
+	function pause() {
+		self.system.stop()
+	}
+
+	function restart() {
+		self.system.alpha(1).restart()
+	}
 }
