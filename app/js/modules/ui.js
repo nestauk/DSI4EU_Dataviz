@@ -91,6 +91,14 @@ function UserInterface() {
 		}
 	}
 
+	function trackGA(v){
+		if(window.ga){
+			var loc = window.location.pathname + v
+			ga('set', 'page', loc)
+			ga('send', 'pageview', loc)
+		}
+	}
+
 	function hideUI() {
 		$('#user-interface').transition({opacity:0}, 750, 'easeInOutQuint');
 	}
@@ -156,7 +164,7 @@ function UserInterface() {
 	function openSharePanel() {
 		console.log('open share')
 		self.closeUIPanels();
-		$("#share-button").off().addClass('selected')
+		$("#share-button").off()
 		$(".share-panel").transition({
 			y: 0
 		}, 750, 'easeInOutQuint');
@@ -167,6 +175,9 @@ function UserInterface() {
 			$(".share-icon").off();
 			$("#share-button").click(openSharePanel);
 		})
+		$("#share-button").addClass('selected')
+		trackGA('share')
+
 	}
 
 	function closeSharePanel() {
@@ -183,7 +194,7 @@ function UserInterface() {
 
 	function openSearchPanel() {
 		console.log('open search')
-		$("#search-button").off().addClass('selected')
+		$("#search-button").off()
 		var search_hint = 'Search'
 		switch (APP.state) {
 			case 'map':
@@ -202,16 +213,20 @@ function UserInterface() {
 		openToolsPanel($('#tools-search'), function() {
 			$("#search-button").click(openSearchPanel);
 		})
+		$("#search-button").addClass('selected')
+		trackGA('search')
 	}
 
 	function openInfoPanel() {
 		console.log('open infopanel')
-		$("#info-button").off();
+		$("#info-button").off()
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
 			$("#info-button").click(openInfoPanel).addClass('selected')
 		})
 		APP.infoPanel.create(APP.state);
+		$("#info-button").addClass('selected')
+		trackGA('info')
 	}
 
 	function openMapPanel(data) {
@@ -248,6 +263,10 @@ function UserInterface() {
 		}, t, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 		thereIsAPanel=false
+
+		$('#share-button').removeClass('selected')
+		$('#search-button').removeClass('selected')
+		$('#info-button').removeClass('selected')
 	}
 
 	function openOrgList(orgs) {

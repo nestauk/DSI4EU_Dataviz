@@ -39,11 +39,12 @@
 		}
 
 		APP.stator = new States();
+		APP.ga = new GoogleA();
 
 		APP.dataset.loadData(function() {
-			APP.filter.init();
+		APP.filter.init();
 
-			APP.map = new MapView()
+		APP.map = new MapView()
     	APP.map.create()
 
     	APP.network = new NetworkView()
