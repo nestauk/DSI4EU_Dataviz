@@ -60,6 +60,7 @@ function Permalink(){
 	}
 
 	function createUrl(params){
+		if(!params) var params = APP.stator.param
  		params.e = 1
  		var currentUrl = window.location.origin + '/#' + APP.stator.encode( APP.stator.current.name, params )
  		return currentUrl
