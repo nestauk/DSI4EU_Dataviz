@@ -407,11 +407,11 @@
 	transition: fill .25s;
 }
 .mouse .ui .tools .tools-icon:hover path:first-child{
-	fill: #1DC9A0;
+	fill: #444;
 }
 
 .tools-icon.selected path:first-child{
-	fill: #1DC9A0;
+	fill: #444;
 }
 
 .ui .tools .tools-icon .icon-circle{
@@ -1015,7 +1015,7 @@
 	content: "";
 	display: block;
 	height: .75rem;
-	border-bottom: .2rem solid white;
+	border-bottom: .15rem solid white;
 }
 
 .ui .modal-panel .scrolling {
