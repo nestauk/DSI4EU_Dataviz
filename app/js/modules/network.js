@@ -40,7 +40,13 @@ function NetworkView() {
 
 		width = $("#main-view").width();
 		height = $("#main-view").height();
-		if (!window.isMobile && !APP.embed){
+		
+		$(window).on("resize", function () {
+			if(!window.isMobile && !APP.embed && orientMQ.matches) width = $("#main-view").width() - $('.ui header').width()
+			else width = $("#main-view").width()
+		})
+
+		if (!window.isMobile && !APP.embed && orientMQ.matches){
 			width = width - $('.ui header').width();
 		}
 
