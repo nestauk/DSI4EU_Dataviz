@@ -21,8 +21,14 @@ function mapState(){
 					y: +option.param.y,
 					k: +option.param.k
 				}
-				APP.map.defaultPosition(t)
+			} else {
+				var t = {
+					x: 226,
+					y: 441,
+					k: 1
+				}
 			}
+				APP.map.defaultPosition(t)
 			$('#map-container').css({opacity:1, "pointer-events":"auto"})
 			APP.map.reset();
 			APP.map.update();
