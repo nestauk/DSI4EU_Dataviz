@@ -116,11 +116,15 @@
 .ui .nav .nav-icon.current-bg svg{
 	width: 4rem;
 }
-
-.ui .nav .icon-bg {
-	display: none;
+.ui .nav .nav-icon .icon-bg {
+	fill: #333;
+	opacity: 0;
+	transition: opacity .5s;
 }
-
+.ui .nav .nav-icon:hover .icon-bg{
+	fill: #444;
+	opacity: 1;
+}
 .ui .nav .current .icon-bg {
 	transform: scale(0);
 }
@@ -1378,9 +1382,6 @@
 	width: 120px;
 }
 
-
-
-
 #embed-overlay {
 	position: absolute;
 	z-index: 999;
@@ -1414,7 +1415,11 @@
 #embed-overlay .embed-cta span {
 	font-size: 1.5rem;
 	line-height: 1.5rem;
-	width: 40%;
+	text-align: right;
+	width: 100%;
+}
+#embed-overlay .embed-cta{
+	flex: 1;
 }
 #embed-overlay .embed-legend-network h3:first-child{
 	margin-bottom: .5rem;
@@ -1422,12 +1427,8 @@
 #embed-overlay .embed-legend-container h3 {
 	margin-bottom: 0;
 }
-#embed-overlay .embed-cta div {
-	flex: 1;
-	text-align: right;
-	flex: 1;
-}
 #embed-overlay button{
+	margin-left: 1.5rem;
 	color: #fff;
 	font-size: 1.4rem;
 	padding: 1rem 2rem;
