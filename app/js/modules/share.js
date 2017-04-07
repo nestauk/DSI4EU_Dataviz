@@ -31,7 +31,7 @@ function Share() {
   }
 
   function embedPermalink(link){
-    var code = '<iframe src="'+link+'"></iframe>';
+    var code = '<iframe src="'+link+'" frameborder="0"></iframe>';
     $("#share-embed input")
       .attr("value", code)
 
