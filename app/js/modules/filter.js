@@ -39,6 +39,7 @@ function Filter() {
 			.on("click", function(d) {
 				d.active = false;
 				APP.permalink.go();
+				if(!window.isMobile) APP.ui.updateView()
 			})
 
 		filterEl
@@ -168,6 +169,10 @@ function Filter() {
 		if (count > 0) label = '<strong>' + count + '</strong> active ' + _.pluralize('filters', count);
 		// if(APP.state === 'cluster' && APP.cluster.subdivide_field != 'none') label += ' - divide by <strong>'+APP.dataset.fields.names_map[APP.cluster.subdivide_field]+'</strong>'
 		return label;
+	}
+
+	function resetMap(){
+		
 	}
 
 	function createViewSettings() {
