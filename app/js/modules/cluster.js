@@ -3,6 +3,8 @@ function ClusterView() {
 	self.create = createNewClusters;
 	self.delete = deleteCluster;
 	self.update = createNewClusters;
+	self.focus = focusSearchResult;
+	self.getClusters = getCurrentClusters;
 
 	var width, height, clusterWidth, clusterHeight, clusterElements, clusterWrappers;
 	var projects;
@@ -127,6 +129,10 @@ function ClusterView() {
 				.enter()
 				.append('div')
 				.attr("class", "cluster-wrapper")
+				.attr("id", function(d){
+					d.elementId = 'cluster-'+idEncode(d.key)
+					return d.elementId
+				})
 
 		clusterElements = clusterWrappers
 				.append('svg')
@@ -186,6 +192,8 @@ function ClusterView() {
 
 			clusterWrappers.on("click", function(d){
 				APP.ui.openClusterPanel(d)
+				$('#cluster-container .active').removeClass('active')
+				$(this).addClass('active')
 			})
 
 			var circles = subs.selectAll('circle')
@@ -206,6 +214,16 @@ function ClusterView() {
 					return d.r
 				})
 		}
+	}
+
+	function focusSearchResult(result){
+		$('#cluster-container').scrollTo('#'+result.elementId, {duration:500})
+		$('#cluster-container .active').removeClass('active')
+		$('#'+result.elementId).addClass('active');
+	}
+
+	function getCurrentClusters(){
+		return clusters;
 	}
 
 	function addLabel(e, i) {

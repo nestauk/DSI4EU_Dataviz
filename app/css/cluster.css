@@ -36,23 +36,31 @@ text.smallLabel{
 	display: flex;
 	flex-direction: column;
 	width: 50%;
+	padding-bottom: 1rem;
 }
-.cluster-wrapper:not(:nth-child(-n+2))::after {
+.cluster-wrapper:not(:nth-last-child(-n+2))::after {
 	content: "";
 	display: block;
 	height: 1rem;
 	width: 85%;
-	border-bottom: .15rem solid #aaa;
+	border-bottom: .15rem solid #a4a4a4;
 }
 .cluster-wrapper:nth-child(odd)::after {
 	position: absolute;
 	right: 0;
+	bottom: 0;
 }
 .cluster-wrapper:nth-child(even)::after {
 	position: absolute;
 	margin-left: 0;
+	bottom: 0;
 }
-
 .cluster-wrapper svg {
 	width: 100%;
+}
+.cluster-wrapper.active .cluster-label{
+	font-weight: bold;
+}
+.cluster-wrapper.active::after {
+	border-bottom: .2rem solid #1DC9A0;
 }
