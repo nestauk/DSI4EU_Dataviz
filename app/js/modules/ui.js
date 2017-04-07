@@ -204,7 +204,7 @@ function UserInterface() {
 				search_hint = 'Find a project or an organisation'
 				break;
 			case 'cluster':
-				search_hint = 'Find a cluster group'
+				search_hint = 'Find a ' + APP.dataset.fields.cluster_names_map[APP.cluster.cluster_field].toLowerCase();
 				break;
 		}
 		$('#search-input').attr('placeholder', search_hint)
