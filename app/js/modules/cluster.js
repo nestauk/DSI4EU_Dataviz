@@ -81,6 +81,11 @@ function ClusterView() {
 			maxSubdivisionValue = maxSubdivision.values[0].values.length;
 			drawSubdividedClusters(subdivide_field);
 		}
+		clusterWrappers.on("click", function(d){
+			APP.ui.openClusterPanel(d)
+			$('#cluster-container .active').removeClass('active')
+			$(this).addClass('active')
+		})
 	}
 
 	function createGroups(array, field) {
@@ -158,9 +163,6 @@ function ClusterView() {
 			.attr("cx", clusterWidth / 2)
 			.attr("cy", clusterHeight / 2)
 			.attr("class", "circle prj")
-			// .on("click", function(d){
-			// 	APP.ui.openClusterPanel(d)
-			// })
 			.transition()
 				.duration(500)
 				.delay(400)
@@ -195,12 +197,6 @@ function ClusterView() {
 
 			d3.packSiblings(subdivisions)
 			var subs = d3.select(this)
-
-			clusterWrappers.on("click", function(d){
-				APP.ui.openClusterPanel(d)
-				$('#cluster-container .active').removeClass('active')
-				$(this).addClass('active')
-			})
 
 			var circles = subs.selectAll('circle')
 				.data(subdivisions)
