@@ -51,6 +51,10 @@
 	outline: none;
 }
 
+.ui select option {
+	color: #000;
+}
+
 .ui .content {
 	pointer-events: none;
 }
