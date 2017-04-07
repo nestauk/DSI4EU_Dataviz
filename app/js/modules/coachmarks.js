@@ -1,18 +1,23 @@
 function CoachMarks() {
 	var self = this;
-	self.show = showCoachMarks;
-	self.place = placeCoachMark;
+	self.show = showCoachMarks
+	self.place = placeCoachMark
+	self.showMapCoachmark = showMapCoachmark
 
 	var message
 
 	$('#coachmarks').hide();
 
-	function init() {
-		
+	function showMapCoachmark() {
+		var timeout = setTimeout(function(){	
+			showCoachMarks()
+			placeCoachMark($("#filter-tab"))
+		}, 500)
+		APP.views.map.shown = true;
 	}
 
 	function showCoachMarks() {
-		$('#coachmarks').show();
+		$('#coachmarks').fadeIn();
 	}
 
 	function placeCoachMark(target) {

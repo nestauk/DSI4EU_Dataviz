@@ -34,16 +34,10 @@ function mapState(){
 			APP.map.update();
 			if( !APP.views.map.shown ) {
 				console.log("first time on map!")
-				APP.views.map.shown = true;
+				//APP.views.map.shown = true;
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 2000)
-				if (window.isMobile) {
-					timeout = setTimeout(function(){	
-						APP.coachMarks.show()
-						APP.coachMarks.place($("#filter-tab"))
-					}, 8000)
-				}
 			}
 			
 		},
