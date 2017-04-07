@@ -119,7 +119,8 @@
 .ui .nav .nav-icon .icon-bg {
 	fill: #333;
 	opacity: 0;
-	transition: opacity .5s;
+	transition: opacity .5s, transform .5s;
+	transform-origin: center;
 }
 .ui .nav .nav-icon:not(.current):hover .icon-bg{
 	fill: #444;
@@ -139,16 +140,6 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-}
-
-.ui .nav .nav-next,
-.ui .nav .nav-prev {
-	width: .8rem;
-	margin: 0 .4rem;
-}
-
-.ui .nav .nav-prev {
-	transform: scale(-1)
 }
 
 .ui .nav .nav-icon svg{
@@ -178,9 +169,7 @@
 
 .ui #filter-panel {
 	background: #333333;
-/*	height: 100%;
-*/	padding: 0;
-	/*transform: translateY(-100%);*/
+	padding: 0;
 }
 
 .ui #filter-panel h2 {
