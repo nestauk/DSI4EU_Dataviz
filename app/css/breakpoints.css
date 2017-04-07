@@ -150,9 +150,6 @@ html, body {
 	  right: 0;
 	  top: 0;
 	}
-	.ui .modal-header {
-		justify-content: space-between;
-	}
 }
 
 @media screen and (max-width: 480px) {

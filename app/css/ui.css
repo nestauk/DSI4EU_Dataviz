@@ -10,6 +10,7 @@
 }
 
 .ui select{
+	cursor: pointer;
 	-webkit-appearance: button;
 }
 
@@ -949,6 +950,7 @@
 	width: 2.5rem;
 	height: 2.5rem;
 	fill: #333333;
+	cursor: pointer;
 }
 .ui .modal-panel .remove-icon.inverted-color {
 	fill: white;

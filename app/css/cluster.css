@@ -38,6 +38,7 @@ text.smallLabel{
 	flex-direction: column;
 	width: 50%;
 	padding-bottom: 1rem;
+	cursor: pointer;
 }
 .cluster-wrapper::after {
 	content: "";
