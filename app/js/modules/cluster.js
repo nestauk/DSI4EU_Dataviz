@@ -26,6 +26,10 @@ function ClusterView() {
 		var subdivide_field = self.subdivide_field;
 		deleteCluster();
 
+		$(window).on("resize", function () {
+			if(!window.isMobile && !APP.embed) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
+		})
+
 		projects = APP.filter.prjs;
 		organisations = APP.filter.orgs;
 		fields = APP.dataset.fields;
@@ -136,8 +140,9 @@ function ClusterView() {
 
 		clusterElements = clusterWrappers
 				.append('svg')
-				.attr('width', clusterWidth)
-				.attr('height', clusterHeight)
+				// .attr('width', clusterWidth)
+				// .attr('height', clusterHeight)
+				.attr("viewBox", "0 0 " + clusterWidth + " " + clusterHeight)
 				.attr('class', 'cluster-svg')
 				.append('g')
 	}

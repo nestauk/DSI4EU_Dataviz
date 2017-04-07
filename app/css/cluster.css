@@ -38,7 +38,7 @@ text.smallLabel{
 	width: 50%;
 	padding-bottom: 1rem;
 }
-.cluster-wrapper:not(:nth-last-child(-n+2))::after {
+.cluster-wrapper::after {
 	content: "";
 	display: block;
 	height: 1rem;

@@ -8,21 +8,74 @@ html, body {
 	}
 }
 
-/*@media (min-width: 767px) {
-	html, body{
-		font-size: 100%;
-	}
-}*/
-
 @media (min-width: 1020px) {
 	html, body{
 		font-size: 110%;
+	}
+	#cluster-container .cluster-wrapper {
+		width: 25%;
+	}
+	.cluster-wrapper::after {
+		content: "";
+		display: block;
+		height: 1rem;
+		border-bottom: .15rem solid #a4a4a4;
+	}
+	.cluster-wrapper:nth-child(4n+1)::after {
+		width: 85%;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+	.cluster-wrapper:nth-child(4n+2)::after,
+	.cluster-wrapper:nth-child(4n+3)::after {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+	}
+	.cluster-wrapper:nth-child(4n+4)::after {
+		width: 85%;
+		position: absolute;
+		margin-left: 0;
+		bottom: 0;
 	}
 }
 
 @media (min-width: 1270px) {
 	html, body{
 		font-size: 130%;
+	}
+}
+
+@media (min-width: 1600px) {
+	#cluster-container .cluster-wrapper {
+		width: 16.6666666667%;
+	}
+	.cluster-wrapper::after {
+		content: "";
+		display: block;
+		height: 1rem;
+		border-bottom: .15rem solid #a4a4a4;
+	}
+	.cluster-wrapper:nth-child(6n+1)::after {
+		width: 85%;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+	.cluster-wrapper:nth-child(6n+2)::after,
+	.cluster-wrapper:nth-child(6n+3)::after,
+	.cluster-wrapper:nth-child(6n+4)::after,
+	.cluster-wrapper:nth-child(6n+5)::after {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+	}
+	.cluster-wrapper:nth-child(6n+6)::after {
+		width: 85%;
+		position: absolute;
+		margin-left: 0;
+		bottom: 0;
 	}
 }
 
