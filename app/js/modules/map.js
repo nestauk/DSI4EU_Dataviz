@@ -185,7 +185,7 @@ function MapView() {
 			.append('circle')
 			.merge(circle)
 			.on('click', function(d) {
-				$('.active').removeClass('active')
+				$('#map-container .active').removeClass('active')
 				$(this).addClass('active');
 				if (_.includes(d.orgs, currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
 				else APP.ui.openMapPanel(d)
