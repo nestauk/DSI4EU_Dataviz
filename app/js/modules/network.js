@@ -238,7 +238,7 @@ function NetworkView() {
 		zoomable.transition().duration(500).call(zoom.transform, t).on("end", function() {
 			createInfoPopup(result);
 		})
-
+		updateViewSettings();
 	}
 
 	function focusOnPoint(transform) {
