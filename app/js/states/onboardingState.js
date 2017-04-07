@@ -27,7 +27,7 @@
       dotsContainer.find('div').removeClass('active')
       dotsContainer.find('div:nth-child(' + sec + ')').addClass('active')
       nextCnt.css({opacity: 0, scale: 0}).transition({opacity: 1, scale: 1, delay: delays[sec]}, 1000, 'easeInOutQuart')
-      if(sec == sections.length - 1){
+      if(sec == sections.length){
         nextBtn.removeAttr('href')
         nextBtn.click(function(e) {
           e.preventDefault()
@@ -111,21 +111,11 @@
           cont.find('.three p:first-child').css({y: -30}).transition({delay: 250, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
           cont.find('.three p:last-child').css({y: 30}).transition({delay: 500, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
 
-          setTimeout(function () {
-            cont.find('.three p:nth-child(2)').css({opacity: 1})
-            var num = cont.find('.three p:nth-child(2)')
-            var lim = APP.dataset.prjs.length
-            var cnt = 0
-            timer = setInterval(function () {
-              console.log('inter', lim)
-              num.text(cnt)
-              cnt += 15
-              if (cnt >= lim) {
-                clearTimeout(timer)
-                num.text(lim)
-              }
-            }, 10)
-          }, 1000)
+          cont.find('.three p:nth-child(2)').css({scale: 1.5, opacity:0})
+            .transition({delay: 1700, opacity: 1, scale: 1}, 1500, 'easeInOutQuint')
+
+          var num = cont.find('.three p:nth-child(2)')
+          num.text(APP.dataset.prjs.length)
 
           onCanvas.three()
           onSvg.exit()
@@ -146,26 +136,16 @@
 
       four: {
         enter: function (option) {
-          cont.find('.four p:first-child').css({y: -30}).transition({opacity: 1, y: 0}, 3000, 'easeInOutQuart')
+          cont.find('.four p:first-child').css({y: -30}).transition({delay:250, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
           cont.find('.four p:last-child').css({y: 30}).transition({delay: 500, opacity: 1, y: 0}, 3000, 'easeInOutQuart')
 
           onCanvas.four()
 
-          setTimeout(function () {
-            cont.find('.four p:nth-child(2)').css({opacity: 1})
+          cont.find('.four p:nth-child(2)').css({scale: 1.5, opacity:0})
+            .transition({delay: 1700, opacity: 1, scale: 1}, 1500, 'easeInOutQuint')
 
-            var num = cont.find('.four p:nth-child(2)')
-            var lim = APP.dataset.orgs.length
-            var cnt = 0
-            timer = setInterval(function () {
-              num.text(cnt)
-              cnt += 20
-              if (cnt >= lim) {
-                clearTimeout(timer)
-                num.text(lim)
-              }
-            }, 10)
-          }, 1000)
+          var num = cont.find('.four p:nth-child(2)')
+          num.text(APP.dataset.orgs.length)
 
           circR.css({fill: '#b164a5'})
           circ.transition({delay: 750, scale: 0.8}, 1500, 'easeInOutQuart')
