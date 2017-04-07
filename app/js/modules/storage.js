@@ -3,6 +3,7 @@ function Storage() {
   var localStorage = window.localStorage
   
   self.set = _set
+  self.get = _get
 
   function _set(key, val) {
     try {
@@ -10,6 +11,10 @@ function Storage() {
     } catch (error) {
       return console.error(error)
     }
+  }
+
+  function _get(key) {
+    return localStorage.getItem(key)
   }
 
   return self
