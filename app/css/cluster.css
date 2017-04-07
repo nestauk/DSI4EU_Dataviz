@@ -7,6 +7,7 @@
   -webkit-overflow-scrolling: touch;
   position: absolute;
   top: 8rem;
+  padding: 1.5rem;
 }
 text {
 	text-anchor: middle;
@@ -42,7 +43,7 @@ text.smallLabel{
 	content: "";
 	display: block;
 	height: 1rem;
-	width: 85%;
+	width: 100%;
 	border-bottom: .15rem solid #a4a4a4;
 }
 .cluster-wrapper:nth-child(odd)::after {

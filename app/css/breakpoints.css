@@ -22,7 +22,7 @@ html, body {
 		border-bottom: .15rem solid #a4a4a4;
 	}
 	.cluster-wrapper:nth-child(4n+1)::after {
-		width: 85%;
+		width: 100%;
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -34,7 +34,7 @@ html, body {
 		bottom: 0;
 	}
 	.cluster-wrapper:nth-child(4n+4)::after {
-		width: 85%;
+		width: 100%;
 		position: absolute;
 		margin-left: 0;
 		bottom: 0;

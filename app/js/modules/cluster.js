@@ -27,8 +27,8 @@ function ClusterView() {
 		deleteCluster();
 
 		$(window).on("resize", function () {
-			if(!window.isMobile && !APP.embed && orientMQ.matches) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
-			else $("#cluster-container").width($("#main-view").width())
+			if(!window.isMobile && !APP.embed && orientMQ.matches) $("#cluster-container").outerWidth($("#main-view").outerWidth() - $('.ui header').outerWidth());
+			else $("#cluster-container").outerWidth($("#main-view").outerWidth())
 		})
 
 		projects = APP.filter.prjs;
@@ -38,9 +38,9 @@ function ClusterView() {
 		container = d3.select('#main-view').append("div")
 			.attr("id", "cluster-container")
 
-		if(!window.isMobile && !APP.embed && orientMQ.matches) $("#cluster-container").width($("#main-view").width() - $('.ui header').width());
-		else $("#cluster-container").width($("#main-view").width())
-		width = $("#cluster-container").width();
+		if(!window.isMobile && !APP.embed && orientMQ.matches) $("#cluster-container").outerWidth($("#main-view").outerWidth() - $('.ui header').outerWidth());
+		else $("#cluster-container").outerWidth($("#main-view").outerWidth())
+		width = $("#cluster-container").outerWidth();
 		height = $("#main-view").height();
 		clusterWidth = width / 2
 		//clusterHeight = height / 2
