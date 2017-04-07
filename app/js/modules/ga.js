@@ -14,7 +14,7 @@ function GoogleA() {
     }
 
     APP.stator.on('begin', function (e) {
-        var v = loc + e.path.substr(1)
+        var v = loc + e.current.pattern.substr(1)
 
         if(!window.ga) return
         
