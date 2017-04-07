@@ -11,7 +11,7 @@ function networkState () {
 			if(!_.isNaN(+option.param.l)) APP.network.showLinkedOnly = +option.param.l
 			else APP.network.showLinkedOnly = 1
 
-			APP.network.restart()
+			APP.network.update()
 
 			if(option.param.org || option.param.prj){
 				var set = option.param.org ? APP.filter.orgs : APP.filter.prjs
