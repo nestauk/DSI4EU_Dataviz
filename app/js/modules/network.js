@@ -3,6 +3,7 @@ function NetworkView() {
 	self.create = createNetwork;
 	self.delete = deleteNetwork;
 	self.focus = focusSearchResult;
+	self.resetFocus = resetFocus;
 	self.point = focusOnPoint;
 	self.update = drawNetwork
 	self.pause = pause
@@ -100,8 +101,7 @@ function NetworkView() {
 		canvas.click(function(e) {
 			var lc = lookupCanvas[0].getContext("2d");
 			if (infoPopup) removeInfoPopup();
-			currentResultFocus = null;
-			currentActiveNetwork = null;
+			resetFocus()
 			var rgb = lc.getImageData(e.offsetX, e.offsetY, 1, 1).data
 			hex = rgbToHex(rgb)
 			if (hex != '#000000') var node = lookupMap[hex]
@@ -282,6 +282,12 @@ function NetworkView() {
 			}
 		})
 		infoPopup = null;
+	}
+
+	function resetFocus(){
+		currentResultFocus = null;
+		currentActiveNetwork = null;
+		if(infoPopup) removeInfoPopup();
 	}
 
 	function scaleCanvas(canvas) {

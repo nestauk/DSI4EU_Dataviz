@@ -194,6 +194,7 @@ function Filter() {
 				$('#network-linked-only').off()
 				$('#network-linked-only').click(function() {
 					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
+					APP.network.resetFocus();
 					APP.permalink.go()
 					if(!window.isMobile) APP.ui.updateView();
 					$('#network-linked-only').toggleClass('active')
