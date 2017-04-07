@@ -96,7 +96,7 @@ function InfoPanel() {
 			.text(function () {
 				return field==="cluster"
 				? "Number of projects"
-				: "Number of organisations in the same place"
+				: "Number of organisations in the same location"
 			})
 		$(".legenda-size-item").transition({opacity: 1, delay: 750}, 500)
 	}

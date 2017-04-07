@@ -947,16 +947,16 @@
 
 .ui .modal-panel .remove-icon,
 .ui .info-container .remove-icon {
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	fill: #333333;
 }
 .ui .modal-panel .remove-icon.inverted-color {
 	fill: white;
 }
 .ui .modal-panel .back-icon {
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	margin-bottom: 1rem;
 	align-self: flex-start;
 }
@@ -1029,8 +1029,7 @@
 .ui .modal-panel .network-list-container,
 .ui .modal-panel .network-panel-container,
 .ui .modal-panel .cluster-panel-container {
-/*	height: 100%;
-*/	display: flex;
+	display: flex;
 	flex-direction: column;
 }
 
@@ -1047,7 +1046,7 @@
 
 .ui .modal-panel .map-list-container .map-list-title {
 	width: 100%;
-	padding-top: 3rem;	
+	padding-top: 2rem;	
 }
 
 .ui .modal-panel .map-list-container h3 {
