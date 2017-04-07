@@ -70,7 +70,8 @@
 			} else {
 				$('#embed-overlay').hide();
 			}
-			if (window.localStorage.getItem('visited')) {
+			console.log(APP.storage.get('visited'), APP.currentStateId)
+			if (APP.storage.get('visited') && APP.currentStateId > 1) {
 				APP.stator.navigateDefault();
 			} else {
 				APP.stator.go('onboarding.one')
