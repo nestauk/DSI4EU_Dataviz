@@ -4,7 +4,7 @@
     var cont = $('#onboarding-view')
     var nextCnt = cont.find('.board_footer .next')
     var nextBtn = cont.find('.board_footer .next a')
-    var sections = ['', '#/onboarding/two', '#/onboarding/three', '#/onboarding/four', '#/onboarding/five', '#/map']
+    var sections = ['', 'onboarding.two', 'onboarding.three', 'onboarding.four', 'onboarding.five']
     var delays = [0, 1500, 4000, 2000, 2000, 1500]
     var timer
     var dotsContainer = cont.find('.dots')
@@ -33,10 +33,19 @@
           e.preventDefault()
           APP.stator.navigateDefault();
         })
-      } else nextBtn.attr('href', sections[sec])
+      } else {
+        // nextBtn.attr('href', sections[sec])
+        window.history.replaceState({}, '', '/')
+        nextBtn.removeAttr('href')
+        nextBtn.click(function(e) {
+          e.preventDefault()
+          APP.stator.go(sections[sec], {encode: false, param: null});
+        })
+      }
     }
     function setNextBtnOut (sec) {
       nextCnt.transition({opacity: 0, scale: 0}, 500, 'easeInOutQuart')
+      nextBtn.off('click')
     }
 
     var obj = {
