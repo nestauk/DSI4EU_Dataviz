@@ -10,9 +10,9 @@ module.exports = function (grunt, options) {
   	ga: {
 	    files: [{
 	      expand: true,
-	      cwd: options.folders.dist,
+	      cwd: options.folders.app,
 	      src: '**/*.html',
-	      dest: options.folders.dist
+	      dest: options.folders.app
 	    }],
 	    options: {
 	      replacements: [{

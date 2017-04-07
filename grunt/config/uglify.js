@@ -12,6 +12,9 @@ module.exports = function (grunt, options) {
       sourceMapIn: function(uglifySource) {
         return uglifySource + '.map';
       },
+      compress:{
+        pure_funcs: ['console.log']
+      }
     },
     generated: {
       mangle:    true,  // invert for debug

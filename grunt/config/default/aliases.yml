@@ -19,6 +19,7 @@ build:
 
   - 'svgmin'
   - 'static_player:bake'
+  - 'string-replace:ga'
   - 'processhtml:multi'
   - 'htmlmin:multi'
   
