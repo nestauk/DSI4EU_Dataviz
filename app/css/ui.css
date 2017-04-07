@@ -412,7 +412,7 @@
 }
 
 .tools-icon.selected path:first-child{
-	fill: #444;
+	fill: #1DC9A0;
 }
 
 .ui .tools .tools-icon .icon-circle{
@@ -1422,11 +1422,11 @@
 #embed-overlay {
 	position: absolute;
 	z-index: 999;
-	background: #333;
+	background: #f6f6f6;
 	width: 100%;
 	bottom: 0;
 	display: flex;
-	color: #fff;
+	color: #333;
 	align-items: center;
 }
 #embed-overlay > div{
@@ -1436,7 +1436,7 @@
 }
 #embed-overlay .embed-legend {
 	width: 40%;
-	border-right: .1rem solid #fff;
+	border-right: .1rem solid #333;
 }
 #embed-overlay.map .embed-legend-network {
 	display: none;
@@ -1466,7 +1466,7 @@
 }
 #embed-overlay button{
 	margin-left: 1.5rem;
-	color: #fff;
+	color: #333;
 	font-size: 1.4rem;
 	padding: 1rem 2rem;
 }
