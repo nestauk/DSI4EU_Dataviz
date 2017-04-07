@@ -58,7 +58,7 @@
 
       leave: function (option) {
         console.log('onboardingState :: leave')
-        APP.storage.set('visited', true)
+        APP.storage.set('firstVisit', true)
 
         cont.transition({opacity: 0,
           complete: function () {

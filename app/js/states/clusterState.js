@@ -16,9 +16,10 @@ function clusterState(){
 
 			APP.cluster.create();
 			APP.ui.updateNavigation()
-			if( !APP.views.cluster.shown ) {
+			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').cluster ) {
 				console.log("first time on cluster!")
-				APP.views.cluster.shown = true;
+				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {cluster: true})
+				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 					if (window.isMobile) {

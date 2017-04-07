@@ -22,9 +22,10 @@ function networkState () {
 				}, 1000)
 			}
 
-			if( !APP.views.network.shown){
+			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').network ){
 				console.log("first time on network!")
-				APP.views.network.shown = true;
+				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {network: true})
+				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 2000)

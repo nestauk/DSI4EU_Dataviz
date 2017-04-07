@@ -32,9 +32,10 @@ function mapState(){
 			$('#map-container').css({opacity:1, "pointer-events":"auto"})
 			APP.map.reset();
 			APP.map.update();
-			if( !APP.views.map.shown ) {
+			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').map ) {
 				console.log("first time on map!")
-				//APP.views.map.shown = true;
+				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {map: true})
+				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 				}, 2000)

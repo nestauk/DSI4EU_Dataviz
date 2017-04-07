@@ -6,6 +6,7 @@ function Storage() {
   self.get = _get
 
   function _set(key, val) {
+    val = JSON.stringify(val)
     try {
       localStorage.setItem(key, val)
     } catch (error) {
@@ -14,7 +15,8 @@ function Storage() {
   }
 
   function _get(key) {
-    return localStorage.getItem(key)
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
   }
 
   return self
