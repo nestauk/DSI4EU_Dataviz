@@ -63,12 +63,12 @@
 				APP.defaultLandingState.name = APP.stator.current.name;
 				APP.defaultLandingState.param = APP.stator.param;
 				APP.embed = (APP.stator.param.e === '1') ? 1 : 0
-				if(APP.embed){
-					APP.ui.enableEmbedOverlay();
-					$('#user-interface').hide()
-				} else {
-					$('#embed-overlay').hide();
-				}
+			}
+			if(APP.embed){
+			 	APP.ui.enableEmbedOverlay();
+			 $('#user-interface').hide()
+			} else {
+				$('#embed-overlay').hide();
 			}
 			if (window.localStorage.getItem('visited')) {
 				APP.stator.navigateDefault();
