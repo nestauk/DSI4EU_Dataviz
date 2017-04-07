@@ -201,12 +201,31 @@ function Filter() {
 				break;
 			case "cluster":
 				$('#cluster-group-by, #cluster-subdivide-by').off();
-				$('#cluster-subdivide-by option[value="'+APP.cluster.subdivide_field+'"]').attr("selected",true);
 				$('#cluster-group-by option[value="'+APP.cluster.cluster_field+'"]').attr("selected",true);
-				$('#cluster-group-by, #cluster-subdivide-by').change(function() {
+				$('#cluster-subdivide-by option[value="'+APP.cluster.subdivide_field+'"]').attr("selected",true);
+				// Disable subdivide by field when is = group by field
+				$('#cluster-subdivide-by option[value="'+APP.cluster.cluster_field+'"]').attr("disabled",true);
+				$('#cluster-group-by').change(function() {
 					var group_by = $('#cluster-group-by').val()
-					var subdivide_by = $('#cluster-subdivide-by').val()
 					APP.cluster.cluster_field = group_by
+					// when group by changes deselect current subdivide by option
+					$('#cluster-subdivide-by option').attr("selected", false);
+					// and set it to none
+					$($('#cluster-subdivide-by option')[0]).attr("selected", true);
+					var subdivide_by = $('#cluster-subdivide-by').val()
+					APP.cluster.subdivide_field = subdivide_by
+					// then reload the state
+					APP.permalink.go()
+					// On update state
+					// Enable again all subdivide by options
+					$('#cluster-subdivide-by option').attr("disabled", false);
+					// Disable subdivide by field when is = group by field
+					$('#cluster-subdivide-by option[value="'+APP.cluster.cluster_field+'"]').attr("disabled",true);	
+					if(!window.isMobile) APP.ui.updateView();
+					APP.ui.closeUIPanels();
+				});
+				$('#cluster-subdivide-by').change(function() {
+					var subdivide_by = $('#cluster-subdivide-by').val()
 					APP.cluster.subdivide_field = subdivide_by
 					APP.permalink.go()
 					if(!window.isMobile) APP.ui.updateView();
