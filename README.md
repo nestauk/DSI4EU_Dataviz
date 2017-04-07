@@ -28,6 +28,15 @@ npm install
 	http-server
 [http://localhost:8080](http://localhost:8080)
 
+## Build for release
+
+```
+npm version patch
+grunt build
+```
+
+## 
+
 ---
 
 ## Embed code
