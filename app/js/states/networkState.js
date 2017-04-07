@@ -17,7 +17,6 @@ function networkState () {
 			if(option.param.org || option.param.prj){
 				var set = option.param.org ? APP.filter.orgs : APP.filter.prjs
 				var node = _.find(set, {id: parseInt(option.param.org) || parseInt(option.param.prj)});
-				console.log(node)
 				setTimeout(function(){
 					APP.network.focus(node)
 				}, 1000)
