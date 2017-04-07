@@ -5,13 +5,14 @@ function Dataset(){
     self.getNetworkData = getNetworkData
     self.fields = {}
 
-    self.fields.names_map = {
-        'countries': 'Countries',
-        'focus': 'Tech Focus',
-        'networkTags': 'Network Tags',
-        'organisation_type': 'Organisation Type',
-        'support_tags': 'Social Area',
-        'technology': 'Technology'
+    self.fields.cluster_names_map = {
+        'countries': 'a country',
+        'focus': 'a tech focus',
+        'networkTags': 'a network tag',
+        'organisation_type': 'an organisation type',
+        'support_tags': 'a social area',
+        'technology': 'a technology',
+        'linked_orgs': 'an organisation'
     }
 
     //var organisations_path = 'data/organisations2.json'
