@@ -8,7 +8,7 @@ module.exports = function (grunt, options) {
   return {
 
     options: {
-      sourceMap: true,
+      sourceMap: false,
       sourceMapIn: function(uglifySource) {
         return uglifySource + '.map';
       },
@@ -19,7 +19,7 @@ module.exports = function (grunt, options) {
     generated: {
       mangle:    true,  // invert for debug
       beautify:  false, // invert for debug
-      sourceMap: true   // generated source maps for debug
+      sourceMap: false   // generated source maps for debug
     }
 
   };
