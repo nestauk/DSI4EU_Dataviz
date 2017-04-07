@@ -67,6 +67,7 @@
 			if(APP.embed){
 			 	APP.ui.enableEmbedOverlay();
 			 $('#user-interface').hide()
+			 APP.network.create();
 			} else {
 				$('#embed-overlay').hide();
 			}

@@ -42,7 +42,6 @@ function NetworkView() {
 		height = $("#main-view").height();
 		if (!window.isMobile && !APP.embed){
 			width = width - $('.ui header').width();
-		console.log('WIDTH', width)
 		}
 
 		self.system = d3.forceSimulation()
