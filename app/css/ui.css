@@ -121,7 +121,7 @@
 	opacity: 0;
 	transition: opacity .5s;
 }
-.ui .nav .nav-icon:hover .icon-bg{
+.ui .nav .nav-icon:not(.current):hover .icon-bg{
 	fill: #444;
 	opacity: 1;
 }
