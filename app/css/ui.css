@@ -875,6 +875,39 @@
 	background: #f28244;
 }
 
+.ui .info-container .legend-size-container {
+	margin-top: 1rem;
+	display: flex;
+	align-items: center;
+	height: 4.4rem;
+}
+
+.ui .info-container .legend-size-container .legend-svg {
+	width: 4.4rem;
+	height: 4.4rem;
+}
+
+.ui .info-container .legend-size-container .legenda-size-item {
+	width: 65%;
+	margin-left: 1rem;
+	font-size: 1rem;
+  font-weight: 700;
+  opacity: 0;
+}
+
+.info-container .legend-size-container .legend-svg .legend-circle {
+	stroke-width: 2;
+	fill: none;
+}
+
+.info-container .legend-size-container .legend-svg .legend-circle.cluster {
+	stroke: #f28244;
+}
+
+.info-container .legend-size-container .legend-svg .legend-circle.map {
+	stroke: #b164a5;
+}
+
 /* NAV ICONS */
 
 .ui .modal-panel .modal-nav-icons,

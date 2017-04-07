@@ -3,7 +3,7 @@
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 2rem;
+  padding-bottom: 14rem;
   -webkit-overflow-scrolling: touch;
   position: absolute;
   top: 8rem;
@@ -37,7 +37,7 @@ text.smallLabel{
 	flex-direction: column;
 	width: 50%;
 }
-.cluster-wrapper::after {
+.cluster-wrapper:not(:nth-child(-n+2))::after {
 	content: "";
 	display: block;
 	height: 1rem;
