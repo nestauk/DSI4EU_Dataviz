@@ -108,13 +108,14 @@
             var lim = APP.dataset.prjs.length
             var cnt = 0
             timer = setInterval(function () {
+              console.log('inter', lim)
               num.text(cnt)
-              cnt += 9
+              cnt += 15
               if (cnt >= lim) {
                 clearTimeout(timer)
                 num.text(lim)
               }
-            })
+            }, 10)
           }, 1000)
 
           onCanvas.three()
@@ -149,12 +150,12 @@
             var cnt = 0
             timer = setInterval(function () {
               num.text(cnt)
-              cnt += 10
+              cnt += 20
               if (cnt >= lim) {
                 clearTimeout(timer)
                 num.text(lim)
               }
-            })
+            }, 10)
           }, 1000)
 
           circR.css({fill: '#b164a5'})
