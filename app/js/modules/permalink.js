@@ -56,7 +56,7 @@ function Permalink(){
 			if(!_.isNaN(+value)) params[k] = Math.round(params[k]*1000)/1000
 		})
 		var url = '#' + APP.stator.encode(APP.stator.current.name, params)
-		window.history.replaceState({}, '', url)
+		//window.history.replaceState({}, '', url)
  		APP.stator.go(APP.stator.current.name, {param: params})
  		APP.share.embedLink(createUrl(params));
 	}
