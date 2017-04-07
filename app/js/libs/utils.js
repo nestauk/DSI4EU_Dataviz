@@ -1,7 +1,7 @@
 function idEncode(str, separator) {
 	if (!separator) separator = '_';
 	str = _.deburr(str)
-	str = str.split("\"").join('').split('\'').join('').split(',').join('');
+	str = str.split("\"").join('').split('\'').join('').split(',').join('').split('.').join('').split(';').join('').split(':').join('');
 	str = str.toLowerCase().split(' ').join(separator);
 	str = str.replace(/[ÀÁÂÃÄÅàáâãäåĀāąĄ]/g, "a");
 	str = str.replace(/[ÈÉÊËèéêëěĚĒēęĘ]/g, "e");
