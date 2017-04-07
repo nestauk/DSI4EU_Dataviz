@@ -403,7 +403,7 @@ function MapView() {
 		var pt = $('#map-container')[0].createSVGPoint();
 		pt.x = width / 2
 		pt.y = height / 2
-		pt = pt.matrixTransform(tr.getScreenCTM().inverse());
+		if (tr.getScreenCTM()) pt = pt.matrixTransform(tr.getScreenCTM().inverse());
 		APP.permalink.viewSettings = {
 			x: pt.x,
 			y: pt.y,
