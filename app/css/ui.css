@@ -473,6 +473,10 @@
 	fill: #333333;
 }
 
+.ui .close-modal{
+	cursor: pointer;
+}
+
 .ui #clear-selection{
 	border-radius: 0;
 	border: none;
