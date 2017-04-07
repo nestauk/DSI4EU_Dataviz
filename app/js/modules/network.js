@@ -203,7 +203,7 @@ function NetworkView() {
 				c.fillStyle = "#b164a5";
 				if (currentActiveNetwork && !_.includes(currentActiveNetwork.orgs, d)) c.fillStyle = '#e5d2e2'
 			}
-			// if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
+			if(currentResultFocus && currentResultFocus == d) c.fillStyle = '#1DC9A0'
 			c.beginPath();
 			c.moveTo(d.x + r, d.y);
 			c.arc(d.x, d.y, r, 0, 2 * Math.PI);
