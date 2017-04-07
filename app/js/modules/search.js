@@ -38,7 +38,6 @@ function Search() {
 					var result = $('<li><p class="search-result-name">' + r.name + '</p><p class="search-result-info"><span class="search-result-type prj">PRJ</span><span class="search-linked-prjs"><strong>' + r.linked_orgs.length + '</strong> ' + _('organisation').pluralize(r.linked_orgs.length) + ' involved</p></li>')
 				}
 			} else if (APP.state == 'cluster') {
-				console.log(r)
 				if (!_.isArray(r.values[0].values)) var size = r.values.length;
 				else {
 					var size = _.sumBy(r.values, function(s) {
