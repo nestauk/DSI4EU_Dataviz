@@ -6,6 +6,7 @@ function clusterState(){
 	return {
 		enter: function(option){
 			console.log('clusterState :: enter');
+			APP.currentStateId = 4;
 			APP.setState('cluster')
 			APP.ui.updateViewFunction = APP.cluster.update;
 			APP.permalink.parseUrlParameters(option.param);

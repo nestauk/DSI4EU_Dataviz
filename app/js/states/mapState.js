@@ -6,6 +6,7 @@ function mapState(){
 		url: "map",
 		enter: function(option){
 			console.log('mapState :: enter');
+			APP.currentStateId = 2;
 			APP.setState('map')
 			APP.ui.updateViewFunction = APP.map.update;
 			APP.permalink.parseUrlParameters(option.param);
@@ -23,7 +24,6 @@ function mapState(){
 				APP.map.defaultPosition(t)
 			}
 			$('#map-container').css({opacity:1, "pointer-events":"auto"})
-			APP.currentStateId = 2;
 			APP.map.reset();
 			APP.map.update();
 			if( !APP.views.map.shown ) {

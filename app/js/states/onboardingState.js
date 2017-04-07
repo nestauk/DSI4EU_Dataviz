@@ -42,9 +42,8 @@
     var obj = {
       enter: function (option) {
         console.log('onboardingState :: enter')
-
+        APP.currentStateId = 1;
         onCanvas.init()
-
         cont.css({opacity: 1}).show()
       },
 

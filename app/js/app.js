@@ -52,7 +52,6 @@
     	$('#network-wrapper').css({opacity: 0, 'pointer-events': 'none'})
 
 			APP.loader.stop();
-			APP.currentStateId = 1;
 			APP.ui.init();
 			createColorScales();
 			APP.stator.start({

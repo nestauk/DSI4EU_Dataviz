@@ -2,6 +2,7 @@ function networkState () {
 	return {
 		enter: function(option){
 			console.log('networkState :: enter');
+			APP.currentStateId = 3;
 			APP.setState('network')
       $('#network-wrapper').css({opacity: 1, 'pointer-events': 'auto'})
 			APP.ui.updateViewFunction = APP.network.update;
