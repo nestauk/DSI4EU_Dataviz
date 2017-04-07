@@ -7,7 +7,7 @@ function InfoPanel() {
 		switch(state){
 			case "map":
 				var frag = $("<li><div class='legend-dot org-color'></div><div class='legend-text'>Organisations</div></li>");
-				$("#info-map .legenda ul").get(0).append(frag.get(0));
+				$("#info-map .legenda ul").append(frag);
 				createSizeLegend("map")
 			break;
 			case "network":

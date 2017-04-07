@@ -4,7 +4,7 @@ function networkState () {
 			console.log('networkState :: enter');
 			APP.currentStateId = 3;
 			APP.setState('network')
-      $('#network-wrapper').css({opacity: 1, 'pointer-events': 'auto'})
+      		$('#network-wrapper').css({opacity: 1, 'pointer-events': 'auto'})
 			APP.ui.updateViewFunction = APP.network.update;
 			APP.permalink.parseUrlParameters(option.param);
 			APP.ui.updateNavigation()
@@ -28,7 +28,7 @@ function networkState () {
 				APP.views.network.shown = true;
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
-				}, 1000)
+				}, 2000)
 			}
 		},
 		leave: function(option){

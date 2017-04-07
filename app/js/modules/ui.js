@@ -222,7 +222,7 @@ function UserInterface() {
 		$("#info-button").off()
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
-			$("#info-button").click(openInfoPanel).addClass('selected')
+			$("#info-button").click(openInfoPanel)
 		})
 		APP.infoPanel.create(APP.state);
 		$("#info-button").addClass('selected')

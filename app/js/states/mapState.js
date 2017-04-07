@@ -31,7 +31,7 @@ function mapState(){
 				APP.views.map.shown = true;
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
-				}, 1000)
+				}, 2000)
 				if (window.isMobile) {
 					timeout = setTimeout(function(){	
 						APP.coachMarks.show()
