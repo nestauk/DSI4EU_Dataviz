@@ -4,6 +4,7 @@ function MapView() {
 	self.delete = deleteMap;
 	self.focus = focusSearchResult;
 	self.update = drawMap
+	self.reset = resetMap
 	self.showLinks = false;
 	self.defaultPosition = setDefaultMapPosition;
 
@@ -19,7 +20,7 @@ function MapView() {
 	var zoom;
 	var orgs;
 	var svg;
-	var currentSearchResult = null;
+	var currentSearchResult = null, currentSelected = null;
 	var connections = [];
 
 	function createMap() {
@@ -82,6 +83,12 @@ function MapView() {
 	function drawMap() {
 		data = prepareData(APP.filter.orgs, APP.filter.prjs)
 		createMapContent();
+	}
+
+	function resetMap() {
+		d3
+		.selectAll('.map-org')
+		.attr('r', 0)
 	}
 
 	function getMaxValues() {
@@ -178,6 +185,8 @@ function MapView() {
 			.append('circle')
 			.merge(circle)
 			.on('click', function(d) {
+				$('.active').removeClass('active')
+				$(this).addClass('active');
 				if (_.includes(d.orgs, currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
 				else APP.ui.openMapPanel(d)
 			})
@@ -187,8 +196,9 @@ function MapView() {
 			.attr('cy', function(d) {
 				return d.cy
 			})
+			.attr('class', 'map-org')
 			.classed('active', function(d) {
-				return _.includes(d.orgs, currentSearchResult)
+				return _.includes(d.orgs, currentSearchResult) || currentSelected == d
 			})
 			.transition()
 			.delay(function(d, i) {
