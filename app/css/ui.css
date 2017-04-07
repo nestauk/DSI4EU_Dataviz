@@ -1399,16 +1399,6 @@
 	display: block;
 }
 
-/* LOADER */
-#loader-view {
-	background: #333;
-	color: white;
-	padding: 2rem;
-	display: block;
-	z-index:10000;
-}
-
-
 #turn-view {
 	background: #333;
 	padding: 2rem;
