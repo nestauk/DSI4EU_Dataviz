@@ -64,13 +64,19 @@ function InfoPanel() {
 	function createSizeLegend(field) {
 		var legendSizeContainer = d3.select("#info-"+APP.state+" .legenda").append("div")
 			.attr("class", "legend-size-container")
+		var dim = 50
+		var offset = 4
 		legendSizeContainer.append("div")
 			.attr("class", "legend-svg")
 			.append("svg")
-				.attr("width", "4.2rem")
-				.attr("height", "4.2rem")
+				.attr("width", dim)
+				.attr("height", dim)
 					.selectAll(".legend-circle")
-						.data([{id: 0, y: "3.525rem", radius: ".5rem"}, {id: 1, y: "3.05rem", radius: "1rem"}, {id: 2, y: "2.1rem", radius: "2rem"}])
+						.data([
+							{ id: 0, y: dim/2 + dim/4 + dim/8 - offset/2, radius: dim/8 - offset/8 },
+							{ id: 1, y: dim/2 + dim/4 - offset/2, radius: dim/4 - offset/4 },
+							{ id: 2, y: dim/2, radius: dim/2 - offset/2 }
+						])
 						.enter()
 						.append("circle")
 							.attr("class", function () {
@@ -78,7 +84,7 @@ function InfoPanel() {
 								? "legend-circle cluster"
 								: "legend-circle map"
 							})
-							.attr("cx", "2.1rem")
+							.attr("cx", dim/2)
 							.attr("cy", function (d) {
 								return d.y;
 							})
