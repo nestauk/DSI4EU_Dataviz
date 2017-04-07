@@ -23,6 +23,11 @@ function MapView() {
 	var currentSearchResult = null, currentSelected = null;
 	var connections = [];
 
+	var centroidMap = {
+		'France': [190, 526],
+		'Norway': [247, 305]
+	}
+
 	function createMap() {
 		width = $("#main-view").width();
 		height = $("#main-view").height();
@@ -145,15 +150,21 @@ function MapView() {
 	function getCountryCentroids(countryPaths) {
 		countryPaths.each(function(d) {
 			var centroid = path.centroid(d)
+			centroid = fixCentroid(d.properties.name, centroid)
 			var country = _.find(countries, function(c) {
 				if (!d.properties) return false
-				else return d.properties.name == c.name
+				else return d.properties.name == c.name || d.properties.fullName == c.name
 			})
 			if (country) {
 				country.cx = centroid[0]
 				country.cy = centroid[1]
 			}
 		})
+	}
+
+	function fixCentroid(country, centroid){
+		if(centroidMap[country]) return centroidMap[country];
+		else return centroid;
 	}
 
 	function createMapContent() {
@@ -372,6 +383,7 @@ function MapView() {
 	}
 
 	function focusOnPoint(transform) {
+		console.log(transform)
 		var w = width / 2
 		var scale = transform.k
 		if (!window.isMobile && !APP.embed) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
