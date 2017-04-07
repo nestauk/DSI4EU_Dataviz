@@ -62,7 +62,7 @@ function Dataset(){
             var country = _.find(countries, function(country){
                 return _.padStart(country['ISO 3166-1 Number'], 3, '0') == c.id
             })
-            if(country) c.properties = {name: country['Common Name']}
+            if(country) c.properties = {name: country['Common Name'], fullName: country['Formal Name']}
         })
         return map
     }
