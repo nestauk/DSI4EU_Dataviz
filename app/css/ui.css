@@ -273,7 +273,7 @@
 
 .ui .settings-item.disabled {
 	pointer-events: none;
-	opacity: .5;
+	opacity: .4;
 }
 
 .ui .settings-item .checkbox {

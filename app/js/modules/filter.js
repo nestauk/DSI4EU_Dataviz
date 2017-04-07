@@ -192,13 +192,19 @@ function Filter() {
 			case "network":
 				if(!APP.network.showLinkedOnly) $('#network-linked-only').addClass('active')
 				$('#network-linked-only').off()
-				$('#network-linked-only').click(function() {
-					APP.network.showLinkedOnly = !APP.network.showLinkedOnly
-					APP.network.resetFocus();
-					APP.permalink.go()
-					if(!window.isMobile) APP.ui.updateView();
-					$('#network-linked-only').toggleClass('active')
-				})
+				if(!window.isMobile){
+				$('#network-linked-only .settings-description').text('Include organisations with no shared projects')
+					$('#network-linked-only').click(function() {
+						APP.network.showLinkedOnly = !APP.network.showLinkedOnly
+						APP.network.resetFocus();
+						APP.permalink.go()
+						if(!window.isMobile) APP.ui.updateView();
+						$('#network-linked-only').toggleClass('active')
+					})
+				} else {
+					$('#network-linked-only .settings-description').text('Include organisations with no shared projects (available on desktop only)')
+					$('#network-linked-only').addClass('disabled')
+				}
 				break;
 			case "cluster":
 				$('#cluster-group-by, #cluster-subdivide-by').off();
