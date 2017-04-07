@@ -117,7 +117,7 @@ function Filter() {
 			})
 		})
 		APP.permalink.go();
-		if(!window.isMobile) updateView();
+		if(!window.isMobile) APP.ui.updateView();
 	}
 
 	function createSelectionList(field, el) {
