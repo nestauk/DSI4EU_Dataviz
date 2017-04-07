@@ -22,7 +22,6 @@
 		APP.networkList = new NetworkList();
 		APP.networkPanel = new NetworkPanel();
 		APP.clusterPanel = new ClusterPanel();
-		APP.search = new Search();
 		APP.share = new Share();
 		APP.ui = new UserInterface();
 		APP.coachMarks = new CoachMarks();
@@ -42,9 +41,9 @@
 		APP.ga = new GoogleA();
 
 		APP.dataset.loadData(function() {
-		APP.filter.init();
-
-		APP.map = new MapView()
+			APP.filter.init();
+			APP.search = new Search();
+			APP.map = new MapView()
     	APP.map.create()
 
     	APP.network = new NetworkView()
