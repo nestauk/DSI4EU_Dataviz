@@ -64,8 +64,8 @@
 				APP.defaultLandingState.param = APP.stator.param;
 				APP.embed = (APP.stator.param.e === '1') ? 1 : 0
 				if(APP.embed){
-				 APP.ui.enableEmbedOverlay();
-				 $('#user-interface').hide()
+					APP.ui.enableEmbedOverlay();
+					$('#user-interface').hide()
 				} else {
 					$('#embed-overlay').hide();
 				}

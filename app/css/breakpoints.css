@@ -31,9 +31,9 @@ html, body {
 		font-size: 80%;
 	}
 	.ui header, .ui .modal-panel{
-		width: 33%;
-		max-width: 28rem;
-		min-width: 20rem;
+		width: 28rem;
+		/*max-width: 28rem;
+		min-width: 20rem;*/
 	}
 	.ui .tools-icon {
 		z-index: 2000;
@@ -51,8 +51,9 @@ html, body {
 		display: none;
 	}
 	.ui footer {
-		right: 0;
+		left:28rem;
 		padding: 1rem;
+		padding-bottom: 0rem;
 		width: auto;
 	}
 	.ui footer .tools{
@@ -76,9 +77,9 @@ html, body {
 		font-size: 1rem;
 	}
 	.ui .subpanel-wrapper{
-		width: 33%;
-		max-width: 28rem;
-		min-width: 20rem;
+		width: 28rem;
+		/*max-width: 28rem;
+		min-width: 20rem;*/
 	}
 
 	.cluster .ui .settings-item div {

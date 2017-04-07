@@ -156,7 +156,7 @@ function UserInterface() {
 	function openSharePanel() {
 		console.log('open share')
 		self.closeUIPanels();
-		$("#share-button").off();
+		$("#share-button").off().addClass('selected')
 		$(".share-panel").transition({
 			y: 0
 		}, 750, 'easeInOutQuint');
@@ -176,13 +176,13 @@ function UserInterface() {
 		$(".share-panel").transition({
 			y: "100%"
 		}, t, 'easeInOutQuint');
-		$("#share-button").click(openSharePanel);
+		$("#share-button").removeClass('selected').click(openSharePanel)
 		self.closeCurrentPanel = null;
 	}
 
 	function openSearchPanel() {
 		console.log('open search')
-		$("#search-button").off();
+		$("#search-button").off().addClass('selected')
 		var search_hint = 'Search'
 		switch (APP.state) {
 			case 'map':
@@ -208,7 +208,7 @@ function UserInterface() {
 		$("#info-button").off();
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
-			$("#info-button").click(openInfoPanel)
+			$("#info-button").click(openInfoPanel).addClass('selected')
 		})
 		APP.infoPanel.create(APP.state);
 	}
