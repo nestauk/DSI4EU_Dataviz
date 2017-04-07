@@ -35,7 +35,7 @@
 	pre = (pre == 'webkit' && bowser.blink) ? 'blink' : pre
 	$('html').addClass(pre);
 	$('html').addClass(bowser.name.toLowerCase());
-
+	if(bowser.ios) $('html').addClass('ios');
 	  
 	$('[fouc]').css('visibility', 'visible')
 
