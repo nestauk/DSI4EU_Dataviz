@@ -174,7 +174,7 @@ function MapView() {
 			.exit()
 			.transition()
 			.delay(function(d, i) {
-				return 2 + i
+				return 5 + i
 			})
 			.duration(400)
 			.attr('r', 0)
@@ -202,9 +202,10 @@ function MapView() {
 			})
 			.transition()
 			.delay(function(d, i) {
-				return 2 + i
+				return 250 + (i*2)
 			})
-			.duration(400)
+			.duration(1000)
+			.ease(d3.easeExp)
 			.attr('r', function(d, i) {
 				// if(self.showLinks && zoomLevel == 2) return 2
 				if (d.orgs && d.orgs.length > 1) return countryScale(d.orgs.length)

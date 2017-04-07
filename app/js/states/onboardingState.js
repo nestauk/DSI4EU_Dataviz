@@ -55,7 +55,7 @@
           complete: function () {
             onCanvas.stop()
             cont.hide()
-          }}, 750, 'easeInOutQuint')
+          }}, 500, 'easeInOutQuint')
       },
 
       one: {
