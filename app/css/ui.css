@@ -78,10 +78,12 @@
 	left: 0;
 }
 
-.safari .ui .nav .nav-icons, .safari .ui .nav .nav-bg, .safari #nav-current {
+.safari .ui .nav .nav-icons, .safari .ui .nav .nav-bg, .safari #nav-current, 
+.chrome.ios .ui .nav .nav-icons, .chrome.ios .ui .nav .nav-bg, .chrome.ios #nav-current 
+{
 	height: auto;
 }
-.safari .ui .nav {
+.safari .ui .nav, .chrome.ios .ui .nav {
 	min-height: 74px;
 }
 
