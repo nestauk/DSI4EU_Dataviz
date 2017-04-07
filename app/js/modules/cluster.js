@@ -172,7 +172,7 @@ function ClusterView() {
 
 		var clusterScale = d3.scaleLinear()
 			.domain([0, maxSubdivisionValue])
-			.range([2, clusterWidth / scaleSvg(maxSubdivisionSum)]);
+			.range([3, clusterWidth / scaleSvg(maxSubdivisionSum)]);
 
 		var circleScale = APP.getColorScale(field)
 
