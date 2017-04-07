@@ -24,6 +24,8 @@ function mapState(){
 			}
 			$('#map-container').css({opacity:1, "pointer-events":"auto"})
 			APP.currentStateId = 2;
+			APP.map.reset();
+			APP.map.update();
 			if( !APP.views.map.shown ) {
 				console.log("first time on map!")
 				APP.views.map.shown = true;
