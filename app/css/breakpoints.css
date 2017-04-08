@@ -92,8 +92,8 @@ html, body {
 		z-index: 2000;
 	}
 	.ui #filter-panel {
-		transform: translateY(100%);
-	}
+/*		transform: translateY(100%);
+*/	}
 	.ui header {
 		flex: 1;
 	}
