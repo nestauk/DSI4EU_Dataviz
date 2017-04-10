@@ -83,7 +83,6 @@ function Permalink(){
 				params.s = APP.cluster.subdivide_field
 			break;
 		}
-		console.log(APP.embed)
 		params.e = APP.embed
 		return params
 	}
