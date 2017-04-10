@@ -182,7 +182,6 @@ function UserInterface() {
 			closeToolsPanel();
 		});
 		function switchView(){
-			console.log(view)
 			$('.tools-container').hide();
 			if (view && view instanceof jQuery) view.show();
 		}
@@ -195,7 +194,6 @@ function UserInterface() {
 		$('#tools-panel').transition({
 			y: "100%",
 			complete: function(){
-				console.log('closed')
 				if(callback) callback();
 			}
 		}, 750, 'easeInOutQuint');
