@@ -63,7 +63,7 @@ function UserInterface() {
 	function updateNavigation() {
 		closeUIPanels();
 		$('.sub-nav-label').html(APP.filter.createLabel())
-		if (!orientMQ.matches) APP.filter.createViewSettings();
+		APP.filter.createViewSettings();
 		$('.nav .current').removeClass('current')
 		switch (APP.state) {
 			case "map":
