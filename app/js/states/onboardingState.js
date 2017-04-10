@@ -35,7 +35,9 @@
         })
       } else {
         // nextBtn.attr('href', sections[sec])
-        window.history.replaceState({}, '', '/')
+        // console.log(window.history, window.location)
+        var url = window.location.origin + window.location.pathname
+        window.history.replaceState({}, '', url)
         nextBtn.removeAttr('href')
         nextBtn.click(function(e) {
           e.preventDefault()
