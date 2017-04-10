@@ -16,7 +16,7 @@ function clusterState(){
 
 			APP.cluster.create();
 			APP.ui.updateNavigation()
-			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').cluster ) {
+			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').cluster || APP.views.cluster.tobeshow ) {
 				console.log("first time on cluster!")
 				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {cluster: true})
 				APP.storage.set('visitedViews', visitedViews)

@@ -32,9 +32,9 @@
 		handleOrientationChanges();
 
 		APP.views = {
-			map: { shown: false },
-			network: { shown: false },
-			cluster: { shown: false }
+			map: { tobeshow: false },
+			network: { tobeshow: false },
+			cluster: { tobeshow: false }
 		}
 
 		APP.stator = new States();
@@ -73,6 +73,9 @@
 			if (APP.storage.get('firstVisit') && APP.currentStateId > 1) {
 				APP.stator.navigateDefault();
 			} else {
+				APP.views.map.tobeshow = true
+				APP.views.network.tobeshow = true
+				APP.views.cluster.tobeshow = true
 				APP.stator.go('onboarding.one')
 			}
 		})

@@ -22,7 +22,7 @@ function networkState () {
 				}, 1000)
 			}
 
-			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').network ){
+			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').network || APP.views.network.tobeshow ){
 				console.log("first time on network!")
 				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {network: true})
 				APP.storage.set('visitedViews', visitedViews)

@@ -410,7 +410,7 @@ function UserInterface() {
 
 	function closeUIPanels() {
 		if (self.closeCurrentPanel){		 
-			console.log('closing', self.closeCurrentPanel)
+			// console.log('closing', self.closeCurrentPanel)
 			self.closeCurrentPanel();
 		}
 	}
