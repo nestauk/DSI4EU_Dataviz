@@ -263,7 +263,7 @@ function UserInterface() {
 	}
 
 	function openOrgList(orgs) {
-		closeUIPanels();
+		if(self.closeCurrentPanel != closeOrgList) closeUIPanels();
 		APP.orgList.delete();
 		APP.orgList.create(orgs);
 		$('.map-list').transition({
@@ -282,7 +282,7 @@ function UserInterface() {
 	}
 
 	function openOrgPanel(org, list) {
-		closeUIPanels();
+		if(self.closeCurrentPanel != closeOrgPanel) closeUIPanels();
 		if (list) {
 			$(".back-icon").show();
 		} else {
@@ -332,7 +332,7 @@ function UserInterface() {
 	}
 
 	function openNetworkList(org) {
-		closeUIPanels();
+		if(self.closeCurrentPanel != closeNetworkList) closeUIPanels();
 		APP.networkList.delete();
 		APP.networkList.create(org)
 		$(".network-list").transition({
@@ -351,7 +351,7 @@ function UserInterface() {
 	}
 
 	function openNetworkPanel(org) {
-		closeUIPanels();
+		if(self.closeCurrentPanel != closeNetworkPanel) closeUIPanels();
 		APP.networkPanel.fillPanel(org)
 		$('.network-panel').transition({
 			x: 0
@@ -394,7 +394,7 @@ function UserInterface() {
 	}
 
 	function openClusterPanel(data) {
-		closeUIPanels();
+		if(self.closeCurrentPanel != closeClusterPanel) closeUIPanels();
 		APP.clusterPanel.deleteClusterPanelItems();
 		var selectedCluster = data;
 		APP.clusterPanel.initPanel(selectedCluster);
