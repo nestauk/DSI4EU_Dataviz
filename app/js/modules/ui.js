@@ -63,7 +63,7 @@ function UserInterface() {
 	function updateNavigation() {
 		closeUIPanels();
 		$('.sub-nav-label').html(APP.filter.createLabel())
-		APP.filter.createViewSettings();
+		if(orientMQ.matches) APP.filter.createViewSettings();
 		$('.nav .current').removeClass('current')
 		switch (APP.state) {
 			case "map":
@@ -108,7 +108,7 @@ function UserInterface() {
 	}
 
 	function showUI() {
-		if (!orientMQ.matches) openFilterPanel()
+		if (orientMQ.matches) openFilterPanel()
 		$('#user-interface').transition({
 			opacity: 1
 		}, 750, 'easeInOutQuint');
@@ -130,7 +130,7 @@ function UserInterface() {
 			$('#filter-select-list').empty();
 		})
 		APP.permalink.go();
-		if (!orientMQ.matches) updateView();
+		if (orientMQ.matches) updateView();
 	}
 
 	function createFilterSections() {
@@ -220,7 +220,7 @@ function UserInterface() {
 				break;
 		}
 		$('#search-input').attr('placeholder', search_hint)
-		if (!orientMQ.matches) $('#search-input').focus()
+		if (orientMQ.matches) $('#search-input').focus()
 		APP.search.reset();
 		openToolsPanel($('#tools-search'), function() {
 			$("#search-button").click(openSearchPanel);
