@@ -11,6 +11,8 @@ The application will gather the dataset through two API calls.
 
 ```
 npm install
+cd /app
+npm install
 ```
 
 ## Start a development session
