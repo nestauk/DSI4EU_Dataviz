@@ -35,6 +35,7 @@ function mapState(){
 			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').map || APP.views.map.tobeshow ) {
 				console.log("first time on map!")
 				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {map: true})
+				APP.views.map.tobeshow = false
 				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();

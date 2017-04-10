@@ -19,6 +19,7 @@ function clusterState(){
 			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').cluster || APP.views.cluster.tobeshow ) {
 				console.log("first time on cluster!")
 				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {cluster: true})
+				APP.views.cluster.tobeshow = false
 				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();

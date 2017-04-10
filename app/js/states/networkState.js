@@ -25,6 +25,7 @@ function networkState () {
 			if( !APP.storage.get('visitedViews') || !APP.storage.get('visitedViews').network || APP.views.network.tobeshow ){
 				console.log("first time on network!")
 				var visitedViews = _.defaults(APP.storage.get('visitedViews'), {network: true})
+				APP.views.network.tobeshow = false
 				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
