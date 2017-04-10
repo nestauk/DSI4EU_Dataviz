@@ -34,13 +34,13 @@ Sort Order,Common Name,Formal Name,Type,Sub Type,Sovereignty,Capital,ISO 4217 Cu
 33,Central African Republic,,Independent State,,,Bangui,XAF,Franc,236,CF,CAF,140,.cf
 34,Chad,Republic of Chad,Independent State,,,N'Djamena,XAF,Franc,235,TD,TCD,148,.td
 35,Chile,Republic of Chile,Independent State,,,Santiago (administrative/judical) and Valparaiso (legislative),CLP,Peso,56,CL,CHL,152,.cl
-36,"China, People's Republic of",People's Republic of China,Independent State,,,Beijing,CNY,Yuan Renminbi,86,CN,CHN,156,.cn
+36,China,People's Republic of China,Independent State,,,Beijing,CNY,Yuan Renminbi,86,CN,CHN,156,.cn
 37,Colombia,Republic of Colombia,Independent State,,,Bogota,COP,Peso,57,CO,COL,170,.co
 38,Comoros,Union of Comoros,Independent State,,,Moroni,KMF,Franc,269,KM,COM,174,.km
 39,"Congo, (Congo  Kinshasa)",Democratic Republic of the Congo,Independent State,,,Kinshasa,CDF,Franc,243,CD,COD,180,.cd
 40,"Congo, (Congo  Brazzaville)",Republic of the Congo,Independent State,,,Brazzaville,XAF,Franc,242,CG,COG,178,.cg
 41,Costa Rica,Republic of Costa Rica,Independent State,,,San Jose,CRC,Colon,506,CR,CRI,188,.cr
-42,Cote d'Ivoire (Ivory Coast),Republic of Cote d'Ivoire,Independent State,,,Yamoussoukro,XOF,Franc,225,CI,CIV,384,.ci
+42,Cote d'Ivoire,Republic of Cote d'Ivoire,Independent State,,,Yamoussoukro,XOF,Franc,225,CI,CIV,384,.ci
 43,Croatia,Republic of Croatia,Independent State,,,Zagreb,HRK,Kuna,385,HR,HRV,191,.hr
 44,Cuba,Republic of Cuba,Independent State,,,Havana,CUP,Peso,53,CU,CUB,192,.cu
 45,Cyprus,Republic of Cyprus,Independent State,,,Nicosia,CYP,Pound,357,CY,CYP,196,.cy
@@ -87,8 +87,8 @@ Sort Order,Common Name,Formal Name,Type,Sub Type,Sovereignty,Capital,ISO 4217 Cu
 86,Kazakhstan,Republic of Kazakhstan,Independent State,,,Astana,KZT,Tenge,7,KZ,KAZ,398,.kz
 87,Kenya,Republic of Kenya,Independent State,,,Nairobi,KES,Shilling,254,KE,KEN,404,.ke
 88,Kiribati,Republic of Kiribati,Independent State,,,Tarawa,AUD,Dollar,686,KI,KIR,296,.ki
-89,"Korea, North",Democratic People's Republic of Korea,Independent State,,,Pyongyang,KPW,Won,850,KP,PRK,408,.kp
-90,"Korea, South",Republic of Korea,Independent State,,,Seoul,KRW,Won,82,KR,KOR,410,.kr
+89,North Korea,Democratic People's Republic of Korea,Independent State,,,Pyongyang,KPW,Won,850,KP,PRK,408,.kp
+90,South Korea,Republic of Korea,Independent State,,,Seoul,KRW,Won,82,KR,KOR,410,.kr
 91,Kuwait,State of Kuwait,Independent State,,,Kuwait,KWD,Dinar,965,KW,KWT,414,.kw
 92,Kyrgyzstan,Kyrgyz Republic,Independent State,,,Bishkek,KGS,Som,996,KG,KGZ,417,.kg
 93,Laos,Lao People's Democratic Republic,Independent State,,,Vientiane,LAK,Kip,856,LA,LAO,418,.la
@@ -267,3 +267,4 @@ Sort Order,Common Name,Formal Name,Type,Sub Type,Sovereignty,Capital,ISO 4217 Cu
 270,Peter I Island,,Antarctic Territory,Territory,Norway,,,,,AQ,ATA,10,.aq
 271,Queen Maud Land,,Antarctic Territory,Territory,Norway,,,,,AQ,ATA,10,.aq
 272,British Antarctic Territory,,Antarctic Territory,Overseas Territory,United Kingdom,,,,,AQ,ATA,10,.aq
+383,Kosovo
