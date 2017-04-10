@@ -407,7 +407,7 @@
 .mouse .ui .tools .tools-icon path{
 	transition: fill .25s;
 }
-.mouse .ui .tools .tools-icon:hover path:first-child{
+.mouse .ui .tools .tools-icon:not(.selected):hover path:first-child{
 	fill: #444;
 }
 
