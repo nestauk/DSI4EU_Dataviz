@@ -378,11 +378,13 @@ function MapView() {
 		if (transform.k > 1.5 && current != 'orgs') {
 			current = 'orgs'
 			zoomLevel = 2
+			$('#map-show-connections .settings-description').text('Show links between connected organisations')
 			$('#map-show-connections').removeClass('disabled')
 			drawMap()
 		} else if (transform.k < 1.5 && current != 'countries') {
 			current = 'countries'
 			zoomLevel = 1
+			$('#map-show-connections .settings-description').text('Show links between connected organisations (zoom-in to enable)')
 			$('#map-show-connections').addClass('disabled')
 			drawMap()
 		}

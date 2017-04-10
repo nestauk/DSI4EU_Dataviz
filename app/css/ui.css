@@ -812,8 +812,8 @@
 .ui .info-container#info-network .network-stats-item h3:before, #embed-overlay .embed-legend-container h3:before {
 	content: "";
 	display: inline-block;
-	width: 2rem;
-	height: 2rem;
+	width: .8rem;
+	height: .8rem;
 	border-radius: 1rem;
 	margin-right: 1rem;
 }
@@ -833,7 +833,7 @@
 }
 
 .ui .info-container#info-network .legenda .stats-paragraph {
-	font-size: .9rem;
+	font-size: 1rem;
 	margin-top: .5rem;
 	width: 95%;
 }
@@ -1077,7 +1077,7 @@
 }
 
 .ui .modal-panel .map-list-container .scrolling ul li {
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	line-height: 2rem;
 	text-align: center;
 	margin-bottom: 1.5rem;
@@ -1128,7 +1128,7 @@
 
 .ui .modal-panel .map-panel-container .org-panel-cta {
 	margin-top: 1rem;
-	font-size: .85rem;
+	font-size: 1rem;
 }
 
 .ui .modal-panel .map-panel-container .org-panel-cta span a {
@@ -1173,7 +1173,7 @@
 .ui .modal-panel .map-panel-container .bar-chart-caption {
 	fill: white;
 	stroke: none;
-	font-size: .95rem;
+	font-size: 1rem;
 	align-self: flex-start;
 	text-anchor: start;
 }
@@ -1467,8 +1467,8 @@
 	margin-bottom: 0;
 }
 #embed-overlay .embed-legend-container h3:before {
-	width: 1rem;
-	height: 1rem;
+	width: .8rem;
+	height: .8rem;
 	margin-right: .5rem;
 }
 #embed-overlay .embed-cta span {

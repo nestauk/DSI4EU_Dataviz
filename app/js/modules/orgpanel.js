@@ -54,11 +54,11 @@ function OrgPanel() {
     $(".map-panel-container .org-type").html(org.organisation_type[0].name);
     
     if (org.linked_prjs.length == 0 && org.short_description == "") {
-      $(".map-panel-container .org-subtitle").html("This organisation has no projects");
+      $(".map-panel-container .org-subtitle").html("0 projects");
       $(".map-panel-container .scrolling p").html("This organisation has no description.");
       insertCta("organisation");
     } else if (org.linked_prjs.length == 0 && org.short_description != "") {
-      $(".map-panel-container .org-subtitle").html("This organisation has no projects");
+      $(".map-panel-container .org-subtitle").html("0 projects");
       insertCta("projects");
       $(".map-panel-container .scrolling p").html(org.short_description);
     } else if (org.linked_prjs.length > 0 && org.short_description == "") {
@@ -75,12 +75,12 @@ function OrgPanel() {
 
   function insertCta(parameter) {
     var cta = d3.select(".map-panel-container .org-panel-cta")
-      .html("Is this your organisation? Update your profile ")
+      .html("Is this your organisation? ")
     cta.append("span").append("a")
       .attr("class", "orgpanel-cta")
       .attr("href", "http://www.digitalsocial.eu/login")
       .attr("target", "_blank")
-      .text("here")
+      .text("Update your profile ")
   }
 
 
