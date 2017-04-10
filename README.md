@@ -41,9 +41,13 @@ grunt build
 
 ## Embed code
 
-The embed code can be used to embed a specific application view. Some parameters can be configured like *org=xx*
+The embed code can be used to embed a specific application view. Some parameters can be configured, see below:
 
 ```html
-<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='http://dsitest.todo.to.it/viz/#/network?l=1&e=1&org=267' style='border:0'></iframe></div>
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='http://dsitest.todo.to.it/viz/#/network?l=0&e=1&org=267' style='border:0'></iframe></div>
 ```
 
+Available params:
+
+- org=<organization_id>
+- prj=<project_id>
