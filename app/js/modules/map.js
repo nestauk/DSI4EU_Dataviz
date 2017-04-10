@@ -12,13 +12,13 @@ function MapView() {
 	var zoomLevel = 1;
 	var data;
 	var map, path, projection;
-	var countries, countryPaths;
+	var countries, countryPaths, countryScale, opacityScale;
 	var maxCircleSize = 0;
 	var width = 0
 	var height = 0
 	var current = 'countries'
 	var container;
-	var zoom;
+	var zoom, scaled;
 	var orgs;
 	var svg;
 	var currentSearchResult = null, currentSelected = null;
@@ -56,7 +56,7 @@ function MapView() {
 		createMapGeometry()
 
 		zoom = d3.zoom()
-			.scaleExtent([0.35, 10])
+			.scaleExtent([0.35, 20])
 			.translateExtent([
 				[-1400, -500],
 				[1800, 1500]
@@ -169,10 +169,10 @@ function MapView() {
 	}
 
 	function createMapContent() {
-		var countryScale = d3.scaleLinear()
+		countryScale = d3.scaleLinear()
 			.domain([0, maxCircleSize])
 			.range([2, 50])
-		var opacityScale = d3.scaleLinear()
+		opacityScale = d3.scaleLinear()
 			.domain([0, maxCircleSize])
 			.range([0.8, 0.3])
 
@@ -332,6 +332,7 @@ function MapView() {
 	}
 
 	function resetFocus(){
+		console.log('reset')
 		currentSearchResult = null;
 		map.selectAll('.active')
 			.classed('active', false)
@@ -386,6 +387,26 @@ function MapView() {
 			zoomLevel = 1
 			$('#map-show-connections .settings-description').text('Show links between connected organisations (zoom-in to enable)')
 			$('#map-show-connections').addClass('disabled')
+			drawMap()
+		}
+		if(transform.k>10 && !scaled) {
+			scaled = true;
+			map.selectAll('.map-org')
+			.transition()
+			.delay(function(d, i) {
+				return i;
+			})
+			.attr('r', function(d){
+				return countryScale(d.orgs.length) / 7
+			})
+			.style('fill-opacity', function(d, i) {
+				if (d.orgs) return opacityScale(d.orgs.length)
+				else if (d.orgs.length <= 1) return 1
+				else return 0
+			})
+		}
+		if(transform.k < 10 && scaled) {
+			scaled = false;
 			drawMap()
 		}
 		map.attr("transform", "translate(" + transform.x + "," + transform.y + ") scale(" + transform.k + ")");
