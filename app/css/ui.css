@@ -1115,7 +1115,7 @@
 	content: "";
 	display: block;
 	height: .75rem;
-	border-bottom: .2rem solid white;
+	border-bottom: .15rem solid white;
 }
 
 .ui .modal-panel .map-panel-container .org-subtitle {
