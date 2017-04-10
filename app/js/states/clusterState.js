@@ -22,7 +22,7 @@ function clusterState(){
 				APP.storage.set('visitedViews', visitedViews)
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
-					if (window.isMobile) {
+					if (!orientMQ.matches) {
 						$(".cluster-wrapper").click( function (e) {
 							e.stopPropagation()	
 							APP.coachMarks.show()

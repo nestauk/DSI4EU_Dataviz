@@ -233,7 +233,7 @@ function UserInterface() {
 		$("#info-button").off()
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
-			if (APP.state === "map" && !APP.views.map.shown && window.isMobile) {
+			if (APP.state === "map" && !APP.views.map.shown && !orientMQ.matches) {
 				APP.coachMarks.showMapCoachmark()
 			}
 			$("#info-button").click(openInfoPanel)
