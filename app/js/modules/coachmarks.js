@@ -33,7 +33,7 @@ function CoachMarks() {
 		if (APP.state==="cluster") {
 			message = "Open the panel to filter, group and subdivide projects according to different criteria."
 		} else {
-			message = "Open the panel to select which types of organisations you want to see."
+			message = "This panel lets you select which types of organisations you want to see."
 		}
 
 		$(".view.coachmarks .callout .text").html(message)
