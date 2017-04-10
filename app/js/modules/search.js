@@ -8,8 +8,8 @@ function Search() {
 		var query = $('#search-input').val();
 		$('#search-results').empty();
 		if (query == '') return;
-		if (APP.state == 'map') var target = APP.dataset.orgs
-		else if (APP.state == 'network') var target = APP.dataset.orgs.concat(APP.dataset.prjs)
+		if (APP.state == 'map') var target = APP.filter.orgs
+		else if (APP.state == 'network') var target = APP.filter.orgs.concat(APP.filter.prjs)
 		else if (APP.state == 'cluster') var target = APP.cluster.getClusters()
 
 		var results = _.filter(target, function(o) {
