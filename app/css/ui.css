@@ -674,6 +674,7 @@
 	padding: .5rem;
 	border-bottom: .1rem solid #333;
 	transition: border .5s;
+	font-size: 1.3rem;
 }
 
 .ui .search-container .search-bar #search-input:focus {
