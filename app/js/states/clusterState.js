@@ -24,11 +24,11 @@ function clusterState(){
 				setTimeout(function(){	
 					APP.ui.openInfoPanel();
 					if (!orientMQ.matches) {
-						$(".cluster-wrapper").click( function (e) {
-							e.stopPropagation()	
-							APP.coachMarks.show()
-							APP.coachMarks.place($("#filter-tab"))
-						})
+						// $(".cluster-wrapper").click( function (e) {
+						// 	e.stopPropagation()	
+						// 	APP.coachMarks.show()
+						// 	APP.coachMarks.place($("#filter-tab"))
+						// })
 					}
 				}, 1000)
 			}

@@ -2,18 +2,18 @@ function CoachMarks() {
 	var self = this;
 	self.show = showCoachMarks
 	self.place = placeCoachMark
-	self.showMapCoachmark = showMapCoachmark
+	self.showFiltersCoachmark = showFiltersCoachmark
 
 	var message
 
 	$('#coachmarks').hide();
 
-	function showMapCoachmark() {
+	function showFiltersCoachmark() {
 		var timeout = setTimeout(function(){	
 			showCoachMarks()
 			placeCoachMark($("#filter-tab"))
 		}, 500)
-		APP.views.map.shown = true;
+		APP.views[APP.state].shown = true;
 	}
 
 	function showCoachMarks() {
@@ -31,7 +31,7 @@ function CoachMarks() {
 		callout.css("left", targetPos.left + targetW/2 - (callout.outerWidth())/2);
 
 		if (APP.state==="cluster") {
-			message = "Open the panel to filter, group and subdivide projects according to different criteria."
+			message = "This panel lets you filter, group and subdivide projects according to different criteria."
 		} else {
 			message = "This panel lets you select which types of organisations you want to see."
 		}

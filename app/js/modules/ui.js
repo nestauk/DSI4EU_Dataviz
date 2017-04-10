@@ -244,7 +244,10 @@ function UserInterface() {
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
 			if (APP.state === "map" && !APP.views.map.shown && !orientMQ.matches) {
-				APP.coachMarks.showMapCoachmark()
+				APP.coachMarks.showFiltersCoachmark()
+			}
+			if (APP.state === "cluster" && !APP.views.cluster.shown && !orientMQ.matches) {
+				APP.coachMarks.showFiltersCoachmark()
 			}
 			$("#info-button").click(openInfoPanel)
 		})
