@@ -331,6 +331,7 @@ function OrgPanel() {
 
 
   function deleteOrgPanelItems() {
+    console.log('delete')
     d3.select(".radar-svg").remove();
     d3.selectAll(".bar-chart").remove();
     d3.select(".map-panel-container .org-panel-cta").html("");

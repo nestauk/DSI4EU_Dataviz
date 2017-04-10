@@ -269,12 +269,14 @@ function UserInterface() {
 		$('.map-list').transition({
 			y: 0
 		}, 750, 'easeInOutQuint');
-		$(".remove-icon").click(closeOrgList);
+		$(".remove-icon").click(function(){
+			APP.map.resetFocus();
+			closeOrgList()
+		});
 		self.closeCurrentPanel = closeOrgList;
 	}
 
 	function closeOrgList() {
-		APP.map.resetFocus();
 		$(".remove-icon").off();
 		$('.map-list').transition({
 			y: "100%"
@@ -290,11 +292,15 @@ function UserInterface() {
 			$(".back-icon").hide();
 			$(".modal-nav-icons").addClass("from-list");
 		}
+		APP.orgPanel.delete();
 		APP.orgPanel.create(org);
 		$('.map-panel').transition({
 			x: 0
 		}, 750, 'easeInOutQuint');
-		$(".remove-icon").click(closeOrgPanel);
+		$(".remove-icon").click(function(){
+			APP.map.resetFocus();
+			closeOrgPanel()
+		});
 		$(".back-icon").click(backToOrgList);
 		self.closeCurrentPanel = closeOrgPanel;
 	}
@@ -317,14 +323,9 @@ function UserInterface() {
 	}
 
 	function closeOrgPanel() {
-		APP.map.resetFocus();
 		$(".remove-icon").off();
-		APP.orgPanel.delete();
 		$('.map-panel').transition({
-			x: "100%",
-			complete: function() {
-				APP.orgPanel.delete();
-			}
+			x: "100%"
 		}, 750, "easeInOutQuint");
 		$('.map-list').css({
 			y: "100%",
