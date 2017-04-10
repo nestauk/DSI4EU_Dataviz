@@ -5,6 +5,7 @@ function MapView() {
 	self.focus = focusSearchResult;
 	self.update = drawMap
 	self.reset = resetMap
+	self.resetFocus = resetFocus;
 	self.showLinks = false;
 	self.defaultPosition = setDefaultMapPosition;
 
@@ -328,6 +329,12 @@ function MapView() {
 			k: scale
 		}
 		focusOnPoint(t)
+	}
+
+	function resetFocus(){
+		currentSearchResult = null;
+		map.selectAll('.active')
+			.classed('active', false)
 	}
 
 	function createConnections(data) {

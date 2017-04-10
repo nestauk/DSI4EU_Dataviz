@@ -274,6 +274,7 @@ function UserInterface() {
 	}
 
 	function closeOrgList() {
+		APP.map.resetFocus();
 		$(".remove-icon").off();
 		$('.map-list').transition({
 			y: "100%"
@@ -316,6 +317,7 @@ function UserInterface() {
 	}
 
 	function closeOrgPanel() {
+		APP.map.resetFocus();
 		$(".remove-icon").off();
 		APP.orgPanel.delete();
 		$('.map-panel').transition({
