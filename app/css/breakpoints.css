@@ -156,12 +156,14 @@ html, body {
 	#embed-overlay {
 		padding: 1rem 0;
 	}
-	#embed-overlay button {
-		font-size: 1.2rem;
-		padding: .5rem 1rem;
+	#embed-overlay .embed-legend{
+		width: 45%;
 	}
 	#embed-overlay .embed-legend span{
-		margin-right: 10%;
+		margin-right: 5%;
+	}
+	#embed-overlay .embed-legend-container h3 {
+		font-size: .8rem;
 	}
 	#embed-overlay .embed-cta span {
 		font-size: 1.2rem;
@@ -179,7 +181,7 @@ html, body {
 		transform: translateY(-100%);
 	}
 	#embed-overlay > div{
-		padding: .5rem;
+		padding: 5%;
 	}
 	#embed-overlay .embed-legend {
 		flex-direction: column;
@@ -203,20 +205,5 @@ html, body {
 	}
 	#embed-overlay .embed-legend-network h3:first-child{
 		margin-bottom: .2rem;
-	}
-	#embed-overlay .embed-cta span {
-		padding-left: .5rem;
-		font-weight: 500;
-		text-align: left;
-	}
-	#embed-overlay button {
-		text-align: left;
-		padding: .2rem 0;
-		margin-left: 0;
-		border-left: none;
-		border-right: none;
-		border-top: none;
-		border-radius: 0;
-		text-transform: lowercase;
 	}
 }
