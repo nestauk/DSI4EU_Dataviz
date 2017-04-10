@@ -80,7 +80,7 @@ function OrgPanel() {
       .attr("class", "orgpanel-cta")
       .attr("href", "http://www.digitalsocial.eu/login")
       .attr("target", "_blank")
-      .text("Update your profile ")
+      .text("Update your profile.")
   }
 
 
