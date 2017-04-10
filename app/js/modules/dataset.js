@@ -192,7 +192,7 @@ function Dataset(){
         if(org_type.name.toLowerCase() == 'Social enterprise, charity, foundation or other non-profit'.toLowerCase()) org_type.name = 'Non-Profit'
         else if(org_type.name.toLowerCase() == 'Academia/Research organisation'.toLowerCase()) org_type.name = 'Research'
         else if(org_type.name.toLowerCase() == 'For-profit business'.toLowerCase()) org_type.name = 'For-profit business'
-        else if(org_type.name.toLowerCase() == 'Grassroots organisation or community network'.toLowerCase()) org_type.name = 'Citizens\' organisation'
+        else if(org_type.name.toLowerCase() == 'Grassroots organisation or community network'.toLowerCase()) org_type.name = 'Citizens\’ organisation'
         else if(org_type.name.toLowerCase() == 'Government/Public Sector'.toLowerCase()) org_type.name = 'Public Sector'
         else org_type.name = 'Others'
         return [org_type]
