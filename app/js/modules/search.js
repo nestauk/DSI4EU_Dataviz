@@ -18,7 +18,7 @@ function Search() {
 		})
 
 		if (_.isEmpty(results)) {
-			$('#search-list').append('<li class="notfound">No results found.</li>');
+			$('#search-results').append('<li class="notfound">No results found.</li>');
 		} else {
 			createResults(results, query)
 		}
