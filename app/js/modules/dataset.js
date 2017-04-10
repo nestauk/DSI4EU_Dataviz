@@ -1,4 +1,4 @@
-function Dataset(){
+function Dataset() {
     var self = this
     self.loadData = loadData
     self.getNetworkStats = getNetworkStats
@@ -23,25 +23,31 @@ function Dataset(){
     var countries_path = 'data/iso_3166_2_countries.csv'
 
     // loads the .csv file and returns the data
-    function loadData(callback){
+    function loadData(callback) {
         d3.queue()
-          .defer(d3.json, organisations_path)
-          .defer(d3.json, projects_path)
-          .defer(d3.json, map_path)
-          .defer(d3.csv, countries_path)
-          .await(function(error, orgData, prjData, mapData, countriesData, netDumpData){
-            if(error) {
-                console.log(error)
-                $('#loader-view h3').text('Error: ' + error)
-                return
-            }
-            prepareData({orgs: orgData, prjs: prjData, map: mapData, countries: countriesData, netDump:netDumpData})
-            if(callback) callback()
-          })
+            .defer(d3.json, organisations_path)
+            .defer(d3.json, projects_path)
+            .defer(d3.json, map_path)
+            .defer(d3.csv, countries_path)
+            .await(function(error, orgData, prjData, mapData, countriesData, netDumpData) {
+                if (error) {
+                    console.log(error)
+                    $('#loader-view h3').text('Error: ' + error)
+                    return
+                }
+                prepareData({
+                    orgs: orgData,
+                    prjs: prjData,
+                    map: mapData,
+                    countries: countriesData,
+                    netDump: netDumpData
+                })
+                if (callback) callback()
+            })
     }
 
     // cleans up the data and adds additional fields to the records
-    function prepareData(data){
+    function prepareData(data) {
         self.orgs = data.orgs
         self.prjs = data.prjs
         self.maptopo = addCountryNames(data.map, data.countries)
@@ -57,29 +63,32 @@ function Dataset(){
         getNetworkStats()
     }
 
-    function addCountryNames(map, countries){
-        map.objects.countries.geometries.forEach(function(c){
-            var country = _.find(countries, function(country){
+    function addCountryNames(map, countries) {
+        map.objects.countries.geometries.forEach(function(c) {
+            var country = _.find(countries, function(country) {
                 return _.padStart(country['ISO 3166-1 Number'], 3, '0') == c.id
             })
-            if(country) c.properties = {name: country['Common Name'], fullName: country['Formal Name']}
+            if (country) c.properties = {
+                name: country['Common Name'],
+                fullName: country['Formal Name']
+            }
         })
         return map
     }
 
     // remove unneeded fields from orgs
-    function cleanOrganisationData(){
-        self.orgs.forEach(function(o){
+    function cleanOrganisationData() {
+        self.orgs.forEach(function(o) {
             o.id = o.organisation_id
             o.name = o.organisation_name
             o.type = 'org'
-            o.url = 'https://digitalsocial.eu/org/'+o.id
-            if(!o.linked_prjs) o.linked_prjs = []
+            o.url = 'https://digitalsocial.eu/org/' + o.id
+            if (!o.linked_prjs) o.linked_prjs = []
 
-            if(!o.linked_orgs) o.linked_orgs = []
+            if (!o.linked_orgs) o.linked_orgs = []
             else o.linked_orgs = _.uniq(o.linked_orgs)
-            
-            o.shared_prjs = o.linked_prjs.filter(function (p) {
+
+            o.shared_prjs = o.linked_prjs.filter(function(p) {
                 return p.linked_orgs.length > 1
             })
             o.organisation_type = replaceOrganisationType(o.organisation_type)
@@ -98,13 +107,13 @@ function Dataset(){
     }
 
     // remove unneeded fields from prjs
-    function cleanProjectData(){
-        self.prjs.forEach(function(p){
+    function cleanProjectData() {
+        self.prjs.forEach(function(p) {
             p.id = p.project_id
             p.name = p.project_name
             p.type = 'prj'
-            p.url = 'https://digitalsocial.eu/project/'+p.id
-            if(!p.linked_orgs) p.linked_orgs = []
+            p.url = 'https://digitalsocial.eu/project/' + p.id
+            if (!p.linked_orgs) p.linked_orgs = []
             delete p.country
             delete p.creation_date
             delete p.start_date
@@ -121,63 +130,79 @@ function Dataset(){
         })
     }
 
-    function createFieldList(data, field, limitCount, altName){
+    function createFieldList(data, field, limitCount, altName) {
         var list = []
         var countValueTh = limitCount || false
         var modData = data.slice()
-        modData.forEach(function (c, i) {
-            if(Array.isArray(c[field])){
-                c[field].forEach(function (e) {
-                    var match = list.filter(function(f){ return f.id === e.id })
-                if ( _.isEmpty(match) ) {
-                    list.push({
-                        name: e.name,
-                        id: e.id,
-                        count: 1
+        modData.forEach(function(c, i) {
+            if (Array.isArray(c[field])) {
+                c[field].forEach(function(e) {
+                    var match = list.filter(function(f) {
+                        return f.id === e.id
                     })
-                } else {
-                    var index = _.findKey(list, function(o) { return o.id===e.id })
-                    list[index].count++
-                }
+                    if (_.isEmpty(match)) {
+                        list.push({
+                            name: e.name,
+                            id: e.id,
+                            count: 1
+                        })
+                    } else {
+                        var index = _.findKey(list, function(o) {
+                            return o.id === e.id
+                        })
+                        list[index].count++
+                    }
                 })
-            } else if(_.isObject(c[field])){
-                var match = list.filter(function(f){ return f.name === c[field].name })
-                if ( _.isEmpty(match) && !_.isEmpty(c[field])) {
+            } else if (_.isObject(c[field])) {
+                var match = list.filter(function(f) {
+                    return f.name === c[field].name
+                })
+                if (_.isEmpty(match) && !_.isEmpty(c[field])) {
                     list.push({
                         name: c[field].name,
                         id: c[field].id,
                         count: 1
                     })
-                } else if(!_.isEmpty(match) && !_.isEmpty(c[field])){
-                    var index = _.findKey(list, function(o) { return o.id===c[field].id })
+                } else if (!_.isEmpty(match) && !_.isEmpty(c[field])) {
+                    var index = _.findKey(list, function(o) {
+                        return o.id === c[field].id
+                    })
                     list[index].count++
                 }
-            }   else if(_.isString(c[field])){
-                var match = list.filter(function(f){ return f.name === c[field] })
-                if ( _.isEmpty(match) && !_.isEmpty(c[field])) {
+            } else if (_.isString(c[field])) {
+                var match = list.filter(function(f) {
+                    return f.name === c[field]
+                })
+                if (_.isEmpty(match) && !_.isEmpty(c[field])) {
                     list.push({
                         name: c[field],
                         id: i,
                         count: 1
                     })
-                } else if(!_.isEmpty(match) && !_.isEmpty(c[field])){
-                    var index = _.findKey(list, function(o) { return o.name===c[field] })
+                } else if (!_.isEmpty(match) && !_.isEmpty(c[field])) {
+                    var index = _.findKey(list, function(o) {
+                        return o.name === c[field]
+                    })
                     list[index].count++
-                }               
+                }
             }
         })
-        list.sort(function(a,b) {
-          return b.count - a.count
+        list.sort(function(a, b) {
+            return b.count - a.count
         })
-        if(countValueTh) {
+        if (countValueTh) {
             var slicedList = list.slice(0, countValueTh)
-            slicedList.push({name: 'Others', count: 0, id:999})
-        }   else {
+            slicedList.push({
+                name: 'Others',
+                count: 0,
+                id: 999
+            })
+        } else {
             var slicedList = list.slice(0)
         }
         var fieldName = altName || field
-        if(!self.fields[fieldName]) {
-            self.fields[fieldName] = _.map(slicedList, function(f){
+        if (!self.fields[fieldName]) {
+            self.fields[fieldName] = _.map(slicedList, function(f) {
                 return {
                     name: f.name,
                     id: parseInt(f.id),
@@ -198,18 +223,18 @@ function Dataset(){
         return [org_type]
     }
 
-    function cleanFieldValues(data, field, limitCount){
+    function cleanFieldValues(data, field, limitCount) {
         var slicedValues = []
-        if(!self.fields[field]) createFieldList(data, field, limitCount)
-        self.fields[field].forEach(function (d) {
+        if (!self.fields[field]) createFieldList(data, field, limitCount)
+        self.fields[field].forEach(function(d) {
             slicedValues.push(d.id)
         })
-        data.forEach(function (c) {
+        data.forEach(function(c) {
             c[field].forEach(function(e, i) {
-                if(!_.includes(slicedValues, parseInt(e.id))) {
+                if (!_.includes(slicedValues, parseInt(e.id))) {
                     c[field][i].name = 'Others'
                     c[field][i].id = 999
-                    // c[field] = _.without(c[field], e)
+                        // c[field] = _.without(c[field], e)
                 }
             })
             c[field] = _.uniq(c[field], 'name')
@@ -218,24 +243,24 @@ function Dataset(){
     }
 
 
-    function getNetworkStats(){
+    function getNetworkStats() {
         var networks = []
-        self.orgs.forEach(function(o){
+        self.orgs.forEach(function(o) {
             var network = getNetworkData(o)
-            if(network.orgs.length > 1) networks.push(network)
+            if (network.orgs.length > 1) networks.push(network)
         })
-        networks = _.uniqBy(networks, function(n){
-            var org_ids = _.map(n.orgs, function(o){
+        networks = _.uniqBy(networks, function(n) {
+            var org_ids = _.map(n.orgs, function(o) {
                 return o.id
             })
             return org_ids.toString()
         })
 
-        var totalLinkedOrgs = _.sumBy(networks, function(n){
+        var totalLinkedOrgs = _.sumBy(networks, function(n) {
             return n.orgs.length
         })
 
-        var totalSharedPrjs = _.sumBy(networks, function(n){
+        var totalSharedPrjs = _.sumBy(networks, function(n) {
             return n.prjs.length
         })
 
@@ -244,11 +269,11 @@ function Dataset(){
             totalLinkedOrgs: totalLinkedOrgs,
             totalSharedPrjs: totalSharedPrjs
         }
-         return stats
+        return stats
     }
 
-    function getNetworkData(node, localNetwork){
-        if(node.type != 'org') org = node.linked_orgs[0]
+    function getNetworkData(node, localNetwork, filter) {
+        if (node.type != 'org') org = node.linked_orgs[0]
         else org = node
 
         var network_orgs = []
@@ -256,48 +281,58 @@ function Dataset(){
         network_orgs.push(org)
 
         getOrgNetwork(org)
-        function getOrgNetwork(org){
+
+        function getOrgNetwork(org) {
             var prjs_data = org.shared_prjs
-            if(localNetwork) prjs_data = org.linked_prjs
+            if (localNetwork) prjs_data = org.linked_prjs
             var prjs = _.difference(prjs_data, network_prjs)
             network_prjs = network_prjs.concat(prjs)
-                prjs.forEach(function(p){
-                    var orgs = _.difference(p.linked_orgs, network_orgs)
-                    network_orgs = network_orgs.concat(orgs)
-                        orgs.forEach(function(o){
-                            getOrgNetwork(o)
-                        })
+            prjs.forEach(function(p) {
+                var orgs = _.difference(p.linked_orgs, network_orgs)
+                network_orgs = network_orgs.concat(orgs)
+                orgs.forEach(function(o) {
+                    getOrgNetwork(o)
                 })
+            })
         }
-        network_prjs.sort(function(a, b){
+        network_prjs.sort(function(a, b) {
             return a.id - b.id
         })
-        network_orgs.sort(function(a, b){
+        network_orgs.sort(function(a, b) {
             return a.id - b.id
         })
-        return {
-            prjs: network_prjs,
-            orgs: network_orgs
+        if (filter) {
+            return {
+                prjs: _.intersection(network_prjs, APP.filter.prjs),
+                orgs: _.intersection(network_orgs, APP.filter.orgs)
+            }
+        } else {
+            return {
+                prjs: network_prjs,
+                orgs: network_orgs
+            }
         }
     }
 
-    function addLinkedFields(){
-        self.prjs.forEach(function(p){
+    function addLinkedFields() {
+        self.prjs.forEach(function(p) {
             p.countries = []
-            p.linked_organisation_ids.forEach(function(id){
-                var org = _.find(self.orgs, function(o){return o.organisation_id == id})
-                if(org){
-                    if(org.country != '') p.countries.push(org.country)
-                    if(!p.linked_orgs) p.linked_orgs = []
-                    if(!org.linked_prjs) org.linked_prjs = []
+            p.linked_organisation_ids.forEach(function(id) {
+                var org = _.find(self.orgs, function(o) {
+                    return o.organisation_id == id
+                })
+                if (org) {
+                    if (org.country != '') p.countries.push(org.country)
+                    if (!p.linked_orgs) p.linked_orgs = []
+                    if (!org.linked_prjs) org.linked_prjs = []
                     org.linked_prjs.push(p)
                     p.linked_orgs.push(org)
-                } 
+                }
             })
             p.countries = _.uniq(p.countries)
-            if(!p.linked_orgs) p.linked_orgs = []
-            p.linked_orgs.forEach(function(o){
-                if(!o.linked_orgs) o.linked_orgs = []
+            if (!p.linked_orgs) p.linked_orgs = []
+            p.linked_orgs.forEach(function(o) {
+                if (!o.linked_orgs) o.linked_orgs = []
                 o.linked_orgs = o.linked_orgs.concat(_.without(p.linked_orgs, o))
             })
         })

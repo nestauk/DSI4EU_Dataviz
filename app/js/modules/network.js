@@ -235,7 +235,7 @@ function NetworkView() {
 	}
 
 	function focusSearchResult(result) {
-		currentActiveNetwork = APP.dataset.getNetworkData(result, true);
+		currentActiveNetwork = APP.dataset.getNetworkData(result, true, true);
 		currentResultFocus = result
 		var scale = 3
 		var translate = [width / 2 - result.x, height / 2 - result.y]
