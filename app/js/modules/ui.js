@@ -168,24 +168,36 @@ function UserInterface() {
 	}
 
 	function openToolsPanel(view, reset) {
-		closeUIPanels();
-		$('.tools-container').hide();
-		if (view && view instanceof jQuery) view.show();
+		if(self.closeCurrentPanel != closeToolsPanel){
+			switchView();
+			closeUIPanels();
+		} else {
+			closeUIPanels(switchView);
+		}
+		if (reset) self.resetTools = reset;
 		$('#tools-panel').transition({
 			y: 0
 		}, 750, 'easeInOutQuint');
-		if (reset) self.resetTools = reset;
 		$("#tools-panel .close-modal").click(function() {
-			closeToolsPanel(view);
+			closeToolsPanel();
 		});
+		function switchView(){
+			console.log(view)
+			$('.tools-container').hide();
+			if (view && view instanceof jQuery) view.show();
+		}
 		self.closeCurrentPanel = closeToolsPanel
 	}
 
-	function closeToolsPanel(view) {
+	function closeToolsPanel(callback) {
 		if (self.resetTools) self.resetTools();
 		$("#tools-panel .close-modal").off();
 		$('#tools-panel').transition({
-			y: "100%"
+			y: "100%",
+			complete: function(){
+				console.log('closed')
+				if(callback) callback();
+			}
 		}, 750, 'easeInOutQuint');
 		self.closeCurrentPanel = null;
 		$('#share-button').removeClass('selected')
@@ -408,10 +420,10 @@ function UserInterface() {
 		$('#embed-overlay').addClass(APP.state)
 	}
 
-	function closeUIPanels() {
+	function closeUIPanels(callback) {
 		if (self.closeCurrentPanel){		 
-			// console.log('closing', self.closeCurrentPanel)
-			self.closeCurrentPanel();
+			if(callback) self.closeCurrentPanel(callback);
+			else self.closeCurrentPanel();
 		}
 	}
 
