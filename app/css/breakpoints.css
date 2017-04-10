@@ -126,7 +126,6 @@ html, body {
 		right: 10%;
 	}
 	.ui select {
-		background-image: none;
 		font-size: 1rem;
 	}
 	.ui .subpanel-wrapper{

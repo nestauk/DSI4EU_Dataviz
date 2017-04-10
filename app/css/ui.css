@@ -41,8 +41,8 @@
 	font-size: 1.2rem;
 	font-family: "Montserrat";
 	border-radius: 0;
-	background-image: url('../img/ui/icon-select-arrow.svg');
-	background-size: 1.2rem;
+	background-image: url('../img/ui/arrow-down-inverted.svg');
+	background-size: 1rem;
 	background-repeat: no-repeat;
 	background-position: 95% 50%;
 	text-transform: uppercase;
@@ -183,7 +183,7 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.05rem;
-	font-size: 1.8rem;
+	font-size: 1.5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -245,13 +245,13 @@
 }
 
 .ui #settings-cluster .settings-item p {
-	flex: 2;
+	flex: 4;
 	text-transform: uppercase;
 	font-size: 1.2rem;
 }
 
 .ui #settings-cluster .settings-item select {
-	flex: 3;
+	flex: 5;
 	font-weight: 700;
 	padding: .3rem;
 }
@@ -301,10 +301,6 @@
 
 .cluster .ui .settings-item div{
 	margin: 0 1rem;
-}
-
-.cluster .ui .settings-item .settings-title{
-	margin-bottom: .5rem;
 }
 
 .ui .settings-item .settings-title{
@@ -674,7 +670,7 @@
 	padding: .5rem;
 	border-bottom: .1rem solid #333;
 	transition: border .5s;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 	border-radius: 0;
 }
 
@@ -1003,7 +999,7 @@
 }
 
 .ui .modal-panel h2 {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	text-transform: capitalize;
 	line-height: 2.4rem;
 	letter-spacing: 0;
@@ -1054,7 +1050,7 @@
 
 
 .ui .modal-panel .map-list-container h3 {
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	color: #1dc9a0;
 	text-align: center;
 	display: flex;
@@ -1243,10 +1239,11 @@
 }
 
 .ui .network-list .network-list-container .scrolling .networklist-text-container p {
+	cursor: pointer;
 	line-height: 1.6rem;
 }
 
-.ui .network-list .network-list-container .scrolling .networklist-text-container p:hover {
+.ui .network-list .network-list-container .scrolling .networklist-text-container:hover p:first-child {
 	color: #b164a5;
 }
 
@@ -1333,6 +1330,7 @@
 .ui .cluster-panel .scrolling .cluster-item-header {
 	display: flex;
 	width: 100%;
+	cursor: pointer;
 }
 
 .ui .cluster-panel .scrolling .cluster-item .cluster-circle-container {
@@ -1355,7 +1353,8 @@
 	align-items: flex-start;
 	justify-content: center;
 	color: white;
-	font-size: 1.4rem;
+	font-size: 1.3rem;
+	font-weight: 500;
 	width: 75%;
 	padding-left: 1rem;
 }
