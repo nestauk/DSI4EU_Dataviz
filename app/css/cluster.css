@@ -66,3 +66,24 @@ text.smallLabel{
 .cluster-wrapper.active::after {
 	border-bottom: .2rem solid #1DC9A0;
 }
+.cluster-value {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	fill: #333;
+	font-size: 2rem;
+	font-weight: bold;
+	transform: translate(-50%, -100%) scale(0);
+	transform-origin: 50% 50%;
+	transition: transform .3s;
+	text-align: center;
+}
+.cluster-value span{
+	display: block;
+	font-size: 1rem;
+	margin-top: .25rem;
+	text-transform: uppercase;
+}
+.cluster-wrapper.active .cluster-value {
+	transform: translate(-50%, -100%) scale(1);
+}

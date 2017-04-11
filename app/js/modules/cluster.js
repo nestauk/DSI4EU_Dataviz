@@ -81,11 +81,6 @@ function ClusterView() {
 			maxSubdivisionValue = maxSubdivision.values[0].values.length;
 			drawSubdividedClusters(subdivide_field);
 		}
-		clusterWrappers.on("click", function(d){
-			APP.ui.openClusterPanel(d)
-			$('#cluster-container .active').removeClass('active')
-			$(this).addClass('active')
-		})
 	}
 
 	function createGroups(array, field) {
@@ -170,7 +165,20 @@ function ClusterView() {
 				return clusterScale(d.values.length)
 			})
 
+			clusterWrappers
+				.append('p')
+				.attr('class', 'cluster-value')
+				.text(function(d){
+					return d.values.length
+				})
+				.append('span')
+				.text('projects')
+
 		clusterWrappers.each(addLabel)
+		clusterWrappers.on("click", function(d){
+			$('#cluster-container .active').removeClass('active')
+			$(this).addClass('active')
+		})
 	}
 
 	function drawSubdividedClusters(field) {
@@ -216,6 +224,11 @@ function ClusterView() {
 					return d.r
 				})
 		}
+		clusterWrappers.on("click", function(d){
+			APP.ui.openClusterPanel(d)
+			$('#cluster-container .active').removeClass('active')
+			$(this).addClass('active')
+		})
 	}
 
 	function focusSearchResult(result){
