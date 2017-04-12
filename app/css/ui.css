@@ -1418,7 +1418,7 @@
 	pointer-events: none;
 	opacity: 0;
 }
-.mobile.landscape #turn-view{
+.mobile.landscape:not(.embed) #turn-view{
 	pointer-events: all;
 	opacity: 1;
 }
