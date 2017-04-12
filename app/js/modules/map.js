@@ -221,6 +221,7 @@ function MapView() {
 			.attr('r', function(d, i) {
 				// if(self.showLinks && zoomLevel == 2) return 2
 				if (d.orgs && d.orgs.length > 1) return countryScale(d.orgs.length)
+				else if(_.isEmpty(d.orgs)) return 0
 				else return 1
 			})
 			.style('fill-opacity', function(d, i) {
