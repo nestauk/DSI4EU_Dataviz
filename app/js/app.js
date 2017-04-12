@@ -63,6 +63,7 @@
 				APP.embed = (APP.stator.param.e === '1') ? 1 : 0
 			}
 			if(APP.embed){
+				$('html').addClass('embed')
 			 	APP.ui.enableEmbedOverlay();
 			 $('#user-interface').hide()
 			 APP.network.create();
