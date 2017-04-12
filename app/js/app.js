@@ -49,7 +49,6 @@
     	APP.network = new NetworkView()
     	APP.network.create()
     	APP.network.pause()
-    	$('#network-wrapper').css({opacity: 0, 'pointer-events': 'none'})
 
 			APP.loader.stop();
 			APP.ui.init();
