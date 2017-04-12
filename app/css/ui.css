@@ -177,6 +177,7 @@
 .ui #filter-panel {
 	background: #333333;
 	padding: 0;
+	transform: translateY(-100%);
 }
 
 .ui #filter-panel h2 {

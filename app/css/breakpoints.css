@@ -6,6 +6,9 @@ html, body {
 	html, body{
 		font-size: 90%;
 	}
+	html[orientation="landscape"] #filter-panel {
+		transform: translateY(0);
+	}
 }
 
 @media (min-width: 1020px) {
@@ -176,9 +179,6 @@ html, body {
 }
 
 @media screen and (max-width: 480px) {
-	.ui #filter-panel {
-		transform: translateY(-100%);
-	}
 	#embed-overlay > div{
 		padding: 5%;
 	}
