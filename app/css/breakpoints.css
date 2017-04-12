@@ -206,3 +206,19 @@ html, body {
 		margin-bottom: .2rem;
 	}
 }
+
+@media screen and (max-width: 340px) {
+	#embed-overlay > div{
+		padding: 2%;
+	}
+	#embed-overlay .embed-legend {
+		width: 36%;
+	}
+	#embed-overlay .embed-cta span {
+		padding-left: 0;
+	}
+	#embed-overlay .embed-cta button {
+		font-size: 1.05rem;
+	}
+}
+
