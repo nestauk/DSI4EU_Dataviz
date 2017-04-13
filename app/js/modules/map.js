@@ -139,14 +139,6 @@ function MapView() {
 			}))
 			.attr('id', 'state-borders')
 			.attr('d', path)
-
-		svg.on('click', function(d) {
-			if (currentSearchResult) {
-				currentSearchResult = null
-				map.selectAll('.active')
-					.classed('active', false)
-			}
-		})
 	}
 
 	function getCountryCentroids(countryPaths) {
@@ -199,9 +191,12 @@ function MapView() {
 			.merge(circle)
 			.on('click', function(d) {
 				$('#map-container .active').removeClass('active')
-				$(this).addClass('active');
 				if (_.includes(d.orgs, currentSearchResult)) APP.ui.openMapPanel(currentSearchResult)
-				else APP.ui.openMapPanel(d)
+				else {
+					currentSearchResult = null;
+					APP.ui.openMapPanel(d)
+				}
+				$(this).addClass('active');
 			})
 			.attr('cx', function(d) {
 				return d.cx
@@ -220,7 +215,6 @@ function MapView() {
 			.duration(1000)
 			.ease(d3.easeExp)
 			.attr('r', function(d, i) {
-				// if(self.showLinks && zoomLevel == 2) return 2
 				if (d.orgs && d.orgs.length > 1) return countryScale(d.orgs.length)
 				else if(_.isEmpty(d.orgs)) return 0
 				else return 1
@@ -320,6 +314,7 @@ function MapView() {
 	function focusSearchResult(org) {
 		zoomLevel = 2;
 		drawMap();
+		focusing = true;
 		var focusScale = d3.scaleLinear()
 		.domain([0, maxCircleSize])
 		.range([8, 3])
@@ -337,7 +332,6 @@ function MapView() {
 	}
 
 	function resetFocus(){
-		console.log('reset')
 		currentSearchResult = null;
 		map.selectAll('.active')
 			.classed('active', false)
@@ -418,7 +412,6 @@ function MapView() {
 	}
 
 	function focusOnPoint(transform) {
-		focusing = true;
 		var w = width / 2
 		var scale = transform.k
 		if (!window.isMobile && !APP.embed) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
@@ -426,9 +419,11 @@ function MapView() {
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
 		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
 			svg.transition().call(zoom.scaleTo, scale).on("end", function() {
-				focusing = false,
-				zoomLevel = 2;
-				drawMap();
+				if(focusing){
+					focusing = false,
+					zoomLevel = 2;
+					drawMap();
+				}
 			});
 		})
 	}
