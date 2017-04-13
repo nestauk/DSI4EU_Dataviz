@@ -181,6 +181,10 @@ function Filter() {
 		switch (APP.state) {
 			case "map":
 				if(APP.map.showLinks) $('#map-show-connections').addClass('active')
+				$('#settings-map').off();
+				$('#settings-map').click(function(){
+					$('#map-show-connections .map-settings-zoom').transition({scale: 1.15, color: '#1dc9a0'}).transition({scale: 1, color: '#ffffff'})
+				})
 				$('#map-show-connections').off()
 				$('#map-show-connections').click(function() {
 					APP.map.showLinks = !APP.map.showLinks

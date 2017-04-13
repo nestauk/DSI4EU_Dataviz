@@ -159,7 +159,6 @@
 	background: #444;
 	z-index: 1;
 	height: 40%;
-	transition: background .5s;
 }
 
 .ui .sub-nav.open {
@@ -281,6 +280,15 @@
 .ui .settings-item.disabled {
 	pointer-events: none;
 	opacity: .4;
+}
+
+.ui .settings-item .map-settings-zoom {
+	display: none;
+	transform-origin: center;
+}
+
+.ui .settings-item.disabled .map-settings-zoom {
+	display: inline-block;
 }
 
 .ui .settings-item .checkbox {
