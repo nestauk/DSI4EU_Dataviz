@@ -243,9 +243,6 @@ function UserInterface() {
 		$("#info-button").off()
 		APP.infoPanel.delete(APP.state);
 		openToolsPanel($('#info-' + APP.state), function() {
-			if (APP.state === "map" && !APP.views.map.shown && !orientMQ.matches) {
-				APP.coachMarks.showFiltersCoachmark()
-			}
 			if (APP.state === "cluster" && !APP.views.cluster.shown && !orientMQ.matches) {
 				APP.coachMarks.showFiltersCoachmark()
 			}
@@ -286,6 +283,9 @@ function UserInterface() {
 			y: "100%"
 		}, 750, 'easeInOutQuint');
 		APP.map.resetFocus();
+		if (APP.state === "map" && !APP.views.map.shown && !orientMQ.matches) {
+			APP.coachMarks.showFiltersCoachmark()
+		}
 		self.closeCurrentPanel = null;
 	}
 
@@ -338,6 +338,9 @@ function UserInterface() {
 			y: "100%",
 			x: 0
 		});
+		if (APP.state === "map" && !APP.views.map.shown && !orientMQ.matches) {
+			APP.coachMarks.showFiltersCoachmark()
+		}
 		APP.map.resetFocus();
 		self.closeCurrentPanel = null;
 	}
