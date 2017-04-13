@@ -166,6 +166,12 @@
 	background: #1dc9a0;
 }
 
+.ui .sub-nav.open {
+  background: repeating-linear-gradient(-45deg, #1dc9a0 0%, hsl(166, 100%, 45%) 25%, #1dc9a0 50%);
+  background-size: 600vw 600vw;
+  -webkit-animation: 'slide' 5s infinite linear forwards;
+}
+
 .ui .sub-nav-label {
 	width: 100%;
 	text-align: center;
@@ -712,6 +718,12 @@
 
 .ui #search-results .search-linked-prjs {
 	margin-right: 1rem;
+}
+
+.ui #search-results .search-no-coords {
+	margin-right: .5rem;
+	font-weight: bold;
+	color: #1dc9a0;
 }
 
 .ui #search-results .search-result-type {
@@ -1492,4 +1504,15 @@
 	border-top: none;
 	border-radius: 0;
 	text-transform: lowercase;
+}
+@keyframes slide {
+  0% {
+    background-position-x: 0%;
+  }
+  75% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 600vw;
+  }
 }
