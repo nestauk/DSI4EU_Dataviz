@@ -45,6 +45,8 @@ function NetworkView() {
 		$(window).on("resize", function () {
 			if(!window.isMobile && !APP.embed && orientMQ.matches) width = $("#main-view").width() - $('.ui header').width()
 			else width = $("#main-view").width()
+			height = $("#main-view").height();
+			updateCanvasSize();
 		})
 
 		if (!window.isMobile && !APP.embed && orientMQ.matches){
@@ -65,10 +67,10 @@ function NetworkView() {
 		canvas = $("<canvas></canvas>")
 			.attr("width", width)
 			.attr("height", height)
-			.css({
-				width: width,
-				height: height
-			})
+			// .css({
+			// 	width: width,
+			// 	height: height
+			// })
 			.attr("id", "network-container")
 
 		lookupCanvas = canvas.clone()
@@ -113,6 +115,13 @@ function NetworkView() {
 		})
 
 		drawNetwork();
+	}
+
+	function updateCanvasSize(){
+		$('#network-wrapper canvas').attr('width', width)
+		$('#network-wrapper canvas').attr('height', height)
+		update()
+		console.log(width, height)
 	}
 
 	function prepareData() {
