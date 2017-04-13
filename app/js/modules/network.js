@@ -90,10 +90,10 @@ function NetworkView() {
 		}
 
 		zoom = d3.zoom()
-			.scaleExtent([0.35, 7])
+			.scaleExtent([0.65, 7])
 			.translateExtent([
-				[-1600, -1500],
-				[1600, 1500]
+				[-2000, -1500],
+				[2500, 1500]
 			])
 			.on("zoom", zoomCanvas)
 
