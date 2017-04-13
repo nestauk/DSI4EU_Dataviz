@@ -48,7 +48,8 @@ function Search() {
 			}
 			result.find('.search-result-name').highlight(query)
 			$('#search-results').append(result);
-			addListener(result, r);
+			if(APP.state != 'map' || (_.isNumber(r.latitude) && _.isNumber(r.longitude))) addListener(result, r);
+			else result.find('.search-result-info').prepend('<span class="search-no-coords">Not on map</span>')
 		})
 	}
 
