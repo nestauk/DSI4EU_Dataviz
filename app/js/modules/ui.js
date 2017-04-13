@@ -273,7 +273,7 @@ function UserInterface() {
 			y: 0
 		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(function(){
-			APP.map.resetFocus();
+			// APP.map.resetFocus();
 			closeOrgList()
 		});
 		self.closeCurrentPanel = closeOrgList;
@@ -284,11 +284,12 @@ function UserInterface() {
 		$('.map-list').transition({
 			y: "100%"
 		}, 750, 'easeInOutQuint');
+		APP.map.resetFocus();
 		self.closeCurrentPanel = null;
 	}
 
 	function openOrgPanel(org, list) {
-		if(self.closeCurrentPanel != closeOrgPanel) closeUIPanels();
+		if(self.closeCurrentPanel != closeOrgPanel && !list) closeUIPanels();
 		if (list) {
 			$(".back-icon").show();
 			$(".modal-nav-icons").removeClass("from-list");
@@ -302,7 +303,7 @@ function UserInterface() {
 			x: 0
 		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(function(){
-			APP.map.resetFocus();
+			//APP.map.resetFocus();
 			closeOrgPanel()
 		});
 		$(".back-icon").click(backToOrgList);
@@ -335,6 +336,7 @@ function UserInterface() {
 			y: "100%",
 			x: 0
 		});
+		APP.map.resetFocus();
 		self.closeCurrentPanel = null;
 	}
 
