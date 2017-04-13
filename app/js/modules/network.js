@@ -67,10 +67,10 @@ function NetworkView() {
 		canvas = $("<canvas></canvas>")
 			.attr("width", width)
 			.attr("height", height)
-			// .css({
-			// 	width: width,
-			// 	height: height
-			// })
+			.css({
+				width: width,
+				height: height
+			})
 			.attr("id", "network-container")
 
 		lookupCanvas = canvas.clone()
@@ -120,6 +120,10 @@ function NetworkView() {
 	function updateCanvasSize(){
 		$('#network-wrapper canvas').attr('width', width)
 		$('#network-wrapper canvas').attr('height', height)
+		$('#network-wrapper canvas').css({
+			width: width,
+			height: height
+		})
 		update()
 		console.log(width, height)
 	}
