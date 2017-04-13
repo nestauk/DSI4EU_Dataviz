@@ -144,7 +144,7 @@ function UserInterface() {
 		$(".cluster-wrapper").off("click")
 		APP.filter.createViewSettings();
 		$('.sub-nav').addClass('open')
-		$('.sub-nav-label').text("close")
+		$('.sub-nav-label').text("close and apply")
 		$('.sub-nav-label').off();
 		filter_tab.transition({
 			y: 0
@@ -291,6 +291,7 @@ function UserInterface() {
 		if(self.closeCurrentPanel != closeOrgPanel) closeUIPanels();
 		if (list) {
 			$(".back-icon").show();
+			$(".modal-nav-icons").removeClass("from-list");
 		} else {
 			$(".back-icon").hide();
 			$(".modal-nav-icons").addClass("from-list");
