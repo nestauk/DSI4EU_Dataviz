@@ -23,6 +23,7 @@ function MapView() {
 	var svg;
 	var currentSearchResult = null, currentSelected = null;
 	var connections = [];
+	var focusing = false;
 
 	var centroidMap = {
 		'France': [190, 526],
@@ -317,9 +318,12 @@ function MapView() {
 	}
 
 	function focusSearchResult(org) {
-		currentSearchResult = org;
 		zoomLevel = 2;
 		drawMap();
+		var focusScale = d3.scaleLinear()
+		.domain([0, maxCircleSize])
+		.range([8, 3])
+		currentSearchResult = org;
 		var search_org = _.find(data, function(n) {
 			return _.includes(n.orgs, org)
 		})
@@ -327,7 +331,7 @@ function MapView() {
 		var t = {
 			x: search_org.cx,
 			y: search_org.cy,
-			k: scale
+			k: focusScale(search_org.orgs.length)
 		}
 		focusOnPoint(t)
 	}
@@ -377,13 +381,13 @@ function MapView() {
 
 	function zoomMap() {
 		var transform = d3.event.transform
-		if (transform.k > 1.5 && current != 'orgs') {
+		if (transform.k > 1.5 && current != 'orgs' && !focusing) {
 			current = 'orgs'
 			zoomLevel = 2
 			$('#map-show-connections .settings-description').text('Show links between connected organisations')
 			$('#map-show-connections').removeClass('disabled')
 			drawMap()
-		} else if (transform.k < 1.5 && current != 'countries') {
+		} else if (transform.k < 1.5 && current != 'countries' && !focusing) {
 			current = 'countries'
 			zoomLevel = 1
 			$('#map-show-connections .settings-description').text('Show links between connected organisations (zoom-in to enable)')
@@ -414,14 +418,18 @@ function MapView() {
 	}
 
 	function focusOnPoint(transform) {
-		console.log(transform)
+		focusing = true;
 		var w = width / 2
 		var scale = transform.k
 		if (!window.isMobile && !APP.embed) w = (width - $('.ui header').width() / scale) / 2 + $('.ui header').width() / scale;
 		var translate = [w - transform.x, height / 2 - transform.y]
 		var t = d3.zoomIdentity.translate(translate[0], translate[1]);
 		svg.transition().duration(500).call(zoom.transform, t).on("end", function() {
-			svg.transition().call(zoom.scaleTo, scale)
+			svg.transition().call(zoom.scaleTo, scale).on("end", function() {
+				focusing = false,
+				zoomLevel = 2;
+				drawMap();
+			});
 		})
 	}
 
