@@ -266,6 +266,7 @@ function UserInterface() {
 	}
 
 	function openOrgList(orgs) {
+		console.log('open org list')
 		if(self.closeCurrentPanel != closeOrgList) closeUIPanels();
 		APP.orgList.delete();
 		APP.orgList.create(orgs);
@@ -289,6 +290,7 @@ function UserInterface() {
 	}
 
 	function openOrgPanel(org, list) {
+		console.log('open org panel')
 		if(self.closeCurrentPanel != closeOrgPanel && !list) closeUIPanels();
 		if (list) {
 			$(".back-icon").show();
@@ -306,12 +308,12 @@ function UserInterface() {
 			//APP.map.resetFocus();
 			closeOrgPanel()
 		});
+		$(".back-icon").off();
 		$(".back-icon").click(backToOrgList);
 		self.closeCurrentPanel = closeOrgPanel;
 	}
 
 	function backToOrgList() {
-		$(".back-icon").off();
 		$('.map-list').css({
 			y: 0
 		});
@@ -366,6 +368,7 @@ function UserInterface() {
 			x: 0
 		}, 750, 'easeInOutQuint');
 		$(".remove-icon").click(closeNetworkPanel);
+		$(".back-icon").off();
 		$(".back-icon").click(backToNetworkList);
 		self.closeCurrentPanel = closeNetworkPanel;
 	}
