@@ -216,6 +216,7 @@ function UserInterface() {
 	}
 
 	function openSearchPanel() {
+		$('html').addClass('search')
 		$("#search-button").off()
 		var search_hint = 'Search'
 		switch (APP.state) {
@@ -233,6 +234,9 @@ function UserInterface() {
 		if (orientMQ.matches) $('#search-input').focus()
 		APP.search.reset();
 		openToolsPanel($('#tools-search'), function() {
+			setTimeout(function(){
+				$('html').removeClass('search')
+			}, 350)
 			$("#search-button").click(openSearchPanel);
 		})
 		$("#search-button").addClass('selected')

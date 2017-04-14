@@ -1439,7 +1439,7 @@
 	pointer-events: none;
 	opacity: 0;
 }
-.mobile.landscape:not(.embed) #turn-view{
+.mobile.landscape:not(.embed):not(.search) #turn-view{
 	pointer-events: all;
 	opacity: 1;
 }
