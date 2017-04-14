@@ -166,7 +166,7 @@
 }
 
 .ui .sub-nav.open {
-  background: repeating-linear-gradient(-45deg, #1dc9a0 0%, hsl(166, 100%, 45%) 25%, #1dc9a0 50%);
+  background: repeating-linear-gradient(-45deg, #1dc9a0 0%, hsl(166, 100%, 55%) 25%, #1dc9a0 50%);
   background-size: 600vw 600vw;
   -webkit-animation: 'slide' 5s infinite linear forwards;
 }
